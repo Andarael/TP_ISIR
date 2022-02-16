@@ -46,7 +46,10 @@ namespace RT_ISICG
         {
             for (int i = 0; i < width; i++)
             {
-                /// TODO !
+                float r = i / (float)width;
+                float g = j / (float)height;
+                float b = 0;
+                p_texture.setPixel(i, j, Vec3f(r, g, b));
             }
             progressBar.next();
         }
