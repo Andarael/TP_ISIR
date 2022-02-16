@@ -53,9 +53,9 @@ namespace RT_ISICG
                 float sz = 1;
 
                 Ray ray = p_camera->generateRay(sx, sy);
-                Vec3f color = (ray.getDirection());
+                Vec3f color = _integrator->Li(p_scene, ray, 0, 100);
 
-                color = (color + 1.0f) * 0.5f;
+                // color = (color + 1.0f) * 0.5f;
 
                 p_texture.setPixel(i, j, color);
             }
