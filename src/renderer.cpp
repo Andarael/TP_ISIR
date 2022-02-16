@@ -3,6 +3,8 @@
 #include "utils/console_progress_bar.hpp"
 #include "utils/random.hpp"
 
+#include "glm/gtx/string_cast.hpp"
+
 namespace RT_ISICG
 {
     Renderer::Renderer() { _integrator = new RayCastIntegrator(); }
@@ -46,11 +48,18 @@ namespace RT_ISICG
         {
             for (int i = 0; i < width; i++)
             {
-                float r = i / (float)width;
-                float g = j / (float)height;
-                float b = 0;
-                p_texture.setPixel(i, j, Vec3f(r, g, b));
+                float sx = i / (float)width;
+                float sy = j / (float)height;
+                float sz = 1;
+
+                Ray ray = p_camera->generateRay(sx, sy);
+                Vec3f color = (ray.getDirection());
+
+                color = (color + 1.0f) * 0.5f;
+
+                p_texture.setPixel(i, j, color);
             }
+
             progressBar.next();
         }
 
