@@ -16,7 +16,10 @@ namespace RT_ISICG
                                          const float p_aspectRatio)
         : BaseCamera(p_position), _fovy(p_fovy), _aspectRatio(p_aspectRatio)
     {
-        /// TODO ! _u ? _v ? _w ?
+        _w = glm::normalize(_position - p_lookAt);
+        _u = glm::normalize(glm::cross(p_up, _w));
+        _v = glm::normalize(glm::cross(_w, _u));
+
         _updateViewport();
     }
 
@@ -28,6 +31,9 @@ namespace RT_ISICG
         std::cout << "      _viewportTopLeftCorner : " << glm::to_string(_viewportTopLeftCorner) << std::endl;
         std::cout << "      _viewportV : " << glm::to_string(_viewportV) << std::endl;
         std::cout << "      _viewportU : " << glm::to_string(_viewportU) << std::endl;
+        std::cout << "      _w : " << glm::to_string(_w) << std::endl;
+        std::cout << "      _u : " << glm::to_string(_u) << std::endl;
+        std::cout << "      _v : " << glm::to_string(_v) << std::endl;
         std::cout << " ================== " << std::endl;
     }
 
