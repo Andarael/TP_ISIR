@@ -48,14 +48,46 @@ namespace RT_ISICG
         {
             for (int i = 0; i < width; i++)
             {
-                float sx = i / (float)width;
-                float sy = j / (float)height;
-                float sz = 1;
+                // no need to search the center of a pixel, as with AA a random value will be added from the top lef of each pixels
+                float pixelSizeX = 1.f / (width - 1);
+                float pixelSizeY = 1.f / (height - 1);
 
-                Ray ray = p_camera->generateRay(sx, sy);
-                Vec3f color = _integrator->Li(p_scene, ray, 0, 100);
+                float sx = i * pixelSizeX;
+                float sy = j * pixelSizeY;
+                float sz = 1.f;
 
+                Vec3f color = VEC3F_ZERO;
+
+                // Alaways sample the center of the pixel first
+                float offsetX = pixelSizeX / 2;
+                float offsetY = pixelSizeY / 2;
+
+                /*AA loop*/
+                for (int sample = 0; sample < _nbPixelSamples; sample++)
+                {
+                    /*
+                    // "grid" AA // todo make work
+                    offsetX = 1.0f / (sample + 1) / width;
+                    offsetY = 1.0f / (sample + 1) / height;
+                    // 1 -> (.5, .5)
+                    // 2 -> (.25, .25) (.75, .75)
+                    // 4 -> ...
+                    */
+
+                    Ray ray = p_camera->generateRay(sx + offsetX, sy + offsetY);
+                    color += _integrator->Li(p_scene, ray, 0, 100);
+
+                    // random AA
+                    offsetY = pixelSizeY * randomFloat();
+                    offsetX = pixelSizeX * randomFloat();
+                }
+
+                color *= 1.0f / _nbPixelSamples;
+
+                // color = ray.getDirection();
                 // color = (color + 1.0f) * 0.5f;
+                // color.z = 0;
+                // color.y = 0;
 
                 p_texture.setPixel(i, j, color);
             }

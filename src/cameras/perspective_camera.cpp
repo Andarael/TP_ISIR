@@ -17,8 +17,8 @@ namespace RT_ISICG
         : BaseCamera(p_position), _fovy(p_fovy), _aspectRatio(p_aspectRatio)
     {
         _w = glm::normalize(_position - p_lookAt);
-        _u = glm::normalize(glm::cross(p_up, _w));
-        _v = glm::normalize(glm::cross(_w, _u));
+        _u = glm::normalize(glm::cross(_w, p_up));
+        _v = glm::normalize(glm::cross(_u, _w));
 
         _updateViewport();
     }
@@ -27,27 +27,27 @@ namespace RT_ISICG
     {
         std::cout << " ===== camera ====== " << std::endl;
         std::cout << "      position : " << glm::to_string(_position) << std::endl;
-        std::cout << "      center : " << glm::to_string(_center) << std::endl;
+        std::cout << "      _screenCenter : " << glm::to_string(_screenCenter) << std::endl;
         std::cout << "      _viewportTopLeftCorner : " << glm::to_string(_viewportTopLeftCorner) << std::endl;
-        std::cout << "      _viewportV : " << glm::to_string(_viewportV) << std::endl;
         std::cout << "      _viewportU : " << glm::to_string(_viewportU) << std::endl;
-        std::cout << "      _w : " << glm::to_string(_w) << std::endl;
+        std::cout << "      _viewportV : " << glm::to_string(_viewportV) << std::endl;
         std::cout << "      _u : " << glm::to_string(_u) << std::endl;
         std::cout << "      _v : " << glm::to_string(_v) << std::endl;
+        std::cout << "      _w : " << glm::to_string(_w) << std::endl;
         std::cout << " ================== " << std::endl;
     }
 
     void PerspectiveCamera::_updateViewport()
     {
-        Vec3f _center = _position + (-_w * _focalDistance);
+        _screenCenter = _position - (_w * _focalDistance);
 
-        float viewPortHeight = glm::cos(glm::radians(_fovy)) * _focalDistance * 2.0f;
+        float viewPortHeight = glm::sin(glm::radians(_fovy / 2)) * _focalDistance * 2.0f;
         float viewPortWidth = viewPortHeight * _aspectRatio;
 
         _viewportV = _v * viewPortHeight;
-        _viewportU = _u * viewPortWidth;
+        _viewportU = -_u * viewPortWidth; // todo ??? why negative ?
 
-        _viewportTopLeftCorner = _center + _viewportV * 0.5f;
+        _viewportTopLeftCorner = _screenCenter + _viewportV * 0.5f;
         _viewportTopLeftCorner = _viewportTopLeftCorner - _viewportU * 0.5f;
 
         displayCamera();

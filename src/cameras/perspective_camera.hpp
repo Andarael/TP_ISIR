@@ -24,8 +24,12 @@ namespace RT_ISICG
         {
             Vec3f origin = _position;
 
-            Vec3f direction = _viewportTopLeftCorner + (p_sx * _viewportU) - (p_sy * _viewportV);
+            Vec3f posOnScreen = _viewportTopLeftCorner + (p_sx * _viewportU) - (p_sy * _viewportV);
+
+            Vec3f direction = posOnScreen - origin;
+
             direction = glm::normalize(direction);
+
 
             return Ray(origin, direction);
         }
@@ -41,15 +45,15 @@ namespace RT_ISICG
         float _aspectRatio = 1.f;
 
         // Local coordinates system
-        Vec3f _u = Vec3f(1.f, 0.f, 0.f);
-        Vec3f _v = Vec3f(0.f, 1.f, 0.f);
-        Vec3f _w = Vec3f(0.f, 0.f, -1.f);
+        Vec3f _u = Vec3f(1, 0, 0);
+        Vec3f _v = Vec3f(0, 1, 0);
+        Vec3f _w = Vec3f(0, 0, -1);
 
         // Viewport data
         Vec3f _viewportTopLeftCorner = VEC3F_ZERO; // Top left corner position
         Vec3f _viewportU = VEC3F_ZERO;             // Horizontal vector
         Vec3f _viewportV = VEC3F_ZERO;             // Vertical vector
-        Vec3f _center = VEC3F_ZERO;                // Screen center
+        Vec3f _screenCenter = VEC3F_ZERO;          // Screen center
     };
 } // namespace RT_ISICG
 
