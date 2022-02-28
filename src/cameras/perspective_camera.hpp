@@ -30,7 +30,6 @@ namespace RT_ISICG
 
             direction = glm::normalize(direction);
 
-
             return Ray(origin, direction);
         }
 
