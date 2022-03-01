@@ -1,0 +1,31 @@
+#ifndef __RT_ISICG_PLANE_GEOMETRY__
+#define __RT_ISICG_PLANE_GEOMETRY__
+
+#include "base_geometry.hpp"
+
+namespace RT_ISICG
+{
+    class PlaneGeometry : public BaseGeometry
+    {
+    public:
+        PlaneGeometry() = delete;
+        virtual ~PlaneGeometry() = default;
+
+        PlaneGeometry(const Vec3f& p_normal, const Vec3f& p_center) : _center(p_center), _normal(p_normal) {}
+
+        inline const Vec3f &getCenter() const { return _center; }
+
+        bool intersect(const Ray &p_ray, float &p_t1, float &p_t2) const;
+
+        inline Vec3f computeNormal(const Vec3f &p_point) const
+        {
+            return glm::normalize(_normal);
+        }
+
+    private:
+        Vec3f _center = VEC3F_ZERO;
+        Vec3f _normal = Vec3f(0, 1, 0);
+    };
+}
+
+#endif
