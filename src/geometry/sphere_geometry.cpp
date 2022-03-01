@@ -7,12 +7,15 @@ namespace RT_ISICG
         p_t1 = -1.f;
         p_t2 = -1.f;
 
-        Vec3f direction = p_ray.getDirection();
-        Vec3f origin = p_ray.getOrigin();
+        Vec3f rayDirection = p_ray.getDirection();
+        Vec3f rayOrigin = p_ray.getOrigin();
+        Vec3f OC = rayOrigin - _center;
 
-        float a = glm::dot(direction, direction);
-        float b = 2.0f * glm::dot(direction, origin - _center);
-        float c = glm::dot(origin - _center, origin - _center) - _radius * _radius;
+        // cours / td fig
+        // float a = glm::dot(rayDirection, rayDirection);
+        float a = 1; // because rayDirection is normalized
+        float b = 2.0f * glm::dot(rayDirection, OC);
+        float c = glm::dot(OC, OC) - _radius * _radius;
 
         float delta = b * b - 4 * a * c;
 
@@ -21,6 +24,7 @@ namespace RT_ISICG
 
         p_t1 = (-b + glm::sqrt(delta)) / 2 * a;
         p_t2 = (-b - glm::sqrt(delta)) / 2 * a;
+        // todo check interieur de la sphere
 
         if (p_t1 > p_t2)
         {
