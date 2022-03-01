@@ -15,6 +15,11 @@ namespace RT_ISICG
         {
         }
 
+        /**
+         * @brief fix normal direction
+         *
+         * @param p_direction
+         */
         void faceNormal(const Vec3f p_direction)
         {
             _normal = glm::dot(p_direction, _normal) < 0.f ? _normal : -_normal;
