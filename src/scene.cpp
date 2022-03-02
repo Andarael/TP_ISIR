@@ -3,6 +3,11 @@
 #include "objects/sphere.hpp"
 #include "objects/plane.hpp"
 
+#include <glm/glm.hpp>
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtx/string_cast.hpp"
+#include "glm/gtx/rotate_vector.hpp"
+
 namespace RT_ISICG
 {
 	Scene::Scene() { _addMaterial(new ColorMaterial("default", WHITE)); }
@@ -27,7 +32,9 @@ namespace RT_ISICG
 	{
 		// Add objects.
 		_addObject(new Sphere("Sphere1", Vec3f(0, 0, 3), 1.f));
-		_addObject(new Plane("Plane1", Vec3f(0, -2, 0), Vec3f(0, 1, 0)));
+		float rotation = glm::radians(0.0f);
+		Vec3f planeNormal = glm::rotate(Vec3f(0, 1, 0), rotation, Vec3f(-1, 0, 1));
+		_addObject(new Plane("Plane1", Vec3f(0, -1, 0), planeNormal));
 
 		// Add materials.
 		_addMaterial(new ColorMaterial("Blue", BLUE));
