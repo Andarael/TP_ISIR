@@ -1,6 +1,7 @@
 #include "scene.hpp"
 #include "materials/color_material.hpp"
 #include "objects/sphere.hpp"
+#include "objects/plane.hpp"
 
 namespace RT_ISICG
 {
@@ -25,13 +26,16 @@ namespace RT_ISICG
 	void Scene::init()
 	{
 		// Add objects.
-		_addObject(new Sphere("Sphere1", Vec3f(0.f, 0.f, 3.f), 1.f));
+		_addObject(new Sphere("Sphere1", Vec3f(0, 0, 3), 1.f));
+		_addObject(new Plane("Plane1", Vec3f(0, -2, 0), Vec3f(0, 1, 0)));
 
 		// Add materials.
 		_addMaterial(new ColorMaterial("Blue", BLUE));
+		_addMaterial(new ColorMaterial("Red", RED));
 
 		// Link objects and materials.
 		_attachMaterialToObject("Blue", "Sphere1");
+		_attachMaterialToObject("Red", "Plane1");
 	}
 
 	bool Scene::intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const
