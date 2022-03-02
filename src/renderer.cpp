@@ -44,12 +44,12 @@ namespace RT_ISICG
         progressBar.start(height, 50);
         chrono.start();
 
-#pragma opm parallel for
+#pragma omp parallel for
         for (int j = 0; j < height; j++)
         {
             for (int i = 0; i < width; i++)
             {
-                // no need to search the center of a pixel, as with AA a random value will be added from the top lef of each pixels
+                // no need to have the center of a pixel, as with AA a value will be added from the top lef of each pixels
                 float pixelSizeX = 1.f / (width - 1);
                 float pixelSizeY = 1.f / (height - 1);
 
@@ -59,11 +59,7 @@ namespace RT_ISICG
 
                 Vec3f color = VEC3F_ZERO;
 
-                // Always sample the center of the pixel first
-
                 multiSample(p_camera, sx, sy, color, p_scene, pixelSizeY, pixelSizeX, _nbPixelSamples);
-
-                color *= 1.0f / _nbPixelSamples;
 
                 // color = ray.getDirection();
                 // color = (color + 1.0f) * 0.5f;
@@ -82,29 +78,45 @@ namespace RT_ISICG
         return chrono.elapsedTime();
     }
 
-    void Renderer::multiSample(const BaseCamera *p_camera, float sx, float sy, Vec3f &color, const Scene &p_scene,
-                               const float pixelSizeY, float pixelSizeX, int nbPixelSamples)
+    void Renderer::multiSample(const BaseCamera *p_camera, float sx, float sy, Vec3f &color, const Scene &p_scene, const float pixelSizeY, float pixelSizeX, int nbPixelSamples)
     {
-        float offsetX = pixelSizeX * 0.5f;
-        float offsetY = pixelSizeY * 0.5f;
-        /*AA loop*/
-        for (int sample = 0; sample < nbPixelSamples; sample++)
+        float offsetX;
+        float offsetY;
+        bool gridSampling = true;
+
+        if (!gridSampling)
         {
-            /*
-            // "grid" AA // todo make work
-            offsetX = 1.0f / (sample + 1) / width;
-            offsetY = 1.0f / (sample + 1) / height;
-            // 1 -> (.5, .5)
-            // 2 -> (.25, .25) (.75, .75)
-            // 4 -> ...
-            */
+            // Always sample the center of the pixel first
+            offsetX = pixelSizeX * 0.5f;
+            offsetY = pixelSizeY * 0.5f;
+            for (int sample = 0; sample < nbPixelSamples; sample++)
+            {
+                Ray ray = p_camera->generateRay(sx + offsetX, sy + offsetY);
+                color += _integrator->Li(p_scene, ray, 0, 1000);
 
-            Ray ray = p_camera->generateRay(sx + offsetX, sy + offsetY);
-            color += _integrator->Li(p_scene, ray, 0, 100);
+                offsetY = pixelSizeY * randomFloat();
+                offsetX = pixelSizeX * randomFloat();
+            }
+            color /= _nbPixelSamples;
+        }
+        else
+        {
+            for (int i = 1; i <= nbPixelSamples; i++)
+            {
+                for (int j = 1; j <= nbPixelSamples; j++)
+                {
+                    float subsampleX = (float(2 * i) - 1) / (nbPixelSamples * 2);
+                    float subsampleY = (float(2 * j) - 1) / (nbPixelSamples * 2);
 
-            // random AA
-            offsetY = pixelSizeY * randomFloat();
-            offsetX = pixelSizeX * randomFloat();
+                    // random extremely slow here
+                    offsetX = pixelSizeX * subsampleX;
+                    offsetY = pixelSizeY * subsampleY;
+
+                    Ray ray = p_camera->generateRay(sx + offsetX, sy + offsetY);
+                    color += _integrator->Li(p_scene, ray, 0, 1000);
+                }
+            }
+            color /= (nbPixelSamples * nbPixelSamples);
         }
     }
 } // namespace RT_ISICG
