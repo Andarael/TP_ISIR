@@ -15,6 +15,6 @@ namespace RT_ISICG
         p_t2 = p_t1;
 
         return p_t1 > 0;
-        // si t == 0 alors rayon et plans sont parallèlles
+        // si t == 0 then ray is parallel to plane
     }
 } // namespace RT_ISICG
