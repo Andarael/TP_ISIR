@@ -141,9 +141,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\cameras\perspective_camera.cpp" />
+    <ClCompile Include="src\geometry\planeGeometry.cpp" />
     <ClCompile Include="src\geometry\sphere_geometry.cpp" />
     <ClCompile Include="src\integrators\ray_cast_integrator.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\objects\base_object.cpp" />
+    <ClCompile Include="src\objects\plane.cpp" />
     <ClCompile Include="src\objects\sphere.cpp" />
     <ClCompile Include="src\renderer.cpp" />
     <ClCompile Include="src\scene.cpp" />
@@ -154,6 +157,7 @@
     <ClInclude Include="src\cameras\base_camera.hpp" />
     <ClInclude Include="src\cameras\perspective_camera.hpp" />
     <ClInclude Include="src\geometry\base_geometry.hpp" />
+    <ClInclude Include="src\geometry\planeGeometry.hpp" />
     <ClInclude Include="src\geometry\sphere_geometry.hpp" />
     <ClInclude Include="src\hit_record.hpp" />
     <ClInclude Include="src\integrators\base_integrator.hpp" />
@@ -165,6 +169,7 @@
     <ClInclude Include="src\io\stb_include.hpp" />
     <ClInclude Include="src\materials\base_material.hpp" />
     <ClInclude Include="src\objects\base_object.hpp" />
+    <ClInclude Include="src\objects\plane.hpp" />
     <ClInclude Include="src\objects\sphere.hpp" />
     <ClInclude Include="src\ray.hpp" />
     <ClInclude Include="src\renderer.hpp" />
