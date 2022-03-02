@@ -58,9 +58,6 @@
     <ClCompile Include="src\integrators\ray_cast_integrator.cpp">
       <Filter>Source Files\integrators</Filter>
     </ClCompile>
-    <ClCompile Include="src\objects\base_object.cpp">
-      <Filter>Source Files\objects</Filter>
-    </ClCompile>
     <ClCompile Include="src\objects\plane.cpp">
       <Filter>Source Files\objects</Filter>
     </ClCompile>

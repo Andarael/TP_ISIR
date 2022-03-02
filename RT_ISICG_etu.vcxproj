@@ -52,10 +52,8 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
-  <ImportGroup Label="Shared">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionSettings"></ImportGroup>
+  <ImportGroup Label="Shared"></ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -145,7 +143,6 @@
     <ClCompile Include="src\geometry\sphere_geometry.cpp" />
     <ClCompile Include="src\integrators\ray_cast_integrator.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\objects\base_object.cpp" />
     <ClCompile Include="src\objects\plane.cpp" />
     <ClCompile Include="src\objects\sphere.cpp" />
     <ClCompile Include="src\renderer.cpp" />
@@ -179,6 +176,5 @@
     <ClInclude Include="src\utils\console_progress_bar.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets"></ImportGroup>
 </Project>
