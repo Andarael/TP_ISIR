@@ -44,7 +44,7 @@ namespace RT_ISICG
         progressBar.start(height, 50);
         chrono.start();
 
-        #pragma opm parallel for
+#pragma opm parallel for
         for (int j = 0; j < height; j++)
         {
             for (int i = 0; i < width; i++)
@@ -59,29 +59,9 @@ namespace RT_ISICG
 
                 Vec3f color = VEC3F_ZERO;
 
-                // Alaways sample the center of the pixel first
-                float offsetX = pixelSizeX / 2;
-                float offsetY = pixelSizeY / 2;
+                // Always sample the center of the pixel first
 
-                /*AA loop*/
-                for (int sample = 0; sample < _nbPixelSamples; sample++)
-                {
-                    /*
-                    // "grid" AA // todo make work
-                    offsetX = 1.0f / (sample + 1) / width;
-                    offsetY = 1.0f / (sample + 1) / height;
-                    // 1 -> (.5, .5)
-                    // 2 -> (.25, .25) (.75, .75)
-                    // 4 -> ...
-                    */
-
-                    Ray ray = p_camera->generateRay(sx + offsetX, sy + offsetY);
-                    color += _integrator->Li(p_scene, ray, 0, 100);
-
-                    // random AA
-                    offsetY = pixelSizeY * randomFloat();
-                    offsetX = pixelSizeX * randomFloat();
-                }
+                multiSample(p_camera, sx, sy, color, p_scene, pixelSizeY, pixelSizeX, _nbPixelSamples);
 
                 color *= 1.0f / _nbPixelSamples;
 
@@ -100,5 +80,31 @@ namespace RT_ISICG
         progressBar.stop();
 
         return chrono.elapsedTime();
+    }
+
+    void Renderer::multiSample(const BaseCamera *p_camera, float sx, float sy, Vec3f &color, const Scene &p_scene,
+                               const float pixelSizeY, float pixelSizeX, int nbPixelSamples)
+    {
+        float offsetX = pixelSizeX * 0.5f;
+        float offsetY = pixelSizeY * 0.5f;
+        /*AA loop*/
+        for (int sample = 0; sample < nbPixelSamples; sample++)
+        {
+            /*
+            // "grid" AA // todo make work
+            offsetX = 1.0f / (sample + 1) / width;
+            offsetY = 1.0f / (sample + 1) / height;
+            // 1 -> (.5, .5)
+            // 2 -> (.25, .25) (.75, .75)
+            // 4 -> ...
+            */
+
+            Ray ray = p_camera->generateRay(sx + offsetX, sy + offsetY);
+            color += _integrator->Li(p_scene, ray, 0, 100);
+
+            // random AA
+            offsetY = pixelSizeY * randomFloat();
+            offsetX = pixelSizeX * randomFloat();
+        }
     }
 } // namespace RT_ISICG
