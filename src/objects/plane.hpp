@@ -12,7 +12,7 @@ namespace RT_ISICG
         Plane() = delete;
         virtual ~Plane() = default;
 
-        Plane(const std::string &p_name, const Vec3f &p_center, const vec3f &p_normal)
+        Plane(const std::string &p_name, const Vec3f &p_center, const Vec3f &p_normal)
             : BaseObject(p_name), _geometry(p_center, p_normal) {}
 
         // Check for nearest intersection between p_tMin and p_tMax : if found fill p_hitRecord.
@@ -23,7 +23,7 @@ namespace RT_ISICG
 
     private:
         PlaneGeometry _geometry;
-    }
+    };
 
 } // namespace RT_ISICG
 

@@ -2,15 +2,21 @@
 
 namespace RT_ISICG
 {
-    bool Sphere::intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const
+    bool Sphere::intersect(const Ray& p_ray,
+                           const float p_tMin,
+                           const float p_tMax,
+                           HitRecord& p_hitRecord) const
     {
         float t1;
         float t2;
         if (_geometry.intersect(p_ray, t1, t2))
         {
-            if ( t1 > p_tMax ) { return false; }				// first intersection too far
-            if ( t1 < p_tMin ) { t1 = t2; }						// first intersection too near, check second one
-            if ( t1 < p_tMin || t1 > p_tMax ) { return false; } // not in range
+            if (t1 > p_tMax) // first intersection too far
+                return false;
+            if (t1 < p_tMin) // first intersection too near, check second one
+                t1 = t2;
+            if (t1 < p_tMin || t1 > p_tMax) // not in range
+                return false;
 
             // Intersection found, fill p_hitRecord.
             p_hitRecord._point = p_ray.pointAtT(t1);
@@ -23,5 +29,4 @@ namespace RT_ISICG
         }
         return false;
     }
-
 } // namespace RT_ISICG

@@ -12,7 +12,10 @@ namespace RT_ISICG
      * @return true
      * @return false
      */
-    bool Plane::intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const
+    bool Plane::intersect(const Ray &p_ray,
+                          const float p_tMin,
+                          const float p_tMax,
+                          HitRecord &p_hitRecord) const
     {
         float t;
         if (_geometry.intersect(p_ray, t, t))
