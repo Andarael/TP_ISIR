@@ -41,7 +41,7 @@ namespace RT_ISICG
     {
         _screenCenter = _position - (_w * _focalDistance);
 
-        float viewPortHeight = glm::sin(glm::radians(_fovy / 2)) * _focalDistance * 2.0f;
+        float viewPortHeight = glm::sin(glm::radians(_fovy)) * _focalDistance * 2.0f; // todo check fovy/2 here
         float viewPortWidth = viewPortHeight * _aspectRatio;
 
         _viewportV = _v * viewPortHeight;
