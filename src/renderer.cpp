@@ -66,7 +66,7 @@ namespace RT_ISICG
                 // color.z = 0;
                 // color.y = 0;
 
-                p_texture.setPixel(i, j, color);
+                p_texture.setPixel(i, j, glm::clamp(color, 0.0f, 1.0f));
             }
 
             progressBar.next();
@@ -116,7 +116,7 @@ namespace RT_ISICG
                     color += _integrator->Li(p_scene, ray, 0, 1000);
                 }
             }
-            color /= (nbPixelSamples * nbPixelSamples);
+            // color /= (nbPixelSamples * nbPixelSamples);
         }
     }
 } // namespace RT_ISICG
