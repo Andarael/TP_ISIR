@@ -10,7 +10,7 @@ namespace RT_ISICG
         Vec3f rayDirection = p_ray.getDirection();
         Vec3f rayOrigin = p_ray.getOrigin();
 
-        p_t1 = glm::dot(_center - rayOrigin, _normal) / glm::dot(rayDirection, _normal);
+        p_t1 = glm::dot(_position - rayOrigin, _normal) / glm::dot(rayDirection, _normal);
 
         p_t2 = p_t1;
 

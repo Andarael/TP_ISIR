@@ -11,9 +11,9 @@ namespace RT_ISICG
         PlaneGeometry() = delete;
         virtual ~PlaneGeometry() = default;
 
-        PlaneGeometry(const Vec3f& p_center, const Vec3f& p_normal) : _center(p_center), _normal(p_normal) {}
+        PlaneGeometry(const Vec3f& p_center, const Vec3f& p_normal) : _position(p_center), _normal(p_normal) {}
 
-        inline const Vec3f &getCenter() const { return _center; }
+        inline const Vec3f &getCenter() const { return _position; }
 
         bool intersect(const Ray &p_ray, float &p_t1, float &p_t2) const;
 
@@ -23,7 +23,7 @@ namespace RT_ISICG
         }
 
     private:
-        Vec3f _center = VEC3F_ZERO;
+        Vec3f _position = VEC3F_ZERO;
         Vec3f _normal = Vec3f(0, 1, 0);
     };
 }

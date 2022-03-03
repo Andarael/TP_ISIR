@@ -11,9 +11,9 @@ namespace RT_ISICG
         SphereGeometry() = delete;
         virtual ~SphereGeometry() = default;
 
-        SphereGeometry(const Vec3f &p_center, const float p_radius) : _center(p_center), _radius(p_radius) {}
+        SphereGeometry(const Vec3f &p_center, const float p_radius) : _position(p_center), _radius(p_radius) {}
 
-        inline const Vec3f &getCenter() const { return _center; }
+        inline const Vec3f &getCenter() const { return _position; }
 
         inline const float getRadius() const { return _radius; }
 
@@ -21,11 +21,11 @@ namespace RT_ISICG
 
         inline Vec3f computeNormal(const Vec3f &p_point) const
         {
-            return glm::normalize(_center - p_point);
+            return glm::normalize(_position - p_point);
         }
 
     private:
-        Vec3f _center = VEC3F_ZERO;
+        Vec3f _position = VEC3F_ZERO;
         float _radius = 1.f;
     };
 
