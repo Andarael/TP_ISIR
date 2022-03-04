@@ -116,7 +116,7 @@ namespace RT_ISICG
                     color += _integrator->Li(p_scene, ray, 0, 1000);
                 }
             }
-            // color /= (nbPixelSamples * nbPixelSamples);
+            color /= (nbPixelSamples * nbPixelSamples);
         }
     }
 } // namespace RT_ISICG
