@@ -25,5 +25,4 @@ namespace RT_ISICG
             return _backgroundColor;
         }
     }
-
 } // namespace RT_ISICG

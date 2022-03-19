@@ -7,7 +7,11 @@ namespace RT_ISICG
         _updateViewport();
     }
 
-    PerspectiveCamera::PerspectiveCamera(const Vec3f &p_position, const Vec3f &p_lookAt, const Vec3f &p_up, const float p_fovy, const float p_aspectRatio)
+    PerspectiveCamera::PerspectiveCamera(const Vec3f &p_position,
+                                         const Vec3f &p_lookAt,
+                                         const Vec3f &p_up,
+                                         const float p_fovy,
+                                         const float p_aspectRatio)
         : BaseCamera(p_position), _fovy(p_fovy), _aspectRatio(p_aspectRatio)
     {
         _w = glm::normalize(_position - p_lookAt);
@@ -45,7 +49,6 @@ namespace RT_ISICG
 
         displayCamera();
     }
-
 } // namespace RT_ISICG
 
 /* TODO check the using namespace glm */

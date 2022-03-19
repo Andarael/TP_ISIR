@@ -28,7 +28,6 @@ namespace RT_ISICG
     protected:
         Vec3f _backgroundColor = BLACK;
     };
-
 } // namespace RT_ISICG
 
 #endif // __RT_ISICG_BASE_INTEGRATOR__

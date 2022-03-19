@@ -10,7 +10,9 @@ namespace RT_ISICG
     {
     public:
         BaseCamera() = default;
+
         BaseCamera(const Vec3f &p_position) : _position(p_position) {}
+
         virtual ~BaseCamera() = default;
 
         const Vec3f &getPosition() const { return _position; }
@@ -20,7 +22,6 @@ namespace RT_ISICG
     protected:
         Vec3f _position = VEC3F_ZERO;
     };
-
 } // namespace RT_ISICG
 
 #endif // __RT_ISICG_BASE_CAMERA__

@@ -34,7 +34,7 @@ namespace RT_ISICG
 		_addObject(new Sphere("Sphere1", Vec3f(0, 0, 3), 1.f));
 		float rotation = glm::radians(0.0f);
 		Vec3f planeNormal = glm::rotate(Vec3f(0, 1, 0), rotation, Vec3f(-1, 0, 1));
-		_addObject(new Plane("Plane1", Vec3f(0, -1, 0), planeNormal));
+		_addObject(new Plane("Plane1", Vec3f(0, -2, 0), planeNormal));
 
 		// Add materials.
 		_addMaterial(new ColorMaterial("Blue", BLUE));
