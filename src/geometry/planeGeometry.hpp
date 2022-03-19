@@ -9,9 +9,10 @@ namespace RT_ISICG
     {
     public:
         PlaneGeometry() = delete;
-        virtual ~PlaneGeometry() = default;
 
-        PlaneGeometry(const Vec3f& p_center, const Vec3f& p_normal) : _position(p_center), _normal(p_normal) {}
+        PlaneGeometry(const Vec3f &p_center, const Vec3f &p_normal) : _position(p_center), _normal(p_normal)
+        {
+        }
 
         inline const Vec3f &getCenter() const { return _position; }
 

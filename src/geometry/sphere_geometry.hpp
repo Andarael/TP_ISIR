@@ -9,9 +9,10 @@ namespace RT_ISICG
     {
     public:
         SphereGeometry() = delete;
-        virtual ~SphereGeometry() = default;
 
-        SphereGeometry(const Vec3f &p_center, const float p_radius) : _position(p_center), _radius(p_radius) {}
+        SphereGeometry(const Vec3f &p_center, const float p_radius) : _position(p_center), _radius(p_radius)
+        {
+        }
 
         inline const Vec3f &getCenter() const { return _position; }
 

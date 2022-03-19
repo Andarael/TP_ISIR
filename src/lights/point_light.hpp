@@ -13,8 +13,6 @@ namespace RT_ISICG
 
         PointLight(const Vec3f &p_color, Vec3f p_position, const float p_power = 1.f);
 
-        ~PointLight();
-
         LightSample sample(const Vec3f &p_point) const;
 
         LightSample sample(const Vec3f &p_point) const

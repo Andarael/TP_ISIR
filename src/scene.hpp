@@ -10,41 +10,41 @@
 
 namespace RT_ISICG
 {
-	using ObjectMap = std::map<const std::string, BaseObject *>;
-	using ObjectMapPair = ObjectMap::value_type;
-	using MaterialMap = std::map<const std::string, BaseMaterial *>;
-	using MaterialMapPair = MaterialMap::value_type;
-	using LightList = std::vector<BaseLight *>;
+    using ObjectMap = std::map<const std::string, BaseObject *>;
+    using ObjectMapPair = ObjectMap::value_type;
+    using MaterialMap = std::map<const std::string, BaseMaterial *>;
+    using MaterialMapPair = MaterialMap::value_type;
+    using LightList = std::vector<BaseLight *>;
 
-	class Scene
-	{
-	public:
-		Scene();
-		~Scene();
+    class Scene
+    {
+    public:
+        Scene();
 
-		// Hard coded initialization.
-		void init();
+        ~Scene();
 
-		// Initialization from file.
-		void init(const std::string &p_path) { throw std::exception("Not implemented !"); }
+        // Hard coded initialization.
+        void init();
 
-		const LightList &getLights() const { return _lightList; }
+        // Initialization from file.
+        void init(const std::string &p_path) { throw std::exception("Not implemented !"); }
 
-		// Check for nearest intersection between p_tMin and p_tMax : if found fill p_hitRecord.
-		bool intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const;
+        const LightList &getLights() const { return _lightList; }
 
-	private:
-		void _addObject(BaseObject *p_object);
-		void _addMaterial(BaseMaterial *p_material);
-		void _addLight(BaseLight *p_light);
+        // Check for nearest intersection between p_tMin and p_tMax : if found fill p_hitRecord.
+        bool intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const;
 
-		void _attachMaterialToObject(const std::string &p_materialName, const std::string &p_objectName);
+    private:
+        void _addObject(BaseObject *p_object);
+        void _addMaterial(BaseMaterial *p_material);
+        void _addLight(BaseLight *p_light);
+        void _attachMaterialToObject(const std::string &p_materialName, const std::string &p_objectName);
 
-	private:
-		ObjectMap _objectMap;
-		MaterialMap _materialMap;
-		LightList _lightList;
-	};
+    private:
+        ObjectMap _objectMap;
+        MaterialMap _materialMap;
+        LightList _lightList;
+    };
 } // namespace RT_ISICG
 
 #endif // __RT_ISICG_SCENE__

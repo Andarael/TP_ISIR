@@ -10,6 +10,7 @@ namespace RT_ISICG
     struct HitRecord
     {
         HitRecord() = default;
+
         HitRecord(const Vec3f &p_point, const Vec3f &p_normal, const float p_distance, const BaseObject *p_object)
             : _point(p_point), _normal(p_normal), _distance(p_distance), _object(p_object)
         {
@@ -26,8 +27,11 @@ namespace RT_ISICG
         }
 
         Vec3f _point = VEC3F_ZERO;
+
         Vec3f _normal = VEC3F_ZERO;
+
         float _distance = 0.f;
+
         const BaseObject *_object = nullptr;
     };
 } // namespace RT_ISICG

@@ -6,12 +6,11 @@
 
 namespace RT_ISICG
 {
-	class BaseGeometry
-	{
-	  public:
-		BaseGeometry()			= default;
-		virtual ~BaseGeometry() = default;
-	};
+    class BaseGeometry
+    {
+    public:
+        BaseGeometry() = default;
+    };
 
 } // namespace RT_ISICG
 

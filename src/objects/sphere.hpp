@@ -10,10 +10,11 @@ namespace RT_ISICG
     {
     public:
         Sphere() = delete;
-        virtual ~Sphere() = default;
 
         Sphere(const std::string &p_name, const Vec3f &p_center, const float p_radius)
-            : BaseObject(p_name), _geometry(p_center, p_radius) {}
+            : BaseObject(p_name), _geometry(p_center, p_radius)
+        {
+        }
 
         // Check for nearest intersection between p_tMin and p_tMax : if found fill p_hitRecord.
         virtual bool intersect(const Ray &p_ray,

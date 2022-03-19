@@ -12,10 +12,9 @@ namespace RT_ISICG
                     const float p_distance,
                     const Vec3f &p_radiance,
                     const float p_pdf)
-            : _direction(p_direction),
-              _distance(p_distance),
-              _radiance(p_radiance),
-              _pdf(p_pdf) {}
+            : _direction(p_direction), _distance(p_distance), _radiance(p_radiance), _pdf(p_pdf)
+        {
+        }
 
         Vec3f _direction = VEC3F_ZERO; // normalized direction toward light source
         float _distance = 0.f;

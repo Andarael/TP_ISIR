@@ -4,13 +4,6 @@ namespace RT_ISICG
 {
     /**
      * @brief fill hitrecord with first interesction if found between  tmin & tmax
-     *
-     * @param p_ray
-     * @param p_tMin
-     * @param p_tMax
-     * @param p_hitRecord
-     * @return true
-     * @return false
      */
     bool Plane::intersect(const Ray &p_ray,
                           const float p_tMin,
