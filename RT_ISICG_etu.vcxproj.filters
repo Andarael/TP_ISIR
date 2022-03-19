@@ -136,4 +136,7 @@
       <Filter>Source Files\geometry</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include=".clang-format" />
+  </ItemGroup>
 </Project>
