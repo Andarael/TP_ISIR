@@ -33,7 +33,7 @@ namespace RT_ISICG
             return Ray(origin, direction);
         }
 
-        void displayCamera();
+        void displayCamera() const;
 
     private:
         void _updateViewport();

@@ -7,8 +7,6 @@ namespace RT_ISICG
 {
     class PointLight : BaseLight
     {
-    private:
-        Vec3f _position;
 
     public:
         PointLight() = delete;
@@ -18,16 +16,19 @@ namespace RT_ISICG
         ~PointLight();
 
         LightSample sample(const Vec3f &p_point) const;
+
+        LightSample sample(const Vec3f &p_point) const
+        {
+            Vec3f direction = glm::normalize(_position - p_point); // todo maybe inverted
+            float distance = glm::distance(_position, p_point);
+            Vec3f radiance = _color * _power / (distance * distance);
+            float pdf = 1.f;
+            return LightSample(direction, distance, radiance, pdf);
+        }
+
+    private:
+        Vec3f _position;
     };
-
-    LightSample PointLight::sample(const Vec3f &p_point) const
-    {
-        Vec3f direction = glm::normalize(_position - p_point); // todo maybe inverted
-        float distance = glm::distance(_position, p_point);
-        Vec3f radiance = _color * _power / (distance * distance);
-        return LightSample(direction, distance, radiance, 1.0f);
-    }
-
 
 } // namespace RT_ISICG
 

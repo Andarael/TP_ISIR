@@ -1,7 +1,5 @@
 #include "perspective_camera.hpp"
 
-#include <glm/gtx/string_cast.hpp>
-
 namespace RT_ISICG
 {
     PerspectiveCamera::PerspectiveCamera(const float p_aspectRatio) : _aspectRatio(p_aspectRatio)
@@ -13,13 +11,12 @@ namespace RT_ISICG
         : BaseCamera(p_position), _fovy(p_fovy), _aspectRatio(p_aspectRatio)
     {
         _w = glm::normalize(_position - p_lookAt);
-        _u = glm::normalize(glm::cross(_w, p_up));
-        _v = glm::normalize(glm::cross(_u, _w));
-
+        _u = glm::normalize(glm::cross(p_up, _w));
+        _v = glm::normalize(glm::cross(_w, _u));
         _updateViewport();
     }
 
-    void PerspectiveCamera::displayCamera()
+    void PerspectiveCamera::displayCamera() const
     {
         std::cout << " ===== camera ====== " << std::endl;
         std::cout << "      position : " << glm::to_string(_position) << std::endl;
@@ -37,11 +34,11 @@ namespace RT_ISICG
     {
         _screenCenter = _position - (_w * _focalDistance);
 
-        float viewPortHeight = glm::tan(glm::radians(_fovy/2)) * _focalDistance * 2.0f;
+        float viewPortHeight = glm::tan(glm::radians(_fovy / 2)) * _focalDistance * 2.0f;
         float viewPortWidth = viewPortHeight * _aspectRatio;
 
         _viewportV = _v * viewPortHeight;
-        _viewportU = -_u * viewPortWidth; // todo ??? why negative ?
+        _viewportU = _u * viewPortWidth; // todo ??? why negative ?
 
         _viewportTopLeftCorner = _screenCenter + _viewportV * 0.5f;
         _viewportTopLeftCorner = _viewportTopLeftCorner - _viewportU * 0.5f;
@@ -50,3 +47,5 @@ namespace RT_ISICG
     }
 
 } // namespace RT_ISICG
+
+/* TODO check the using namespace glm */

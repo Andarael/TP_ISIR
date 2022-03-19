@@ -17,19 +17,19 @@ namespace RT_ISICG
         scene.init();
 
         // Create a perspective camera.
-        Vec3f position = Vec3f(0, 0, 0);
-        Vec3f lookAt = Vec3f(0, 0, 3);
-        Vec3f up = Vec3f(0, 1, 0);
+        Vec3f cameraPosition = Vec3f(0, 1, 0);
+        Vec3f cameraLookAt = Vec3f(0, 1, 1);
+        Vec3f worldUp = Vec3f(0, 1, 0);
         float aspectRatio = float(imgWidth) / imgHeight;
 
-        PerspectiveCamera camera(position, lookAt, up, 60, aspectRatio);
+        PerspectiveCamera camera(cameraPosition, cameraLookAt, worldUp, 60, aspectRatio);
         // PerspectiveCamera camera(aspectRatio);
 
         // Create and setup the renderer.
         Renderer renderer;
         renderer.setIntegrator(IntegratorType::RAY_CAST);
         renderer.setBackgroundColor(GREY);
-        renderer.setNbPixelSamples(4);
+        renderer.setNbPixelSamples(1);
 
         // Launch rendering.
         std::cout << "Rendering..." << std::endl;
