@@ -5,29 +5,29 @@
 
 namespace RT_ISICG
 {
-	enum class IntegratorType : int
-	{
-		RAY_CAST = 0,
-		COUNT // keep it last
-	};
+    enum class IntegratorType : int
+    {
+        RAY_CAST = 0,
+        COUNT // keep it last
+    };
 
-	class BaseIntegrator
-	{
-	  public:
-		BaseIntegrator()		  = default;
-		virtual ~BaseIntegrator() = default;
+    class BaseIntegrator
+    {
+    public:
+        BaseIntegrator() = default;
+        virtual ~BaseIntegrator() = default;
 
-		virtual const IntegratorType getType() const = 0;
+        virtual const IntegratorType getType() const = 0;
 
-		// Return incoming luminance.
-		virtual Vec3f Li( const Scene & p_scene, const Ray & p_ray, const float p_tMin, const float p_tMax ) const = 0;
+        // Return incoming luminance.
+        virtual Vec3f Li(const Scene &p_scene, const Ray &p_ray, const float p_tMin, const float p_tMax) const = 0;
 
-		const Vec3f & getBackgroundColor() const { return _backgroundColor; }
-		void		  setBackgroundColor( const Vec3f & p_color ) { _backgroundColor = p_color; }
+        const Vec3f &getBackgroundColor() const { return _backgroundColor; }
+        void setBackgroundColor(const Vec3f &p_color) { _backgroundColor = p_color; }
 
-	  protected:
-		Vec3f _backgroundColor = BLACK;
-	};
+    protected:
+        Vec3f _backgroundColor = BLACK;
+    };
 
 } // namespace RT_ISICG
 
