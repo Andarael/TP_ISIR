@@ -1,8 +1,8 @@
 #ifndef __RT_ISICG_SPHERE__
 #define __RT_ISICG_SPHERE__
 
-#include "base_object.hpp"
-#include "geometry/sphere_geometry.hpp"
+#include "BaseObject.hpp"
+#include "geometry/SphereGeometry.hpp"
 
 namespace RT_ISICG
 {

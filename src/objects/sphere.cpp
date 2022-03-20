@@ -1,4 +1,4 @@
-#include "sphere.hpp"
+#include "Sphere.hpp"
 
 namespace RT_ISICG
 {

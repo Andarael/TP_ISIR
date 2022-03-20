@@ -1,4 +1,4 @@
-#include "ray_cast_integrator.hpp"
+#include "RayCastIntegrator.hpp"
 
 namespace RT_ISICG
 {

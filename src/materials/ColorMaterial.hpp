@@ -1,7 +1,7 @@
 #ifndef __RT_ISICG_COLOR_MATERIAL__
 #define __RT_ISICG_COLOR_MATERIAL__
 
-#include "base_material.hpp"
+#include "BaseMaterial.hpp"
 #include "defines.hpp"
 
 namespace RT_ISICG

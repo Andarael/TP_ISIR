@@ -1,9 +1,9 @@
 #ifndef __RT_ISICG_RENDERER__
 #define __RT_ISICG_RENDERER__
 
-#include "cameras/base_camera.hpp"
+#include "cameras/BaseCamera.hpp"
 #include "defines.hpp"
-#include "integrators/base_integrator.hpp"
+#include "integrators/BaseIntegrator.hpp"
 #include "texture.hpp"
 #include "utils/chrono.hpp"
 

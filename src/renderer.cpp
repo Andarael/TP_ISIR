@@ -1,5 +1,5 @@
-#include "renderer.hpp"
-#include "integrators/ray_cast_integrator.hpp"
+#include "Renderer.hpp"
+#include "integrators/RayCastIntegrator.hpp"
 #include "utils/console_progress_bar.hpp"
 #include "utils/random.hpp"
 

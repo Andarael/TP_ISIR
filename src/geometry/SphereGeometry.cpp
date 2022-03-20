@@ -1,4 +1,4 @@
-#include "sphere_geometry.hpp"
+#include "SphereGeometry.hpp"
 
 namespace RT_ISICG
 {

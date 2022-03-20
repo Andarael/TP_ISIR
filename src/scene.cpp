@@ -1,7 +1,7 @@
-#include "scene.hpp"
-#include "materials/color_material.hpp"
-#include "objects/plane.hpp"
-#include "objects/sphere.hpp"
+#include "Scene.hpp"
+#include "materials/ColorMaterial.hpp"
+#include "objects/Plane.hpp"
+#include "objects/Sphere.hpp"
 
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtx/rotate_vector.hpp"

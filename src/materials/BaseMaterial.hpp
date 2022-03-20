@@ -1,9 +1,9 @@
 #ifndef __RT_ISICG_BASE_MATERIAL__
 #define __RT_ISICG_BASE_MATERIAL__
 
-#include "hit_record.hpp"
-#include "lights/light_sample.hpp"
-#include "ray.hpp"
+#include "HitRecord.hpp"
+#include "lights/LightSample.hpp"
+#include "Ray.hpp"
 
 namespace RT_ISICG
 {

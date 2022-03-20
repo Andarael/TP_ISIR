@@ -2,9 +2,9 @@
 #define __RT_ISICG_BASE_OBJECT__
 
 #include "defines.hpp"
-#include "hit_record.hpp"
-#include "materials/base_material.hpp"
-#include "ray.hpp"
+#include "HitRecord.hpp"
+#include "materials/BaseMaterial.hpp"
+#include "Ray.hpp"
 #include <vector>
 
 namespace RT_ISICG

@@ -1,4 +1,4 @@
-#include "planeGeometry.hpp"
+#include "PlaneGeometry.hpp"
 
 namespace RT_ISICG
 {

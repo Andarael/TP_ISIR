@@ -1,7 +1,7 @@
 #ifndef __RT_ISICG_PERSPECTIVE_CAMERA__
 #define __RT_ISICG_PERSPECTIVE_CAMERA__
 
-#include "base_camera.hpp"
+#include "BaseCamera.hpp"
 
 #include "glm/gtx/string_cast.hpp"
 

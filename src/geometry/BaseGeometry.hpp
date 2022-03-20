@@ -1,8 +1,8 @@
 #ifndef __RT_ISICG_BASE_GEOMETRY__
 #define __RT_ISICG_BASE_GEOMETRY__
 
-#include "hit_record.hpp"
-#include "ray.hpp"
+#include "HitRecord.hpp"
+#include "Ray.hpp"
 
 namespace RT_ISICG
 {

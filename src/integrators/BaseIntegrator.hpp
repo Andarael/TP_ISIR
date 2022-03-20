@@ -1,7 +1,7 @@
 #ifndef __RT_ISICG_BASE_INTEGRATOR__
 #define __RT_ISICG_BASE_INTEGRATOR__
 
-#include "scene.hpp"
+#include "Scene.hpp"
 
 namespace RT_ISICG
 {

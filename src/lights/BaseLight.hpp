@@ -1,7 +1,7 @@
 #ifndef __RT_ISICG_BASE_LIGHT__
 #define __RT_ISICG_BASE_LIGHT__
 
-#include "light_sample.hpp"
+#include "LightSample.hpp"
 
 namespace RT_ISICG
 {

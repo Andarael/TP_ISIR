@@ -1,6 +1,6 @@
-#include "cameras/perspective_camera.hpp"
+#include "cameras/PerspectiveCamera.hpp"
 #include "defines.hpp"
-#include "renderer.hpp"
+#include "Renderer.hpp"
 
 namespace RT_ISICG
 {

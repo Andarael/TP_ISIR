@@ -141,39 +141,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\cameras\perspective_camera.cpp" />
-    <ClCompile Include="src\geometry\planeGeometry.cpp" />
-    <ClCompile Include="src\geometry\sphere_geometry.cpp" />
-    <ClCompile Include="src\integrators\ray_cast_integrator.cpp" />
+    <ClCompile Include="src\cameras\PerspectiveCamera.cpp" />
+    <ClCompile Include="src\geometry\PlaneGeometry.cpp" />
+    <ClCompile Include="src\geometry\SphereGeometry.cpp" />
+    <ClCompile Include="src\integrators\RayCastIntegrator.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\objects\plane.cpp" />
-    <ClCompile Include="src\objects\sphere.cpp" />
-    <ClCompile Include="src\renderer.cpp" />
-    <ClCompile Include="src\scene.cpp" />
+    <ClCompile Include="src\objects\Plane.cpp" />
+    <ClCompile Include="src\objects\Sphere.cpp" />
+    <ClCompile Include="src\Renderer.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\texture.cpp" />
     <ClCompile Include="src\utils\console_progress_bar.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\cameras\base_camera.hpp" />
-    <ClInclude Include="src\cameras\perspective_camera.hpp" />
-    <ClInclude Include="src\geometry\base_geometry.hpp" />
-    <ClInclude Include="src\geometry\planeGeometry.hpp" />
-    <ClInclude Include="src\geometry\sphere_geometry.hpp" />
-    <ClInclude Include="src\hit_record.hpp" />
-    <ClInclude Include="src\integrators\base_integrator.hpp" />
-    <ClInclude Include="src\integrators\ray_cast_integrator.hpp" />
-    <ClInclude Include="src\lights\base_light.hpp" />
-    <ClInclude Include="src\lights\light_sample.hpp" />
-    <ClInclude Include="src\materials\color_material.hpp" />
+    <ClInclude Include="src\cameras\BaseCamera.hpp" />
+    <ClInclude Include="src\cameras\PerspectiveCamera.hpp" />
+    <ClInclude Include="src\geometry\BaseGeometry.hpp" />
+    <ClInclude Include="src\geometry\PlaneGeometry.hpp" />
+    <ClInclude Include="src\geometry\SphereGeometry.hpp" />
+    <ClInclude Include="src\HitRecord.hpp" />
+    <ClInclude Include="src\integrators\BaseIntegrator.hpp" />
+    <ClInclude Include="src\integrators\RayCastIntegrator.hpp" />
+    <ClInclude Include="src\lights\BaseLight.hpp" />
+    <ClInclude Include="src\lights\LightSample.hpp" />
+    <ClInclude Include="src\materials\ColorMaterial.hpp" />
     <ClInclude Include="src\defines.hpp" />
     <ClInclude Include="src\io\stb_include.hpp" />
-    <ClInclude Include="src\materials\base_material.hpp" />
-    <ClInclude Include="src\objects\base_object.hpp" />
-    <ClInclude Include="src\objects\plane.hpp" />
-    <ClInclude Include="src\objects\sphere.hpp" />
-    <ClInclude Include="src\ray.hpp" />
-    <ClInclude Include="src\renderer.hpp" />
-    <ClInclude Include="src\scene.hpp" />
+    <ClInclude Include="src\materials\BaseMaterial.hpp" />
+    <ClInclude Include="src\objects\BaseObject.hpp" />
+    <ClInclude Include="src\objects\Plane.hpp" />
+    <ClInclude Include="src\objects\Sphere.hpp" />
+    <ClInclude Include="src\Ray.hpp" />
+    <ClInclude Include="src\Renderer.hpp" />
+    <ClInclude Include="src\Scene.hpp" />
     <ClInclude Include="src\texture.hpp" />
     <ClInclude Include="src\utils\chrono.hpp" />
     <ClInclude Include="src\utils\console_progress_bar.hpp" />

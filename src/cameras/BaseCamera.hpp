@@ -2,7 +2,7 @@
 #define __RT_ISICG_BASE_CAMERA__
 
 #include "defines.hpp"
-#include "ray.hpp"
+#include "Ray.hpp"
 
 namespace RT_ISICG
 {

@@ -1,8 +1,8 @@
 #ifndef __RT_ISICG_PLANE__
 #define __RT_ISICG_PLANE__
 
-#include "base_object.hpp"
-#include "geometry/planeGeometry.hpp"
+#include "BaseObject.hpp"
+#include "geometry/PlaneGeometry.hpp"
 
 namespace RT_ISICG
 {

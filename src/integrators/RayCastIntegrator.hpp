@@ -1,7 +1,7 @@
 #ifndef __RT_ISICG_RAY_CAST_INTEGRATOR__
 #define __RT_ISICG_RAY_CAST_INTEGRATOR__
 
-#include "base_integrator.hpp"
+#include "BaseIntegrator.hpp"
 
 namespace RT_ISICG
 {

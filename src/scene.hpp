@@ -2,8 +2,8 @@
 #define __RT_ISICG_SCENE__
 
 #include "defines.hpp"
-#include "lights/base_light.hpp"
-#include "objects/base_object.hpp"
+#include "lights/BaseLight.hpp"
+#include "objects/BaseObject.hpp"
 #include <exception>
 #include <map>
 #include <vector>
