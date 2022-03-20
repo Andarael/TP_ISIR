@@ -17,9 +17,7 @@ namespace RT_ISICG
         }
 
         /**
-         * @brief fix normal direction
-         *
-         * @param p_direction
+         * fix normal direction
          */
         void faceNormal(const Vec3f p_direction)
         {

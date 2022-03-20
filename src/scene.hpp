@@ -27,9 +27,15 @@ namespace RT_ISICG
         void init();
 
         // Initialization from file.
-        void init(const std::string &p_path) { throw std::exception("Not implemented !"); }
+        void init(const std::string &p_path)
+        {
+            throw std::exception("Not implemented !");
+        }
 
-        const LightList &getLights() const { return _lightList; }
+        const LightList &getLights() const
+        {
+            return _lightList;
+        }
 
         // Check for nearest intersection between p_tMin and p_tMax : if found fill p_hitRecord.
         bool intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const;

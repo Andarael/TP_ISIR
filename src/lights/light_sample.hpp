@@ -8,10 +8,7 @@ namespace RT_ISICG
     struct LightSample
     {
     public:
-        LightSample(const Vec3f &p_direction,
-                    const float p_distance,
-                    const Vec3f &p_radiance,
-                    const float p_pdf)
+        LightSample(const Vec3f &p_direction, const float p_distance, const Vec3f &p_radiance, const float p_pdf)
             : _direction(p_direction), _distance(p_distance), _radiance(p_radiance), _pdf(p_pdf)
         {
         }

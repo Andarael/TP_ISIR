@@ -11,21 +11,33 @@ namespace RT_ISICG
         Ray() = delete;
 
         // p_direction must be normalized
-        Ray(const Vec3f &p_origin, const Vec3f &p_direction) : _origin(p_origin), _direction(p_direction) {}
+        Ray(const Vec3f &p_origin, const Vec3f &p_direction)
+            : _origin(p_origin), _direction(p_direction)
+        {
+        }
 
-        inline const Vec3f &getOrigin() const { return _origin; }
+        const Vec3f &getOrigin() const
+        {
+            return _origin;
+        }
 
-        inline const Vec3f &getDirection() const { return _direction; }
+        const Vec3f &getDirection() const
+        {
+            return _direction;
+        }
 
         // Return the point along _direction at distance 'p_t'
-        inline Vec3f pointAtT(const float p_t) const { return _origin + _direction * p_t; }
+        Vec3f pointAtT(const float p_t) const
+        {
+            return _origin + _direction * p_t;
+        }
 
         // This function add an offset to the ray origin to avoid self-intersection when computing shadows
         // See:
         // W�chter C., Binder N. (2019)
         // A Fast and Robust Method for Avoiding Self-Intersection.
         // In: Haines E., Akenine-M�ller T. (eds) Ray Tracing Gems. Apress, Berkeley, CA
-        inline void offset(const Vec3f p_normal)
+        void offset(const Vec3f p_normal)
         {
             Vec3i of_i(p_normal * _intScale());
 
@@ -44,9 +56,20 @@ namespace RT_ISICG
 
     private:
         // Used for offset()
-        static constexpr float _originScale() { return 1.f / 32.f; }
-        static constexpr float _floatScale() { return 1.f / 65536.f; }
-        static constexpr float _intScale() { return 256.f; }
+        static constexpr float _originScale()
+        {
+            return 1.f / 32.f;
+        }
+
+        static constexpr float _floatScale()
+        {
+            return 1.f / 65536.f;
+        }
+
+        static constexpr float _intScale()
+        {
+            return 256.f;
+        }
 
     private:
         Vec3f _origin = VEC3F_ZERO;

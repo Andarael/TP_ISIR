@@ -13,7 +13,12 @@ namespace RT_ISICG
         {
         }
 
-        inline const Vec3f &getFlatColor() const { return _color; }
+        virtual ~BaseLight() = default;
+
+        inline const Vec3f &getFlatColor() const
+        {
+            return _color;
+        }
 
         virtual LightSample sample(const Vec3f &p_point) const = 0;
 

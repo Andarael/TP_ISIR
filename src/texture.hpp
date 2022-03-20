@@ -18,13 +18,25 @@ namespace RT_ISICG
             _pixels.shrink_to_fit();
         }
 
-        inline const int getWidth() const { return _width; }
+        inline const int getWidth() const
+        {
+            return _width;
+        }
 
-        inline const int getHeight() const { return _height; }
+        inline const int getHeight() const
+        {
+            return _height;
+        }
 
-        inline std::vector<unsigned char> &getPixels() { return _pixels; }
+        inline std::vector<unsigned char> &getPixels()
+        {
+            return _pixels;
+        }
 
-        inline const std::vector<unsigned char> &getPixels() const { return _pixels; }
+        inline const std::vector<unsigned char> &getPixels() const
+        {
+            return _pixels;
+        }
 
         void setPixel(const int p_i, const int p_j, const Vec3f &p_color)
         {

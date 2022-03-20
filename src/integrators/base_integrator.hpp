@@ -16,17 +16,22 @@ namespace RT_ISICG
     public:
         BaseIntegrator() = default;
 
-        virtual const IntegratorType getType() const = 0;
+        virtual IntegratorType getType() const = 0;
+
+        virtual ~BaseIntegrator() = default;
 
         // Return incoming luminance.
-        virtual Vec3f Li(const Scene &p_scene,
-                         const Ray &p_ray,
-                         const float p_tMin,
-                         const float p_tMax) const = 0;
+        virtual Vec3f Li(const Scene &p_scene, const Ray &p_ray, const float p_tMin, const float p_tMax) const = 0;
 
-        const Vec3f &getBackgroundColor() const { return _backgroundColor; }
+        const Vec3f &getBackgroundColor() const
+        {
+            return _backgroundColor;
+        }
 
-        void setBackgroundColor(const Vec3f &p_color) { _backgroundColor = p_color; }
+        void setBackgroundColor(const Vec3f &p_color)
+        {
+            _backgroundColor = p_color;
+        }
 
     protected:
         Vec3f _backgroundColor = BLACK;

@@ -7,12 +7,19 @@
 
 namespace RT_ISICG
 {
-    Renderer::Renderer() { _integrator = new RayCastIntegrator(); }
+    Renderer::Renderer()
+        : _integrator(new RayCastIntegrator())
+    {
+    }
+
+    Renderer::~Renderer()
+    {
+        delete _integrator;
+    }
 
     void Renderer::setIntegrator(const IntegratorType p_integratorType)
     {
-        if (_integrator != nullptr)
-            delete _integrator;
+        delete _integrator;
 
         switch (p_integratorType)
         {
@@ -78,7 +85,7 @@ namespace RT_ISICG
         return chrono.elapsedTime();
     }
 
-    void Renderer::multiSample(const BaseCamera *p_camera, float sx, float sy, Vec3f &color, const Scene &p_scene, const float pixelSizeY, float pixelSizeX, int nbPixelSamples)
+    void Renderer::multiSample(const BaseCamera *p_camera, float sx, float sy, Vec3f &color, const Scene &p_scene, const float pixelSizeY, float pixelSizeX, int nbPixelSamples) const
     {
         float offsetX;
         float offsetY;
@@ -105,8 +112,8 @@ namespace RT_ISICG
             {
                 for (int j = 1; j <= nbPixelSamples; j++)
                 {
-                    float subsampleX = (float(2 * i) - 1) / (nbPixelSamples * 2);
-                    float subsampleY = (float(2 * j) - 1) / (nbPixelSamples * 2);
+                    float subsampleX = (float(2 * i) - 1) / float(nbPixelSamples * 2);
+                    float subsampleY = (float(2 * j) - 1) / float(nbPixelSamples * 2);
 
                     // random extremely slow here
                     offsetX = pixelSizeX * subsampleX;

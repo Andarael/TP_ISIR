@@ -14,13 +14,16 @@ namespace RT_ISICG
     public:
         Renderer();
 
-        ~Renderer() { delete _integrator; }
+        ~Renderer();
 
-        void setIntegrator(const IntegratorType p_integratorType);
+        void setIntegrator(IntegratorType p_integratorType);
 
         void setBackgroundColor(const Vec3f &p_color);
 
-        inline void setNbPixelSamples(const int p_nbPixelSamples) { _nbPixelSamples = p_nbPixelSamples; }
+        void setNbPixelSamples(const int p_nbPixelSamples)
+        {
+            _nbPixelSamples = p_nbPixelSamples;
+        }
 
         float renderImage(const Scene &p_scene, const BaseCamera *p_camera, Texture &p_texture);
 
@@ -36,7 +39,7 @@ namespace RT_ISICG
          * @param pixelSizeX size of pixel in Y
          * @param nbPixelSamples number of samples
          */
-        void multiSample(const RT_ISICG::BaseCamera *p_camera, float sx, float sy, RT_ISICG::Vec3f &color, const RT_ISICG::Scene &p_scene, float pixelSizeY, float pixelSizeX, int nbPixelSamples);
+        void multiSample(const BaseCamera *p_camera, float sx, float sy, Vec3f &color, const Scene &p_scene, float pixelSizeY, float pixelSizeX, int nbPixelSamples) const;
 
     private:
         BaseIntegrator *_integrator = nullptr;

@@ -9,7 +9,8 @@ namespace RT_ISICG
     class ColorMaterial : public BaseMaterial
     {
     public:
-        ColorMaterial(const std::string &p_name, const Vec3f &p_color) : BaseMaterial(p_name), _color(p_color)
+        ColorMaterial(const std::string &p_name, const Vec3f &p_color)
+            : BaseMaterial(p_name), _color(p_color)
         {
         }
 
@@ -20,7 +21,10 @@ namespace RT_ISICG
             return _color;
         }
 
-        inline const Vec3f &getFlatColor() const override { return _color; }
+        inline const Vec3f &getFlatColor() const override
+        {
+            return _color;
+        }
 
     protected:
         Vec3f _color = Vec3f(1.f, 1.f, 1.f);

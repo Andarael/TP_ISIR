@@ -12,17 +12,21 @@ namespace RT_ISICG
     public:
         BaseMaterial() = delete;
 
-        BaseMaterial(const std::string &p_name) : _name(p_name)
+        BaseMaterial(const std::string &p_name)
+            : _name(p_name)
         {
         }
 
-        virtual Vec3f shade(const Ray &p_ray,
-                            const HitRecord &p_hitRecord,
-                            const LightSample &p_lightSample) const = 0;
+        virtual ~BaseMaterial() = default;
+
+        virtual Vec3f shade(const Ray &p_ray, const HitRecord &p_hitRecord, const LightSample &p_lightSample) const = 0;
 
         virtual inline const Vec3f &getFlatColor() const = 0;
 
-        virtual const std::string &getName() const final { return _name; }
+        virtual const std::string &getName() const final
+        {
+            return _name;
+        }
 
     protected:
         std::string _name;
