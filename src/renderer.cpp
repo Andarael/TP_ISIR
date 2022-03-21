@@ -4,6 +4,7 @@
 #include "utils/random.hpp"
 
 #include "glm/gtx/string_cast.hpp"
+#include "integrators/DirectLightingIntegrator.hpp"
 
 namespace RT_ISICG
 {
@@ -24,11 +25,17 @@ namespace RT_ISICG
         switch (p_integratorType)
         {
         case IntegratorType::RAY_CAST:
-        default:
         {
             _integrator = new RayCastIntegrator();
             break;
         }
+        case IntegratorType::DIRECT_LIGHT:
+        {
+            _integrator = new DirectLightingIntegrator();
+            break;
+        }
+        case IntegratorType::COUNT:
+            break;
         }
     }
 
@@ -73,7 +80,7 @@ namespace RT_ISICG
                 // color.z = 0;
                 // color.y = 0;
 
-                p_texture.setPixel(i, j, glm::clamp(color, 0.0f, 1.0f));
+                p_texture.setPixel(i, j, glm::clamp(color, 0.0f, 100.0f));
             }
 
             progressBar.next();
