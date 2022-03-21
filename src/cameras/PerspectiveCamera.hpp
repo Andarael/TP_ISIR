@@ -20,9 +20,7 @@ namespace RT_ISICG
 
             Vec3f posOnScreen = _viewportTopLeftCorner + (p_sx * _viewportU) - (p_sy * _viewportV);
 
-            Vec3f direction = posOnScreen - origin;
-
-            direction = glm::normalize(direction);
+            Vec3f direction = normalize(posOnScreen - origin);
 
             return Ray(origin, direction);
         }

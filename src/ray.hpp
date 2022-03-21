@@ -12,7 +12,7 @@ namespace RT_ISICG
 
         // p_direction must be normalized
         Ray(const Vec3f &p_origin, const Vec3f &p_direction)
-            : _origin(p_origin), _direction(p_direction)
+            : _origin(p_origin), _direction(normalize(p_direction))
         {
         }
 
