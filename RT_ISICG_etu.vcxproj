@@ -161,9 +161,11 @@
     <ClInclude Include="src\geometry\SphereGeometry.hpp" />
     <ClInclude Include="src\HitRecord.hpp" />
     <ClInclude Include="src\integrators\BaseIntegrator.hpp" />
+    <ClInclude Include="src\integrators\DirectLightingIntegrator.hpp" />
     <ClInclude Include="src\integrators\RayCastIntegrator.hpp" />
     <ClInclude Include="src\lights\BaseLight.hpp" />
     <ClInclude Include="src\lights\LightSample.hpp" />
+    <ClInclude Include="src\lights\PointLight.hpp" />
     <ClInclude Include="src\materials\ColorMaterial.hpp" />
     <ClInclude Include="src\defines.hpp" />
     <ClInclude Include="src\io\stb_include.hpp" />

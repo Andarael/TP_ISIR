@@ -135,6 +135,12 @@
     <ClInclude Include="src\geometry\PlaneGeometry.hpp">
       <Filter>Source Files\geometry</Filter>
     </ClInclude>
+    <ClInclude Include="src\integrators\DirectLightingIntegrator.hpp">
+      <Filter>Source Files\integrators</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lights\PointLight.hpp">
+      <Filter>Source Files\lights</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />
