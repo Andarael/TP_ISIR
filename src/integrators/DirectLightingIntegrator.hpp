@@ -27,20 +27,37 @@ namespace RT_ISICG
                 Vec3f li = VEC3F_ZERO;
                 LightList lights = p_scene.getLights();
                 for (BaseLight *light : lights)
-                    li += _directLighting(hitRecord, light);
+                {
+                    if (!isShadow(p_scene, hitRecord, light))
+                        li += _directLighting(hitRecord, light);
+                }
                 return li;
             }
             return _backgroundColor;
         }
 
     private:
+        bool isShadow(const Scene &p_scene, const HitRecord hitRecord, const BaseLight *light) const
+        {
+            Vec3f point = hitRecord._point;
+            LightSample sample = light->sample(point);
+            Vec3f direction = sample._direction;
+            Ray ray = Ray(point, direction);
+            ray.offset(ray.getDirection());
+
+            HitRecord shadow_hit_record;
+            return p_scene.intersect(ray, 0, sample._distance - 1, shadow_hit_record);
+            //  todo make work correctly, whhy -1 ?
+        }
+
         Vec3f _directLighting(const HitRecord hitRecord, const BaseLight *light) const
         {
             LightSample sample = light->sample(hitRecord._point);
-            Vec3f lightRadiance = sample._radiance;
+            Vec3f sampleRadiance = sample._radiance;
             Vec3f color = hitRecord._object->getMaterial()->getFlatColor();
             float factor = dot(sample._direction, hitRecord._normal);
-            return color * factor * lightRadiance;
+            // return sample._direction;
+            return color * factor * sampleRadiance;
         }
     };
 }

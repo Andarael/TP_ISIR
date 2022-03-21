@@ -18,9 +18,9 @@ namespace RT_ISICG
 
         LightSample sample(const Vec3f &p_point) const override
         {
-            Vec3f direction = glm::normalize(_position - p_point); // todo maybe inverted
+            Vec3f direction = glm::normalize(_position - p_point);
             float distance = glm::distance(_position, p_point);
-            Vec3f radiance = _color * _power / (distance * distance);
+            Vec3f radiance = (_color * _power) / (distance * distance);
             float pdf = 1.f;
             return LightSample(direction, distance, radiance, pdf);
         }

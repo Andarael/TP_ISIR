@@ -80,7 +80,7 @@ namespace RT_ISICG
                 // color.z = 0;
                 // color.y = 0;
 
-                p_texture.setPixel(i, j, glm::clamp(color, 0.0f, 100.0f));
+                p_texture.setPixel(i, j, glm::clamp(color, 0.0f, 1.0f));
             }
 
             progressBar.next();
