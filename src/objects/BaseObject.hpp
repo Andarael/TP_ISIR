@@ -36,6 +36,7 @@ namespace RT_ISICG
 
         // Check for nearest intersection: if found fill p_hitRecord.
         virtual bool intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const = 0;
+        //todo intersectAny without hitrecord
 
     protected:
         const std::string _name;
