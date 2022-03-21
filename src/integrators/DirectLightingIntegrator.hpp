@@ -15,10 +15,10 @@ namespace RT_ISICG
 
         IntegratorType getType() const override
         {
-            return IntegratorType::DIRECT_LIGHT; // todo add type  ?
+            return IntegratorType::DIRECT_LIGHT;
         }
 
-        // todo move top cpp
+        // todo move to cpp
         Vec3f Li(const Scene &p_scene, const Ray &p_ray, const float p_tMin, const float p_tMax) const override
         {
             HitRecord hitRecord;
@@ -46,8 +46,7 @@ namespace RT_ISICG
             ray.offset(ray.getDirection());
 
             HitRecord shadow_hit_record;
-            return p_scene.intersect(ray, 0, sample._distance - 1, shadow_hit_record);
-            //  todo make work correctly, whhy -1 ?
+            return p_scene.intersect(ray, 0, sample._distance, shadow_hit_record);
         }
 
         Vec3f _directLighting(const HitRecord hitRecord, const BaseLight *light) const

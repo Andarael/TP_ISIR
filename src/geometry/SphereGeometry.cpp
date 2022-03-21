@@ -24,7 +24,7 @@ namespace RT_ISICG
 
         p_t1 = (-b + glm::sqrt(delta)) / 2 * a;
         p_t2 = (-b - glm::sqrt(delta)) / 2 * a;
-        // todo check interieur de la sphere
+        // todo check interior of sphere
 
         if (p_t1 > p_t2)
         {

@@ -39,7 +39,7 @@ namespace RT_ISICG
         float viewPortWidth = viewPortHeight * _aspectRatio;
 
         _viewportV = _v * viewPortHeight;
-        _viewportU = _u * viewPortWidth; // todo ??? why negative ?
+        _viewportU = _u * viewPortWidth;
 
         _viewportTopLeftCorner = _screenCenter + _viewportV * 0.5f;
         _viewportTopLeftCorner = _viewportTopLeftCorner - _viewportU * 0.5f;
