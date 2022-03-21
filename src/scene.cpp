@@ -34,9 +34,14 @@ namespace RT_ISICG
         Vec3f lightPosition = Vec3f(1, 10, 1);
         PointLight *light = new PointLight(WHITE, lightPosition, 100);
         _addLight(light);
-        _addObject(new Sphere("LightSphere", lightPosition, 0.5f));
-        _addMaterial(new ColorMaterial("White", WHITE));
-        _attachMaterialToObject("White", "LightSphere");
+
+        // Vec3f lightPosition2 = Vec3f(-2, 7, -2);
+        // PointLight *light2 = new PointLight(WHITE, lightPosition2, 50);
+        //_addLight(light2);
+
+        //_addObject(new Sphere("LightSphere", lightPosition + Vec3f(0, 3, 0), 0.5f));
+        //_addMaterial(new ColorMaterial("White", WHITE));
+        //_attachMaterialToObject("White", "LightSphere");
 
         // Add objects.
         _addObject(new Sphere("Sphere1", Vec3f(0, 0, 3), 1.f));
