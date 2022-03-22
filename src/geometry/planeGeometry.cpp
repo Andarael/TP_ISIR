@@ -7,14 +7,15 @@ namespace RT_ISICG
         p_t1 = -1.f;
         p_t2 = -1.f;
 
-        Vec3f rayDirection = p_ray.getDirection();
-        Vec3f rayOrigin = p_ray.getOrigin();
+        float den = dot(_normal, p_ray.getDirection());
 
-        p_t1 = glm::dot(_position - rayOrigin, _normal) / glm::dot(rayDirection, _normal);
-
-        p_t2 = p_t1;
+        if (den != 0.f)
+        {
+            p_t1 = dot(_position - p_ray.getOrigin(), _normal) / den;
+            p_t2 = p_t1;
+        }
 
         return p_t1 > 0;
-        // si t == 0 then ray is parallel to plane
+        // if t == 0 then ray is parallel to plane
     }
 } // namespace RT_ISICG
