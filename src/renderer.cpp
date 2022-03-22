@@ -80,7 +80,9 @@ namespace RT_ISICG
                 // color.z = 0;
                 // color.y = 0;
 
-                p_texture.setPixel(i, j, glm::clamp(color, 0.0f, 1.0f));
+                color = colorTransform(color);
+
+                p_texture.setPixel(i, j, color);
             }
 
             progressBar.next();
@@ -90,6 +92,14 @@ namespace RT_ISICG
         progressBar.stop();
 
         return chrono.elapsedTime();
+    }
+
+    Vec3f Renderer::colorTransform(Vec3f &color)
+    {
+        color = glm::clamp(color, 0.0f, 1.0f);
+        //color = Vec3f(0.5f, 0.5f, 1.f);
+        //color = color * 0.5f + 0.5f;
+        return color;
     }
 
     void Renderer::multiSample(const BaseCamera *p_camera, float sx, float sy, Vec3f &color, const Scene &p_scene, const float pixelSizeY, float pixelSizeX, int nbPixelSamples) const
@@ -127,7 +137,7 @@ namespace RT_ISICG
                     offsetY = pixelSizeY * subsampleY;
 
                     Ray ray = p_camera->generateRay(sx + offsetX, sy + offsetY);
-                    color += _integrator->Li(p_scene, ray, 0, 1000);
+                    color += _integrator->Li(p_scene, ray, 0, 10000);
                 }
             }
             color /= (nbPixelSamples * nbPixelSamples);

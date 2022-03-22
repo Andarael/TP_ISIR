@@ -48,6 +48,8 @@ namespace RT_ISICG
 
         // todo intersectAny without hitrecord
 
+        virtual bool intersectAny(const Ray &p_ray, const float p_tMin, const float p_tMax) const = 0;
+
     protected:
         const std::string _name;
         BaseMaterial *_material = nullptr;

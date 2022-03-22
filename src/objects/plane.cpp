@@ -28,4 +28,8 @@ namespace RT_ISICG
         }
         return false;
     }
+    bool Plane::intersectAny(const Ray &p_ray, const float p_tMin, const float p_tMax) const
+    {
+        return false; // todo
+    }
 } // namespace RT_ISICG
