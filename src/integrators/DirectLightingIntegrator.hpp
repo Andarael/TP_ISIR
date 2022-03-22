@@ -27,10 +27,8 @@ namespace RT_ISICG
                 Vec3f li = VEC3F_ZERO;
                 LightList lights = p_scene.getLights();
                 for (BaseLight *light : lights)
-                {
                     if (!isShadow(p_scene, hitRecord, light))
                         li += _directLighting(hitRecord, light);
-                }
                 return li;
             }
             return _backgroundColor;
@@ -55,7 +53,7 @@ namespace RT_ISICG
             Vec3f sampleRadiance = sample._radiance;
             Vec3f color = hitRecord._object->getMaterial()->getFlatColor();
             float factor = dot(sample._direction, hitRecord._normal);
-            // return sample._direction;
+            //return sample._direction;
             return color * factor * sampleRadiance;
         }
     };

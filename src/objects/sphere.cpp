@@ -14,7 +14,7 @@ namespace RT_ISICG
                 t1 = t2;
             if (t1 < p_tMin || t1 > p_tMax) // not in range
                 return false;
-
+            // todo move to geometry ?
             // Intersection found, fill p_hitRecord.
             p_hitRecord._point = p_ray.pointAtT(t1);
             p_hitRecord._normal = _geometry.computeNormal(p_hitRecord._point);
