@@ -1,10 +1,10 @@
 #ifndef __RT_ISICG_BASE_OBJECT__
 #define __RT_ISICG_BASE_OBJECT__
 
-#include "defines.hpp"
 #include "HitRecord.hpp"
-#include "materials/BaseMaterial.hpp"
 #include "Ray.hpp"
+#include "defines.hpp"
+#include "materials/BaseMaterial.hpp"
 #include <vector>
 
 namespace RT_ISICG
@@ -36,7 +36,17 @@ namespace RT_ISICG
 
         // Check for nearest intersection: if found fill p_hitRecord.
         virtual bool intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const = 0;
-        //todo intersectAny without hitrecord
+
+        void fillHitRecord(HitRecord &p_hitRecord, const Ray &p_ray, const Vec3f normal, const float distance) const
+        {
+            p_hitRecord._point = p_ray.pointAtT(distance);
+            p_hitRecord._normal = normal;
+            p_hitRecord.faceNormal(p_ray.getDirection());
+            p_hitRecord._distance = distance;
+            p_hitRecord._object = this;
+        }
+
+        // todo intersectAny without hitrecord
 
     protected:
         const std::string _name;

@@ -15,12 +15,9 @@ namespace RT_ISICG
             if (t1 < p_tMin || t1 > p_tMax) // not in range
                 return false;
 
-            // Intersection found, fill p_hitRecord.
-            p_hitRecord._point = p_ray.pointAtT(t1);
-            p_hitRecord._normal = _geometry.computeNormal(p_hitRecord._point);
-            p_hitRecord.faceNormal(p_ray.getDirection());
-            p_hitRecord._distance = t1;
-            p_hitRecord._object = this;
+            Vec3f compute_normal = _geometry.computeNormal(p_ray.pointAtT(t1));
+
+            fillHitRecord(p_hitRecord, p_ray, compute_normal, t1);
 
             return true;
         }
