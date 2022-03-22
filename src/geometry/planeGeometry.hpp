@@ -15,14 +15,14 @@ namespace RT_ISICG
         {
         }
 
-        inline const Vec3f &getCenter() const
+        const Vec3f &getCenter() const
         {
             return _position;
         }
 
         bool intersect(const Ray &p_ray, float &p_t1, float &p_t2) const;
 
-        inline Vec3f computeNormal(const Vec3f &p_point) const
+        Vec3f computeNormal(const Vec3f &p_point) const
         {
             return glm::normalize(_normal);
         }
