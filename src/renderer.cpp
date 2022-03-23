@@ -96,8 +96,8 @@ namespace RT_ISICG
     Vec3f Renderer::colorTransform(Vec3f &color) const
     {
         color = glm::clamp(color, 0.0f, 1.0f);
-        //color = Vec3f(0.5f, 0.5f, 1.f);
-        //color = color * 0.5f + 0.5f;
+        // color = Vec3f(0.5f, 0.5f, 1.f);
+        // color = color * 0.5f + 0.5f;
         return color;
     }
 
@@ -136,7 +136,7 @@ namespace RT_ISICG
                     offsetY = pixelSizeY * subsampleY;
 
                     Ray ray = p_camera->generateRay(sx + offsetX, sy + offsetY);
-                    color += _integrator->Li(p_scene, ray, 0, 10000);
+                    color += _integrator->Li(p_scene, ray, 0, FLT_INFINITY);
                 }
             }
             color /= (nbPixelSamples * nbPixelSamples);
