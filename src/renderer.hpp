@@ -27,7 +27,7 @@ namespace RT_ISICG
 
         float renderImage(const Scene &p_scene, const BaseCamera *p_camera, Texture &p_texture);
 
-        Vec3f colorTransform(RT_ISICG::Vec3f &color);
+        Vec3f colorTransform(RT_ISICG::Vec3f &color) const;
 
         /**
          * @brief Render multiple sample per pixel and fill the given color
