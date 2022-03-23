@@ -141,6 +141,9 @@
     <ClInclude Include="src\lights\PointLight.hpp">
       <Filter>Source Files\lights</Filter>
     </ClInclude>
+    <ClInclude Include="src\lights\QuadLight.hpp">
+      <Filter>Source Files\lights</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />

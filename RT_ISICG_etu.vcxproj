@@ -166,6 +166,7 @@
     <ClInclude Include="src\lights\BaseLight.hpp" />
     <ClInclude Include="src\lights\LightSample.hpp" />
     <ClInclude Include="src\lights\PointLight.hpp" />
+    <ClInclude Include="src\lights\QuadLight.hpp" />
     <ClInclude Include="src\materials\ColorMaterial.hpp" />
     <ClInclude Include="src\defines.hpp" />
     <ClInclude Include="src\io\stb_include.hpp" />
