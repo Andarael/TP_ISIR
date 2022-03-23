@@ -4,6 +4,14 @@ namespace RT_ISICG
 {
     bool Sphere::intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const
     {
+
+        //if (intersectAny(p_ray, p_tMin, p_tMax))
+        //{
+        //    Vec3f compute_normal = _geometry.computeNormal(p_ray.pointAtT(t1));
+
+        //    fillHitRecord(p_hitRecord, p_ray, compute_normal, t1);
+        //}
+        // todo make work
         float t1;
         float t2;
         if (_geometry.intersect(p_ray, t1, t2))
