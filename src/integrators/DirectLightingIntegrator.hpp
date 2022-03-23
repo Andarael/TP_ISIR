@@ -43,8 +43,7 @@ namespace RT_ISICG
             Ray ray = Ray(point, direction);
             ray.offset(ray.getDirection());
 
-            HitRecord shadow_hit_record;
-            return p_scene.intersect(ray, 0, sample._distance, shadow_hit_record);
+            return p_scene.intersectAny(ray, 0, sample._distance);
         }
 
         Vec3f _directLighting(const HitRecord hitRecord, const BaseLight *light) const
@@ -53,10 +52,11 @@ namespace RT_ISICG
             Vec3f sampleRadiance = sample._radiance;
             Vec3f color = hitRecord._object->getMaterial()->getFlatColor();
             float factor = dot(sample._direction, hitRecord._normal);
-            //return sample._direction;
             return color * factor * sampleRadiance;
         }
     };
 }
 
 #endif // __RT_ISICG_DIRECT_LIGHT_INT
+
+// 0.97

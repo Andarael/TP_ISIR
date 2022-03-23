@@ -46,8 +46,6 @@ namespace RT_ISICG
             p_hitRecord._object = this;
         }
 
-        // todo intersectAny without hitrecord
-
         virtual bool intersectAny(const Ray &p_ray, const float p_tMin, const float p_tMax) const = 0;
 
     protected:
