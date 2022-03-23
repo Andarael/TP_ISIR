@@ -17,13 +17,6 @@ namespace RT_ISICG
 
             fillHitRecord(p_hitRecord, p_ray, compute_normal, t);
 
-            //// Intersection found, fill p_hitrecord
-            //p_hitRecord._point = p_ray.pointAtT(t);
-            //p_hitRecord._normal = compute_normal;
-            //p_hitRecord.faceNormal(p_ray.getDirection());
-            //p_hitRecord._distance = t;
-            //p_hitRecord._object = this;
-
             return true;
         }
         return false;
