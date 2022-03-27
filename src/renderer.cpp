@@ -9,9 +9,7 @@
 namespace RT_ISICG
 {
     Renderer::Renderer()
-        : _integrator(new RayCastIntegrator())
-    {
-    }
+        : _integrator(new RayCastIntegrator()){};
 
     Renderer::~Renderer()
     {
@@ -95,9 +93,12 @@ namespace RT_ISICG
 
     Vec3f Renderer::colorTransform(Vec3f &color) const
     {
-        color = glm::clamp(color, 0.0f, 1.0f);
+        // gamma correction
+        // color = glm::pow(color, Vec3f(1 / 2.2f));
+
         // color = Vec3f(0.5f, 0.5f, 1.f);
         // color = color * 0.5f + 0.5f;
+        color = glm::clamp(color, 0.0f, 1.0f);
         return color;
     }
 
