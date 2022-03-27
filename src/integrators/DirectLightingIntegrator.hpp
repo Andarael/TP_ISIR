@@ -48,6 +48,7 @@ namespace RT_ISICG
         {
             Vec3f sampleRadiance = lightSample._radiance;
             Vec3f materialColor = hitRecord._object->getMaterial()->getFlatColor();
+            // todo use material.shade ?
             float factor = dot(lightSample._direction, hitRecord._normal);
 
             return materialColor * factor * sampleRadiance;

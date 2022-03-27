@@ -2,7 +2,6 @@
 #define __RT_ISICG_QUAD_LIGHT__
 
 #include "BaseLight.hpp"
-#include "glm/gtx/vector_angle.hpp"
 #include "utils/random.hpp"
 
 namespace RT_ISICG
@@ -10,7 +9,7 @@ namespace RT_ISICG
     class QuadLight : public BaseLight
     {
 
-    // todo the ligt is too dimm compared to the TP
+        // todo the ligt is too dimm compared to the TP
 
     public:
         QuadLight() = delete;
@@ -19,9 +18,9 @@ namespace RT_ISICG
             : BaseLight(p_color, p_power), _position(p_position), _u(p_u), _v(p_v)
         {
             float theta = glm::angle(p_u, p_v);
-            _area = glm::length(_u) * glm::length(_v) * glm::sin(theta);
 
-            // _area = glm::length(glm::cross(p_u, p_v)); // a tester
+            // todo investigate
+            _area = 1.41f * glm::length(glm::cross(p_u, p_v));
 
             _normal = glm::normalize(glm::cross(p_u, p_v));
 
