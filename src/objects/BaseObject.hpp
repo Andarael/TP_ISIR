@@ -34,9 +34,25 @@ namespace RT_ISICG
             _material = p_material;
         }
 
-        // Check for nearest intersection: if found fill p_hitRecord.
+        /**
+         * @brief checks for intersection between ray and object, if found fills p_hitRecord
+         *
+         * @param p_ray ray to check for intersection
+         * @param p_tMin minimum t value to check for intersection
+         * @param p_tMax maximum t value to check for intersection
+         * @param p_hitRecord hitrecord to fill if intersection is found
+         * @return true if intersection is found, false otherwise
+         */
         virtual bool intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const = 0;
 
+        /**
+         * @brief fill given hitRecord with intersection information
+         *
+         * @param p_hitRecord hitRecord to fill
+         * @param p_ray ray that intersected the object
+         * @param normal normal of the object at the intersection point
+         * @param distance distance from the ray origin to the intersection point
+         */
         void fillHitRecord(HitRecord &p_hitRecord, const Ray &p_ray, const Vec3f normal, const float distance) const
         {
             p_hitRecord._point = p_ray.pointAtT(distance);
@@ -69,6 +85,12 @@ namespace RT_ISICG
             return true;
         }
 
+        /**
+         * @brief sort in place two intersections in ascending order
+         *
+         * @param p_t1 first intersection
+         * @param p_t2 second intersection
+         */
         virtual void sortIntersections(float &p_t1, float &p_t2) const
         {
             if (p_t1 > p_t2)
@@ -78,7 +100,6 @@ namespace RT_ISICG
                 p_t2 = temp;
             }
         }
-
 
     protected:
         const std::string _name;

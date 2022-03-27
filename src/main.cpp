@@ -9,15 +9,15 @@ namespace RT_ISICG
         /* ==============================
            ====== Render parameters =====
            ============================== */
-        // Image
+        // Output Image parameters
         const int imgWidth = 600;
         const int imgHeight = 400;
 
-        // Render
+        // Render parameters
         const int samplesPerPixel = 1;
         const IntegratorType integratorType = IntegratorType::DIRECT_LIGHT;
 
-        // Camera
+        // Camera parameters
         Vec3f cameraPosition = Vec3f(0, 0, -3);
         Vec3f cameraLookAt = Vec3f(0, 0, 3);
         Vec3f worldUp = Vec3f(0, 1, 0);
