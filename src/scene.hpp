@@ -3,7 +3,6 @@
 
 #include "defines.hpp"
 #include "lights/BaseLight.hpp"
-#include "lights/PointLight.hpp"
 #include "objects/BaseObject.hpp"
 #include <exception>
 #include <map>
