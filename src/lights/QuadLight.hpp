@@ -11,6 +11,8 @@ namespace RT_ISICG
 
         // todo the ligt is too dimm compared to the TP
 
+        // todo simpler quadlight avec juste area, pos, et lookat
+
     public:
         QuadLight() = delete;
 
@@ -25,6 +27,8 @@ namespace RT_ISICG
             _normal = glm::normalize(glm::cross(p_u, p_v));
 
             printf("area = %f\n", _area); // mon gros debug
+
+            _isSurface = true;
         };
 
         // getters and setters
@@ -48,7 +52,7 @@ namespace RT_ISICG
             float distance = glm::distance(randomSamplePoint, p_point);
 
             float cosTheta = glm::dot(_normal, direction);
-            float pdf = (1.f / _area) * (distance * distance) / cosTheta;
+            float pdf = 1.f / _area * distance * distance / cosTheta;
 
             Vec3f radiance = (_color * _power) / pdf;
 

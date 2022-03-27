@@ -23,6 +23,11 @@ namespace RT_ISICG
             return _name;
         }
 
+        virtual bool isSurface() const final
+        {
+            return _isSurface;
+        }
+
         /**
          * @brief sample a point on the light
          * @param p_point the origin point from which the light is sampled
@@ -34,6 +39,7 @@ namespace RT_ISICG
         const std::string _name;
         Vec3f _color = WHITE;
         float _power = 1.0f;
+        bool _isSurface = false;
     };
 
 } // namespace RT_ISICG

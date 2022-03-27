@@ -23,10 +23,19 @@ namespace RT_ISICG
                 LightList lights = p_scene.getLights();
                 for (BaseLight *light : lights)
                 {
-                    Vec3f point = hitRecord._point;
-                    LightSample lightSample = light->sample(point);
-                    if (!isShadow(p_scene, lightSample, point))
-                        li += _directLighting(hitRecord, lightSample);
+                    int targetSamples = 1;
+
+                    if (light->isSurface())
+                        targetSamples = _nbLightSamples;
+
+                    for (int i = 0; i < targetSamples; i++)
+                    {
+                        Vec3f point = hitRecord._point;
+                        LightSample lightSample = light->sample(point);
+                        if (!isShadow(p_scene, lightSample, point))
+                            li += _directLighting(hitRecord, lightSample);
+                    }
+                    li /= (targetSamples);
                 }
                 return li;
             }
@@ -34,6 +43,8 @@ namespace RT_ISICG
         }
 
     private:
+        int _nbLightSamples = 4; // todo multiple sample importance in light ?
+
         // todo create only one light sample for double performances
         bool isShadow(const Scene &p_scene, const LightSample lightSample, Vec3f point) const
         {
