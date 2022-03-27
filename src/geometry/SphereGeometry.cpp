@@ -11,7 +11,7 @@ namespace RT_ISICG
         Vec3f rayOrigin = p_ray.getOrigin();
         Vec3f OC = rayOrigin - _position;
 
-        // cours / td fig
+        // cours - td fig
         // float a = glm::dot(rayDirection, rayDirection);
         float a = 1; // because rayDirection is normalized
         float b = 2.0f * dot(rayDirection, OC);

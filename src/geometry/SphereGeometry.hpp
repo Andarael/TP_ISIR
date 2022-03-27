@@ -33,7 +33,7 @@ namespace RT_ISICG
         }
 
     private:
-        Vec3f _position = VEC3F_ZERO;
+        Vec3f _position = VEC3F_ZERO; // todo move to BaseGeometry
         float _radius = 1.f;
     };
 
