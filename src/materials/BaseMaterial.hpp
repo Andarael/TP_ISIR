@@ -2,8 +2,8 @@
 #define __RT_ISICG_BASE_MATERIAL__
 
 #include "HitRecord.hpp"
-#include "lights/LightSample.hpp"
 #include "Ray.hpp"
+#include "lights/LightSample.hpp"
 
 namespace RT_ISICG
 {
@@ -13,9 +13,7 @@ namespace RT_ISICG
         BaseMaterial() = delete;
 
         BaseMaterial(const std::string &p_name)
-            : _name(p_name)
-        {
-        }
+            : _name(p_name){};
 
         virtual ~BaseMaterial() = default;
 

@@ -9,9 +9,7 @@ namespace RT_ISICG
     {
     public:
         BaseLight(const Vec3f &p_color, const float p_power = 1.f)
-            : _color(p_color), _power(p_power)
-        {
-        }
+            : _color(p_color), _power(p_power){};
 
         virtual ~BaseLight() = default;
 

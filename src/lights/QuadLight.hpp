@@ -12,9 +12,7 @@ namespace RT_ISICG
         QuadLight() = delete;
 
         QuadLight(const Vec3f &p_color, Vec3f p_position, const float p_power = 1.f)
-            : BaseLight(p_color, p_power), _position(p_position)
-        {
-        }
+            : BaseLight(p_color, p_power), _position(p_position){};
 
     private:
         Vec3f _position;

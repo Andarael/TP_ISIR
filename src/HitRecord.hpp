@@ -12,9 +12,7 @@ namespace RT_ISICG
         HitRecord() = default;
 
         HitRecord(const Vec3f &p_point, const Vec3f &p_normal, const float p_distance, const BaseObject *p_object)
-            : _point(p_point), _normal(p_normal), _distance(p_distance), _object(p_object)
-        {
-        }
+            : _point(p_point), _normal(p_normal), _distance(p_distance), _object(p_object){};
 
         /**
          * fix normal direction

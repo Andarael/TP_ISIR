@@ -1,8 +1,8 @@
 #ifndef __RT_ISICG_BASE_CAMERA__
 #define __RT_ISICG_BASE_CAMERA__
 
-#include "defines.hpp"
 #include "Ray.hpp"
+#include "defines.hpp"
 
 namespace RT_ISICG
 {
@@ -12,9 +12,7 @@ namespace RT_ISICG
         BaseCamera() = default;
 
         BaseCamera(const Vec3f &p_position)
-            : _position(p_position)
-        {
-        }
+            : _position(p_position){};
 
         virtual ~BaseCamera() = default;
 

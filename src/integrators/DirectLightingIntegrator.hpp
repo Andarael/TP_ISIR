@@ -8,11 +8,6 @@ namespace RT_ISICG
     class DirectLightingIntegrator : public BaseIntegrator
     {
     public:
-        DirectLightingIntegrator()
-            : BaseIntegrator()
-        {
-        }
-
         IntegratorType getType() const override
         {
             return IntegratorType::DIRECT_LIGHT;

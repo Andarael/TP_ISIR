@@ -10,17 +10,18 @@ namespace RT_ISICG
     public:
         Ray() = delete;
 
-        // p_direction must be normalized
         Ray(const Vec3f &p_origin, const Vec3f &p_direction)
-            : _origin(p_origin), _direction(normalize(p_direction))
-        {
-        }
+            : _origin(p_origin), _direction(normalize(p_direction)){};
 
         const Vec3f &getOrigin() const
         {
             return _origin;
         }
 
+        /**
+         * @brief getDirection
+         * @return normalized direction vector
+         */
         const Vec3f &getDirection() const
         {
             return _direction;

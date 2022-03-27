@@ -8,11 +8,6 @@ namespace RT_ISICG
     class RayCastIntegrator : public BaseIntegrator
     {
     public:
-        RayCastIntegrator()
-            : BaseIntegrator()
-        {
-        }
-
         IntegratorType getType() const override
         {
             return IntegratorType::RAY_CAST;

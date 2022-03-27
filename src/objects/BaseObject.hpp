@@ -13,9 +13,7 @@ namespace RT_ISICG
     {
     public:
         BaseObject(const std::string &p_name)
-            : _name(p_name)
-        {
-        }
+            : _name(p_name){};
 
         virtual ~BaseObject() = default;
 
