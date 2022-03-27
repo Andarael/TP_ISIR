@@ -22,32 +22,35 @@ namespace RT_ISICG
                 Vec3f li = VEC3F_ZERO;
                 LightList lights = p_scene.getLights();
                 for (BaseLight *light : lights)
-                    if (!isShadow(p_scene, hitRecord, light))
-                        li += _directLighting(hitRecord, light);
+                {
+                    Vec3f point = hitRecord._point;
+                    LightSample lightSample = light->sample(point);
+                    if (!isShadow(p_scene, lightSample, point))
+                        li += _directLighting(hitRecord, lightSample);
+                }
                 return li;
             }
             return _backgroundColor;
         }
 
     private:
-        bool isShadow(const Scene &p_scene, const HitRecord hitRecord, const BaseLight *light) const
+        // todo create only one light sample for double performances
+        bool isShadow(const Scene &p_scene, const LightSample lightSample, Vec3f point) const
         {
-            Vec3f point = hitRecord._point;
-            LightSample sample = light->sample(point);
-            Vec3f direction = sample._direction;
+            Vec3f direction = lightSample._direction;
             Ray ray = Ray(point, direction);
             ray.offset(ray.getDirection());
 
-            return p_scene.intersectAny(ray, 0, sample._distance);
+            return p_scene.intersectAny(ray, 0, lightSample._distance);
         }
 
-        Vec3f _directLighting(const HitRecord hitRecord, const BaseLight *light) const
+        Vec3f _directLighting(const HitRecord hitRecord, LightSample lightSample) const
         {
-            LightSample sample = light->sample(hitRecord._point);
-            Vec3f sampleRadiance = sample._radiance;
-            Vec3f color = hitRecord._object->getMaterial()->getFlatColor();
-            float factor = dot(sample._direction, hitRecord._normal);
-            return color * factor * sampleRadiance;
+            Vec3f sampleRadiance = lightSample._radiance;
+            Vec3f materialColor = hitRecord._object->getMaterial()->getFlatColor();
+            float factor = dot(lightSample._direction, hitRecord._normal);
+
+            return materialColor * factor * sampleRadiance;
         }
     };
 }
