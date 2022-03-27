@@ -48,6 +48,38 @@ namespace RT_ISICG
 
         virtual bool intersectAny(const Ray &p_ray, const float p_tMin, const float p_tMax) const = 0;
 
+        /**
+         * @brief check if intersection t1 and t2 are in range tmin tmax
+         *
+         * @param p_t1 first intersection point
+         * @param p_t2 second intersection point
+         * @param p_tMin minimum value of t
+         * @param p_tMax maximum value of t
+         * @return true if intersection points are in range, false otherwise
+         */
+        virtual bool intersectionInRange(float &p_t1, float &p_t2, float p_tMin, float p_tMax) const
+        {
+            sortIntersections(p_t1, p_t2);
+            if (p_t1 > p_tMax) // first intersection too far
+                return false;
+            if (p_t1 < p_tMin) // first intersection too near, check second one
+                p_t1 = p_t2;
+            if (p_t1 < p_tMin || p_t1 > p_tMax) // not in range
+                return false;
+            return true;
+        }
+
+        virtual void sortIntersections(float &p_t1, float &p_t2) const
+        {
+            if (p_t1 > p_t2)
+            {
+                float temp = p_t1;
+                p_t1 = p_t2;
+                p_t2 = temp;
+            }
+        }
+
+
     protected:
         const std::string _name;
         BaseMaterial *_material = nullptr;
