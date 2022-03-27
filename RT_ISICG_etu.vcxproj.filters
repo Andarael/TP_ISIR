@@ -34,9 +34,6 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\objects\Sphere.cpp">
-      <Filter>Source Files\objects</Filter>
-    </ClCompile>
     <ClCompile Include="src\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -57,9 +54,6 @@
     </ClCompile>
     <ClCompile Include="src\integrators\RayCastIntegrator.cpp">
       <Filter>Source Files\integrators</Filter>
-    </ClCompile>
-    <ClCompile Include="src\objects\Plane.cpp">
-      <Filter>Source Files\objects</Filter>
     </ClCompile>
     <ClCompile Include="src\geometry\PlaneGeometry.cpp">
       <Filter>Source Files\geometry</Filter>

@@ -146,8 +146,6 @@
     <ClCompile Include="src\geometry\SphereGeometry.cpp" />
     <ClCompile Include="src\integrators\RayCastIntegrator.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\objects\Plane.cpp" />
-    <ClCompile Include="src\objects\Sphere.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\texture.cpp" />
