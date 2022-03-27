@@ -1,37 +1,50 @@
+#include "Renderer.hpp"
 #include "cameras/PerspectiveCamera.hpp"
 #include "defines.hpp"
-#include "Renderer.hpp"
 
 namespace RT_ISICG
 {
     int main(int argc, char **argv)
     {
+        /* ==============================
+           ====== Render parameters =====
+           ============================== */
+        // Image
         const int imgWidth = 600;
         const int imgHeight = 400;
 
-        // Create a texture to render the scene.
-        Texture img = Texture(imgWidth, imgHeight);
+        // Render
+        const int samplesPerPixel = 1;
+        const IntegratorType integratorType = IntegratorType::DIRECT_LIGHT;
 
-        // Create and init scene.
-        Scene scene;
-        scene.init();
-
-        // Create a perspective camera.
+        // Camera
         Vec3f cameraPosition = Vec3f(0, 0, -3);
         Vec3f cameraLookAt = Vec3f(0, 0, 3);
         Vec3f worldUp = Vec3f(0, 1, 0);
         float aspectRatio = float(imgWidth) / imgHeight;
 
+        /* ============================
+           ====== Initialization ======
+           ============================ */
+        // Create and init scene.
+        Scene scene;
+        scene.init();
+
+        // Create a texture to render the scene.
+        Texture img = Texture(imgWidth, imgHeight);
+
+        // Create a perspective camera.
         PerspectiveCamera camera(cameraPosition, cameraLookAt, worldUp, 60, aspectRatio);
-        // PerspectiveCamera camera(aspectRatio);
 
         // Create and setup the renderer.
         Renderer renderer;
-        renderer.setIntegrator(IntegratorType::DIRECT_LIGHT);
+        renderer.setIntegrator(integratorType);
         renderer.setBackgroundColor(GREY);
-        renderer.setNbPixelSamples(1);
+        renderer.setNbPixelSamples(samplesPerPixel);
 
-        // Launch rendering.
+        /* =================================
+           ====== Rendering the image ======
+           ================================= */
         std::cout << "Rendering..." << std::endl;
         std::cout << "- Image size: " << imgWidth << "x" << imgHeight << std::endl;
 
@@ -39,7 +52,9 @@ namespace RT_ISICG
 
         std::cout << "-> Done in " << renderingTime << "ms" << std::endl;
 
-        // Save rendered image.
+        /* ==============================
+           ====== Saving the image ======
+           ============================== */
         const std::string imgName = "image.jpg";
         img.saveJPG(RESULTS_PATH + imgName);
 
