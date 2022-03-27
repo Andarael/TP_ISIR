@@ -23,6 +23,11 @@ namespace RT_ISICG
             return _name;
         }
 
+        /**
+         * @brief sample a point on the light
+         * @param p_point the origin point from which the light is sampled
+         * @return a LightSample object
+         */
         virtual LightSample sample(const Vec3f &p_point) const = 0;
 
     protected:

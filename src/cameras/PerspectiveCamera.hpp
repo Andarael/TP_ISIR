@@ -9,6 +9,8 @@ namespace RT_ISICG
 {
     class PerspectiveCamera : public BaseCamera
     {
+
+        // todo the view is not zoomed enough compared to the TP
     public:
         PerspectiveCamera(const float p_aspectRatio);
 
