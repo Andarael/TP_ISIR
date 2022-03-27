@@ -3,7 +3,9 @@
 
 #include "glm/glm.hpp"
 #include "glm/gtc/constants.hpp"
+#include "glm/gtx/vector_angle.hpp"
 #include <glm/gtx/string_cast.hpp>
+
 #include <iostream>
 #include <limits>
 #include <string>
