@@ -22,19 +22,12 @@ namespace RT_ISICG
         {
             float t1, t2;
             if (_geometry.intersect(p_ray, t1, t2))
-            {
-                if (t1 > p_tMax) // first intersection too far
-                    return false;
-                if (t1 < p_tMin) // first intersection too near, check second one
-                    t1 = t2;
-                if (t1 < p_tMin || t1 > p_tMax) // not in range
-                    return false;
-                return true;
-            }
+                return intersectionInRange(t1, t2, p_tMin, p_tMax);
             return false;
         }
 
     private:
+
         SphereGeometry _geometry;
     };
 
