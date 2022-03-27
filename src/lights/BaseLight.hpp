@@ -20,10 +20,15 @@ namespace RT_ISICG
             return _color;
         }
 
+        virtual const std::string &getName() const final
+        {
+            return _name;
+        }
+
         virtual LightSample sample(const Vec3f &p_point) const = 0;
 
     protected:
-        // TODO: give a name, like objects and materials
+        const std::string _name;
         Vec3f _color = WHITE;
         float _power = 1.0f;
     };
