@@ -11,14 +11,7 @@ namespace RT_ISICG
         SphereGeometry() = delete;
 
         SphereGeometry(const Vec3f &p_center, const float p_radius)
-            : _position(p_center), _radius(p_radius)
-        {
-        }
-
-        inline const Vec3f &getCenter() const
-        {
-            return _position;
-        }
+            : BaseGeometry(p_center), _radius(p_radius){};
 
         inline const float getRadius() const
         {
@@ -33,7 +26,6 @@ namespace RT_ISICG
         }
 
     private:
-        Vec3f _position = VEC3F_ZERO; // todo move to BaseGeometry
         float _radius = 1.f;
     };
 
