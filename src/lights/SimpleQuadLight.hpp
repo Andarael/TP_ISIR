@@ -5,7 +5,6 @@
 
 namespace RT_ISICG
 {
-
     class SimpleQuadLight : public QuadLight
     {
     public:
@@ -21,7 +20,7 @@ namespace RT_ISICG
             _normal = normalize(p_normal);
             _area = p_area;
 
-            _position = _position + (normalize(_v) - normalize(_u)) * 0.5f * _length;
+            _position = _position + (normalize(_v) - normalize(_u)) * 0.5f * _length; // tood find a better way
 
             displayClass();
         }
