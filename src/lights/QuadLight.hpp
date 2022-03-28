@@ -19,15 +19,8 @@ namespace RT_ISICG
         QuadLight(const Vec3f &p_color, Vec3f p_position, const float p_power, Vec3f p_u, Vec3f p_v)
             : BaseLight(p_color, p_power), _position(p_position), _u(p_u), _v(p_v)
         {
-            float theta = glm::angle(p_u, p_v);
-
-            // todo investigate
-            _area = 1.41f * glm::length(glm::cross(p_u, p_v));
-
+            _area = glm::length(glm::cross(p_u, p_v));
             _normal = glm::normalize(glm::cross(p_u, p_v));
-
-            printf("area = %f\n", _area); // mon gros debug
-
             _isSurface = true;
         };
 
@@ -52,7 +45,9 @@ namespace RT_ISICG
             float distance = glm::distance(randomSamplePoint, p_point);
 
             float cosTheta = glm::dot(_normal, direction);
-            float pdf = 1.f / _area * distance * distance / cosTheta;
+            float pdf = 1.0f / _area * (distance * distance) / cosTheta;
+
+            // pdf = (distance * distance) / (_area * cosTheta);
 
             Vec3f radiance = (_color * _power) / pdf;
 

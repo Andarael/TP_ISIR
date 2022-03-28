@@ -32,10 +32,10 @@ namespace RT_ISICG
                     {
                         Vec3f point = hitRecord._point;
                         LightSample lightSample = light->sample(point);
-                        if (!isShadow(p_scene, lightSample, point))
+                        if (!isShadow(p_scene, lightSample, point, hitRecord._normal))
                             li += _directLighting(hitRecord, lightSample);
                     }
-                    li /= (targetSamples);
+                    li /= float(targetSamples);
                 }
                 return li;
             }
@@ -43,14 +43,14 @@ namespace RT_ISICG
         }
 
     private:
-        int _nbLightSamples = 4; // todo multiple sample importance in light ?
+        int _nbLightSamples = 1; // todo multiple sample importance in light ?
 
         // todo create only one light sample for double performances
-        bool isShadow(const Scene &p_scene, const LightSample lightSample, Vec3f point) const
+        bool isShadow(const Scene &p_scene, const LightSample lightSample, Vec3f point, Vec3f p_normal) const
         {
             Vec3f direction = lightSample._direction;
             Ray ray = Ray(point, direction);
-            ray.offset(ray.getDirection());
+            ray.offset(p_normal);
 
             return p_scene.intersectAny(ray, 0, lightSample._distance);
         }
@@ -60,7 +60,8 @@ namespace RT_ISICG
             Vec3f sampleRadiance = lightSample._radiance;
             Vec3f materialColor = hitRecord._object->getMaterial()->getFlatColor();
             // todo use material.shade ?
-            float factor = dot(lightSample._direction, hitRecord._normal);
+            // float factor = glm::dot(lightSample._direction, hitRecord._normal);
+            float factor = glm::abs(dot(lightSample._direction, hitRecord._normal));
 
             return materialColor * factor * sampleRadiance;
         }
