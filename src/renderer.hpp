@@ -18,14 +18,14 @@ namespace RT_ISICG
 
         void setIntegrator(IntegratorType p_integratorType);
 
-        void setBackgroundColor(const Vec3f &p_color);
+        void setBackgroundColor(const Vec3f &p_color) const;
 
         void setNbPixelSamples(const int p_nbPixelSamples)
         {
             _nbPixelSamples = p_nbPixelSamples;
         }
 
-        float renderImage(const Scene &p_scene, const BaseCamera *p_camera, Texture &p_texture);
+        float renderImage(const Scene &p_scene, const BaseCamera *p_camera, Texture &p_texture) const;
 
         Vec3f colorTransform(RT_ISICG::Vec3f &color) const;
 

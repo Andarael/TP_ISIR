@@ -37,7 +37,7 @@ namespace RT_ISICG
         }
     }
 
-    void Renderer::setBackgroundColor(const Vec3f &p_color)
+    void Renderer::setBackgroundColor(const Vec3f &p_color) const
     {
         if (_integrator == nullptr)
             std::cout << "[Renderer::setBackgroundColor] Integrator is null" << std::endl;
@@ -45,7 +45,7 @@ namespace RT_ISICG
             _integrator->setBackgroundColor(p_color);
     }
 
-    float Renderer::renderImage(const Scene &p_scene, const BaseCamera *p_camera, Texture &p_texture)
+    float Renderer::renderImage(const Scene &p_scene, const BaseCamera *p_camera, Texture &p_texture) const
     {
         const int width = p_texture.getWidth();
         const int height = p_texture.getHeight();
@@ -56,18 +56,18 @@ namespace RT_ISICG
         progressBar.start(height, 50);
         chrono.start();
 
-        float pixelSizeX = 1.f / (float)(width - 1);
-        float pixelSizeY = 1.f / (float)(height - 1);
+        float pixelSizeX = 1.f / float(width - 1);
+        float pixelSizeY = 1.f / float(height - 1);
 #pragma omp parallel for
         for (int j = 0; j < height; j++)
         {
             for (int i = 0; i < width; i++)
             {
                 // no need to have the center of a pixel, as with AA a value will be added from the top lef of each pixels
-                float sx = (float)i * pixelSizeX;
-                float sy = (float)j * pixelSizeY;
+                float sx = float(i) * pixelSizeX;
+                float sy = float(j) * pixelSizeY;
 
-                Vec3f color = VEC3F_ZERO; // todo return color in multisample
+                Vec3f color = VEC3F_ZERO; // todo return color in multi-sample
 
                 multiSample(p_camera, sx, sy, color, p_scene, pixelSizeY, pixelSizeX, _nbPixelSamples);
 
@@ -90,6 +90,7 @@ namespace RT_ISICG
         // gamma correction
         // color = glm::pow(color, Vec3f(1 / 2.2f));
         // color = color * 0.5f + 0.5f;
+
         // clamp
         color = glm::clamp(color, 0.0f, 1.0f);
         return color;
