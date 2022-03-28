@@ -1,7 +1,7 @@
 #ifndef __RT_ISICG_TRIANGLE_GEOMETRY__
 #define __RT_ISICG_TRIANGLE_GEOMETRY__
 
-#include "base_geometry.hpp"
+#include "BaseGeometry.hpp"
 
 namespace RT_ISICG
 {

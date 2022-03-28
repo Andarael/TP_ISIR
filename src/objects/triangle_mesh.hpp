@@ -1,7 +1,7 @@
 #ifndef __RT_ISICG_TRIANGLE_MESH__
 #define __RT_ISICG_TRIANGLE_MESH__
 
-#include "base_object.hpp"
+#include "BaseObject.hpp"
 #include "geometry/triangle_mesh_geometry.hpp"
 #include <vector>
 
