@@ -68,5 +68,3 @@ namespace RT_ISICG
 }
 
 #endif // __RT_ISICG_DIRECT_LIGHT_INT
-
-// 0.97

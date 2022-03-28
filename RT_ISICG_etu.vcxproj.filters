@@ -61,10 +61,10 @@
     <ClCompile Include="src\geometry\PlaneGeometry.cpp">
       <Filter>Source Files\geometry</Filter>
     </ClCompile>
-    <ClCompile Include="src\objects\triangle_mesh.cpp">
+    <ClCompile Include="src\objects\MeshTriangle.cpp">
       <Filter>Source Files\objects</Filter>
     </ClCompile>
-    <ClCompile Include="src\geometry\triangle_mesh_geometry.cpp">
+    <ClCompile Include="src\geometry\TriangleMeshGeometry.cpp">
       <Filter>Source Files\geometry</Filter>
     </ClCompile>
     <ClCompile Include="src\aabb.cpp">
@@ -156,13 +156,13 @@
     <ClInclude Include="src\brdfs\lambert_brdf.hpp">
       <Filter>Source Files\brdfs</Filter>
     </ClInclude>
-    <ClInclude Include="src\objects\triangle_mesh.hpp">
+    <ClInclude Include="src\objects\MeshTriangle.hpp">
       <Filter>Source Files\objects</Filter>
     </ClInclude>
-    <ClInclude Include="src\geometry\triangle_mesh_geometry.hpp">
+    <ClInclude Include="src\geometry\TriangleMeshGeometry.hpp">
       <Filter>Source Files\geometry</Filter>
     </ClInclude>
-    <ClInclude Include="src\materials\lambert_material.hpp">
+    <ClInclude Include="src\materials\lambertMaterial.hpp">
       <Filter>Source Files\materials</Filter>
     </ClInclude>
     <ClInclude Include="src\aabb.hpp">
