@@ -19,8 +19,9 @@ namespace RT_ISICG
         QuadLight(const Vec3f &p_color, const float p_power, Vec3f p_position, Vec3f p_u, Vec3f p_v)
             : BaseLight(p_color, p_power), _position(p_position), _u(p_u), _v(p_v)
         {
-            _area = glm::length(glm::cross(p_u, p_v));
-            _normal = glm::normalize(glm::cross(p_u, p_v));
+            Vec3f crossUV = glm::cross(p_u, p_v);
+            _area = glm::length(crossUV);
+            _normal = glm::normalize(crossUV);
             _isSurface = true;
         };
 

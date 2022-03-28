@@ -61,9 +61,9 @@ namespace RT_ISICG
             Vec3f materialColor = hitRecord._object->getMaterial()->getFlatColor();
             // todo use material.shade ?
             // float factor = glm::dot(lightSample._direction, hitRecord._normal);
-            float factor = glm::abs(dot(lightSample._direction, hitRecord._normal));
+            float factor = dot(lightSample._direction, hitRecord._normal);
 
-            return materialColor * factor * sampleRadiance;
+            return max(VEC3F_ZERO, materialColor * factor * sampleRadiance);
         }
     };
 }

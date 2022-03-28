@@ -17,12 +17,9 @@ namespace RT_ISICG
             _u = _length * cross(p_normal, vec);
             _v = _length * normalize(cross(_u, p_normal));
             _u = _length * normalize(cross(_v, p_normal));
-            _normal = normalize(p_normal);
             _area = p_area;
-
+            _normal = normalize(p_normal);
             _position = _position + (normalize(_v) - normalize(_u)) * 0.5f * _length; // tood find a better way
-
-            displayClass();
         }
 
     protected:
