@@ -39,7 +39,6 @@ namespace RT_ISICG
          * @param p_scene scene to render
          * @param pixelSizeY size of pixel in X
          * @param pixelSizeX size of pixel in Y
-         * @param nbPixelSamples number of samples
          */
         void multiSample(const BaseCamera *p_camera, float sx, float sy, Vec3f &color, const Scene &p_scene, float pixelSizeY, float pixelSizeX) const;
 
