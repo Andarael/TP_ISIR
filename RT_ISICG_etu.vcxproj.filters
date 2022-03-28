@@ -165,8 +165,12 @@
     <ClInclude Include="src\materials\lambert_material.hpp">
       <Filter>Source Files\materials</Filter>
     </ClInclude>
-    <ClInclude Include="src\bvh.hpp" />
-    <ClInclude Include="src\aabb.hpp" />
+    <ClInclude Include="src\aabb.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bvh.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />

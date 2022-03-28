@@ -2,7 +2,7 @@
 #define __RT_ISICG_BVH__
 
 #include "aabb.hpp"
-#include "hit_record.hpp"
+#include "HitRecord.hpp"
 #include <vector>
 
 namespace RT_ISICG
