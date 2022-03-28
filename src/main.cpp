@@ -19,7 +19,7 @@ namespace RT_ISICG
         const IntegratorType integratorType = IntegratorType::DIRECT_LIGHT;
 
         // Camera parameters
-        Vec3f cameraPosition = Vec3f(0, 0, -3);
+        Vec3f cameraPosition = Vec3f(0, 0, -2);
         Vec3f cameraLookAt = Vec3f(0, 0, 3);
         Vec3f worldUp = Vec3f(0, 1, 0);
         float aspectRatio = float(imgWidth) / imgHeight;

@@ -1,16 +1,13 @@
 #include "Scene.hpp"
 #include "lights/PointLight.hpp"
 #include "lights/QuadLight.hpp"
+#include "lights/SimpleQuadLight.hpp"
 #include "materials/ColorMaterial.hpp"
 #include "objects/Plane.hpp"
 #include "objects/Sphere.hpp"
 
-#include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtx/rotate_vector.hpp"
 #include "glm/gtx/string_cast.hpp"
 #include "objects/MeshTriangle.hpp"
-
-#include <glm/glm.hpp>
 
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
@@ -43,10 +40,12 @@ namespace RT_ISICG
         // _addLight(PointLight);
 
         // quad quad light
-        Vec3f quadLightPosition = Vec3f(1, 10, 2);
+        Vec3f quadLightPosition = Vec3f(0, 4, 0);
         Vec3f u = Vec3f(-2, 0, 0);
         Vec3f v = Vec3f(0, 0, 2);
-        QuadLight *quadLight = new QuadLight(WHITE, quadLightPosition, 28.2f, u, v);
+        QuadLight *quadLight;
+        //quadLight= new QuadLight(WHITE, 20.f, quadLightPosition, u, v);
+        quadLight = new SimpleQuadLight(WHITE, 20.f, 4, quadLightPosition, Vec3f(0,-1,0));
         _addLight(quadLight);
 
         // Vec3f lightPosition2 = Vec3f(-2, 7, -2);
