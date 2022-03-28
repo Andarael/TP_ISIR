@@ -141,6 +141,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\aabb.cpp" />
+    <ClCompile Include="src\bvh.cpp" />
     <ClCompile Include="src\cameras\PerspectiveCamera.cpp" />
     <ClCompile Include="src\geometry\PlaneGeometry.cpp" />
     <ClCompile Include="src\geometry\SphereGeometry.cpp" />
@@ -154,7 +156,9 @@
     <ClCompile Include="src\utils\console_progress_bar.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\aabb.hpp" />
     <ClInclude Include="src\brdfs\lambert_brdf.hpp" />
+    <ClInclude Include="src\bvh.hpp" />
     <ClInclude Include="src\cameras\BaseCamera.hpp" />
     <ClInclude Include="src\cameras\PerspectiveCamera.hpp" />
     <ClInclude Include="src\geometry\BaseGeometry.hpp" />
