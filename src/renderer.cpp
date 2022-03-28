@@ -56,26 +56,20 @@ namespace RT_ISICG
         progressBar.start(height, 50);
         chrono.start();
 
-        float pixelSizeX = 1.f / (width - 1);
-        float pixelSizeY = 1.f / (height - 1);
+        float pixelSizeX = 1.f / (float)(width - 1);
+        float pixelSizeY = 1.f / (float)(height - 1);
 #pragma omp parallel for
         for (int j = 0; j < height; j++)
         {
             for (int i = 0; i < width; i++)
             {
                 // no need to have the center of a pixel, as with AA a value will be added from the top lef of each pixels
-
-                float sx = i * pixelSizeX;
-                float sy = j * pixelSizeY;
+                float sx = (float)i * pixelSizeX;
+                float sy = (float)j * pixelSizeY;
 
                 Vec3f color = VEC3F_ZERO; // todo return color in multisample
 
                 multiSample(p_camera, sx, sy, color, p_scene, pixelSizeY, pixelSizeX, _nbPixelSamples);
-
-                // color = ray.getDirection();
-                // color = (color + 1.0f) * 0.5f;
-                // color.z = 0;
-                // color.y = 0;
 
                 color = colorTransform(color);
 
@@ -95,9 +89,8 @@ namespace RT_ISICG
     {
         // gamma correction
         // color = glm::pow(color, Vec3f(1 / 2.2f));
-
-        // color = Vec3f(0.5f, 0.5f, 1.f);
         // color = color * 0.5f + 0.5f;
+        // clamp
         color = glm::clamp(color, 0.0f, 1.0f);
         return color;
     }
@@ -106,7 +99,7 @@ namespace RT_ISICG
     {
         float offsetX;
         float offsetY;
-        bool gridSampling = true; // todo move to hpp
+        bool gridSampling = false; // todo move to hpp
 
         if (!gridSampling)
         {
