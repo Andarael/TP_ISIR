@@ -118,7 +118,7 @@
       <Command>
         xcopy /y /d  "$(ProjectDir)lib\assimp\assimp-vc142-mt.dll" "$(OutDir)"
         xcopy /y /d  "$(ProjectDir)lib\zlib1.dll" "$(OutDir)"
-      </Command>
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -166,8 +166,10 @@
       <AdditionalDependencies>assimp-vc142-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /d  "$(ProjectDir)lib\assimp\assimp-vc142-mt.dll" "$(OutDir)"
-xcopy /y /d  "$(ProjectDir)lib\zlib1.dll" "$(OutDir)"</Command>
+      <Command>
+        xcopy /y /d  "$(ProjectDir)lib\assimp\assimp-vc142-mt.dll" "$(OutDir)"
+        xcopy /y /d  "$(ProjectDir)lib\zlib1.dll" "$(OutDir)"
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
