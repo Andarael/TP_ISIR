@@ -57,7 +57,7 @@ namespace RT_ISICG
         //_addMaterial(new ColorMaterial("White", WHITE));
         //_attachMaterialToObject("White", "LightSphere");
 
-        loadFileTriangleMesh("chval", "./results/Menger01.obj");
+        loadFileTriangleMesh("chval", "./results/Menger_01.obj");
 
         // Add objects.
         _addObject(new Sphere("Sphere1", Vec3f(0, 0, 3), 1.f));
