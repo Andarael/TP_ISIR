@@ -46,7 +46,7 @@ namespace RT_ISICG
         Vec3f quadLightPosition = Vec3f(1, 10, 2);
         Vec3f u = Vec3f(-2, 0, 0);
         Vec3f v = Vec3f(0, 0, 2);
-        QuadLight *quadLight = new QuadLight(WHITE, quadLightPosition, 20, u, v);
+        QuadLight *quadLight = new QuadLight(WHITE, quadLightPosition, 28.2f, u, v);
         _addLight(quadLight);
 
         // Vec3f lightPosition2 = Vec3f(-2, 7, -2);
