@@ -22,7 +22,7 @@ namespace RT_ISICG
         virtual ~BaseIntegrator() = default;
 
         // Return incoming luminance.
-        virtual Vec3f Li(const Scene &p_scene, const Ray &p_ray, const float p_tMin, const float p_tMax) const = 0;
+        virtual Vec3f Li(const Scene &p_scene, const Ray &p_ray, float p_tMin, float p_tMax) const = 0;
 
         const Vec3f &getBackgroundColor() const
         {

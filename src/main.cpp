@@ -4,11 +4,12 @@
 
 namespace RT_ISICG
 {
+    /**/
     int main(int argc, char **argv)
     {
         /* ==============================
-           ====== Render parameters =====
-           ============================== */
+         * ====== Render parameters =====
+         * ============================== */
         // Output Image parameters
         const int imgWidth = 600;
         const int imgHeight = 400;
@@ -24,8 +25,8 @@ namespace RT_ISICG
         float aspectRatio = float(imgWidth) / imgHeight;
 
         /* ============================
-           ====== Initialization ======
-           ============================ */
+         * ====== Initialization ======
+         * ============================ */
         // Create and init scene.
         Scene scene;
         scene.init();
@@ -43,8 +44,8 @@ namespace RT_ISICG
         renderer.setNbPixelSamples(samplesPerPixel);
 
         /* =================================
-           ====== Rendering the image ======
-           ================================= */
+         * ====== Rendering the image ======
+         * ================================= */
         std::cout << "Rendering..." << std::endl;
         std::cout << "- Image size: " << imgWidth << "x" << imgHeight << std::endl;
 
@@ -53,8 +54,8 @@ namespace RT_ISICG
         std::cout << "-> Done in " << renderingTime << "ms" << std::endl;
 
         /* ==============================
-           ====== Saving the image ======
-           ============================== */
+         * ====== Saving the image ======
+         * ============================== */
         const std::string imgName = "image.jpg";
         img.saveJPG(RESULTS_PATH + imgName);
 
@@ -62,7 +63,7 @@ namespace RT_ISICG
     }
 } // namespace RT_ISICG
 
-int main(int argc, char **argv)
+int main(const int argc, char **argv)
 {
     try
     {

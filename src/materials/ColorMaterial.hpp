@@ -10,11 +10,7 @@ namespace RT_ISICG
     {
     public:
         ColorMaterial(const std::string &p_name, const Vec3f &p_color)
-            : BaseMaterial(p_name), _color(p_color)
-        {
-        }
-
-        virtual ~ColorMaterial() = default;
+            : BaseMaterial(p_name), _color(p_color){};
 
         Vec3f shade(const Ray &p_ray, const HitRecord &p_hit, const LightSample &p_lightSample) const override
         {

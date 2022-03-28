@@ -18,22 +18,22 @@ namespace RT_ISICG
             _pixels.shrink_to_fit();
         }
 
-        inline const int getWidth() const
+        int getWidth() const
         {
             return _width;
         }
 
-        inline const int getHeight() const
+        int getHeight() const
         {
             return _height;
         }
 
-        inline std::vector<unsigned char> &getPixels()
+        std::vector<unsigned char> &getPixels()
         {
             return _pixels;
         }
 
-        inline const std::vector<unsigned char> &getPixels() const
+        const std::vector<unsigned char> &getPixels() const
         {
             return _pixels;
         }
@@ -57,7 +57,7 @@ namespace RT_ISICG
             _pixels[pixelId + 3] = static_cast<unsigned char>(p_color.b * 255);
         }
 
-        void saveJPG(const std::string &p_path, const int p_quality = 100);
+        void saveJPG(const std::string &p_path, int p_quality = 100) const;
 
     private:
         const int _nbChannels = 3;
@@ -65,7 +65,6 @@ namespace RT_ISICG
         int _height;
         std::vector<unsigned char> _pixels;
     };
-
 } // namespace RT_ISICG
 
 #endif // __RT_ISICG_IMAGE__

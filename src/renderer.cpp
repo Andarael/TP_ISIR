@@ -69,7 +69,7 @@ namespace RT_ISICG
 
                 Vec3f color = VEC3F_ZERO; // todo return color in multi-sample
 
-                multiSample(p_camera, sx, sy, color, p_scene, pixelSizeY, pixelSizeX, _nbPixelSamples);
+                multiSample(p_camera, sx, sy, color, p_scene, pixelSizeY, pixelSizeX);
 
                 color = colorTransform(color);
 
@@ -96,18 +96,17 @@ namespace RT_ISICG
         return color;
     }
 
-    void Renderer::multiSample(const BaseCamera *p_camera, float sx, float sy, Vec3f &color, const Scene &p_scene, const float pixelSizeY, float pixelSizeX, int nbPixelSamples) const
+    void Renderer::multiSample(const BaseCamera *p_camera, float sx, float sy, Vec3f &color, const Scene &p_scene, const float pixelSizeY, float pixelSizeX) const
     {
         float offsetX;
         float offsetY;
-        bool gridSampling = false; // todo move to hpp
 
-        if (!gridSampling)
+        if (!_gridSampling)
         {
             // Always sample the center of the pixel first
             offsetX = pixelSizeX * 0.5f;
             offsetY = pixelSizeY * 0.5f;
-            for (int sample = 0; sample < nbPixelSamples; sample++)
+            for (int sample = 0; sample < _nbPixelSamples; sample++)
             {
                 Ray ray = p_camera->generateRay(sx + offsetX, sy + offsetY);
                 color += _integrator->Li(p_scene, ray, 0, 1000);
@@ -119,12 +118,13 @@ namespace RT_ISICG
         }
         else
         {
-            for (int i = 1; i <= nbPixelSamples; i++)
+            float factor = float(_nbPixelSamples * 2);
+            for (int i = 1; i <= _nbPixelSamples; i++)
             {
-                for (int j = 1; j <= nbPixelSamples; j++)
+                for (int j = 1; j <= _nbPixelSamples; j++)
                 {
-                    float subsampleX = (float(2 * i) - 1) / float(nbPixelSamples * 2);
-                    float subsampleY = (float(2 * j) - 1) / float(nbPixelSamples * 2);
+                    float subsampleX = float(2 * i - 1) / factor;
+                    float subsampleY = float(2 * j - 1) / factor;
 
                     // random extremely slow here
                     offsetX = pixelSizeX * subsampleX;
@@ -134,7 +134,7 @@ namespace RT_ISICG
                     color += _integrator->Li(p_scene, ray, 0, FLT_INFINITY);
                 }
             }
-            color /= (nbPixelSamples * nbPixelSamples);
+            color /= (_nbPixelSamples * _nbPixelSamples);
         }
     }
 } // namespace RT_ISICG

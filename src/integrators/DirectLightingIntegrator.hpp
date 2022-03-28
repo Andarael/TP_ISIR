@@ -13,7 +13,6 @@ namespace RT_ISICG
             return IntegratorType::DIRECT_LIGHT;
         }
 
-        // todo move to cpp
         Vec3f Li(const Scene &p_scene, const Ray &p_ray, const float p_tMin, const float p_tMax) const override
         {
             HitRecord hitRecord;
@@ -32,7 +31,7 @@ namespace RT_ISICG
                     {
                         Vec3f point = hitRecord._point;
                         LightSample lightSample = light->sample(point);
-                        if (!isShadow(p_scene, lightSample, point, hitRecord._normal))
+                        if (!_isShadow(p_scene, lightSample, point, hitRecord._normal))
                             li += _directLighting(hitRecord, lightSample);
                     }
                     li /= float(targetSamples);
@@ -43,10 +42,11 @@ namespace RT_ISICG
         }
 
     private:
-        int _nbLightSamples = 1; // todo multiple sample importance in light ?
+        // todo multiple sample importance in light ?
+        int _nbLightSamples = 4;
 
         // todo create only one light sample for double performances
-        bool isShadow(const Scene &p_scene, const LightSample lightSample, Vec3f point, Vec3f p_normal) const
+        static bool _isShadow(const Scene &p_scene, const LightSample lightSample, Vec3f point, Vec3f p_normal)
         {
             Vec3f direction = lightSample._direction;
             Ray ray = Ray(point, direction);

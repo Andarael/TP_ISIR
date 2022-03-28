@@ -9,12 +9,12 @@ namespace RT_ISICG
     class BaseGeometry
     {
     public:
-        BaseGeometry(Vec3f p_position)
+        BaseGeometry(const Vec3f p_position)
             : _position(p_position){};
 
         virtual ~BaseGeometry() = default;
 
-        virtual const Vec3f getPosition()
+        virtual Vec3f getPosition()
         {
             return _position;
         }

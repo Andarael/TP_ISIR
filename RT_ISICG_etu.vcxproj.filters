@@ -49,17 +49,8 @@
     <ClCompile Include="src\utils\console_progress_bar.cpp">
       <Filter>Source Files\utils</Filter>
     </ClCompile>
-    <ClCompile Include="src\geometry\SphereGeometry.cpp">
-      <Filter>Source Files\geometry</Filter>
-    </ClCompile>
     <ClCompile Include="src\texture.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\integrators\RayCastIntegrator.cpp">
-      <Filter>Source Files\integrators</Filter>
-    </ClCompile>
-    <ClCompile Include="src\geometry\PlaneGeometry.cpp">
-      <Filter>Source Files\geometry</Filter>
     </ClCompile>
     <ClCompile Include="src\objects\MeshTriangle.cpp">
       <Filter>Source Files\objects</Filter>

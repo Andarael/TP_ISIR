@@ -27,7 +27,7 @@ namespace RT_ISICG
         void init();
 
         // Initialization from file.
-        void init(const std::string &p_path)
+        static void init(const std::string &p_path)
         {
             throw std::exception("Not implemented !");
         }

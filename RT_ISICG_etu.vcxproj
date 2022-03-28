@@ -52,10 +52,8 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
-  <ImportGroup Label="Shared">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionSettings"></ImportGroup>
+  <ImportGroup Label="Shared"></ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -182,10 +180,7 @@
     <ClCompile Include="src\aabb.cpp" />
     <ClCompile Include="src\bvh.cpp" />
     <ClCompile Include="src\cameras\PerspectiveCamera.cpp" />
-    <ClCompile Include="src\geometry\PlaneGeometry.cpp" />
-    <ClCompile Include="src\geometry\SphereGeometry.cpp" />
     <ClCompile Include="src\geometry\TriangleMeshGeometry.cpp" />
-    <ClCompile Include="src\integrators\RayCastIntegrator.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\objects\MeshTriangle.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
@@ -231,6 +226,5 @@
     <None Include=".clang-format" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets"></ImportGroup>
 </Project>

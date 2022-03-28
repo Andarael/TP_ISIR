@@ -12,9 +12,9 @@ namespace RT_ISICG
 
         // todo the view is not zoomed enough compared to the TP
     public:
-        PerspectiveCamera(const float p_aspectRatio);
+        PerspectiveCamera(float p_aspectRatio);
 
-        PerspectiveCamera(const Vec3f &p_position, const Vec3f &p_lookAt, const Vec3f &p_up, const float p_fovy, const float p_aspectRatio);
+        PerspectiveCamera(const Vec3f &p_position, const Vec3f &p_lookAt, const Vec3f &p_up, float p_fovy, float p_aspectRatio);
 
         inline Ray generateRay(const float p_sx, const float p_sy) const override
         {

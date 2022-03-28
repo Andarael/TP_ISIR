@@ -57,12 +57,9 @@ namespace RT_ISICG
         //_addMaterial(new ColorMaterial("White", WHITE));
         //_attachMaterialToObject("White", "LightSphere");
 
-        loadFileTriangleMesh("chval", "./results/Menger_01.obj");
-
         // Add objects.
         _addObject(new Sphere("Sphere1", Vec3f(0, 0, 3), 1.f));
-        float rotation = glm::radians(0.0f);
-        Vec3f planeNormal = glm::rotate(Vec3f(0, 1, 0), rotation, Vec3f(-1, 0, 1));
+        Vec3f planeNormal = Vec3f(0, 1, 0);
         _addObject(new Plane("Plane1", Vec3f(0, -2, 0), planeNormal));
 
         // Add materials.
@@ -94,9 +91,7 @@ namespace RT_ISICG
         {
             const aiMesh *const mesh = scene->mMeshes[m];
             if (mesh == nullptr)
-            {
                 throw std::runtime_error("Fail to load file: " + p_path + ": mesh is null");
-            }
 
             const std::string meshName = p_name + "_" + std::string(mesh->mName.C_Str());
             std::cout << "-- Load mesh " << m + 1 << "/" << scene->mNumMeshes << ": " << meshName << std::endl;
@@ -176,12 +171,8 @@ namespace RT_ISICG
     {
         bool hit = false;
         for (const ObjectMapPair &object : _objectMap)
-        {
             if (object.second->intersectAny(p_ray, p_tMin, p_tMax))
-            {
                 return true;
-            }
-        }
         return false;
     }
 
@@ -237,5 +228,4 @@ namespace RT_ISICG
             _objectMap[p_objectName]->setMaterial(_materialMap[p_materialName]);
         }
     }
-
 } // namespace RT_ISICG

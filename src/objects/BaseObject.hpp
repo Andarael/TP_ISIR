@@ -38,7 +38,7 @@ namespace RT_ISICG
          * @param p_ray ray to check for intersection
          * @param p_tMin minimum t value to check for intersection
          * @param p_tMax maximum t value to check for intersection
-         * @param p_hitRecord hitrecord to fill if intersection is found
+         * @param p_hitRecord hit-record to fill if intersection is found
          * @return true if intersection is found, false otherwise
          */
         virtual bool intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const = 0;
@@ -60,7 +60,7 @@ namespace RT_ISICG
             p_hitRecord._object = this;
         }
 
-        virtual bool intersectAny(const Ray &p_ray, const float p_tMin, const float p_tMax) const = 0;
+        virtual bool intersectAny(const Ray &p_ray, float p_tMin, float p_tMax) const = 0;
 
         /**
          * @brief check if intersection t1 and t2 are in range tmin tmax
@@ -71,7 +71,7 @@ namespace RT_ISICG
          * @param p_tMax maximum value of t
          * @return true if intersection points are in range, false otherwise
          */
-        virtual bool intersectionInRange(float &p_t1, float &p_t2, float p_tMin, float p_tMax) const
+        virtual bool intersectionInRange(float &p_t1, float &p_t2, const float p_tMin, const float p_tMax) const
         {
             sortIntersections(p_t1, p_t2);
             if (p_t1 > p_tMax) // first intersection too far

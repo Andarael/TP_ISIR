@@ -12,8 +12,6 @@ namespace RT_ISICG
         LambertMaterial(const std::string &p_name, const Vec3f &p_diffuse)
             : BaseMaterial(p_name), _brdf(p_diffuse){};
 
-        ~LambertMaterial() override = default;
-
         Vec3f shade(const Ray &p_ray, const HitRecord &p_hitRecord, const LightSample &p_lightSample) const override
         {
             return _brdf.evaluate();
