@@ -13,17 +13,19 @@ namespace RT_ISICG
 
         // cours - td fig
         // float a = glm::dot(rayDirection, rayDirection);
-        float a = 1; // because rayDirection is normalized
+        // float a = 1; // because rayDirection is normalized
         float b = 2.0f * dot(rayDirection, OC);
-        float c = dot(OC, OC) - _radius * _radius;
+        float c = dot(OC, OC) - (_radius * _radius);
 
-        float delta = b * b - 4 * a * c;
+        float delta = b * b - 4 * c;
 
         if (delta < 0)
             return false;
 
-        p_t1 = (-b + glm::sqrt(delta)) / (2 * a);
-        p_t2 = (-b - glm::sqrt(delta)) / (2 * a);
+        float sqrtDelta = glm::sqrt(delta);
+
+        p_t1 = (-b + sqrtDelta) * 0.5f;
+        p_t2 = (-b - sqrtDelta) * 0.5f;
         // todo check interior of sphere
 
         if (p_t1 > p_t2)
