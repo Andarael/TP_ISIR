@@ -144,19 +144,23 @@
     <ClCompile Include="src\cameras\PerspectiveCamera.cpp" />
     <ClCompile Include="src\geometry\PlaneGeometry.cpp" />
     <ClCompile Include="src\geometry\SphereGeometry.cpp" />
+    <ClCompile Include="src\geometry\triangle_mesh_geometry.cpp" />
     <ClCompile Include="src\integrators\RayCastIntegrator.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\objects\triangle_mesh.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\texture.cpp" />
     <ClCompile Include="src\utils\console_progress_bar.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\brdfs\lambert_brdf.hpp" />
     <ClInclude Include="src\cameras\BaseCamera.hpp" />
     <ClInclude Include="src\cameras\PerspectiveCamera.hpp" />
     <ClInclude Include="src\geometry\BaseGeometry.hpp" />
     <ClInclude Include="src\geometry\PlaneGeometry.hpp" />
     <ClInclude Include="src\geometry\SphereGeometry.hpp" />
+    <ClInclude Include="src\geometry\triangle_mesh_geometry.hpp" />
     <ClInclude Include="src\HitRecord.hpp" />
     <ClInclude Include="src\integrators\BaseIntegrator.hpp" />
     <ClInclude Include="src\integrators\DirectLightingIntegrator.hpp" />
@@ -169,9 +173,11 @@
     <ClInclude Include="src\defines.hpp" />
     <ClInclude Include="src\io\stb_include.hpp" />
     <ClInclude Include="src\materials\BaseMaterial.hpp" />
+    <ClInclude Include="src\materials\lambert_material.hpp" />
     <ClInclude Include="src\objects\BaseObject.hpp" />
     <ClInclude Include="src\objects\Plane.hpp" />
     <ClInclude Include="src\objects\Sphere.hpp" />
+    <ClInclude Include="src\objects\triangle_mesh.hpp" />
     <ClInclude Include="src\Ray.hpp" />
     <ClInclude Include="src\Renderer.hpp" />
     <ClInclude Include="src\Scene.hpp" />

@@ -29,6 +29,9 @@
     <Filter Include="Source Files\geometry">
       <UniqueIdentifier>{618845aa-171b-4533-b6e5-ff84a164de78}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\brdfs">
+      <UniqueIdentifier>{383eaea4-ad21-4774-a0c5-004e4bf140dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -56,6 +59,12 @@
       <Filter>Source Files\integrators</Filter>
     </ClCompile>
     <ClCompile Include="src\geometry\PlaneGeometry.cpp">
+      <Filter>Source Files\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objects\triangle_mesh.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\geometry\triangle_mesh_geometry.cpp">
       <Filter>Source Files\geometry</Filter>
     </ClCompile>
   </ItemGroup>
@@ -137,6 +146,18 @@
     </ClInclude>
     <ClInclude Include="src\lights\QuadLight.hpp">
       <Filter>Source Files\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="src\brdfs\lambert_brdf.hpp">
+      <Filter>Source Files\brdfs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\triangle_mesh.hpp">
+      <Filter>Source Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\geometry\triangle_mesh_geometry.hpp">
+      <Filter>Source Files\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\materials\lambert_material.hpp">
+      <Filter>Source Files\materials</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
