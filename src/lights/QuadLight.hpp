@@ -55,7 +55,7 @@ namespace RT_ISICG
             return LightSample(direction, distance, radiance, pdf);
         }
 
-        void displayClass() const
+        void displayLight() const
         {
             std::cout << "QuadLight" << std::endl;
             std::cout << "position: " << glm::to_string(_position) << std::endl;

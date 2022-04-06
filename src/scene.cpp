@@ -35,23 +35,23 @@ namespace RT_ISICG
     void Scene::init()
     {
         // Add Point lights;
-        // Vec3f lightPosition = Vec3f(1, 10, 1);
-        // PointLight *pointLight = new PointLight(WHITE, lightPosition, 100);
-        // _addLight(PointLight);
+        Vec3f lightPosition = Vec3f(1, 10, 1);
+        PointLight *pointLight = new PointLight(WHITE, lightPosition, 100);
 
         // quad quad light
-        Vec3f quadLightPosition = Vec3f(0, 4, 0);
+        Vec3f quadLightPosition = Vec3f(1, 10, 1);
         Vec3f u = Vec3f(-2, 0, 0);
         Vec3f v = Vec3f(0, 0, 2);
-        QuadLight *quadLight;
-        quadLight= new QuadLight(WHITE, 20.f, quadLightPosition, u, v);
-        quadLight->displayClass();
-        //quadLight = new SimpleQuadLight(WHITE, 20.f, 4, quadLightPosition, Vec3f(0,-1,0));
-        _addLight(quadLight);
+        QuadLight *quadLight = new QuadLight(WHITE, 40.f, quadLightPosition, u, v);
+        quadLight->displayLight();
+        quadLight = new SimpleQuadLight(WHITE, 40.f, 4, quadLightPosition, Vec3f(0, -1, 0));
 
-        // Vec3f lightPosition2 = Vec3f(-2, 7, -2);
-        // PointLight *light2 = new PointLight(WHITE, lightPosition2, 50);
+        Vec3f lightPosition2 = Vec3f(-2, 7, -2);
+        PointLight *light2 = new PointLight(WHITE, lightPosition2, 50);
+
         //_addLight(light2);
+        //_addLight(pointLight);
+        _addLight(quadLight);
 
         //_addObject(new Sphere("LightSphere", lightPosition + Vec3f(0, 3, 0), 0.5f));
         //_addMaterial(new ColorMaterial("White", WHITE));
