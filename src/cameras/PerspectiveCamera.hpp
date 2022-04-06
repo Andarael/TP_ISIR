@@ -16,6 +16,9 @@ namespace RT_ISICG
 
         PerspectiveCamera(const Vec3f &p_position, const Vec3f &p_lookAt, const Vec3f &p_up, float p_fovy, float p_aspectRatio);
 
+        PerspectiveCamera(const Vec3f &p_position, const Vec3f &p_lookAt, float p_fovy, float p_aspectRatio)
+            : PerspectiveCamera(p_position, p_lookAt, Vec3f(0, 1, 0), p_fovy, p_aspectRatio){};
+
         Ray generateRay(const float p_sx, const float p_sy) const override
         {
             Vec3f origin = _position;

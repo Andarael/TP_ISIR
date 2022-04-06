@@ -47,5 +47,3 @@ namespace RT_ISICG
         displayCamera();
     }
 } // namespace RT_ISICG
-
-/* TODO check the using namespace glm */
