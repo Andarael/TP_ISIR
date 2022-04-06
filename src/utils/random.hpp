@@ -7294,15 +7294,13 @@ namespace RT_ISICG
     // Return a pseudo random float between 0 and 1
     static float randomFloat()
     {
-        //return 0.5f;
+        // return 0.5f;
         idx++;
-        return random_array[idx]; // 9s
+        //return random_array[idx]; // 9s
 
-
-
-        // static std::mt19937 gen; // 21.5 ?
-        static std::minstd_rand gen; // 25
-        // static std::default_random_engine gen; // 21
+        // static std::minstd_rand gen; // 25
+        //  static std::default_random_engine gen; // 21
+        static std::mt19937 gen; // 21.5 ?
 
         static std::uniform_real_distribution<float> dis(0.f, 1.f);
         return dis(gen);
