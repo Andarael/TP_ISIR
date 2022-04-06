@@ -14,10 +14,10 @@ namespace RT_ISICG
 
         Vec3f shade(const Ray &p_ray, const HitRecord &p_hit, const LightSample &p_lightSample) const override
         {
-            return _color; // todo ?
+            return _color;
         }
 
-        inline const Vec3f &getFlatColor() const override
+        const Vec3f &getFlatColor() const override
         {
             return _color;
         }
