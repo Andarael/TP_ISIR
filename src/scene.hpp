@@ -44,7 +44,7 @@ namespace RT_ISICG
 
         bool intersectAny(const Ray &p_ray, const float p_tMin, const float p_tMax) const;
 
-    private:
+    public:
         void _addObject(BaseObject *p_object);
         void _addMaterial(BaseMaterial *p_material);
         void _addLight(BaseLight *p_light);

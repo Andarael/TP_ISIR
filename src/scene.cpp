@@ -1,4 +1,6 @@
 #include "Scene.hpp"
+
+#include "scene_setup.hpp"
 #include "lights/PointLight.hpp"
 #include "lights/QuadLight.hpp"
 #include "lights/SimpleQuadLight.hpp"
@@ -6,12 +8,11 @@
 #include "objects/Plane.hpp"
 #include "objects/Sphere.hpp"
 
-#include "glm/gtx/string_cast.hpp"
 #include "objects/MeshTriangle.hpp"
 
-#include <assimp/Importer.hpp>
-#include <assimp/postprocess.h>
-#include <assimp/scene.h>
+#include "../lib/assimp/assimp/Importer.hpp"
+#include "../lib/assimp/assimp/postprocess.h"
+#include "../lib/assimp/assimp/scene.h"
 
 namespace RT_ISICG
 {
@@ -34,41 +35,8 @@ namespace RT_ISICG
 
     void Scene::init()
     {
-        // Add Point lights;
-        Vec3f lightPosition = Vec3f(1, 10, 1);
-        PointLight *pointLight = new PointLight(WHITE, lightPosition, 100);
-
-        // quad quad light
-        Vec3f quadLightPosition = Vec3f(1, 10, 1);
-        Vec3f u = Vec3f(-2, 0, 0);
-        Vec3f v = Vec3f(0, 0, 2);
-        QuadLight *quadLight = new QuadLight(WHITE, 40.f, quadLightPosition, u, v);
-        quadLight->displayLight();
-        quadLight = new SimpleQuadLight(WHITE, 40.f, 4, quadLightPosition, Vec3f(0, -1, 0));
-
-        Vec3f lightPosition2 = Vec3f(-2, 7, -2);
-        PointLight *light2 = new PointLight(WHITE, lightPosition2, 50);
-
-        //_addLight(light2);
-        //_addLight(pointLight);
-        _addLight(quadLight);
-
-        //_addObject(new Sphere("LightSphere", lightPosition + Vec3f(0, 3, 0), 0.5f));
-        //_addMaterial(new ColorMaterial("White", WHITE));
-        //_attachMaterialToObject("White", "LightSphere");
-
-        // Add objects.
-        _addObject(new Sphere("Sphere1", Vec3f(0, 0, 3), 1.f));
-        Vec3f planeNormal = Vec3f(0, 1, 0);
-        _addObject(new Plane("Plane1", Vec3f(0, -2, 0), planeNormal));
-
-        // Add materials.
-        _addMaterial(new ColorMaterial("Blue", BLUE));
-        _addMaterial(new ColorMaterial("Red", RED));
-
-        // Link objects and materials.
-        _attachMaterialToObject("Blue", "Sphere1");
-        _attachMaterialToObject("Red", "Plane1");
+        SceneType scene_type = SceneType::TP4;
+        setup_scene(*this, scene_type);
     }
 
     void Scene::loadFileTriangleMesh(const std::string &p_name, const std::string &p_path)

@@ -171,6 +171,9 @@
     <ClInclude Include="src\integrators\DebugIntegrator.hpp">
       <Filter>Source Files\integrators</Filter>
     </ClInclude>
+    <ClInclude Include="src\scene_setup.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />

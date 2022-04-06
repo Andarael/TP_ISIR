@@ -222,6 +222,7 @@
     <ClInclude Include="src\Ray.hpp" />
     <ClInclude Include="src\Renderer.hpp" />
     <ClInclude Include="src\Scene.hpp" />
+    <ClInclude Include="src\scene_setup.hpp" />
     <ClInclude Include="src\texture.hpp" />
     <ClInclude Include="src\utils\chrono.hpp" />
     <ClInclude Include="src\utils\console_progress_bar.hpp" />
