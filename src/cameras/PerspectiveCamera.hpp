@@ -3,8 +3,6 @@
 
 #include "BaseCamera.hpp"
 
-#include "glm/gtx/string_cast.hpp"
-
 namespace RT_ISICG
 {
     class PerspectiveCamera : public BaseCamera
