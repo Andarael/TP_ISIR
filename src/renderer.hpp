@@ -9,6 +9,14 @@
 
 namespace RT_ISICG
 {
+    // define sampler structure
+    // todo integrate
+    enum class Sampler
+    {
+        RANDOM_SAMPLER = 0,
+        GRID_SAMPLER = 1
+    };
+
     class Renderer
     {
     public:
@@ -17,6 +25,11 @@ namespace RT_ISICG
         ~Renderer();
 
         void setIntegrator(IntegratorType p_integratorType);
+
+        void setSampler(Sampler p_sampler)
+        {
+            _sampler = p_sampler;
+        }
 
         void setBackgroundColor(const Vec3f &p_color) const;
 
@@ -40,12 +53,12 @@ namespace RT_ISICG
          * @param pixelSizeY size of pixel in X
          * @param pixelSizeX size of pixel in Y
          */
-        void multiSample(const BaseCamera *p_camera, float sx, float sy, Vec3f &color, const Scene &p_scene, float pixelSizeY, float pixelSizeX) const;
+        Vec3f multiSample(const BaseCamera *p_camera, float sx, float sy, const Scene &p_scene, const float pixelSizeY, float pixelSizeX) const;
 
     private:
         BaseIntegrator *_integrator = nullptr;
+        Sampler _sampler = Sampler::RANDOM_SAMPLER;
         int _nbPixelSamples = 1;
-        bool _gridSampling = true;
     };
 } // namespace RT_ISICG
 

@@ -1,10 +1,13 @@
 #include "Renderer.hpp"
-#include "integrators/RayCastIntegrator.hpp"
+
+#include "cameras/BaseCamera.hpp"
+#include "glm/gtx/string_cast.hpp"
 #include "utils/console_progress_bar.hpp"
 #include "utils/random.hpp"
 
-#include "glm/gtx/string_cast.hpp"
+#include "integrators/DebugIntegrator.hpp"
 #include "integrators/DirectLightingIntegrator.hpp"
+#include "integrators/RayCastIntegrator.hpp"
 
 namespace RT_ISICG
 {
@@ -33,6 +36,9 @@ namespace RT_ISICG
             break;
         }
         case IntegratorType::COUNT:
+            break;
+        case IntegratorType::DEBUG:
+            _integrator = new DebugIntegrator();
             break;
         }
     }
@@ -67,9 +73,7 @@ namespace RT_ISICG
                 float sx = float(i) * pixelSizeX;
                 float sy = float(j) * pixelSizeY;
 
-                Vec3f color = VEC3F_ZERO; // todo return color in multi-sample
-
-                multiSample(p_camera, sx, sy, color, p_scene, pixelSizeY, pixelSizeX);
+                Vec3f color = multiSample(p_camera, sx, sy, p_scene, pixelSizeY, pixelSizeX);
 
                 color = colorTransform(color);
 
@@ -96,45 +100,50 @@ namespace RT_ISICG
         return color;
     }
 
-    void Renderer::multiSample(const BaseCamera *p_camera, float sx, float sy, Vec3f &color, const Scene &p_scene, const float pixelSizeY, float pixelSizeX) const
+    Vec3f Renderer::multiSample(const BaseCamera *p_camera, float sx, float sy, const Scene &p_scene, const float pixelSizeY, float pixelSizeX) const
     {
-        float offsetX;
-        float offsetY;
+        Vec3f color = VEC3F_ZERO;
 
-        if (!_gridSampling)
+        // Always sample the center of the pixel first if sampler is random
+        float offsetY = pixelSizeX * 0.5f;
+        float offsetX = pixelSizeY * 0.5f;
+
+        // switch sampler
+        switch (_sampler)
         {
-            // Always sample the center of the pixel first
-            offsetX = pixelSizeX * 0.5f;
-            offsetY = pixelSizeY * 0.5f;
+        case Sampler::RANDOM_SAMPLER:
             for (int sample = 0; sample < _nbPixelSamples; sample++)
             {
                 Ray ray = p_camera->generateRay(sx + offsetX, sy + offsetY);
-                color += _integrator->Li(p_scene, ray, 0, 1000);
+                color += _integrator->Li(p_scene, ray, 0, FLT_INFINITY);
 
                 offsetY = pixelSizeY * randomFloat();
                 offsetX = pixelSizeX * randomFloat();
             }
             color /= _nbPixelSamples;
-        }
-        else
-        {
-            float factor = float(_nbPixelSamples * 2);
-            for (int i = 1; i <= _nbPixelSamples; i++)
-            {
-                for (int j = 1; j <= _nbPixelSamples; j++)
-                {
-                    float subsampleX = float(2 * i - 1) / factor;
-                    float subsampleY = float(2 * j - 1) / factor;
 
-                    // random extremely slow here
-                    offsetX = pixelSizeX * subsampleX;
-                    offsetY = pixelSizeY * subsampleY;
+            break;
+        case Sampler::GRID_SAMPLER:
+            float factor = float(_nbPixelSamples * 2);
+            for (int i = 0; i < _nbPixelSamples; i++)
+            {
+                for (int j = 0; j < _nbPixelSamples; j++)
+                {
+                    float subsampleX = float(2 * i) / factor;
+                    float subsampleY = float(2 * j) / factor;
+
+                    // todo offset according to the random
+                    offsetY = pixelSizeY * subsampleY * randomFloat() * 2.f;
+                    offsetX = pixelSizeX * subsampleX * randomFloat() * 2.f;
 
                     Ray ray = p_camera->generateRay(sx + offsetX, sy + offsetY);
                     color += _integrator->Li(p_scene, ray, 0, FLT_INFINITY);
                 }
             }
             color /= (_nbPixelSamples * _nbPixelSamples);
+            break;
         }
+
+        return color;
     }
 } // namespace RT_ISICG

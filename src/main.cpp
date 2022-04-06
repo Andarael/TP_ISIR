@@ -16,6 +16,7 @@ namespace RT_ISICG
 
         // Render parameters
         const int samplesPerPixel = 1;
+        const Sampler sampler = Sampler::GRID_SAMPLER;
         const IntegratorType integratorType = IntegratorType::DIRECT_LIGHT;
 
         // Camera parameters
@@ -40,6 +41,7 @@ namespace RT_ISICG
         // Create and setup the renderer.
         Renderer renderer;
         renderer.setIntegrator(integratorType);
+        renderer.setSampler(sampler);
         renderer.setBackgroundColor(GREY);
         renderer.setNbPixelSamples(samplesPerPixel);
 

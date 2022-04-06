@@ -202,6 +202,7 @@
     <ClInclude Include="src\geometry\TriangleMeshGeometry.hpp" />
     <ClInclude Include="src\HitRecord.hpp" />
     <ClInclude Include="src\integrators\BaseIntegrator.hpp" />
+    <ClInclude Include="src\integrators\DebugIntegrator.hpp" />
     <ClInclude Include="src\integrators\DirectLightingIntegrator.hpp" />
     <ClInclude Include="src\integrators\RayCastIntegrator.hpp" />
     <ClInclude Include="src\lights\BaseLight.hpp" />
@@ -224,6 +225,7 @@
     <ClInclude Include="src\texture.hpp" />
     <ClInclude Include="src\utils\chrono.hpp" />
     <ClInclude Include="src\utils\console_progress_bar.hpp" />
+    <ClInclude Include="src\utils\random.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />

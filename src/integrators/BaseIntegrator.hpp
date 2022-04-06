@@ -7,8 +7,9 @@ namespace RT_ISICG
 {
     enum class IntegratorType : int
     {
-        RAY_CAST = 0,
-        DIRECT_LIGHT = 1,
+        DEBUG = 0,
+        RAY_CAST = 1,
+        DIRECT_LIGHT = 2,
         COUNT // keep it last
     };
 
