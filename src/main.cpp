@@ -11,11 +11,11 @@ namespace RT_ISICG
          * ====== Render parameters =====
          * ============================== */
         // Output Image parameters
-        const int imgWidth = 600;
-        const int imgHeight = 400;
+        const int imgWidth = 1200;
+        const int imgHeight = 800;
 
         // Render parameters
-        const int samplesPerPixel = 1;
+            const int samplesPerPixel = 2;
         const Sampler sampler = Sampler::GRID_SAMPLER;
         const IntegratorType integratorType = IntegratorType::DIRECT_LIGHT;
 

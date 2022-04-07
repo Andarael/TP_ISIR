@@ -4,15 +4,19 @@
 #include "Scene.hpp"
 #include "defines.hpp"
 
-#include "lights/BaseLight.hpp"
-#include "lights/PointLight.hpp"
-#include "objects/BaseObject.hpp"
+// import materials
+#include "materials/ColorMaterial.hpp"
+#include "materials/MatteMaterial.hpp"
+#include "materials/lambertMaterial.hpp"
 
+// import lights
+#include "lights/BaseLight.hpp"
 #include "lights/PointLight.hpp"
 #include "lights/QuadLight.hpp"
 #include "lights/SimpleQuadLight.hpp"
-#include "materials/ColorMaterial.hpp"
-#include "materials/lambertMaterial.hpp"
+
+// import objects
+#include "objects/BaseObject.hpp"
 #include "objects/Plane.hpp"
 #include "objects/Sphere.hpp"
 
@@ -59,7 +63,7 @@ namespace RT_ISICG
         // Vec3f ( 0, 1, 2 ) , WHITE , 40 ) );
     }
 
-    inline static void setup_TP3(Scene &scene)
+    static void setup_TP3(Scene &scene)
     {
         /* ==============================================
          * ================ Add lights ==================
@@ -103,7 +107,7 @@ namespace RT_ISICG
         scene._attachMaterialToObject("Red", "Plane1");
     }
 
-    inline static void setup_TP4(Scene &scene)
+    static void setup_TP4(Scene &scene)
     {
         /* ==============================================
          * ================ Add lights ==================
@@ -115,13 +119,14 @@ namespace RT_ISICG
          * ============================================== */
         scene._addMaterial(new LambertMaterial("Grey", GREY));
         scene._addMaterial(new LambertMaterial("Red", RED));
+        scene._addMaterial(new MatteMaterial("Matte_Grey", GREY, 0.6f));
 
         /* ==============================================
          * ================ Add Objects =================
          * ============================================== */
         scene._addObject(new Sphere("Sphere1", Vec3f(0, 0, 3), 1));
         scene._addObject(new Plane("Plane1", Vec3f(0, -2, 0), Vec3f(0, 1, 0)));
-        scene._attachMaterialToObject("Grey", "Sphere1");
+        scene._attachMaterialToObject("Matte_Grey", "Sphere1");
         scene._attachMaterialToObject("Red", "Plane1");
     }
 

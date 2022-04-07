@@ -43,7 +43,7 @@ namespace RT_ISICG
 
     private:
         // todo multiple sample importance in light ?
-        int _nbLightSamples = 4;
+        int _nbLightSamples = 1;
 
         // todo create only one light sample for double performances
         static bool _isShadow(const Scene &p_scene, const LightSample lightSample, Vec3f point, Vec3f p_normal)
