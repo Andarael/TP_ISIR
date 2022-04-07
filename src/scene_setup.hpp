@@ -25,7 +25,7 @@ namespace RT_ISICG
     inline static void setup_TP5(Scene &scene)
     {
         /* ==============================================
-         * ================ Add MAterials ===============
+         * ================ Add Materials ===============
          * ============================================== */
         // scene._addMaterial(new MatteMaterial(" WhiteMatte ", WHITE, 0.6));
         // scene._addMaterial(new MatteMaterial(" RedMatte ", RED, 0.6));
@@ -89,7 +89,7 @@ namespace RT_ISICG
         scene._addLight(quadLight);
 
         /* ==============================================
-         * ================ Add MAterials ===============
+         * ================ Add Materials ===============
          * ============================================== */
         scene._addMaterial(new ColorMaterial("Blue", BLUE));
         scene._addMaterial(new ColorMaterial("Red", RED));
@@ -115,11 +115,11 @@ namespace RT_ISICG
         PointLight *pointLight = new PointLight(WHITE, Vec3f(1, 1, -2), 60);
         scene._addLight(pointLight);
         /* ==============================================
-         * ================ Add MAterials ===============
+         * ================ Add Materials ===============
          * ============================================== */
         scene._addMaterial(new LambertMaterial("Grey", GREY));
         scene._addMaterial(new LambertMaterial("Red", RED));
-        scene._addMaterial(new MatteMaterial("Matte_Grey", GREY, 0.6f));
+        scene._addMaterial(new MatteMaterial("Matte_Grey", GREY, 1.f));
 
         /* ==============================================
          * ================ Add Objects =================
