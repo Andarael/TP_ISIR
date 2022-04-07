@@ -180,6 +180,12 @@
     <ClInclude Include="src\materials\MatteMaterial.hpp">
       <Filter>Source Files\materials</Filter>
     </ClInclude>
+    <ClInclude Include="src\materials\PlasticMaterial.hpp">
+      <Filter>Source Files\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="src\brdfs\PhongBRDF.hpp">
+      <Filter>Source Files\brdfs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />

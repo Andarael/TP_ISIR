@@ -7,6 +7,7 @@
 // import materials
 #include "materials/ColorMaterial.hpp"
 #include "materials/MatteMaterial.hpp"
+#include "materials/PlasticMaterial.hpp"
 #include "materials/lambertMaterial.hpp"
 
 // import lights
@@ -22,7 +23,7 @@
 
 namespace RT_ISICG
 {
-    inline static void setup_TP5(Scene &scene)
+    static void setup_TP5(Scene &scene)
     {
         /* ==============================================
          * ================ Add Materials ===============
@@ -114,19 +115,21 @@ namespace RT_ISICG
          * ============================================== */
         PointLight *pointLight = new PointLight(WHITE, Vec3f(1, 1, -2), 60);
         scene._addLight(pointLight);
+
         /* ==============================================
          * ================ Add Materials ===============
          * ============================================== */
         scene._addMaterial(new LambertMaterial("Grey", GREY));
         scene._addMaterial(new LambertMaterial("Red", RED));
         scene._addMaterial(new MatteMaterial("Matte_Grey", GREY, 1.f));
+        scene._addMaterial(new PlasticMaterial("Plastic_Grey", GREY, 0.7f, 8.f));
 
         /* ==============================================
          * ================ Add Objects =================
          * ============================================== */
         scene._addObject(new Sphere("Sphere1", Vec3f(0, 0, 3), 1));
         scene._addObject(new Plane("Plane1", Vec3f(0, -2, 0), Vec3f(0, 1, 0)));
-        scene._attachMaterialToObject("Matte_Grey", "Sphere1");
+        scene._attachMaterialToObject("Plastic_Grey", "Sphere1");
         scene._attachMaterialToObject("Red", "Plane1");
     }
 
