@@ -18,14 +18,14 @@ namespace RT_ISICG
 
             /*
             // get theta angles in spherical coordinates from wi and wo
-            float cosThetaI = glm::max(0.f, dot(normal, wi));
-            float cosThetaO = glm::max(0.f, dot(normal, wo));
-            float tethaI = glm::acos(cosThetaI);
-            float tethaO = glm::acos(cosThetaO);
+            float cosThetaIn = glm::max(0.f, dot(normal, wi));
+            float cosThetaOut = glm::max(0.f, dot(normal, wo));
+            float tethaI = glm::acos(cosThetaIn);
+            float tethaO = glm::acos(cosThetaOut);
 
             // projection of the incoming and outgoing vectors onto the surface normal
-            Vec3f projectedIncoming = glm::normalize(wi - cosThetaI * normal);
-            Vec3f projectedOutgoing = glm::normalize(wo - cosThetaO * normal);
+            Vec3f projectedIncoming = glm::normalize(wi - cosThetaIn * normal);
+            Vec3f projectedOutgoing = glm::normalize(wo - cosThetaOut * normal);
 
             // get phi angles in spherical coordinates from projected wi and wo
             float phi_i = glm::acos(dot(normal, projectedIncoming));
@@ -42,20 +42,24 @@ namespace RT_ISICG
             float factor = A + B * glm::max(0.f, dotDiff) * glm::sin(alpha) * glm::tan(beta);
             */
 
-            //
-            float NrmDotIn = dot(normal, wi);
-            float NrmDotOut = dot(normal, wo);
+            // dot product of the normal and the wi and wo
+            float cosThetaIn = dot(normal, wi);
+            float cosThetaOut = dot(normal, wo);
 
-            float thetaI = acos(NrmDotIn);
-            float thetaO = acos(NrmDotOut);
+            // get theta angles in spherical coordinates from wi and wo
+            float thetaI = acos(cosThetaIn);
+            float thetaO = acos(cosThetaOut);
 
-            Vec3f incoming = normalize(wi - NrmDotIn * normal);
-            Vec3f outgoing = normalize(wo - NrmDotOut * normal);
-            float dotDiff = dot(incoming, outgoing);
+            // projection of the incoming and outgoing vectors onto the surface normal
+            Vec3f incoming = normalize(wi - cosThetaIn * normal);
+            Vec3f outgoing = normalize(wo - cosThetaOut * normal);
+            float dotDiff = dot(incoming, outgoing); // cos (Phi_I - Phi_O) = dot(I, O)
 
+            // alpha and beta factors
             float alpha = glm::max(thetaI, thetaO);
             float beta = glm::min(thetaI, thetaO);
 
+            // oren-nayar factor compute
             float A = 1.f - 0.5f * sigma2 / (sigma2 + 0.33f);
             float B = 0.45f * sigma2 / (sigma2 + 0.09f);
             float factor = A + B * glm::max(0.f, dotDiff) * glm::sin(alpha) * glm::tan(beta);
