@@ -15,7 +15,7 @@ namespace RT_ISICG
         const int imgHeight = 800;
 
         // Render parameters
-            const int samplesPerPixel = 2;
+        const int samplesPerPixel = 2;
         const Sampler sampler = Sampler::GRID_SAMPLER;
         const IntegratorType integratorType = IntegratorType::DIRECT_LIGHT;
 

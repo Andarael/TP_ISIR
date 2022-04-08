@@ -64,7 +64,9 @@ namespace RT_ISICG
 
         float pixelSizeX = 1.f / float(width - 1);
         float pixelSizeY = 1.f / float(height - 1);
+
 #pragma omp parallel for schedule(dynamic)
+
         for (int j = 0; j < height; j++)
         {
             for (int i = 0; i < width; i++)

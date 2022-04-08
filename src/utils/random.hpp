@@ -7291,16 +7291,16 @@ namespace RT_ISICG
                                    0.68525f, 0.32247f, 0.36514f, 0.33603f, 0.04038f, 0.26514f, 0.80579f, 0.77341f, 0.45137f,
                                    0.70905f, 0.95428f, 0.30319f, 0.8397f, 0.23556f, 0.06064f};
 
-    static std::mt19937 gen; // 21.5 ?
-    static std::uniform_real_distribution<float> dis(0.f, 1.f);
-
     static float randomFloat()
     {
         // Return a pseudo random float between 0 and 1
-        idx++;
-        return random_array[idx]; // 9s
+         idx++;
+         return random_array[idx]; // 9s
 
-        // return dis(gen);
+        //static std::mt19937 gen; // 21.5 ?
+        //static std::uniform_real_distribution<float> dis(0.f, 1.f);
+
+        //return dis(gen);
     }
 
 } // namespace RT_ISICG
