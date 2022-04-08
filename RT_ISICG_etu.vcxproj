@@ -192,6 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\aabb.hpp" />
+    <ClInclude Include="src\brdfs\CookTorranceBRDF.hpp" />
     <ClInclude Include="src\brdfs\lambert_brdf.hpp" />
     <ClInclude Include="src\brdfs\OrenNayarBRDF.hpp" />
     <ClInclude Include="src\brdfs\PhongBRDF.hpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="src\defines.hpp" />
     <ClInclude Include="src\io\stb_include.hpp" />
     <ClInclude Include="src\materials\BaseMaterial.hpp" />
+    <ClInclude Include="src\materials\CookTorranceMaterial.hpp" />
     <ClInclude Include="src\materials\lambertMaterial.hpp" />
     <ClInclude Include="src\materials\MatteMaterial.hpp" />
     <ClInclude Include="src\materials\PlasticMaterial.hpp" />

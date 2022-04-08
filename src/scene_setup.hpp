@@ -6,6 +6,7 @@
 
 // import materials
 #include "materials/ColorMaterial.hpp"
+#include "materials/CookTorranceMaterial.hpp"
 #include "materials/MatteMaterial.hpp"
 #include "materials/PlasticMaterial.hpp"
 #include "materials/lambertMaterial.hpp"
@@ -124,13 +125,14 @@ namespace RT_ISICG
         scene._addMaterial(new MatteMaterial("Matte_Grey", GREY, 1.f));
         scene._addMaterial(new PlasticMaterial("Plastic_Grey", GREY, 0.3f, 8.f, false));
         scene._addMaterial(new PlasticMaterial("Plastic_Grey_additive", GREY, 0.3f, 8.f, true));
+        scene._addMaterial(new CookTorranceMaterial("PBR_Gold", Vec3f(1.f, 0.85f, 0.57f), 0.f, 0.1f));
 
         /* ==============================================
          * ================ Add Objects =================
          * ============================================== */
         scene._addObject(new Sphere("Sphere1", Vec3f(0, 0, 3), 1));
         scene._addObject(new Plane("Plane1", Vec3f(0, -2, 0), Vec3f(0, 1, 0)));
-        scene._attachMaterialToObject("Plastic_Grey", "Sphere1");
+        scene._attachMaterialToObject("PBR_Gold", "Sphere1");
         scene._attachMaterialToObject("Red", "Plane1");
     }
 
