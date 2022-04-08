@@ -50,10 +50,11 @@ namespace RT_ISICG
             float thetaI = acos(cosThetaIn);
             float thetaO = acos(cosThetaOut);
 
-            // projection of the incoming and outgoing vectors onto the surface normal //todo check if this is correct
+            // projection of the incoming and outgoing vectors onto the surface
             Vec3f incoming = normalize(wi - cosThetaIn * normal);
             Vec3f outgoing = normalize(wo - cosThetaOut * normal);
-            float dotDiff = dot(incoming, outgoing); // cos (Phi_I - Phi_O) = dot(I, O)
+            float dotDiff = dot(incoming, outgoing);
+            // cos (Phi_I - Phi_O) = dot(i, o) (page 5 of https://boksajak.github.io/files/CrashCourseBRDF.pdf)
 
             // alpha and beta factors
             float alpha = glm::max(thetaI, thetaO);

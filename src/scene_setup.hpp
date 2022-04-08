@@ -122,7 +122,8 @@ namespace RT_ISICG
         scene._addMaterial(new LambertMaterial("Grey", GREY));
         scene._addMaterial(new LambertMaterial("Red", RED));
         scene._addMaterial(new MatteMaterial("Matte_Grey", GREY, 1.f));
-        scene._addMaterial(new PlasticMaterial("Plastic_Grey", GREY, 0.7f, 8.f));
+        scene._addMaterial(new PlasticMaterial("Plastic_Grey", GREY, 0.3f, 8.f, false));
+        scene._addMaterial(new PlasticMaterial("Plastic_Grey_additive", GREY, 0.3f, 8.f, true));
 
         /* ==============================================
          * ================ Add Objects =================
