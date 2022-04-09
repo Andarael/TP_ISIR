@@ -192,6 +192,12 @@
     <ClInclude Include="src\materials\CookTorranceMaterial.hpp">
       <Filter>Source Files\materials</Filter>
     </ClInclude>
+    <ClInclude Include="src\integrators\WhittedIntegrator.hpp">
+      <Filter>Source Files\integrators</Filter>
+    </ClInclude>
+    <ClInclude Include="src\materials\MirrorMaterial.hpp">
+      <Filter>Source Files\materials</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />

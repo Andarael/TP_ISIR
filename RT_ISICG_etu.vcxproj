@@ -208,6 +208,7 @@
     <ClInclude Include="src\integrators\DebugIntegrator.hpp" />
     <ClInclude Include="src\integrators\DirectLightingIntegrator.hpp" />
     <ClInclude Include="src\integrators\RayCastIntegrator.hpp" />
+    <ClInclude Include="src\integrators\WhittedIntegrator.hpp" />
     <ClInclude Include="src\lights\BaseLight.hpp" />
     <ClInclude Include="src\lights\LightSample.hpp" />
     <ClInclude Include="src\lights\PointLight.hpp" />
@@ -220,6 +221,7 @@
     <ClInclude Include="src\materials\CookTorranceMaterial.hpp" />
     <ClInclude Include="src\materials\lambertMaterial.hpp" />
     <ClInclude Include="src\materials\MatteMaterial.hpp" />
+    <ClInclude Include="src\materials\MirrorMaterial.hpp" />
     <ClInclude Include="src\materials\PlasticMaterial.hpp" />
     <ClInclude Include="src\objects\BaseObject.hpp" />
     <ClInclude Include="src\objects\Plane.hpp" />
