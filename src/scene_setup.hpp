@@ -18,6 +18,7 @@
 #include "lights/SimpleQuadLight.hpp"
 
 // import objects
+#include "materials/MirrorMaterial.hpp"
 #include "objects/BaseObject.hpp"
 #include "objects/Plane.hpp"
 #include "objects/Sphere.hpp"
@@ -35,35 +36,38 @@ namespace RT_ISICG
         scene._addMaterial(new MatteMaterial("BlueMatte", BLUE, 0.6f));
         scene._addMaterial(new MatteMaterial("GreyMatte", GREY, 0.6f));
         scene._addMaterial(new MatteMaterial("MagentaMatte", MAGENTA, 0.6f));
+        scene._addMaterial(new MirrorMaterial("Mirror", WHITE));
 
         /* ==============================================
          * ================ Add Objects =================
          * ============================================== */
-
-        // Spheres .
+        // Spheres
         scene._addObject(new Sphere("Sphere1", Vec3f(-2.f, 0.f, 3.f), 1.5f));
         scene._addObject(new Sphere("Sphere2", Vec3f(2.f, 0.f, 3.f), 1.5f));
-        scene._attachMaterialToObject("WhiteMatte", "Sphere1");
-        scene._attachMaterialToObject("WhiteMatte", "Sphere2");
+        scene._attachMaterialToObject("Mirror", "Sphere1");
+        scene._attachMaterialToObject("Mirror", "Sphere2");
 
-        // Pseudo Cornell box made with infinite planes .
+        // Pseudo Cornell box made with infinite planes
         scene._addObject(new Plane("PlaneGround", Vec3f(0.f, -3.f, 0.f), Vec3f(0.f, 1.f, 0.f)));
         scene._addObject(new Plane("PlaneLeft", Vec3f(5.f, 0.f, 0.f), Vec3f(-1.f, 0.f, 0.f)));
         scene._addObject(new Plane("PlaneCeiling", Vec3f(0.f, 7.f, 0.f), Vec3f(0.f, -1.f, 0.f)));
         scene._addObject(new Plane("PlaneRight", Vec3f(-5.f, 0.f, 0.f), Vec3f(1.f, 0.f, 0.f)));
         scene._addObject(new Plane("PlaneFront", Vec3f(0.f, 0.f, 10.f), Vec3f(0.f, 0.f, -1.f)));
+        scene._addObject(new Plane("PlaneBack", Vec3f(0.f, 0.f, -10.f), Vec3f(0.f, 0.f, 1.f)));
+
         scene._attachMaterialToObject("GreyMatte", "PlaneGround");
-        scene._attachMaterialToObject("RedMatte", "PlaneLeft");
+        scene._attachMaterialToObject("Mirror", "PlaneLeft");
         scene._attachMaterialToObject("GreenMatte", "PlaneCeiling");
-        scene._attachMaterialToObject("BlueMatte", "PlaneRight");
-        scene._attachMaterialToObject("MagentaMatte", "PlaneFront");
+        scene._attachMaterialToObject("Mirror", "PlaneRight");
+        scene._attachMaterialToObject("Mirror", "PlaneFront");
+        scene._attachMaterialToObject("Mirror", "PlaneBack");
 
         /* ==============================================
          * ================ Add lights ==================
          * ============================================== */
-        //scene._addLight(new PointLight(WHITE, Vec3f(0.f, 5.f, 0.f), 400.f)); // todo unify light types constructor (pos, power, etc...)
-        Vec3f pos = Vec3f(1.f, 5.f, -2.f);
-         scene._addLight(new QuadLight(WHITE, 40.f, pos, Vec3f(-2.f, 0.f, 0.f), Vec3f(0.f, 1.f, 2.f)));
+        // todo unify light types constructor (pos, power, etc...)
+         //scene._addLight(new PointLight(WHITE, Vec3f(0.f, 5.f, 0.f), 100.f));
+        scene._addLight(new QuadLight(WHITE, 40.f, Vec3f(1.f, 5.f, -2.f), Vec3f(-2.f, 0.f, 0.f), Vec3f(0.f, 1.f, 2.f)));
     }
 
     static void setup_TP3(Scene &scene)
