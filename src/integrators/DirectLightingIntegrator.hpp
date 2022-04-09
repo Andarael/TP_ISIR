@@ -8,6 +8,9 @@ namespace RT_ISICG
     class DirectLightingIntegrator : public BaseIntegrator
     {
     public:
+        DirectLightingIntegrator(const int p_shadowSamples)
+            : BaseIntegrator(), _nbShadowSamples(p_shadowSamples){};
+
         IntegratorType getType() const override
         {
             return IntegratorType::DIRECT_LIGHT;
@@ -24,7 +27,7 @@ namespace RT_ISICG
                 {
                     int targetSamples = 1;
                     if (light->isSurface())
-                        targetSamples = _nbLightSamples;
+                        targetSamples = _nbShadowSamples;
 
                     Vec3f lightContribution = VEC3F_ZERO;
                     for (int i = 0; i < targetSamples; i++)
@@ -34,7 +37,7 @@ namespace RT_ISICG
                         if (!_isShadow(p_scene, lightSample, hitPoint, hitRecord._normal))
                             lightContribution += _directLighting(hitRecord, lightSample, p_ray);
                     }
-                    li += lightContribution / float(lights.size());
+                    li += lightContribution / float(_nbShadowSamples);
                 }
                 return li;
             }
@@ -43,7 +46,7 @@ namespace RT_ISICG
 
     private:
         // todo multiple sample importance in light ?
-        int _nbLightSamples = 1;
+        int _nbShadowSamples;
 
         // todo create only one light sample for double performances
         static bool _isShadow(const Scene &p_scene, const LightSample &lightSample, const Vec3f &point, const Vec3f &p_normal)
@@ -55,7 +58,7 @@ namespace RT_ISICG
             return p_scene.intersectAny(ray, 0, lightSample._distance);
         }
 
-        Vec3f _directLighting(const HitRecord &hitRecord, const LightSample &lightSample, const Ray &p_ray) const
+        static Vec3f _directLighting(const HitRecord &hitRecord, const LightSample &lightSample, const Ray &p_ray)
         {
             Vec3f sampleRadiance = lightSample._radiance;
             Vec3f materialColor = hitRecord._object->getMaterial()->shade(p_ray, hitRecord, lightSample);
