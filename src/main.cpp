@@ -15,7 +15,7 @@ namespace RT_ISICG
         const int imgHeight = 800;
 
         // Render parameters
-        const int samplesPerPixel = 2;
+        const int samplesPerPixel = 16;
         const Sampler sampler = Sampler::GRID_SAMPLER;
         const IntegratorType integratorType = IntegratorType::DIRECT_LIGHT;
 
@@ -58,7 +58,9 @@ namespace RT_ISICG
          * ====== Saving the image ======
          * ============================== */
         const std::string imgName = "image.jpg";
+        const std::string imgNameHDR = "image.hdr";
         img.saveJPG(RESULTS_PATH + imgName);
+        img.saveHDR(RESULTS_PATH + imgNameHDR);
 
         return EXIT_SUCCESS;
     }
