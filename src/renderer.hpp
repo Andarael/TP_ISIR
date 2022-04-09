@@ -17,26 +17,39 @@ namespace RT_ISICG
         GRID_SAMPLER = 1
     };
 
+    // define rendersettings structure
+    struct RenderSettings
+    {
+        BaseCamera *camera = nullptr;
+        IntegratorType integratorType = IntegratorType::RAY_CAST;
+        Sampler sampler = Sampler::RANDOM_SAMPLER;
+        Vec3f backgroundColor = GREY;
+        int samplesPerPixel = 2;
+        int shadowSamples = 1;
+    };
+
     class Renderer
     {
     public:
         Renderer();
 
+        Renderer(const RenderSettings p_settings)
+        {
+            setSettings(p_settings);
+        }
+
         ~Renderer();
 
         void setIntegrator(IntegratorType p_integratorType);
 
-        void setSampler(Sampler p_sampler)
+        void setSettings(const RenderSettings &p_settings)
         {
-            _sampler = p_sampler;
+            _settings = p_settings;
+            setIntegrator(p_settings.integratorType);
+            setBackgroundColor(p_settings.backgroundColor);
         }
 
         void setBackgroundColor(const Vec3f &p_color) const;
-
-        void setNbPixelSamples(const int p_nbPixelSamples)
-        {
-            _nbPixelSamples = p_nbPixelSamples;
-        }
 
         float renderImage(const Scene &p_scene, const BaseCamera *p_camera, Texture &p_texture) const;
 
@@ -55,9 +68,8 @@ namespace RT_ISICG
         Vec3f multiSample(const BaseCamera *p_camera, float sx, float sy, const Scene &p_scene, float pixelSizeY, float pixelSizeX) const;
 
     private:
+        RenderSettings _settings;
         BaseIntegrator *_integrator = nullptr;
-        Sampler _sampler = Sampler::RANDOM_SAMPLER;
-        int _nbPixelSamples = 1;
     };
 } // namespace RT_ISICG
 

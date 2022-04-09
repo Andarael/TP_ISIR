@@ -1,10 +1,11 @@
 #include "Renderer.hpp"
+#include "Scene.hpp"
 #include "cameras/PerspectiveCamera.hpp"
 #include "defines.hpp"
+#include "scene_setup.hpp"
 
 namespace RT_ISICG
 {
-    /**/
     int main(int argc, char **argv)
     {
         /* ==============================
@@ -13,36 +14,32 @@ namespace RT_ISICG
         // Output Image parameters
         const int imgWidth = 1200;
         const int imgHeight = 800;
-
-        // Render parameters
-        const int samplesPerPixel = 16;
-        const Sampler sampler = Sampler::GRID_SAMPLER;
-        const IntegratorType integratorType = IntegratorType::DIRECT_LIGHT;
-
-        // Camera parameters
-        Vec3f cameraPosition = Vec3f(0, 0, 0);
-        Vec3f cameraLookAt = Vec3f(0, 0, 3);
         float aspectRatio = float(imgWidth) / imgHeight;
+
+        RenderSettings render_settings;
+        render_settings.integratorType = IntegratorType::DIRECT_LIGHT;
+        render_settings.sampler = Sampler::GRID_SAMPLER;
+        render_settings.backgroundColor = GREY;
+        render_settings.samplesPerPixel = 4;
+        render_settings.shadowSamples = 4;
 
         /* ============================
          * ====== Initialization ======
          * ============================ */
         // Create and init scene.
         Scene scene;
-        scene.init();
+        scene.init(SceneType::TP5);
 
         // Create a texture to render the scene.
         Texture img = Texture(imgWidth, imgHeight);
 
-        // Create a perspective camera.
-        PerspectiveCamera camera(cameraPosition, cameraLookAt, 60, aspectRatio);
+        // Create a perspective camera if scene didn't provide one.
+        if (render_settings.camera == nullptr)
+            render_settings.camera = new PerspectiveCamera(Vec3f(0, 2, -6), Vec3f(0, 2, 3), 60, aspectRatio);
 
         // Create and setup the renderer.
         Renderer renderer;
-        renderer.setIntegrator(integratorType);
-        renderer.setSampler(sampler);
-        renderer.setBackgroundColor(GREY);
-        renderer.setNbPixelSamples(samplesPerPixel);
+        renderer.setSettings(render_settings);
 
         /* =================================
          * ====== Rendering the image ======
@@ -50,7 +47,7 @@ namespace RT_ISICG
         std::cout << "Rendering..." << std::endl;
         std::cout << "- Image size: " << imgWidth << "x" << imgHeight << std::endl;
 
-        float renderingTime = renderer.renderImage(scene, &camera, img);
+        float renderingTime = renderer.renderImage(scene, render_settings.camera, img);
 
         std::cout << "-> Done in " << renderingTime << "ms" << std::endl;
 

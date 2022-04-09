@@ -32,7 +32,7 @@ namespace RT_ISICG
         }
         case IntegratorType::DIRECT_LIGHT:
         {
-            _integrator = new DirectLightingIntegrator();
+            _integrator = new DirectLightingIntegrator(_settings.shadowSamples);
             break;
         }
         case IntegratorType::COUNT:
@@ -105,16 +105,17 @@ namespace RT_ISICG
     Vec3f Renderer::multiSample(const BaseCamera *p_camera, float sx, float sy, const Scene &p_scene, float pixelSizeY, float pixelSizeX) const
     {
         Vec3f color = VEC3F_ZERO;
+        int samplesPerPixel = _settings.samplesPerPixel;
 
         // Always sample the center of the pixel first if sampler is random
         float offsetY = pixelSizeX * 0.5f;
         float offsetX = pixelSizeY * 0.5f;
 
         // switch sampler
-        switch (_sampler)
+        switch (_settings.sampler)
         {
         case Sampler::RANDOM_SAMPLER:
-            for (int sample = 0; sample < _nbPixelSamples; sample++)
+            for (int sample = 0; sample < samplesPerPixel; sample++)
             {
                 Ray ray = p_camera->generateRay(sx + offsetX, sy + offsetY);
                 color += _integrator->Li(p_scene, ray, 0, FLT_INFINITY);
@@ -122,14 +123,14 @@ namespace RT_ISICG
                 offsetY = pixelSizeY * randomFloat();
                 offsetX = pixelSizeX * randomFloat();
             }
-            color /= _nbPixelSamples;
+            color /= samplesPerPixel;
 
             break;
         case Sampler::GRID_SAMPLER:
-            float factor = float(_nbPixelSamples * 2);
-            for (int i = 0; i < _nbPixelSamples; i++)
+            float factor = float(samplesPerPixel * 2);
+            for (int i = 0; i < samplesPerPixel; i++)
             {
-                for (int j = 0; j < _nbPixelSamples; j++)
+                for (int j = 0; j < samplesPerPixel; j++)
                 {
                     float subsampleX = float(2 * i) / factor;
                     float subsampleY = float(2 * j) / factor;
@@ -142,7 +143,7 @@ namespace RT_ISICG
                     color += _integrator->Li(p_scene, ray, 0, FLT_INFINITY);
                 }
             }
-            color /= (_nbPixelSamples * _nbPixelSamples);
+            color /= (samplesPerPixel * samplesPerPixel);
             break;
         }
 
