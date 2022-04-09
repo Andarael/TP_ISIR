@@ -1,5 +1,5 @@
 #ifndef __RT_ISICG_DIRECT_LIGHT_INTEGRATOR__
-#define __RT_ISICG_DIRECT_LIGHT_INT
+#define __RT_ISICG_DIRECT_LIGHT_INTEGRATOR__
 
 #include "BaseIntegrator.hpp"
 
@@ -37,7 +37,7 @@ namespace RT_ISICG
                         if (!_isShadow(p_scene, lightSample, hitPoint, hitRecord._normal))
                             lightContribution += _directLighting(hitRecord, lightSample, p_ray);
                     }
-                    li += lightContribution / float(_nbShadowSamples);
+                    li += lightContribution / float(targetSamples);
                 }
                 return li;
             }
@@ -45,10 +45,10 @@ namespace RT_ISICG
         }
 
     private:
-        // todo multiple sample importance in light ?
+        // todo multiple sample importance in light
         int _nbShadowSamples;
 
-        // todo create only one light sample for double performances
+    protected:
         static bool _isShadow(const Scene &p_scene, const LightSample &lightSample, const Vec3f &point, const Vec3f &p_normal)
         {
             Vec3f direction = lightSample._direction;
@@ -69,4 +69,4 @@ namespace RT_ISICG
     };
 }
 
-#endif // __RT_ISICG_DIRECT_LIGHT_INT
+#endif // __RT_ISICG_DIRECT_LIGHT_INTEGRATOR__
