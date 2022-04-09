@@ -26,6 +26,11 @@ namespace RT_ISICG
             return _name;
         }
 
+        virtual const bool isMirror() const
+        {
+            return false;
+        }
+
     protected:
         std::string _name;
     };

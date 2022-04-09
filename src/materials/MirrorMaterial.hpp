@@ -26,6 +26,8 @@ namespace RT_ISICG
             return true;
         }
 
+        // todo mirror affect color
+
     protected:
         Vec3f _color;
     };
