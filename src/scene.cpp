@@ -4,8 +4,6 @@
 #include "lights/QuadLight.hpp"
 #include "materials/ColorMaterial.hpp"
 #include "objects/MeshTriangle.hpp"
-#include "objects/Plane.hpp"
-#include "objects/Sphere.hpp"
 #include "scene_setup.hpp"
 
 #include "../lib/assimp/assimp/Importer.hpp"
