@@ -40,7 +40,7 @@ namespace RT_ISICG
 
         float renderImage(const Scene &p_scene, const BaseCamera *p_camera, Texture &p_texture) const;
 
-        Vec3f colorTransform(Vec3f &color) const;
+        static Vec3f colorTransform(Vec3f &color);
 
         /**
          * @brief Render multiple sample per pixel and fill the given color
@@ -48,12 +48,11 @@ namespace RT_ISICG
          * @param p_camera The camera to use
          * @param sx pixel pos in x
          * @param sy pixel pos in y
-         * @param color color to fill with the average color of the samples
          * @param p_scene scene to render
          * @param pixelSizeY size of pixel in X
          * @param pixelSizeX size of pixel in Y
          */
-        Vec3f multiSample(const BaseCamera *p_camera, float sx, float sy, const Scene &p_scene, const float pixelSizeY, float pixelSizeX) const;
+        Vec3f multiSample(const BaseCamera *p_camera, float sx, float sy, const Scene &p_scene, float pixelSizeY, float pixelSizeX) const;
 
     private:
         BaseIntegrator *_integrator = nullptr;

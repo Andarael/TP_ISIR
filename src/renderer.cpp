@@ -91,18 +91,18 @@ namespace RT_ISICG
         return chrono.elapsedTime();
     }
 
-    Vec3f Renderer::colorTransform(Vec3f &color) const
+    Vec3f Renderer::colorTransform(Vec3f &color)
     {
         // gamma correction
         // color = glm::pow(color, Vec3f(1 / 2.2f));
         // color = color * 0.5f + 0.5f;
 
-        // clamp
+        // clamp // todo no clamp in hdr
         color = glm::clamp(color, 0.0f, 1.0f);
         return color;
     }
 
-    Vec3f Renderer::multiSample(const BaseCamera *p_camera, float sx, float sy, const Scene &p_scene, const float pixelSizeY, float pixelSizeX) const
+    Vec3f Renderer::multiSample(const BaseCamera *p_camera, float sx, float sy, const Scene &p_scene, float pixelSizeY, float pixelSizeX) const
     {
         Vec3f color = VEC3F_ZERO;
 

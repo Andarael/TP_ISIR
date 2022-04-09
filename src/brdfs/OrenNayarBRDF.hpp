@@ -12,7 +12,7 @@ namespace RT_ISICG
         OrenNayarBRDF(const Vec3f &p_kd, const float p_roughness)
             : _kd(p_kd), _roughness(p_roughness){};
 
-        Vec3f evaluate(const Vec3f normal, const Vec3f wi, const Vec3f wo) const
+        Vec3f evaluate(const Vec3f &normal, const Vec3f &wi, const Vec3f &wo) const
         {
             float sigma2 = _roughness * _roughness;
 

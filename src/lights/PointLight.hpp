@@ -11,7 +11,7 @@ namespace RT_ISICG
     public:
         PointLight() = delete;
 
-        PointLight(const Vec3f &p_color, Vec3f p_position, const float p_power = 1.f)
+        PointLight(const Vec3f &p_color, const Vec3f &p_position, const float p_power = 1.f)
             : BaseLight(p_color, p_power), _position(p_position){};
 
         LightSample sample(const Vec3f &p_point) const override

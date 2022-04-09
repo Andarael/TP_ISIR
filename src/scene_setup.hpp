@@ -128,7 +128,7 @@ namespace RT_ISICG
         scene._addMaterial(new MatteMaterial("Matte_Grey", GREY, 1.f));
         scene._addMaterial(new PlasticMaterial("Plastic_Grey", GREY, 0.3f, 8.f, false));
         scene._addMaterial(new PlasticMaterial("Plastic_Grey_additive", GREY, 0.3f, 8.f, true));
-        scene._addMaterial(new CookTorranceMaterial("PBR_Gold", Vec3f(1.f, 0.85f, 0.57f), 0.3f, 0.1f));
+        scene._addMaterial(new CookTorranceMaterial("PBR_Gold", Vec3f(1.f, 0.85f, 0.57f), 0.5f, 0.3f));
 
         /* ==============================================
          * ================ Add Objects =================

@@ -31,7 +31,7 @@ namespace RT_ISICG
             return false;
         }
 
-        virtual bool intersectAny(const Ray &p_ray, const float p_tMin, const float p_tMax) const override
+        bool intersectAny(const Ray &p_ray, const float p_tMin, const float p_tMax) const override
         {
             float t1, t2;
             if (_geometry.intersect(p_ray, t1, t2))

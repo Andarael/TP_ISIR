@@ -13,7 +13,7 @@ namespace RT_ISICG
               _k(float(glm::pow(p_roughness + 1.f, 2)) / 8.f),
               _F0(p_F0){};
 
-        Vec3f evaluate(const Vec3f n, const Vec3f wi, const Vec3f wo) const
+        Vec3f evaluate(const Vec3f &n, const Vec3f &wi, const Vec3f &wo) const
         {
             Vec3f h = normalize(wi + wo);
             return F(wo, h) * D(n, h) * G(n, wi, wo) / (4.f * dot(wo, n) * dot(wi, n));
@@ -29,13 +29,19 @@ namespace RT_ISICG
         float _k;
         Vec3f _F0;
 
-        float D(const Vec3f n, const Vec3f h) const
+        /**
+         * The Normal Distribution Function (NDF)
+         */
+        float D(const Vec3f &n, const Vec3f &h) const
         {
             float alpha2 = _alpha * _alpha;
             return alpha2 * INV_PIf / pow(((dot(n, h) * dot(n, h)) * (alpha2 - 1) + 1), 2.f);
         }
 
-        float G(const Vec3f n, const Vec3f wi, const Vec3f wo) const
+        /**
+         * The Geometric occlusion function
+         */
+        float G(const Vec3f &n, const Vec3f &wi, const Vec3f &wo) const
         {
             return G1(dot(n, wo)) * G1(dot(n, wi));
         }

@@ -11,7 +11,7 @@ namespace RT_ISICG
         PhongBrdf(const Vec3f &p_ks, const float p_shininess)
             : _ks(p_ks), _shininess(p_shininess){};
 
-        Vec3f evaluate(const Vec3f nrm, const Vec3f wi, Vec3f wo) const
+        Vec3f evaluate(const Vec3f &nrm, const Vec3f &wi, const Vec3f &wo) const
         {
             Vec3f spec;
 
