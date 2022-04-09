@@ -17,11 +17,12 @@ namespace RT_ISICG
         float aspectRatio = float(imgWidth) / imgHeight;
 
         RenderSettings render_settings;
-        render_settings.integratorType = IntegratorType::DIRECT_LIGHT;
+        render_settings.integratorType = IntegratorType::WHITTED;
         render_settings.sampler = Sampler::GRID_SAMPLER;
         render_settings.backgroundColor = GREY;
         render_settings.samplesPerPixel = 4;
         render_settings.shadowSamples = 4;
+        render_settings.nbBounces = 256;
 
         /* ============================
          * ====== Initialization ======

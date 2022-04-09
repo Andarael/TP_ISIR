@@ -8,6 +8,7 @@
 #include "integrators/DebugIntegrator.hpp"
 #include "integrators/DirectLightingIntegrator.hpp"
 #include "integrators/RayCastIntegrator.hpp"
+#include "integrators/WhittedIntegrator.hpp"
 
 namespace RT_ISICG
 {
@@ -35,11 +36,17 @@ namespace RT_ISICG
             _integrator = new DirectLightingIntegrator(_settings.shadowSamples);
             break;
         }
-        case IntegratorType::COUNT:
-            break;
         case IntegratorType::DEBUG:
+        {
             _integrator = new DebugIntegrator();
             break;
+        }
+        case IntegratorType::WHITTED:
+        {
+            _integrator = new WhittedIntegrator(_settings.shadowSamples, _settings.nbBounces);
+            break;
+        }
+        default:;
         }
     }
 

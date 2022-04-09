@@ -26,6 +26,7 @@ namespace RT_ISICG
         Vec3f backgroundColor = GREY;
         int samplesPerPixel = 2;
         int shadowSamples = 1;
+        int nbBounces = 5;
     };
 
     class Renderer

@@ -10,6 +10,7 @@ namespace RT_ISICG
         DEBUG = 0,
         RAY_CAST = 1,
         DIRECT_LIGHT = 2,
+        WHITTED = 3,
         COUNT // keep it last
     };
 
