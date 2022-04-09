@@ -26,14 +26,15 @@ namespace RT_ISICG
                     if (light->isSurface())
                         targetSamples = _nbLightSamples;
 
+                    Vec3f lightContribution = VEC3F_ZERO;
                     for (int i = 0; i < targetSamples; i++)
                     {
                         Vec3f hitPoint = hitRecord._point;
                         LightSample lightSample = light->sample(hitPoint);
                         if (!_isShadow(p_scene, lightSample, hitPoint, hitRecord._normal))
-                            li += _directLighting(hitRecord, lightSample, p_ray);
+                            lightContribution += _directLighting(hitRecord, lightSample, p_ray);
                     }
-                    li /= float(targetSamples);
+                    li += lightContribution / float(lights.size());
                 }
                 return li;
             }
