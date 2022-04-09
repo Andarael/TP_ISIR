@@ -16,6 +16,17 @@ namespace RT_ISICG
     using MaterialMapPair = MaterialMap::value_type;
     using LightList = std::vector<BaseLight *>;
 
+    enum class SceneType
+    {
+        TP1,
+        TP2,
+        TP3,
+        TP4,
+        TP5,
+        TP6,
+        SCENE_TYPE_COUNT
+    };
+
     class Scene
     {
     public:
@@ -25,6 +36,8 @@ namespace RT_ISICG
 
         // Hard coded initialization.
         void init();
+
+        void init(const SceneType &p_type);
 
         // Initialization from file.
         static void init(const std::string &p_path)

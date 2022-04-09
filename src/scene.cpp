@@ -1,14 +1,12 @@
 #include "Scene.hpp"
 
-#include "scene_setup.hpp"
 #include "lights/PointLight.hpp"
 #include "lights/QuadLight.hpp"
-#include "lights/SimpleQuadLight.hpp"
 #include "materials/ColorMaterial.hpp"
+#include "objects/MeshTriangle.hpp"
 #include "objects/Plane.hpp"
 #include "objects/Sphere.hpp"
-
-#include "objects/MeshTriangle.hpp"
+#include "scene_setup.hpp"
 
 #include "../lib/assimp/assimp/Importer.hpp"
 #include "../lib/assimp/assimp/postprocess.h"
@@ -35,8 +33,12 @@ namespace RT_ISICG
 
     void Scene::init()
     {
-        SceneType scene_type = SceneType::TP4;
-        setup_scene(*this, scene_type);
+        init(SceneType::TP4);
+    }
+
+    void Scene::init(const SceneType &p_type)
+    {
+         setup_scene(*this, p_type);
     }
 
     void Scene::loadFileTriangleMesh(const std::string &p_name, const std::string &p_path)

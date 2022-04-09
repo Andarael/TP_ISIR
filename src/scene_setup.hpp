@@ -29,40 +29,41 @@ namespace RT_ISICG
         /* ==============================================
          * ================ Add Materials ===============
          * ============================================== */
-        // scene._addMaterial(new MatteMaterial(" WhiteMatte ", WHITE, 0.6));
-        // scene._addMaterial(new MatteMaterial(" RedMatte ", RED, 0.6));
-        // scene._addMaterial(new MatteMaterial(" GreenMatte ", GREEN, 0.6));
-        // scene._addMaterial(new MatteMaterial(" BlueMatte ", BLUE, 0.6));
-        // scene._addMaterial(new MatteMaterial(" GreyMatte ", GREY, 0.6));
-        // scene._addMaterial(new MatteMaterial(" MagentaMatte ", MAGENTA, 0.6));
+        scene._addMaterial(new MatteMaterial("WhiteMatte", WHITE, 0.6f));
+        scene._addMaterial(new MatteMaterial("RedMatte", RED, 0.6f));
+        scene._addMaterial(new MatteMaterial("GreenMatte", GREEN, 0.6f));
+        scene._addMaterial(new MatteMaterial("BlueMatte", BLUE, 0.6f));
+        scene._addMaterial(new MatteMaterial("GreyMatte", GREY, 0.6f));
+        scene._addMaterial(new MatteMaterial("MagentaMatte", MAGENTA, 0.6f));
 
         /* ==============================================
          * ================ Add Objects =================
          * ============================================== */
+
         // Spheres .
-        scene._addObject(new Sphere(" Sphere1 ", Vec3f(-2, 0, 3), 1.5));
-        scene._attachMaterialToObject(" WhiteMatte ", " Sphere1 ");
-        scene._addObject(new Sphere(" Sphere2 ", Vec3f(2, 0, 3), 1.5));
-        scene._attachMaterialToObject(" WhiteMatte ", " Sphere2 ");
+        scene._addObject(new Sphere("Sphere1", Vec3f(-2.f, 0.f, 3.f), 1.5f));
+        scene._addObject(new Sphere("Sphere2", Vec3f(2.f, 0.f, 3.f), 1.5f));
+        scene._attachMaterialToObject("WhiteMatte", "Sphere1");
+        scene._attachMaterialToObject("WhiteMatte", "Sphere2");
+
         // Pseudo Cornell box made with infinite planes .
-        scene._addObject(new Plane(" PlaneGround ", Vec3f(0, -3, 0), Vec3f(0, 1, 0)));
-        scene._attachMaterialToObject(" GreyMatte ", " PlaneGround ");
-        scene._addObject(new Plane(" PlaneLeft ", Vec3f(5, 0, 0), Vec3f(-1, 0, 0)));
-        scene._attachMaterialToObject(" RedMatte ", " PlaneLeft ");
-        scene._addObject(new Plane(" PlaneCeiling ", Vec3f(0, 7, 0), Vec3f(0, -1, 0)));
-        scene._attachMaterialToObject(" GreenMatte ", " PlaneCeiling ");
-        scene._addObject(new Plane(" PlaneRight ", Vec3f(-5, 0, 0), Vec3f(1, 0, 0)));
-        scene._attachMaterialToObject(" BlueMatte ", " PlaneRight ");
-        scene._addObject(new Plane(" PlaneFront ", Vec3f(0, 0, 10), Vec3f(0, 0, -1)));
-        scene._attachMaterialToObject(" MagentaMatte ", " PlaneFront ");
+        scene._addObject(new Plane("PlaneGround", Vec3f(0.f, -3.f, 0.f), Vec3f(0.f, 1.f, 0.f)));
+        scene._addObject(new Plane("PlaneLeft", Vec3f(5.f, 0.f, 0.f), Vec3f(-1.f, 0.f, 0.f)));
+        scene._addObject(new Plane("PlaneCeiling", Vec3f(0.f, 7.f, 0.f), Vec3f(0.f, -1.f, 0.f)));
+        scene._addObject(new Plane("PlaneRight", Vec3f(-5.f, 0.f, 0.f), Vec3f(1.f, 0.f, 0.f)));
+        scene._addObject(new Plane("PlaneFront", Vec3f(0.f, 0.f, 10.f), Vec3f(0.f, 0.f, -1.f)));
+        scene._attachMaterialToObject("GreyMatte", "PlaneGround");
+        scene._attachMaterialToObject("RedMatte", "PlaneLeft");
+        scene._attachMaterialToObject("GreenMatte", "PlaneCeiling");
+        scene._attachMaterialToObject("BlueMatte", "PlaneRight");
+        scene._attachMaterialToObject("MagentaMatte", "PlaneFront");
 
         /* ==============================================
          * ================ Add lights ==================
          * ============================================== */
-        scene._addLight(new PointLight(Vec3f(0, 5, 0), WHITE, 100));
-        // _addLight ( new QuadLight ( Vec3f ( 1, 5, -2 ),
-        // Vec3f ( -2, 0, 0 ) ,
-        // Vec3f ( 0, 1, 2 ) , WHITE , 40 ) );
+        //scene._addLight(new PointLight(WHITE, Vec3f(0.f, 5.f, 0.f), 400.f)); // todo unify light types constructor (pos, power, etc...)
+        Vec3f pos = Vec3f(1.f, 5.f, -2.f);
+         scene._addLight(new QuadLight(WHITE, 40.f, pos, Vec3f(-2.f, 0.f, 0.f), Vec3f(0.f, 1.f, 2.f)));
     }
 
     static void setup_TP3(Scene &scene)
@@ -139,24 +140,15 @@ namespace RT_ISICG
         scene._attachMaterialToObject("Red", "Plane1");
     }
 
-    enum class SceneType
-    {
-        TP1,
-        TP2,
-        TP3,
-        TP4,
-        TP5,
-        TP6,
-        SCENE_TYPE_COUNT
-    };
-
-    inline static void setup_scene(Scene &scene, SceneType scene_type)
+    static void setup_scene(Scene &scene, const SceneType scene_type)
     {
         switch (scene_type)
         {
         case SceneType::TP1:
             break;
         case SceneType::TP2:
+            break;
+        case SceneType::TP6:
             break;
         case SceneType::TP3:
             setup_TP3(scene);
@@ -166,8 +158,6 @@ namespace RT_ISICG
             break;
         case SceneType::TP5:
             setup_TP5(scene);
-            break;
-        case SceneType::TP6:
             break;
         default:
             break;
