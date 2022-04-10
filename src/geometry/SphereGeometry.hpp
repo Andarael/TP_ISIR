@@ -56,7 +56,7 @@ namespace RT_ISICG
 
         Vec3f computeNormal(const Vec3f &p_point) const
         {
-            return glm::normalize(_position - p_point);
+            return glm::normalize(p_point - _position);
         }
 
     private:

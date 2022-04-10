@@ -55,7 +55,7 @@ namespace RT_ISICG
         {
             p_hitRecord._point = p_ray.pointAtT(distance);
             p_hitRecord._normal = normal;
-            p_hitRecord.faceNormal(p_ray.getDirection());
+            //p_hitRecord.faceNormal(p_ray.getDirection());
             p_hitRecord._distance = distance;
             p_hitRecord._object = this;
         }
