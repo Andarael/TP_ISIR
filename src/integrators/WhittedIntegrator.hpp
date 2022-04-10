@@ -39,9 +39,9 @@ namespace RT_ISICG
                     Vec3f mirrorColor = hitRecord._object->getMaterial()->getFlatColor();
                     return mirrorColor * trace(p_scene, reflectedRay, p_tMin, p_tMax, depth + 1);
                 }
+                return getValue(p_scene, p_ray, hitRecord);
             }
-
-            return DirectLightingIntegrator::Li(p_scene, p_ray, p_tMin, p_tMax);
+            return _backgroundColor;
         }
 
     private:

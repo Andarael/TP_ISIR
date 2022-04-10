@@ -20,35 +20,35 @@ namespace RT_ISICG
         {
             HitRecord hitRecord;
             if (p_scene.intersect(p_ray, p_tMin, p_tMax, hitRecord))
-            {
-                Vec3f li = VEC3F_ZERO;
-                LightList lights = p_scene.getLights();
-                for (BaseLight *light : lights)
-                {
-                    int targetSamples = 1;
-                    if (light->isSurface())
-                        targetSamples = _nbShadowSamples;
-
-                    Vec3f lightContribution = VEC3F_ZERO;
-                    for (int i = 0; i < targetSamples; i++)
-                    {
-                        Vec3f hitPoint = hitRecord._point;
-                        LightSample lightSample = light->sample(hitPoint);
-                        if (!_isShadow(p_scene, lightSample, hitPoint, hitRecord._normal))
-                            lightContribution += _directLighting(hitRecord, lightSample, p_ray);
-                    }
-                    li += lightContribution / float(targetSamples);
-                }
-                return li;
-            }
+                return directLighting(p_scene, p_ray, hitRecord);
             return _backgroundColor;
         }
 
-    private:
-        // todo multiple sample importance in light
-        int _nbShadowSamples;
-
     protected:
+        Vec3f directLighting(const Scene &p_scene, const Ray &p_ray, HitRecord hitRecord) const
+        {
+            Vec3f li = VEC3F_ZERO;
+            LightList lights = p_scene.getLights();
+            for (BaseLight *light : lights)
+            {
+                int targetSamples = 1;
+                if (light->isSurface())
+                    targetSamples = _nbShadowSamples;
+
+                Vec3f lightContribution = VEC3F_ZERO;
+                for (int i = 0; i < targetSamples; i++)
+                {
+                    Vec3f hitPoint = hitRecord._point;
+                    LightSample lightSample = light->sample(hitPoint);
+                    if (!_isShadow(p_scene, lightSample, hitPoint, hitRecord._normal))
+                        lightContribution += shadeLighting(hitRecord, lightSample, p_ray);
+                }
+                li += lightContribution / float(targetSamples);
+            }
+            return li;
+        }
+
+    private:
         static bool _isShadow(const Scene &p_scene, const LightSample &lightSample, const Vec3f &point, const Vec3f &p_normal)
         {
             Vec3f direction = lightSample._direction;
@@ -58,7 +58,7 @@ namespace RT_ISICG
             return p_scene.intersectAny(ray, 0, lightSample._distance);
         }
 
-        static Vec3f _directLighting(const HitRecord &hitRecord, const LightSample &lightSample, const Ray &p_ray)
+        static Vec3f shadeLighting(const HitRecord &hitRecord, const LightSample &lightSample, const Ray &p_ray)
         {
             Vec3f sampleRadiance = lightSample._radiance;
             Vec3f materialColor = hitRecord._object->getMaterial()->shade(p_ray, hitRecord, lightSample);
@@ -66,6 +66,8 @@ namespace RT_ISICG
 
             return max(VEC3F_ZERO, materialColor * factor * sampleRadiance);
         }
+
+        int _nbShadowSamples;
     };
 }
 
