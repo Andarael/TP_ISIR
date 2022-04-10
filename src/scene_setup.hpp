@@ -36,7 +36,23 @@ namespace RT_ISICG
         scene._addMaterial(new MatteMaterial("BlueMatte", BLUE, 0.6f));
         scene._addMaterial(new MatteMaterial("GreyMatte", GREY, 0.6f));
         scene._addMaterial(new MatteMaterial("MagentaMatte", MAGENTA, 0.6f));
-        scene._addMaterial(new MirrorMaterial("Mirror", WHITE));
+
+        // color
+        Vec3f lightBlue = Vec3f(0.7, 0.7, 1);
+        Vec3f lightGreen = Vec3f(0.7, 1, 0.7);
+        Vec3f lightRed = Vec3f(1, 0.7, 0.7);
+        Vec3f lightCyan = Vec3f(0.5, 1, 1);
+        Vec3f lightMagenta = Vec3f(1, 0.5, 1);
+        Vec3f lightYellow = Vec3f(1, 1, 0.5);
+
+        // mirrors
+        scene._addMaterial(new MirrorMaterial("MirrorLightBlue", lightBlue));
+        scene._addMaterial(new MirrorMaterial("MirrorLightGreen", lightGreen));
+        scene._addMaterial(new MirrorMaterial("MirrorLightRed", lightRed));
+        scene._addMaterial(new MirrorMaterial("MirrorLightCyan", lightCyan));
+        scene._addMaterial(new MirrorMaterial("MirrorLightMagenta", lightMagenta));
+        scene._addMaterial(new MirrorMaterial("MirrorLightYellow", lightYellow));
+        scene._addMaterial(new MirrorMaterial("MirrorWhite", WHITE));
 
         /* ==============================================
          * ================ Add Objects =================
@@ -44,8 +60,8 @@ namespace RT_ISICG
         // Spheres
         scene._addObject(new Sphere("Sphere1", Vec3f(-2.f, 0.f, 3.f), 1.5f));
         scene._addObject(new Sphere("Sphere2", Vec3f(2.f, 0.f, 3.f), 1.5f));
-        scene._attachMaterialToObject("Mirror", "Sphere1");
-        scene._attachMaterialToObject("Mirror", "Sphere2");
+        scene._attachMaterialToObject("MirrorLightBlue", "Sphere1");
+        scene._attachMaterialToObject("MirrorLightRed", "Sphere2");
 
         // Pseudo Cornell box made with infinite planes
         scene._addObject(new Plane("PlaneGround", Vec3f(0.f, -3.f, 0.f), Vec3f(0.f, 1.f, 0.f)));
@@ -56,18 +72,23 @@ namespace RT_ISICG
         scene._addObject(new Plane("PlaneBack", Vec3f(0.f, 0.f, -10.f), Vec3f(0.f, 0.f, 1.f)));
 
         scene._attachMaterialToObject("GreyMatte", "PlaneGround");
-        scene._attachMaterialToObject("Mirror", "PlaneLeft");
-        scene._attachMaterialToObject("GreenMatte", "PlaneCeiling");
-        scene._attachMaterialToObject("Mirror", "PlaneRight");
-        scene._attachMaterialToObject("Mirror", "PlaneFront");
-        scene._attachMaterialToObject("Mirror", "PlaneBack");
+        scene._attachMaterialToObject("GreyMatte", "PlaneCeiling");
+        scene._attachMaterialToObject("MirrorLightCyan", "PlaneLeft");
+        scene._attachMaterialToObject("MirrorLightYellow", "PlaneRight");
+        scene._attachMaterialToObject("MirrorWhite", "PlaneFront");
+        scene._attachMaterialToObject("MirrorLightMagenta", "PlaneBack");
 
         /* ==============================================
          * ================ Add lights ==================
          * ============================================== */
         // todo unify light types constructor (pos, power, etc...)
-         //scene._addLight(new PointLight(WHITE, Vec3f(0.f, 5.f, 0.f), 100.f));
-        scene._addLight(new QuadLight(WHITE, 40.f, Vec3f(1.f, 5.f, -2.f), Vec3f(-2.f, 0.f, 0.f), Vec3f(0.f, 1.f, 2.f)));
+        Vec3f lightPosition = Vec3f(0, 5, 0);
+        // scene._addLight(new PointLight(WHITE, lightPosition, 200.f));
+        SimpleQuadLight *quadLight = new SimpleQuadLight(WHITE, 50, 2, lightPosition);
+        quadLight->setLookAt(Vec3f(0, 0, 3));
+        scene._addLight(quadLight);
+
+        // scene._addLight(new QuadLight(WHITE, 60.f, Vec3f(1.f, 5.f, -2.f), Vec3f(-2.f, 0.f, 0.f), Vec3f(0.f, 1.f, 2.f)));
     }
 
     static void setup_TP3(Scene &scene)
@@ -121,7 +142,7 @@ namespace RT_ISICG
          * ============================================== */
         Vec3f lightPosition = Vec3f(1, 1, -2);
         PointLight *pointLight = new PointLight(WHITE, lightPosition, 60);
-        SimpleQuadLight *quadLight = new SimpleQuadLight(WHITE, 10, 4, lightPosition, Vec3f(1));
+        SimpleQuadLight *quadLight = new SimpleQuadLight(WHITE, 10, 4, lightPosition);
         quadLight->setLookAt(Vec3f(0, 0, 3));
         scene._addLight(quadLight);
 
