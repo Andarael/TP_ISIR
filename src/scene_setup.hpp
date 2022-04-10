@@ -82,13 +82,13 @@ namespace RT_ISICG
          * ================ Add lights ==================
          * ============================================== */
         // todo unify light types constructor (pos, power, etc...)
-        Vec3f lightPosition = Vec3f(0, 5, 0);
-        // scene._addLight(new PointLight(WHITE, lightPosition, 200.f));
+        Vec3f lightPosition = Vec3f(0, 5,0);
         SimpleQuadLight *quadLight = new SimpleQuadLight(WHITE, 50, 2, lightPosition);
         quadLight->setLookAt(Vec3f(0, 0, 3));
-        scene._addLight(quadLight);
+        //scene._addLight(quadLight);
 
-        // scene._addLight(new QuadLight(WHITE, 60.f, Vec3f(1.f, 5.f, -2.f), Vec3f(-2.f, 0.f, 0.f), Vec3f(0.f, 1.f, 2.f)));
+         scene._addLight(new PointLight(WHITE, lightPosition, 200.f));
+         //scene._addLight(new QuadLight(WHITE, 60.f, Vec3f(1.f, 5.f, -2.f), Vec3f(-2.f, 0.f, 0.f), Vec3f(0.f, 1.f, 2.f)));
     }
 
     static void setup_TP3(Scene &scene)
@@ -142,7 +142,7 @@ namespace RT_ISICG
          * ============================================== */
         Vec3f lightPosition = Vec3f(1, 1, -2);
         PointLight *pointLight = new PointLight(WHITE, lightPosition, 60);
-        SimpleQuadLight *quadLight = new SimpleQuadLight(WHITE, 10, 4, lightPosition);
+        SimpleQuadLight *quadLight = new SimpleQuadLight(WHITE, 10, 2, lightPosition);
         quadLight->setLookAt(Vec3f(0, 0, 3));
         scene._addLight(quadLight);
 
