@@ -8,7 +8,9 @@
 #include "materials/ColorMaterial.hpp"
 #include "materials/CookTorranceMaterial.hpp"
 #include "materials/MatteMaterial.hpp"
+#include "materials/MirrorMaterial.hpp"
 #include "materials/PlasticMaterial.hpp"
+#include "materials/TransparentMaterial.hpp"
 #include "materials/lambertMaterial.hpp"
 
 // import lights
@@ -18,7 +20,6 @@
 #include "lights/SimpleQuadLight.hpp"
 
 // import objects
-#include "materials/MirrorMaterial.hpp"
 #include "objects/BaseObject.hpp"
 #include "objects/Plane.hpp"
 #include "objects/Sphere.hpp"
@@ -54,14 +55,18 @@ namespace RT_ISICG
         scene._addMaterial(new MirrorMaterial("MirrorLightYellow", lightYellow));
         scene._addMaterial(new MirrorMaterial("MirrorWhite", WHITE));
 
+        // transparent
+        scene._addMaterial(new TransparentMaterial("TransparentWhite", WHITE, 1.3f));
+        scene._addMaterial(new TransparentMaterial("TransparentLightBlue", lightBlue, 1.3f));
+
         /* ==============================================
          * ================ Add Objects =================
          * ============================================== */
         // Spheres
         scene._addObject(new Sphere("Sphere1", Vec3f(-2.f, 0.f, 3.f), 1.5f));
         scene._addObject(new Sphere("Sphere2", Vec3f(2.f, 0.f, 3.f), 1.5f));
-        scene._attachMaterialToObject("MirrorLightBlue", "Sphere1");
-        scene._attachMaterialToObject("MirrorLightRed", "Sphere2");
+        scene._attachMaterialToObject("MirrorLightRed", "Sphere1");
+        scene._attachMaterialToObject("TransparentWhite", "Sphere2");
 
         // Pseudo Cornell box made with infinite planes
         scene._addObject(new Plane("PlaneGround", Vec3f(0.f, -3.f, 0.f), Vec3f(0.f, 1.f, 0.f)));
@@ -72,11 +77,17 @@ namespace RT_ISICG
         scene._addObject(new Plane("PlaneBack", Vec3f(0.f, 0.f, -10.f), Vec3f(0.f, 0.f, 1.f)));
 
         scene._attachMaterialToObject("GreyMatte", "PlaneGround");
-        scene._attachMaterialToObject("GreyMatte", "PlaneCeiling");
-        scene._attachMaterialToObject("MirrorLightCyan", "PlaneLeft");
+        scene._attachMaterialToObject("GreenMatte", "PlaneCeiling");
+
+        scene._attachMaterialToObject("RedMatte", "PlaneLeft");
+        scene._attachMaterialToObject("BlueMatte", "PlaneRight");
+        scene._attachMaterialToObject("MagentaMatte", "PlaneFront");
+        scene._attachMaterialToObject("MirrorLightMagenta", "PlaneBack");
+
+        /*scene._attachMaterialToObject("MirrorLightCyan", "PlaneLeft");
         scene._attachMaterialToObject("MirrorLightYellow", "PlaneRight");
         scene._attachMaterialToObject("MirrorWhite", "PlaneFront");
-        scene._attachMaterialToObject("MirrorLightMagenta", "PlaneBack");
+        scene._attachMaterialToObject("MirrorLightMagenta", "PlaneBack");*/
 
         /* ==============================================
          * ================ Add lights ==================

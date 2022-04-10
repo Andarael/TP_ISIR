@@ -26,7 +26,17 @@ namespace RT_ISICG
             return _name;
         }
 
-        virtual const bool isMirror() const
+        virtual float getIOR() const
+        {
+            return 1.f;
+        }
+
+        virtual bool isMirror() const
+        {
+            return false;
+        }
+
+        virtual bool isTransparent() const
         {
             return false;
         }

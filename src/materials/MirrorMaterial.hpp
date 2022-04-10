@@ -21,12 +21,10 @@ namespace RT_ISICG
             return _color;
         }
 
-        const bool isMirror() const override
+        bool isMirror() const override
         {
             return true;
         }
-
-        // todo mirror affect color
 
     protected:
         Vec3f _color;

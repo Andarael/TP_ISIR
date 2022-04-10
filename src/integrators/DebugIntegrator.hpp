@@ -26,9 +26,11 @@ namespace RT_ISICG
                 Vec3f color = hitRecord._object->getMaterial()->getFlatColor();
                 Vec3f normal = hitRecord._normal; // we assume normal is normalized
                 output = normal;
+                output = Vec3f(glm::dot(hitRecord._normal, -p_ray.getDirection()));
             }
             return (output);
         }
+
     private:
         static Vec3f _setColorInRange(Vec3f const p_color)
         {
@@ -36,7 +38,6 @@ namespace RT_ISICG
         }
     };
 
-    
 } // namespace RT_ISICG
 
 #endif // __RT_ISICG_RAY_CAST_INTEGRATOR__
