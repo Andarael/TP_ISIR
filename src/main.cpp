@@ -16,13 +16,14 @@ namespace RT_ISICG
         const int imgHeight = 800;
         float aspectRatio = float(imgWidth) / imgHeight;
 
+        // todo the scene should be able to give its own camera and render settings
         RenderSettings render_settings;
         render_settings.integratorType = IntegratorType::WHITTED;
         render_settings.sampler = Sampler::GRID_SAMPLER;
         render_settings.backgroundColor = GREY;
-        render_settings.samplesPerPixel = 4;
-        render_settings.shadowSamples = 4;
-        render_settings.nbBounces = 256;
+        render_settings.samplesPerPixel = 1;
+        render_settings.shadowSamples = 1;
+        render_settings.nbBounces = 5;
 
         /* ============================
          * ====== Initialization ======
@@ -53,12 +54,12 @@ namespace RT_ISICG
         std::cout << "-> Done in " << renderingTime << "ms" << std::endl;
 
         /* ==============================
-         * ====== Saving the image ======
+         * ====== Saving the image(s) ======
          * ============================== */
         const std::string imgName = "image.jpg";
         const std::string imgNameHDR = "image.hdr";
         img.saveJPG(RESULTS_PATH + imgName);
-        img.saveHDR(RESULTS_PATH + imgNameHDR);
+        //img.saveHDR(RESULTS_PATH + imgNameHDR);
 
         return EXIT_SUCCESS;
     }

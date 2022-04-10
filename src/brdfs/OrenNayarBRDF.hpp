@@ -1,7 +1,6 @@
 #ifndef __RT_ISICG_BRDF_ORENNAYAR__
 #define __RT_ISICG_BRDF_ORENNAYAR__
 
-// todo wtf ?
 #include "defines.hpp"
 
 namespace RT_ISICG
@@ -80,6 +79,7 @@ namespace RT_ISICG
 
     private:
         Vec3f _kd = WHITE;
+        // todo move kd to material
         float _roughness = 0.0f;
     };
 }
