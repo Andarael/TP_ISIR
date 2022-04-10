@@ -36,7 +36,8 @@ namespace RT_ISICG
                 {
                     Ray reflectedRay = Ray(hitRecord._point, glm::reflect(p_ray.getDirection(), hitRecord._normal));
                     reflectedRay.offset(hitRecord._normal);
-                    return trace(p_scene, reflectedRay, p_tMin, p_tMax, depth + 1);
+                    Vec3f mirrorColor = hitRecord._object->getMaterial()->getFlatColor();
+                    return mirrorColor * trace(p_scene, reflectedRay, p_tMin, p_tMax, depth + 1);
                 }
             }
 

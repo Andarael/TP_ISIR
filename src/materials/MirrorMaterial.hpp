@@ -13,12 +13,12 @@ namespace RT_ISICG
 
         Vec3f shade(const Ray &p_ray, const HitRecord &p_hitRecord, const LightSample &p_lightSample) const override
         {
-            return BLACK;
+            return _color * INV_PIf; // todo miror brdf, not use lightSample
         }
 
         const Vec3f &getFlatColor() const override
         {
-            return BLACK;
+            return _color;
         }
 
         const bool isMirror() const override
