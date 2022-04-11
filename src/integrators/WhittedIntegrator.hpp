@@ -24,7 +24,7 @@ namespace RT_ISICG
         }
 
     protected:
-        Vec3f trace(const Scene &p_scene, const Ray &p_ray, const float p_tMin, const float p_tMax, const int depth = 0) const
+        Vec3f trace(const Scene &p_scene, const Ray &p_ray, const float p_tMin, const float p_tMax, const int depth) const
         {
             if (depth > _nbBounces)
                 return BLACK;
@@ -44,43 +44,34 @@ namespace RT_ISICG
         }
 
         // compute only the reflectance
-        float fresnel(const Vec3f &wi, const Vec3f &N, float n1, float n2) const
+        float fresnel(const Vec3f &wi, const Vec3f &N, const float n1, const float n2) const
         {
-            float cosI = glm::dot(wi, N);
+            float cosI = glm::dot(N, wi); // cos of incoming
 
-            if (cosI > 0.0f)
-            {
-                float tmp = n1;
-                n1 = n2;
-                n2 = tmp;
-            }
+            float r = n1 / n2;
+            float sinT = r * r * (1.0f - cosI * cosI); // sin of Transmitted (sin = 1-cos²)
 
-            float n = n1 / n2;
-            float sinT = n * n * (1.0f - cosI * cosI);
+            if (sinT > 1.0f) // no refraction
+                return 1.0f;
 
-            if (sinT > 1.0f)
-                return 1.0f; // no refraction
-
-            float cosT = glm::sqrt(glm::max(0.0f, 1.0f - sinT * sinT));
+            float cosT = glm::sqrt(glm::max(0.0f, 1.0f - sinT * sinT)); // cos of Transmitted
             cosI = glm::abs(cosI);
 
             float Rs = ((n2 * cosI) - (n1 * cosT)) / ((n2 * cosI) + (n1 * cosT));
             float Rp = ((n1 * cosI) - (n2 * cosT)) / ((n1 * cosI) + (n2 * cosT));
 
-            return (Rs * Rs + Rp * Rp) / 2.0f;
+            return glm::clamp(1.f, 0.f, (Rs * Rs + Rp * Rp) / 2.0f);
         }
 
         Vec3f refractRay(const Scene &p_scene, const Ray &p_ray, const float p_tMin, const float p_tMax, const int depth, const HitRecord &hitRecord, const float n1, const float n2, const float fresnelFactor) const
         {
-            if (fresnelFactor >= 1.f)
+            if (fresnelFactor >= 1.0f) // total internal reflection, no need to compute anything here
                 return BLACK;
 
             float r = n1 / n2;
             Vec3f normal = hitRecord._backFacing ? -hitRecord._normal : hitRecord._normal;
-
             Vec3f refractedDirection = glm::refract(p_ray.getDirection(), normal, r);
             Ray refractedRay = Ray(hitRecord._point, refractedDirection);
-
             refractedRay.offset(-normal); // we always reflect in a different medium than the ray origin
 
             Vec3f transparentColor = hitRecord._object->getMaterial()->getFlatColor();
@@ -101,15 +92,13 @@ namespace RT_ISICG
         {
             float n1 = 1.0f;
             float n2 = hitRecord._object->getMaterial()->getIOR();
-
-            float fresnelFactor = fresnel(p_ray.getDirection(), hitRecord._normal, n1, n2);
-
             if (hitRecord._backFacing)
             {
                 n1 = n2;
                 n2 = 1.0f;
             }
 
+            float fresnelFactor = fresnel(p_ray.getDirection(), hitRecord._normal, n1, n2);
             Vec3f reflectedColor = reflectRay(p_scene, p_ray, p_tMin, p_tMax, depth, hitRecord);
             Vec3f refractedColor = refractRay(p_scene, p_ray, p_tMin, p_tMax, depth, hitRecord, n1, n2, fresnelFactor);
 
