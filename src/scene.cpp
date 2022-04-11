@@ -48,9 +48,7 @@ namespace RT_ISICG
         const aiScene *const scene = importer.ReadFile(p_path, aiProcess_Triangulate | aiProcess_GenNormals | aiProcess_GenUVCoords);
 
         if (scene == nullptr)
-        {
             throw std::runtime_error("Fail to load file: " + p_path);
-        }
 
         unsigned int cptTriangles = 0;
         unsigned int cptVertices = 0;
