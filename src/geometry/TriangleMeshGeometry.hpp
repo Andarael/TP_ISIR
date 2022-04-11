@@ -12,11 +12,11 @@ namespace RT_ISICG
     public:
         TriangleMeshGeometry() = delete;
 
-        ~TriangleMeshGeometry() override = default;
-
         TriangleMeshGeometry(unsigned int p_v0, unsigned int p_v1, unsigned int p_v2, MeshTriangle *p_refMesh);
 
-        bool intersect(const Ray &p_ray, float &p_t) const;
+        ~TriangleMeshGeometry() override = default;
+
+        bool intersect(const Ray &p_ray, float &p_t, Vec2f &uv) const;
 
         const Vec3f &getFaceNormal() const
         {

@@ -56,6 +56,8 @@ namespace RT_ISICG
         bool intersectAny(const Ray &p_ray, float p_tMin, float p_tMax) const override;
 
     private:
+        bool _smoothShading = false; // todo add in the constructor
+
         std::vector<Vec3f> _vertices;
         std::vector<Vec3f> _normals;
         std::vector<Vec2f> _uvs;

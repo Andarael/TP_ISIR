@@ -25,8 +25,9 @@ namespace RT_ISICG
             {
                 Vec3f color = hitRecord._object->getMaterial()->getFlatColor();
                 Vec3f normal = hitRecord._normal; // we assume normal is normalized
-                output = normal;
                 output = Vec3f(glm::dot(hitRecord._normal, -p_ray.getDirection()));
+                output = hitRecord._point;
+                output = normal;
             }
             return (output);
         }
