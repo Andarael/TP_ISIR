@@ -17,7 +17,6 @@ namespace RT_ISICG
 
             if (blinnPhong)
             {
-                // todo test this implementation
                 Vec3f h = normalize(wo + wi);
                 spec = glm::pow(glm::max(dot(nrm, h), 0.f), _shininess);
             }
@@ -31,7 +30,7 @@ namespace RT_ISICG
 
     private:
         float _shininess;
-        bool blinnPhong = false;
+        bool blinnPhong = true;
     };
 
 } // namespace RT_ISICG

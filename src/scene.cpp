@@ -36,7 +36,7 @@ namespace RT_ISICG
 
     void Scene::init(const SceneType &p_type)
     {
-         setup_scene(*this, p_type);
+        setup_scene(*this, p_type);
     }
 
     void Scene::loadFileTriangleMesh(const std::string &p_name, const std::string &p_path)
@@ -109,8 +109,8 @@ namespace RT_ISICG
                 aiString mtlName;
                 mtl->Get(AI_MATKEY_NAME, mtlName);
 
-                //_addMaterial( new PlasticMaterial( std::string( mtlName.C_Str() ), kd, ks, s ) );
-                //_attachMaterialToObject( mtlName.C_Str(), meshName );
+                _addMaterial(new PlasticMaterial(std::string(mtlName.C_Str()), kd, ks, s));
+                _attachMaterialToObject(mtlName.C_Str(), meshName);
             }
 
             std::cout << "-- [DONE] " << triMesh->getNbTriangles() << " triangles, " << triMesh->getNbVertices()
