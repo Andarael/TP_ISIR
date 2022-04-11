@@ -53,10 +53,10 @@ namespace RT_ISICG
          */
         void fillHitRecord(HitRecord &p_hitRecord, const Ray &p_ray, const Vec3f normal, const float distance) const
         {
+            // p_hitRecord.faceNormal(p_ray.getDirection());
             p_hitRecord._point = p_ray.pointAtT(distance);
             p_hitRecord._normal = normal;
             p_hitRecord._backFacing = dot(p_ray.getDirection(), normal) > 0.f;
-            // p_hitRecord.faceNormal(p_ray.getDirection());
             p_hitRecord._distance = distance;
             p_hitRecord._object = this;
         }
@@ -84,7 +84,7 @@ namespace RT_ISICG
             return true;
         }
 
-        virtual bool intersectionInRange(float &p_t, const float p_tMin, const float p_tMax) const
+        virtual bool intersectionInRange(float const p_t, const float p_tMin, const float p_tMax) const
         {
             return (p_t < p_tMax && p_t > p_tMin); // first intersection too far
         }
