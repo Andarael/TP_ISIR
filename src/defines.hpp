@@ -24,6 +24,7 @@ namespace RT_ISICG
     const float FLT_INFINITY = std::numeric_limits<float>::infinity();
 
     const float SHADOW_EPSILON = 0.001f;
+    const float EPSILON = 0.001f;
 
     // Vectors.
     using Vec2i = glm::ivec2;
@@ -60,6 +61,7 @@ namespace RT_ISICG
 
     // Paths.
     const std::string RESULTS_PATH = "results/";
+    const std::string DATA_PATH = "data/";
 
     // Utils.
     static inline float intAsFloat(const int p_i)
