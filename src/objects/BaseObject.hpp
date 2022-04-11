@@ -56,7 +56,8 @@ namespace RT_ISICG
             // p_hitRecord.faceNormal(p_ray.getDirection());
             p_hitRecord._point = p_ray.pointAtT(distance);
             p_hitRecord._normal = normal;
-            p_hitRecord._backFacing = dot(p_ray.getDirection(), normal) > 0.f;
+            if (getMaterial()->isTransparent()) // we don't care about backfacing for non transparent objects (for the moment)
+                p_hitRecord._backFacing = dot(p_ray.getDirection(), normal) > 0.f;
             p_hitRecord._distance = distance;
             p_hitRecord._object = this;
         }
