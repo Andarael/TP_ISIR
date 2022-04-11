@@ -5,18 +5,15 @@
 
 namespace RT_ISICG
 {
-    class BaseObject;
+    class BaseObject; // todo utiliser la même technique que ça pour le scene_setup et le render_setup
 
     struct HitRecord
     {
         HitRecord() = default;
 
-        HitRecord(const Vec3f &p_point, const Vec3f &p_normal, const float p_distance, const BaseObject *p_object)
-            : _point(p_point), _normal(p_normal), _distance(p_distance), _object(p_object){};
+        HitRecord(const Vec3f &p_point, const Vec3f &p_normal, const float p_distance, const bool p_backFacing, const BaseObject *p_object)
+            : _point(p_point), _normal(p_normal), _distance(p_distance), _backFacing(p_backFacing), _object(p_object){};
 
-        /**
-         * fix normal direction
-         */
         void faceNormal(const Vec3f p_direction)
         {
             _normal = glm::dot(p_direction, _normal) < 0.f ? _normal : -_normal;
@@ -27,6 +24,8 @@ namespace RT_ISICG
         Vec3f _normal = VEC3F_ZERO;
 
         float _distance = 0.f;
+
+        bool _backFacing = false;
 
         const BaseObject *_object = nullptr;
     };
