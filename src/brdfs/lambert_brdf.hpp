@@ -8,22 +8,13 @@ namespace RT_ISICG
     class LambertBRDF
     {
     public:
-        LambertBRDF(const Vec3f &p_kd)
-            : _kd(p_kd), _precompute(_kd * INV_PIf){};
+        /*kd ha been moved to the material*/
+        LambertBRDF() = default;
 
-        Vec3f evaluate() const
+        static float evaluate()
         {
-            return _precompute;
+            return INV_PIf;
         }
-
-        const Vec3f &getKd() const
-        {
-            return _kd;
-        }
-
-    private:
-        Vec3f _kd = WHITE;
-        Vec3f _precompute;
     };
 } // namespace RT_ISICG
 

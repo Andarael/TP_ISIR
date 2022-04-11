@@ -30,7 +30,7 @@ namespace RT_ISICG
     {
 
         // use walls as mirrors
-        bool fullMirror = true;
+        bool fullMirror = false;
 
         /* ==============================================
          * ================ Add Materials ===============
@@ -60,17 +60,17 @@ namespace RT_ISICG
         scene._addMaterial(new MirrorMaterial("MirrorWhite", WHITE));
 
         // transparent
-        scene._addMaterial(new TransparentMaterial("TransparentWhite", WHITE, 1.45f));
+        scene._addMaterial(new TransparentMaterial("TransparentWhite", WHITE, 1.3f));
         scene._addMaterial(new TransparentMaterial("TransparentLightBlue", lightBlue, 1.3f));
 
         /* ==============================================
          * ================ Add Objects =================
          * ============================================== */
         // Spheres
-        scene._addObject(new Sphere("Sphere1", Vec3f(-2.f, 0.f, 3.f), 1.5f));
-        scene._addObject(new Sphere("Sphere2", Vec3f(2.f, 0.f, 3.f), 1.5f));
+        scene._addObject(new Sphere("Sphere1", Vec3f(-2, 0, 3), 1.5f));
+        scene._addObject(new Sphere("Sphere2", Vec3f(2, 0, 3), 1.5f));
         scene._attachMaterialToObject("MirrorLightRed", "Sphere1");
-        scene._attachMaterialToObject("TransparentLightBlue", "Sphere2");
+        scene._attachMaterialToObject("TransparentWhite", "Sphere2");
 
         // Pseudo Cornell box made with infinite planes
         scene._addObject(new Plane("PlaneGround", Vec3f(0.f, -3.f, 0.f), Vec3f(0.f, 1.f, 0.f)));

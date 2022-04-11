@@ -8,23 +8,22 @@ namespace RT_ISICG
     class CookTorranceBrdf
     {
     public:
-        CookTorranceBrdf(const Vec3f &p_F0, const float p_roughness)
+        CookTorranceBrdf(const float p_roughness)
             : _alpha(p_roughness * p_roughness),
-              _k(float(glm::pow(p_roughness + 1.f, 2)) / 8.f),
-              _F0(p_F0){};
+              _k(float(glm::pow(p_roughness + 1.f, 2)) / 8.f){};
 
-        Vec3f evaluate(const Vec3f &n, const Vec3f &wi, const Vec3f &wo) const
+        Vec3f evaluate(const Vec3f &n, const Vec3f &wi, const Vec3f &wo, const Vec3f &F0) const
         {
             Vec3f h = normalize(wi + wo);
-            Vec3f f = F(wo, h);
+            Vec3f f = F(wo, h, F0);
             float d = D(n, h);
             float g = G(n, wi, wo);
             return f * d * g / (4.f * dot(wo, n) * dot(wi, n));
         }
 
-        Vec3f getF0() const
+        Vec3f getRoughness() const
         {
-            return _F0;
+            return Vec3f(glm::sqrt(_alpha));
         }
 
     protected:
@@ -46,15 +45,14 @@ namespace RT_ISICG
             return x / (x * (1 - _k) + _k);
         }
 
-        Vec3f F(const Vec3f wo, const Vec3f h) const
+        Vec3f F(const Vec3f &wo, const Vec3f &h, const Vec3f &F0) const
         {
-            return _F0 + (1.f - _F0) * pow(1.f - dot(wo, h), 5.f);
+            return F0 + (1.f - F0) * pow(1.f - dot(wo, h), 5.f);
         }
 
     private:
         float _alpha;
         float _k;
-        Vec3f _F0;
     };
 }
 

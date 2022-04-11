@@ -8,10 +8,10 @@ namespace RT_ISICG
     class OrenNayarBRDF
     {
     public:
-        OrenNayarBRDF(const Vec3f &p_kd, const float p_roughness)
-            : _kd(p_kd), _roughness(p_roughness), _precomputed(_kd * INV_PIf){};
+        OrenNayarBRDF(const float p_roughness)
+            : _roughness(p_roughness){};
 
-        Vec3f evaluate(const Vec3f &normal, const Vec3f &wi, const Vec3f &wo) const
+        float evaluate(const Vec3f &normal, const Vec3f &wi, const Vec3f &wo) const
         {
             float sigma2 = _roughness * _roughness;
 
@@ -64,12 +64,7 @@ namespace RT_ISICG
             float B = 0.45f * sigma2 / (sigma2 + 0.09f);
             float factor = A + B * glm::max(0.f, dotDiff) * glm::sin(alpha) * glm::tan(beta);
 
-            return _precomputed * factor;
-        }
-
-        const Vec3f &getKd() const
-        {
-            return _kd;
+            return INV_PIf * factor;
         }
 
         const float &getRoughness() const
@@ -78,9 +73,6 @@ namespace RT_ISICG
         }
 
     private:
-        Vec3f _kd = WHITE;
-        Vec3f _precomputed;
-        // todo move kd to material
         float _roughness = 0.0f;
     };
 }
