@@ -76,6 +76,7 @@ namespace RT_ISICG
 
             Vec3f transparentColor = hitRecord._object->getMaterial()->getFlatColor();
             return transparentColor * trace(p_scene, refractedRay, p_tMin, p_tMax, depth + 1);
+            // todo : multiple refracting intersecting objects, case where the camera is inside the object
         }
 
         Vec3f reflectRay(const Scene &p_scene, const Ray &p_ray, const float p_tMin, const float p_tMax, const int depth, const HitRecord &hitRecord) const
