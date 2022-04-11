@@ -18,8 +18,8 @@ namespace RT_ISICG
             if (blinnPhong)
             {
                 // todo test this implementation
-                Vec3f halfVectr = normalize(wo + wi);
-                spec = _ks * glm::pow(glm::max(dot(nrm, halfVectr), 0.f), _shininess);
+                Vec3f h = normalize(wo + wi);
+                spec = _ks * glm::pow(glm::max(dot(nrm, h), 0.f), _shininess);
             }
             else
             {

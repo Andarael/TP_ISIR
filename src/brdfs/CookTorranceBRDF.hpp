@@ -16,7 +16,10 @@ namespace RT_ISICG
         Vec3f evaluate(const Vec3f &n, const Vec3f &wi, const Vec3f &wo) const
         {
             Vec3f h = normalize(wi + wo);
-            return F(wo, h) * D(n, h) * G(n, wi, wo) / (4.f * dot(wo, n) * dot(wi, n));
+            Vec3f f = F(wo, h);
+            float d = D(n, h);
+            float g = G(n, wi, wo);
+            return f * d * g / (4.f * dot(wo, n) * dot(wi, n));
         }
 
         Vec3f getF0() const
@@ -24,23 +27,15 @@ namespace RT_ISICG
             return _F0;
         }
 
-    private:
-        float _alpha;
-        float _k;
-        Vec3f _F0;
-
-        /**
-         * The Normal Distribution Function (NDF)
-         */
+    protected:
+        /* The Normal Distribution Function (NDF) */
         float D(const Vec3f &n, const Vec3f &h) const
         {
             float alpha2 = _alpha * _alpha;
             return alpha2 * INV_PIf / pow(((dot(n, h) * dot(n, h)) * (alpha2 - 1) + 1), 2.f);
         }
 
-        /**
-         * The Geometric occlusion function
-         */
+        /* The Geometric occlusion function */
         float G(const Vec3f &n, const Vec3f &wi, const Vec3f &wo) const
         {
             return G1(dot(n, wo)) * G1(dot(n, wi));
@@ -55,6 +50,11 @@ namespace RT_ISICG
         {
             return _F0 + (1.f - _F0) * pow(1.f - dot(wo, h), 5.f);
         }
+
+    private:
+        float _alpha;
+        float _k;
+        Vec3f _F0;
     };
 }
 

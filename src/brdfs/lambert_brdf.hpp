@@ -9,12 +9,11 @@ namespace RT_ISICG
     {
     public:
         LambertBRDF(const Vec3f &p_kd)
-            : _kd(p_kd){};
+            : _kd(p_kd), _precompute(_kd * INV_PIf){};
 
-        // * INV_PIf : could be done in the constructor...
         Vec3f evaluate() const
         {
-            return _kd * INV_PIf;
+            return _precompute;
         }
 
         const Vec3f &getKd() const
@@ -24,6 +23,7 @@ namespace RT_ISICG
 
     private:
         Vec3f _kd = WHITE;
+        Vec3f _precompute;
     };
 } // namespace RT_ISICG
 
