@@ -21,8 +21,8 @@ namespace RT_ISICG
         render_settings.integratorType = IntegratorType::WHITTED;
         render_settings.sampler = Sampler::GRID_SAMPLER;
         render_settings.backgroundColor = GREY;
-        render_settings.samplesPerPixel = 1;
-        render_settings.shadowSamples = 1;
+        render_settings.samplesPerPixel = 8;
+        render_settings.shadowSamples = 8;
         render_settings.nbBounces = 5;
 
         /* ============================
@@ -30,14 +30,14 @@ namespace RT_ISICG
          * ============================ */
         // Create and init scene.
         Scene scene;
-        scene.init(SceneType::TP5);
+        scene.init(SceneType::TP6);
 
         // Create a texture to render the scene.
         Texture img = Texture(imgWidth, imgHeight);
 
         // Create a perspective camera if scene didn't provide one.
         if (render_settings.camera == nullptr)
-            render_settings.camera = new PerspectiveCamera(Vec3f(0, 2, -6), Vec3f(0, 2, 3), 60, aspectRatio);
+            render_settings.camera = new PerspectiveCamera(Vec3f(0, 0, 0), Vec3f(0, 0, 3), 60, aspectRatio);
 
         // Create and setup the renderer.
         Renderer renderer;
@@ -59,7 +59,8 @@ namespace RT_ISICG
         const std::string imgName = "image.jpg";
         const std::string imgNameHDR = "image.hdr";
         img.saveJPG(RESULTS_PATH + imgName);
-        //img.saveHDR(RESULTS_PATH + imgNameHDR);
+        // img.saveHDR(RESULTS_PATH + imgNameHDR);
+        // todo add saving condition
 
         return EXIT_SUCCESS;
     }
