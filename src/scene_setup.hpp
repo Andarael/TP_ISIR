@@ -26,15 +26,8 @@
 
 namespace RT_ISICG
 {
-    static void setup_TP5(Scene &scene)
+    static void addMaterials(Scene &scene)
     {
-
-        // use walls as mirrors
-        bool fullMirror = false;
-
-        /* ==============================================
-         * ================ Add Materials ===============
-         * ============================================== */
         scene._addMaterial(new MatteMaterial("WhiteMatte", WHITE, 0.6f));
         scene._addMaterial(new MatteMaterial("RedMatte", RED, 0.6f));
         scene._addMaterial(new MatteMaterial("GreenMatte", GREEN, 0.6f));
@@ -62,17 +55,10 @@ namespace RT_ISICG
         // transparent
         scene._addMaterial(new TransparentMaterial("TransparentWhite", WHITE, 1.3f));
         scene._addMaterial(new TransparentMaterial("TransparentLightBlue", lightBlue, 1.3f));
+    }
 
-        /* ==============================================
-         * ================ Add Objects =================
-         * ============================================== */
-        // Spheres
-        scene._addObject(new Sphere("Sphere1", Vec3f(-2, 0, 3), 1.5f));
-        scene._addObject(new Sphere("Sphere2", Vec3f(2, 0, 3), 1.5f));
-        scene._attachMaterialToObject("MirrorLightRed", "Sphere1");
-        scene._attachMaterialToObject("TransparentWhite", "Sphere2");
-
-        // Pseudo Cornell box made with infinite planes
+    static void addCornellBox(Scene &scene, const bool fullMirror)
+    {
         scene._addObject(new Plane("PlaneGround", Vec3f(0.f, -3.f, 0.f), Vec3f(0.f, 1.f, 0.f)));
         scene._addObject(new Plane("PlaneLeft", Vec3f(5.f, 0.f, 0.f), Vec3f(-1.f, 0.f, 0.f)));
         scene._addObject(new Plane("PlaneCeiling", Vec3f(0.f, 7.f, 0.f), Vec3f(0.f, -1.f, 0.f)));
@@ -99,6 +85,37 @@ namespace RT_ISICG
             scene._attachMaterialToObject("MagentaMatte", "PlaneFront");
             scene._attachMaterialToObject("MirrorLightMagenta", "PlaneBack");
         }
+    }
+
+    static void setup_TP6(Scene &scene)
+    {
+        addMaterials(scene);
+
+        //// OBJ.
+        scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "Bunny.obj");
+        scene._attachMaterialToObject("CyanMatte", "UVsphere_defaultobject");
+
+        addCornellBox(scene, false);
+
+        // * ================ Add lights ==================
+        scene._addLight(new PointLight(WHITE, Vec3f(0, 3, -5), 60.f));
+    }
+
+    static void setup_TP5(Scene &scene)
+    {
+        addMaterials(scene);
+
+        /* ==============================================
+         * ================ Add Objects =================
+         * ============================================== */
+        // Spheres
+        scene._addObject(new Sphere("Sphere1", Vec3f(-2, 0, 3), 1.5f));
+        scene._addObject(new Sphere("Sphere2", Vec3f(2, 0, 3), 1.5f));
+        scene._attachMaterialToObject("MirrorLightRed", "Sphere1");
+        scene._attachMaterialToObject("TransparentWhite", "Sphere2");
+
+        // Pseudo Cornell box made with infinite planes
+        addCornellBox(scene, false);
 
         /* ==============================================
          * ================ Add lights ==================
@@ -197,8 +214,6 @@ namespace RT_ISICG
             break;
         case SceneType::TP2:
             break;
-        case SceneType::TP6:
-            break;
         case SceneType::TP3:
             setup_TP3(scene);
             break;
@@ -207,6 +222,9 @@ namespace RT_ISICG
             break;
         case SceneType::TP5:
             setup_TP5(scene);
+            break;
+        case SceneType::TP6:
+            setup_TP6(scene);
             break;
         default:
             break;
