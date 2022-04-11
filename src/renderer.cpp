@@ -127,8 +127,9 @@ namespace RT_ISICG
                 Ray ray = p_camera->generateRay(sx + offsetX, sy + offsetY);
                 color += _integrator->Li(p_scene, ray, 0, FLT_INFINITY);
 
-                offsetY = pixelSizeY * randomFloat();
-                offsetX = pixelSizeX * randomFloat();
+                Vec2f randomOffset = randomVec2f();
+                offsetY = pixelSizeY * randomOffset.x;
+                offsetX = pixelSizeX * randomOffset.y;
             }
             color /= samplesPerPixel;
 
@@ -142,9 +143,9 @@ namespace RT_ISICG
                     float subsampleX = float(2 * i) / factor;
                     float subsampleY = float(2 * j) / factor;
 
-                    // todo offset according to the random
-                    offsetY = pixelSizeY * subsampleY * randomFloat() * 2.f;
-                    offsetX = pixelSizeX * subsampleX * randomFloat() * 2.f;
+                    Vec2f randomOffset = randomVec2f();
+                    offsetY = pixelSizeY * subsampleY * randomOffset.x * 2.f;
+                    offsetX = pixelSizeX * subsampleX * randomOffset.y * 2.f;
 
                     Ray ray = p_camera->generateRay(sx + offsetX, sy + offsetY);
                     color += _integrator->Li(p_scene, ray, 0, FLT_INFINITY);
