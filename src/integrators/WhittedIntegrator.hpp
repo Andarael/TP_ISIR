@@ -44,9 +44,9 @@ namespace RT_ISICG
         }
 
         // compute only the reflectance
-        float fresnel(const Vec3f &wi, const Vec3f &N, const float n1, const float n2) const
+        float fresnel(const Vec3f &p_I, const Vec3f &p_N, const float n1 = 1.0f, const float n2 = 1.45f) const
         {
-            float cosI = glm::dot(N, wi); // cos of incoming
+            float cosI = glm::dot(p_N, p_I); // cos of incoming
 
             float r = n1 / n2;
             float sinT = r * r * (1.0f - cosI * cosI); // sin of Transmitted (sin = 1-cos²)
@@ -60,7 +60,7 @@ namespace RT_ISICG
             float Rs = ((n2 * cosI) - (n1 * cosT)) / ((n2 * cosI) + (n1 * cosT));
             float Rp = ((n1 * cosI) - (n2 * cosT)) / ((n1 * cosI) + (n2 * cosT));
 
-            return glm::clamp(1.f, 0.f, (Rs * Rs + Rp * Rp) / 2.0f);
+            return (Rs * Rs + Rp * Rp) / 2.0f;
         }
 
         Vec3f refractRay(const Scene &p_scene, const Ray &p_ray, const float p_tMin, const float p_tMax, const int depth, const HitRecord &hitRecord, const float n1, const float n2, const float fresnelFactor) const
@@ -93,13 +93,13 @@ namespace RT_ISICG
         {
             float n1 = 1.0f;
             float n2 = hitRecord._object->getMaterial()->getIOR();
-            if (hitRecord._backFacing)
+            if (hitRecord._backFacing) // we aleardy are inside the object, n2 should be ior of air
             {
                 n1 = n2;
                 n2 = 1.0f;
             }
 
-            float fresnelFactor = fresnel(p_ray.getDirection(), hitRecord._normal, n1, n2);
+            float fresnelFactor = fresnel(p_ray.getDirection(), -hitRecord._normal, n1, n2);
             Vec3f reflectedColor = reflectRay(p_scene, p_ray, p_tMin, p_tMax, depth, hitRecord);
             Vec3f refractedColor = refractRay(p_scene, p_ray, p_tMin, p_tMax, depth, hitRecord, n1, n2, fresnelFactor);
 
