@@ -28,6 +28,10 @@ namespace RT_ISICG
 {
     static void setup_TP5(Scene &scene)
     {
+
+        // use walls as mirrors
+        bool fullMirror = true;
+
         /* ==============================================
          * ================ Add Materials ===============
          * ============================================== */
@@ -56,7 +60,7 @@ namespace RT_ISICG
         scene._addMaterial(new MirrorMaterial("MirrorWhite", WHITE));
 
         // transparent
-        scene._addMaterial(new TransparentMaterial("TransparentWhite", WHITE, 1.3f));
+        scene._addMaterial(new TransparentMaterial("TransparentWhite", WHITE, 1.45f));
         scene._addMaterial(new TransparentMaterial("TransparentLightBlue", lightBlue, 1.3f));
 
         /* ==============================================
@@ -66,7 +70,7 @@ namespace RT_ISICG
         scene._addObject(new Sphere("Sphere1", Vec3f(-2.f, 0.f, 3.f), 1.5f));
         scene._addObject(new Sphere("Sphere2", Vec3f(2.f, 0.f, 3.f), 1.5f));
         scene._attachMaterialToObject("MirrorLightRed", "Sphere1");
-        scene._attachMaterialToObject("TransparentWhite", "Sphere2");
+        scene._attachMaterialToObject("TransparentLightBlue", "Sphere2");
 
         // Pseudo Cornell box made with infinite planes
         scene._addObject(new Plane("PlaneGround", Vec3f(0.f, -3.f, 0.f), Vec3f(0.f, 1.f, 0.f)));
@@ -77,17 +81,24 @@ namespace RT_ISICG
         scene._addObject(new Plane("PlaneBack", Vec3f(0.f, 0.f, -10.f), Vec3f(0.f, 0.f, 1.f)));
 
         scene._attachMaterialToObject("GreyMatte", "PlaneGround");
-        scene._attachMaterialToObject("GreenMatte", "PlaneCeiling");
 
-        scene._attachMaterialToObject("RedMatte", "PlaneLeft");
-        scene._attachMaterialToObject("BlueMatte", "PlaneRight");
-        scene._attachMaterialToObject("MagentaMatte", "PlaneFront");
-        scene._attachMaterialToObject("MirrorLightMagenta", "PlaneBack");
+        if (fullMirror)
+        {
 
-        /*scene._attachMaterialToObject("MirrorLightCyan", "PlaneLeft");
-        scene._attachMaterialToObject("MirrorLightYellow", "PlaneRight");
-        scene._attachMaterialToObject("MirrorWhite", "PlaneFront");
-        scene._attachMaterialToObject("MirrorLightMagenta", "PlaneBack");*/
+            scene._attachMaterialToObject("GreyMatte", "PlaneCeiling");
+            scene._attachMaterialToObject("MirrorLightCyan", "PlaneLeft");
+            scene._attachMaterialToObject("MirrorLightYellow", "PlaneRight");
+            scene._attachMaterialToObject("MirrorWhite", "PlaneFront");
+            scene._attachMaterialToObject("MirrorLightMagenta", "PlaneBack");
+        }
+        else
+        {
+            scene._attachMaterialToObject("GreenMatte", "PlaneCeiling");
+            scene._attachMaterialToObject("RedMatte", "PlaneLeft");
+            scene._attachMaterialToObject("BlueMatte", "PlaneRight");
+            scene._attachMaterialToObject("MagentaMatte", "PlaneFront");
+            scene._attachMaterialToObject("MirrorLightMagenta", "PlaneBack");
+        }
 
         /* ==============================================
          * ================ Add lights ==================
@@ -151,7 +162,7 @@ namespace RT_ISICG
         /* ==============================================
          * ================ Add lights ==================
          * ============================================== */
-        Vec3f lightPosition = Vec3f(1, 1, -2);
+        Vec3f lightPosition = Vec3f(1, 4, -2);
         PointLight *pointLight = new PointLight(WHITE, lightPosition, 60);
         SimpleQuadLight *quadLight = new SimpleQuadLight(WHITE, 10, 2, lightPosition);
         quadLight->setLookAt(Vec3f(0, 0, 3));
@@ -163,7 +174,7 @@ namespace RT_ISICG
         scene._addMaterial(new LambertMaterial("Grey", GREY));
         scene._addMaterial(new LambertMaterial("Red", RED));
         scene._addMaterial(new MatteMaterial("Matte_Grey", GREY, 1.f));
-        scene._addMaterial(new PlasticMaterial("Plastic_Grey", GREY, 0.3f, 8.f, false));
+        scene._addMaterial(new PlasticMaterial("Plastic_Grey", GREY, 0.3f, 8.f, true));
         scene._addMaterial(new PlasticMaterial("Plastic_Grey_additive", GREY, 0.3f, 8.f, true));
         scene._addMaterial(new CookTorranceMaterial("PBR_Gold", Vec3f(1.f, 0.85f, 0.57f), 0.5f, 0.3f));
 
@@ -172,6 +183,8 @@ namespace RT_ISICG
          * ============================================== */
         scene._addObject(new Sphere("Sphere1", Vec3f(0, 0, 3), 1));
         scene._addObject(new Plane("Plane1", Vec3f(0, -2, 0), Vec3f(0, 1, 0)));
+
+        // attach materials to objects
         scene._attachMaterialToObject("PBR_Gold", "Sphere1");
         scene._attachMaterialToObject("Red", "Plane1");
     }
