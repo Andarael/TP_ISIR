@@ -130,6 +130,38 @@ namespace RT_ISICG
         // scene._addLight(new QuadLight(WHITE, 60.f, Vec3f(1.f, 5.f, -2.f), Vec3f(-2.f, 0.f, 0.f), Vec3f(0.f, 1.f, 2.f)));
     }
 
+    static void setup_TP4(Scene &scene)
+    {
+        /* ==============================================
+         * ================ Add lights ==================
+         * ============================================== */
+        Vec3f lightPosition = Vec3f(0, 0, -3);
+        PointLight *pointLight = new PointLight(WHITE, lightPosition, 60);
+        SimpleQuadLight *quadLight = new SimpleQuadLight(WHITE, 10, 2, lightPosition);
+        quadLight->setLookAt(Vec3f(0, 0, 3));
+        scene._addLight(pointLight);
+
+        /* ==============================================
+         * ================ Add Materials ===============
+         * ============================================== */
+        scene._addMaterial(new LambertMaterial("Grey", GREY));
+        scene._addMaterial(new LambertMaterial("Red", RED));
+        scene._addMaterial(new MatteMaterial("Matte_Grey", GREY, 1.f));
+        scene._addMaterial(new PlasticMaterial("Plastic_Grey", GREY * 0.7f, WHITE * 0.3f, 8.f)); // 70% grey, 30% specular
+        scene._addMaterial(new PlasticMaterial("Plastic_RED", RED, WHITE, 16.f));
+        scene._addMaterial(new CookTorranceMaterial("PBR_Gold", Vec3f(1.f, 0.85f, 0.57f), 0.5f, 0.3f));
+
+        /* ==============================================
+         * ================ Add Objects =================
+         * ============================================== */
+        scene._addObject(new Sphere("Sphere1", Vec3f(0, 0, 3), 1));
+        scene._addObject(new Plane("Plane1", Vec3f(0, -2, 0), Vec3f(0, 1, 0)));
+
+        // attach materials to objects
+        scene._attachMaterialToObject("Plastic_Grey", "Sphere1");
+        scene._attachMaterialToObject("Plastic_RED", "Plane1");
+    }
+
     static void setup_TP3(Scene &scene)
     {
         /* ==============================================
@@ -172,38 +204,6 @@ namespace RT_ISICG
         // Link objects and materials.
         scene._attachMaterialToObject("Blue", "Sphere1");
         scene._attachMaterialToObject("Red", "Plane1");
-    }
-
-    static void setup_TP4(Scene &scene)
-    {
-        /* ==============================================
-         * ================ Add lights ==================
-         * ============================================== */
-        Vec3f lightPosition = Vec3f(0, 0, -3);
-        PointLight *pointLight = new PointLight(WHITE, lightPosition, 60);
-        SimpleQuadLight *quadLight = new SimpleQuadLight(WHITE, 10, 2, lightPosition);
-        quadLight->setLookAt(Vec3f(0, 0, 3));
-        scene._addLight(pointLight);
-
-        /* ==============================================
-         * ================ Add Materials ===============
-         * ============================================== */
-        scene._addMaterial(new LambertMaterial("Grey", GREY));
-        scene._addMaterial(new LambertMaterial("Red", RED));
-        scene._addMaterial(new MatteMaterial("Matte_Grey", GREY, 1.f));
-        scene._addMaterial(new PlasticMaterial("Plastic_Grey", GREY * 0.7f, WHITE * 0.3f, 8.f)); // 70% grey, 30% specular
-        scene._addMaterial(new PlasticMaterial("Plastic_RED", RED, WHITE, 16.f));
-        scene._addMaterial(new CookTorranceMaterial("PBR_Gold", Vec3f(1.f, 0.85f, 0.57f), 0.5f, 0.3f));
-
-        /* ==============================================
-         * ================ Add Objects =================
-         * ============================================== */
-        scene._addObject(new Sphere("Sphere1", Vec3f(0, 0, 3), 1));
-        scene._addObject(new Plane("Plane1", Vec3f(0, -2, 0), Vec3f(0, 1, 0)));
-
-        // attach materials to objects
-        scene._attachMaterialToObject("Plastic_Grey", "Sphere1");
-        scene._attachMaterialToObject("Plastic_RED", "Plane1");
     }
 
     static void setup_scene(Scene &scene, const SceneType scene_type)
