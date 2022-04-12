@@ -24,7 +24,7 @@ namespace RT_ISICG
     const float FLT_INFINITY = std::numeric_limits<float>::infinity();
 
     const float SHADOW_EPSILON = 0.001f;
-    const float EPSILON = 0.001f;
+    const float EPSILON = 0.00001f;
 
     // Vectors.
     using Vec2i = glm::ivec2;

@@ -49,7 +49,7 @@ namespace RT_ISICG
             float cosI = glm::dot(p_N, p_I); // cos of incoming
 
             float r = n1 / n2;
-            float sinT = r * r * (1.0f - cosI * cosI); // sin of Transmitted (sin = 1-cos²)
+            float sinT = r * r * (1.0f - cosI * cosI); // sin of Transmitted (sin = 1-cosï¿½)
 
             if (sinT > 1.0f) // no refraction
                 return 1.0f;
@@ -99,6 +99,7 @@ namespace RT_ISICG
                 n2 = 1.0f;
             }
 
+            // todo check why negative
             float fresnelFactor = fresnel(p_ray.getDirection(), -hitRecord._normal, n1, n2);
             Vec3f reflectedColor = reflectRay(p_scene, p_ray, p_tMin, p_tMax, depth, hitRecord);
             Vec3f refractedColor = refractRay(p_scene, p_ray, p_tMin, p_tMax, depth, hitRecord, n1, n2, fresnelFactor);

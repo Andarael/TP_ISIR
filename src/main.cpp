@@ -12,13 +12,13 @@ namespace RT_ISICG
          * ====== Render parameters =====
          * ============================== */
         // Output Image parameters
-        const int imgWidth = 512;
-        const int imgHeight = 512;
+        const int imgWidth = 256;
+        const int imgHeight = 256;
         float aspectRatio = float(imgWidth) / imgHeight;
 
         // todo the scene should be able to give its own camera and render settings
         RenderSettings render_settings;
-        render_settings.integratorType = IntegratorType::DEBUG;
+        render_settings.integratorType = IntegratorType::WHITTED;
         render_settings.sampler = Sampler::GRID_SAMPLER;
         render_settings.backgroundColor = GREY;
         render_settings.samplesPerPixel = 1;

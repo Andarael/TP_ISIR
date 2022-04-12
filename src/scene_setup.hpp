@@ -93,12 +93,12 @@ namespace RT_ISICG
 
         //// OBJ.
         scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "Bunny.obj");
-        scene._attachMaterialToObject("CyanMatte", "UVsphere_defaultobject");
+        scene._attachMaterialToObject("CyanMatte", "UVsphere");
 
         addCornellBox(scene, false);
 
         // * ================ Add lights ==================
-        scene._addLight(new PointLight(WHITE, Vec3f(0, 3, -5), 60.f));
+        scene._addLight(new PointLight(WHITE, Vec3f(0, 3, -5), 120));
     }
 
     static void setup_TP5(Scene &scene)
