@@ -49,17 +49,23 @@ namespace RT_ISICG
          * @param p_hitRecord hitRecord to fill
          * @param p_ray ray that intersected the object
          * @param normal normal of the object at the intersection point
+         * @param trueNormal
          * @param distance distance from the ray origin to the intersection point
          */
-        void fillHitRecord(HitRecord &p_hitRecord, const Ray &p_ray, const Vec3f normal, const float distance) const
+        void fillHitRecord(HitRecord &p_hitRecord, const Ray &p_ray, const Vec3f &normal, const Vec3f &trueNormal, const float distance) const
         {
             // p_hitRecord.faceNormal(p_ray.getDirection());
             p_hitRecord._point = p_ray.pointAtT(distance);
             p_hitRecord._normal = normal;
-            if (getMaterial()->isTransparent()) // we don't care about backfacing for non transparent objects (for the moment)
-                p_hitRecord._backFacing = dot(p_ray.getDirection(), normal) > 0.f;
+            p_hitRecord._trueNormal = trueNormal;
             p_hitRecord._distance = distance;
             p_hitRecord._object = this;
+            p_hitRecord.faceNormal(p_ray.getDirection());
+        }
+
+        void fillHitRecord(HitRecord &p_hitRecord, const Ray &p_ray, const Vec3f &normal, const float distance) const
+        {
+            fillHitRecord(p_hitRecord, p_ray, normal, normal, distance);
         }
 
         virtual bool intersectAny(const Ray &p_ray, float p_tMin, float p_tMax) const = 0;

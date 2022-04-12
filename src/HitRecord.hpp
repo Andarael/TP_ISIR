@@ -16,12 +16,15 @@ namespace RT_ISICG
 
         void faceNormal(const Vec3f p_direction)
         {
-            _normal = glm::dot(p_direction, _normal) < 0.f ? _normal : -_normal;
+            _backFacing = glm::dot(p_direction, _normal) > 0.f;
+            _normal = _backFacing ? -_normal : _normal;
         }
 
         Vec3f _point = VEC3F_ZERO;
 
         Vec3f _normal = VEC3F_ZERO;
+
+        Vec3f _trueNormal = VEC3F_ZERO;
 
         float _distance = 0.f;
 
