@@ -24,13 +24,10 @@ namespace RT_ISICG
         }
         if (hitTri != _triangles.size()) // Intersection found.
         {
-            Vec3f normal;
-            if (_smoothShading)
-                normal = _triangles[hitTri].getSmoothNormal(uv);
-            else
-                normal = _triangles[hitTri].getFaceNormal();
+            Vec3f normal = _triangles[hitTri].getSmoothNormal(uv);
+            Vec3f TrueNormal = _triangles[hitTri].getFaceNormal();
 
-            fillHitRecord(p_hitRecord, p_ray, normal, tClosest);
+            fillHitRecord(p_hitRecord, p_ray, normal, TrueNormal, tClosest);
 
             return true;
         }
