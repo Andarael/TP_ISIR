@@ -34,13 +34,15 @@ namespace RT_ISICG
         // Extends the AABB with a point
         void extend(const Vec3f &p_point)
         {
-            /// TODO
+            _min = glm::min(_min, p_point);
+            _max = glm::max(_max, p_point);
         }
 
         // Extends the AABB with another AABB
         void extend(const AABB &p_aabb)
         {
-            /// TODO
+            _min = glm::min(_min, p_aabb.getMin());
+            _max = glm::max(_max, p_aabb.getMax());
         }
 
         // Returns the AABB diagonal vector.
@@ -66,7 +68,29 @@ namespace RT_ISICG
             return 2;
         }
 
-        bool intersect(const Ray &p_ray, float p_tMin, float p_tMax) const;
+        bool intersect(const Ray &p_ray, float p_tMin, float p_tMax) const
+        {
+            Vec3f origin = p_ray.getOrigin();
+            Vec3f direction = p_ray.getDirection();
+
+            // test Y plane intersection (up)
+            Vec3f y_normal = Vec3f(0, 1, 0);
+            float den = dot(y_normal, direction);
+
+            float t1 = -1;
+            float t2 = -1;
+
+            if (den != 0.f)
+                t2 = dot(_max - p_ray.getOrigin(), y_normal) / den;
+                t2 = dot(_min - p_ray.getOrigin(), y_normal) / den;
+
+            // intersection point of y top and y bottom
+            Vec3f intersection1 = origin + direction * t1; // max y
+            Vec3f intersection1 = origin + direction * t2; // min y
+
+            // test if intersection point is inside the AABB
+            if (intersection1.x > )
+        }
 
     private:
         Vec3f _min = Vec3f(FLT_MAX);

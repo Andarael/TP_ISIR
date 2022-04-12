@@ -4,6 +4,7 @@
 #include "BaseObject.hpp"
 #include "geometry/TriangleMeshGeometry.hpp"
 #include <vector>
+#include "aabb.hpp"
 
 namespace RT_ISICG
 {
@@ -37,6 +38,7 @@ namespace RT_ISICG
         void addVertex(const float p_x, const float p_y, const float p_z)
         {
             _vertices.emplace_back(p_x, p_y, p_z);
+            _aabb.extend(Vec3f(p_x, p_y, p_z));
         }
 
         void addNormal(const float p_x, const float p_y, const float p_z)
