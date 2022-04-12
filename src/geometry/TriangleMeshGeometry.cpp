@@ -58,4 +58,12 @@ namespace RT_ISICG
         return true;
     }
 
+    Vec3f TriangleMeshGeometry::getSmoothNormal(Vec2f const &uv) const
+    {
+        Vec3f n0 = _refMesh->_normals[_v0];
+        Vec3f n1 = _refMesh->_normals[_v1];
+        Vec3f n2 = _refMesh->_normals[_v2];
+
+        return Vec3f((1.f - uv.x - uv.y) * n0 + uv.x * n1 + uv.y * n2);
+    }
 } // namespace RT_ISICG

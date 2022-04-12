@@ -26,12 +26,7 @@ namespace RT_ISICG
         {
             Vec3f normal;
             if (_smoothShading)
-            {
-                Vec3f n0 = _normals[hitTri * 3];
-                Vec3f n1 = _normals[hitTri * 3 + 1];
-                Vec3f n2 = _normals[hitTri * 3 + 2]; // todo causes crash sometime ...
-                normal = (1.f - uv.x - uv.y) * n0 + uv.x * n1 + uv.y * n2;
-            }
+                normal = _triangles[hitTri].getSmoothNormal(uv);
             else
                 normal = _triangles[hitTri].getFaceNormal();
 

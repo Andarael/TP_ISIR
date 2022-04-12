@@ -23,6 +23,8 @@ namespace RT_ISICG
             return _faceNormal;
         }
 
+        Vec3f getSmoothNormal(Vec2f const &uv) const;
+
     private:
         MeshTriangle *_refMesh;
 
