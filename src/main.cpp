@@ -12,8 +12,8 @@ namespace RT_ISICG
          * ====== Render parameters =====
          * ============================== */
         // Output Image parameters
-        const int imgWidth = 256;
-        const int imgHeight = 256;
+        const int imgWidth = 1200/2;
+        const int imgHeight = 800/2;
         float aspectRatio = float(imgWidth) / imgHeight;
 
         // todo the scene should be able to give its own camera and render settings
@@ -61,6 +61,7 @@ namespace RT_ISICG
         img.saveJPG(RESULTS_PATH + imgName);
         // img.saveHDR(RESULTS_PATH + imgNameHDR);
         // todo add saving condition
+        // todo multiple canvas (direct, indirect etc ...)
 
         return EXIT_SUCCESS;
     }

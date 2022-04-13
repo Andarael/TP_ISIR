@@ -84,6 +84,9 @@ namespace RT_ISICG
 
             _addObject(triMesh);
 
+            // triMesh->buildBVH();
+            // triMesh->_bvh.print();
+
             const aiMaterial *const mtl = scene->mMaterials[mesh->mMaterialIndex];
             if (mtl == nullptr)
             {

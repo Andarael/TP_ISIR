@@ -24,6 +24,39 @@ namespace RT_ISICG
             return (_left == nullptr && _right == nullptr);
         }
 
+        bool nbTriangles() const
+        {
+            return _firstTriangleId - _lastTriangleId; // +1 ?
+        }
+
+        int getDepth() const
+        {
+            if (isLeaf())
+                return 0;
+
+            int leftDepth = _left->getDepth();
+            int rightDepth = _right->getDepth();
+
+            return 1 + glm::max(leftDepth, rightDepth);
+        }
+
+        bool stopCondition(const unsigned int maxDepth, const unsigned int maxTriangles, const unsigned int actualDepth = 0) const
+        {
+            if (isLeaf())
+                return actualDepth < maxDepth && nbTriangles() < maxTriangles;
+
+            bool leftCondition = false;
+            bool rightCondition = false;
+
+            if (_left != nullptr)
+                leftCondition = _left->stopCondition(maxDepth, maxTriangles, actualDepth + 1);
+
+            if (_right != nullptr)
+                rightCondition = _right->stopCondition(maxDepth, maxTriangles, actualDepth + 1);
+
+            return leftCondition || rightCondition;
+        }
+
         AABB _aabb;
         BVHNode *_left = nullptr;
         BVHNode *_right = nullptr;
@@ -49,6 +82,11 @@ namespace RT_ISICG
 
         // Search for the any intersection with the ray (call _intersectRec).
         bool intersectAny(const Ray &p_ray, float p_tMin, float p_tMax) const;
+
+        void print() const
+        {
+            std::cout << "depth : " << _root->getDepth() << std::endl;
+        }
 
     private:
         void _buildRec(BVHNode *p_node, unsigned int p_firstTriangleId, unsigned int p_nbTriangles, unsigned int p_depth);

@@ -2,6 +2,8 @@
 #include "geometry/TriangleMeshGeometry.hpp"
 #include "utils/chrono.hpp"
 
+#include <algorithm>
+
 namespace RT_ISICG
 {
     void BVH::build(std::vector<TriangleMeshGeometry> *p_triangles)
@@ -15,8 +17,8 @@ namespace RT_ISICG
 
         Chrono chr;
         chr.start();
-
-        /// TODO
+        _root = new BVHNode();
+        _buildRec(_root, 0, _triangles->size(), 0);
 
         chr.stop();
 
@@ -25,30 +27,120 @@ namespace RT_ISICG
 
     bool BVH::intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const
     {
-        /// TODO
-        return false;
+        return _intersectRec(_root, p_ray, p_tMin, p_tMax, p_hitRecord);
     }
 
     bool BVH::intersectAny(const Ray &p_ray, const float p_tMin, const float p_tMax) const
     {
-        /// TODO
-        return false;
+        return _intersectAnyRec(_root, p_ray, p_tMin, p_tMax);
     }
 
     void BVH::_buildRec(BVHNode *p_node, const unsigned int p_firstTriangleId, const unsigned int p_lastTriangleId, const unsigned int p_depth)
     {
-        /// TODO
+        bool stopCondition = p_depth > _maxDepth || p_lastTriangleId - p_firstTriangleId <= _maxTrianglesPerLeaf;
+        if (stopCondition)
+            return;
+
+        AABB aabb;
+
+        p_node->_firstTriangleId = p_firstTriangleId;
+        p_node->_lastTriangleId = p_lastTriangleId;
+
+        printf("first tri id = %d, last tri id = %d\n", p_node->_firstTriangleId, p_node->_lastTriangleId);
+
+        for (unsigned int i = p_firstTriangleId; i < p_lastTriangleId; i++)
+            aabb.extend(_triangles->at(i));
+
+        size_t partitionAxis = aabb.largestAxis();
+
+        float splitPoint = aabb.centroid()[int(partitionAxis)];
+
+        size_t idPartition = 0;
+
+        idPartition = std::partition(_triangles->begin() + p_firstTriangleId, _triangles->begin() + p_lastTriangleId,
+                                     [partitionAxis, splitPoint](const TriangleMeshGeometry &p_triangle)
+                                     {
+                                         return p_triangle.getVertex(0)[int(partitionAxis)] < splitPoint;
+                                     }) -
+                      _triangles->begin();
+
+        idPartition = (p_lastTriangleId - p_firstTriangleId) / 2;
+
+        p_node->_left = new BVHNode();
+        p_node->_right = new BVHNode();
+        _buildRec(p_node->_left, p_firstTriangleId, int(idPartition), p_depth + 1);
+        _buildRec(p_node->_right, int(idPartition), p_firstTriangleId, p_depth + 1);
     }
 
     bool BVH::_intersectRec(const BVHNode *p_node, const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const
     {
-        /// TODO
-        return false;
+        // if (p_node == nullptr)
+        //     return false;
+
+        if (p_node->isLeaf())
+        {
+            if (!p_node->_aabb.intersect(p_ray, p_tMin, p_tMax))
+                return false;
+
+            float tClosest = p_tMax;            // Hit distance.
+            size_t hitTri = _triangles->size(); // Hit triangle id.
+
+            Vec2f uvTemp;
+            Vec2f uv = VEC2F_ZERO;
+            for (size_t i = p_node->_firstTriangleId; i < p_node->_firstTriangleId; i++)
+            {
+                float t;
+                if (_triangles->at(i).intersect(p_ray, t, uvTemp))
+                {
+                    if (t >= p_tMin && t <= tClosest)
+                    {
+                        uv = uvTemp; // copy
+                        tClosest = t;
+                        hitTri = i;
+                    }
+                }
+            }
+            if (hitTri != _triangles->size()) // Intersection found.
+            {
+                Vec3f normal = _triangles->at(hitTri).getSmoothNormal(uv);
+                Vec3f trueNormal = _triangles->at(hitTri).getFaceNormal();
+
+                p_hitRecord._distance = tClosest;
+                p_hitRecord._point = p_ray.pointAtT(tClosest);
+                p_hitRecord._normal = normal;
+                p_hitRecord._trueNormal = trueNormal;
+
+                return true;
+            }
+            return false;
+        }
+
+        return _intersectRec(p_node->_left, p_ray, p_tMin, p_tMax, p_hitRecord) ||
+               _intersectRec(p_node->_right, p_ray, p_tMin, p_tMax, p_hitRecord);
     }
 
     bool BVH::_intersectAnyRec(const BVHNode *p_node, const Ray &p_ray, const float p_tMin, const float p_tMax) const
     {
-        /// TODO
-        return false;
+        // if (p_node == nullptr)
+        //     return false;
+
+        if (p_node->isLeaf())
+        {
+            if (!p_node->_aabb.intersect(p_ray, p_tMin, p_tMax))
+                return false;
+
+            for (size_t i = 0; i < _triangles->size(); i++)
+            {
+                float t;
+                Vec2f uv;
+                if (_triangles->at(i).intersect(p_ray, t, uv))
+                    if (t >= p_tMin && t <= p_tMax)
+                        return true; // No need to search for the nearest.
+            }
+            return false;
+        }
+
+        return _intersectAnyRec(p_node->_left, p_ray, p_tMin, p_tMax) ||
+               _intersectAnyRec(p_node->_right, p_ray, p_tMin, p_tMax);
     }
 } // namespace RT_ISICG
