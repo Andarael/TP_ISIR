@@ -55,7 +55,7 @@ namespace RT_ISICG
             Ray ray = Ray(point, direction);
             ray.offset(p_normal);
 
-            return p_scene.intersectAny(ray, SHADOW_EPSILON, lightSample._distance + SHADOW_EPSILON);
+            return p_scene.intersectAny(ray, SHADOW_EPSILON, lightSample._distance - SHADOW_EPSILON);
         }
 
         static Vec3f shadeLighting(const HitRecord &hitRecord, const LightSample &lightSample, const Ray &p_ray)
