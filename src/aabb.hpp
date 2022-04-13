@@ -35,26 +35,22 @@ namespace RT_ISICG
         // Extends the AABB with a point
         void extend(const Vec3f &p_point)
         {
-            _min = Vec3f(glm::min(_min.x, p_point.x), glm::min(_min.y, p_point.y), glm::min(_min.z, p_point.z));
-            _max = Vec3f(glm::max(_max.x, p_point.x), glm::max(_max.y, p_point.y), glm::max(_max.z, p_point.z));
+            _min = glm::min(p_point, _min);
+            _max = glm::max(p_point, _max);
         }
 
         // Extends the AABB with another AABB
         void extend(const AABB &p_aabb)
         {
-            _min = Vec3f(glm::min(_min.x, p_aabb.getMin().x),
-                         glm::min(_min.y, p_aabb.getMin().y),
-                         glm::min(_min.z, p_aabb.getMin().z));
-            _max = Vec3f(glm::max(_max.x, p_aabb.getMax().x),
-                         glm::max(_max.y, p_aabb.getMax().y),
-                         glm::max(_max.z, p_aabb.getMax().z));
+            _min = glm::min(p_aabb.getMin(), _min);
+            _max = glm::max(p_aabb.getMax(), _max);
         }
 
-        void extend(const TriangleMeshGeometry &triangle_mesh_geometry)
+        void extend(const TriangleMeshGeometry &triangle)
         {
-            Vec3f a = triangle_mesh_geometry.getVertex(0);
-            Vec3f b = triangle_mesh_geometry.getVertex(1);
-            Vec3f c = triangle_mesh_geometry.getVertex(2);
+            Vec3f a = triangle.getVertex(0);
+            Vec3f b = triangle.getVertex(1);
+            Vec3f c = triangle.getVertex(2);
             extend(a);
             extend(b);
             extend(c);
