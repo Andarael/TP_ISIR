@@ -18,7 +18,7 @@ namespace RT_ISICG
         Chrono chr;
         chr.start();
         _root = new BVHNode();
-        _buildRec(_root, 0, _triangles->size(), 0);
+        _buildRec(_root, 0, _triangles->size() - 1, 0);
 
         chr.stop();
 
@@ -37,34 +37,33 @@ namespace RT_ISICG
 
     void BVH::_buildRec(BVHNode *p_node, const unsigned int p_firstTriangleId, const unsigned int p_lastTriangleId, const unsigned int p_depth)
     {
-        bool stopCondition = p_depth > _maxDepth || p_lastTriangleId - p_firstTriangleId <= _maxTrianglesPerLeaf;
-        if (stopCondition)
-            return;
-
-        AABB aabb;
-
         p_node->_firstTriangleId = p_firstTriangleId;
         p_node->_lastTriangleId = p_lastTriangleId;
 
         printf("first tri id = %d, last tri id = %d\n", p_node->_firstTriangleId, p_node->_lastTriangleId);
 
         for (unsigned int i = p_firstTriangleId; i < p_lastTriangleId; i++)
-            aabb.extend(_triangles->at(i));
+            p_node->_aabb.extend((*_triangles)[i]); // TODO Mettre ca partout!
 
-        size_t partitionAxis = aabb.largestAxis();
+        bool stopCondition = p_depth > _maxDepth || p_lastTriangleId - p_firstTriangleId <= _maxTrianglesPerLeaf;
+        if (stopCondition)
+            return;
 
-        float splitPoint = aabb.centroid()[int(partitionAxis)];
+        size_t partitionAxis = p_node->_aabb.largestAxis();
+
+        float splitPoint = p_node->_aabb.centroid()[int(partitionAxis)];
 
         size_t idPartition = 0;
-
+        /*
         idPartition = std::partition(_triangles->begin() + p_firstTriangleId, _triangles->begin() + p_lastTriangleId,
                                      [partitionAxis, splitPoint](const TriangleMeshGeometry &p_triangle)
                                      {
                                          return p_triangle.getVertex(0)[int(partitionAxis)] < splitPoint;
                                      }) -
-                      _triangles->begin();
+                      _triangles->begin();*/
 
-        idPartition = (p_lastTriangleId - p_firstTriangleId) / 2;
+        idPartition = (p_firstTriangleId + p_lastTriangleId);
+        idPartition = (idPartition + idPartition % 2) / 2;
 
         p_node->_left = new BVHNode();
         p_node->_right = new BVHNode();
@@ -74,13 +73,11 @@ namespace RT_ISICG
 
     bool BVH::_intersectRec(const BVHNode *p_node, const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const
     {
-        // if (p_node == nullptr)
-        //     return false;
+        if (!p_node->_aabb.intersect(p_ray, p_tMin, p_tMax))
+            return false;
 
         if (p_node->isLeaf())
         {
-            if (!p_node->_aabb.intersect(p_ray, p_tMin, p_tMax))
-                return false;
 
             float tClosest = p_tMax;            // Hit distance.
             size_t hitTri = _triangles->size(); // Hit triangle id.
@@ -121,14 +118,11 @@ namespace RT_ISICG
 
     bool BVH::_intersectAnyRec(const BVHNode *p_node, const Ray &p_ray, const float p_tMin, const float p_tMax) const
     {
-        // if (p_node == nullptr)
-        //     return false;
-
+        if (!p_node->_aabb.intersect(p_ray, p_tMin, p_tMax))
+            return false;
         if (p_node->isLeaf())
         {
-            if (!p_node->_aabb.intersect(p_ray, p_tMin, p_tMax))
-                return false;
-
+            return true;
             for (size_t i = 0; i < _triangles->size(); i++)
             {
                 float t;
