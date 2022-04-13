@@ -4,14 +4,14 @@ namespace RT_ISICG
 {
     bool MeshTriangle::intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const
     {
-        // if (_bvh.intersect(p_ray, p_tMin, p_tMax, p_hitRecord))
-        //{
-        //     p_hitRecord._object = this;
-        //     return true;
-        // }
+        if (_bvh.intersect(p_ray, p_tMin, p_tMax, p_hitRecord))
+        {
+            p_hitRecord._object = this;
+            return true;
+        }
 
-        // return false;
-        
+        return false;
+
         if (!_aabb.intersect(p_ray, p_tMin, p_tMax))
             return false;
 
@@ -47,7 +47,6 @@ namespace RT_ISICG
 
     bool MeshTriangle::intersectAny(const Ray &p_ray, const float p_tMin, const float p_tMax) const
     {
-
         return _bvh.intersectAny(p_ray, p_tMin, p_tMax);
 
         if (!_aabb.intersect(p_ray, p_tMin, p_tMax))

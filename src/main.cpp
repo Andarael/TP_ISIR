@@ -12,8 +12,8 @@ namespace RT_ISICG
          * ====== Render parameters =====
          * ============================== */
         // Output Image parameters
-        const int imgWidth = 1200/2;
-        const int imgHeight = 800/2;
+        const int imgWidth = 1200;
+        const int imgHeight = 800;
         float aspectRatio = float(imgWidth) / imgHeight;
 
         // todo the scene should be able to give its own camera and render settings

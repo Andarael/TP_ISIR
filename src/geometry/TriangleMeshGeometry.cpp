@@ -49,8 +49,7 @@ namespace RT_ISICG
         if (v < 0.0f || u + v > 1.0f)
             return false;
 
-        uv.x = u;
-        uv.y = v;
+        uv = Vec2f(u, v);
 
         // calculate t, ray intersects triangle
         p_t = glm::dot(edge2, qvec) * invDet;

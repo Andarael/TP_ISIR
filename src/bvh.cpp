@@ -40,7 +40,7 @@ namespace RT_ISICG
         p_node->_firstTriangleId = p_firstTriangleId;
         p_node->_lastTriangleId = p_lastTriangleId;
 
-        printf("first tri id = %d, last tri id = %d\n", p_node->_firstTriangleId, p_node->_lastTriangleId);
+        // printf("first tri id = %d, last tri id = %d\n", p_node->_firstTriangleId, p_node->_lastTriangleId);
 
         for (unsigned int i = p_firstTriangleId; i < p_lastTriangleId; i++)
             p_node->_aabb.extend((*_triangles)[i]); // TODO Mettre ca partout!
@@ -54,13 +54,16 @@ namespace RT_ISICG
         float splitPoint = p_node->_aabb.centroid()[int(partitionAxis)];
 
         size_t idPartition = 0;
-        /*
-        idPartition = std::partition(_triangles->begin() + p_firstTriangleId, _triangles->begin() + p_lastTriangleId,
-                                     [partitionAxis, splitPoint](const TriangleMeshGeometry &p_triangle)
-                                     {
-                                         return p_triangle.getVertex(0)[int(partitionAxis)] < splitPoint;
-                                     }) -
-                      _triangles->begin();*/
+
+        // todo pas casser le bvh, mais là on est pas mal
+        std::partial_sort(
+            _triangles->begin() + p_firstTriangleId,
+            _triangles->begin() + p_lastTriangleId,
+            _triangles->begin() + p_lastTriangleId,
+            [partitionAxis, splitPoint](const TriangleMeshGeometry &p_a, const TriangleMeshGeometry &p_b)
+            {
+                return p_a.getVertex(0)[int(partitionAxis)] < splitPoint && p_b.getVertex(0)[int(partitionAxis)] >= splitPoint;
+            });
 
         idPartition = (p_firstTriangleId + p_lastTriangleId);
         idPartition = (idPartition + idPartition % 2) / 2;
@@ -78,20 +81,19 @@ namespace RT_ISICG
 
         if (p_node->isLeaf())
         {
-
             float tClosest = p_tMax;            // Hit distance.
             size_t hitTri = _triangles->size(); // Hit triangle id.
 
             Vec2f uvTemp;
             Vec2f uv = VEC2F_ZERO;
-            for (size_t i = p_node->_firstTriangleId; i < p_node->_firstTriangleId; i++)
+            for (size_t i = p_node->_firstTriangleId; i < p_node->_lastTriangleId; i++)
             {
                 float t;
-                if (_triangles->at(i).intersect(p_ray, t, uvTemp))
+                if ((*_triangles)[i].intersect(p_ray, t, uvTemp))
                 {
                     if (t >= p_tMin && t <= tClosest)
                     {
-                        uv = uvTemp; // copy
+                        uv = uvTemp;
                         tClosest = t;
                         hitTri = i;
                     }
@@ -99,35 +101,39 @@ namespace RT_ISICG
             }
             if (hitTri != _triangles->size()) // Intersection found.
             {
-                Vec3f normal = _triangles->at(hitTri).getSmoothNormal(uv);
-                Vec3f trueNormal = _triangles->at(hitTri).getFaceNormal();
+                if (p_hitRecord._distance != 0.f && p_hitRecord._distance > tClosest)
+                {
+                    Vec3f normal = (*_triangles)[hitTri].getSmoothNormal(uv);
+                    Vec3f trueNormal = (*_triangles)[hitTri].getFaceNormal();
 
-                p_hitRecord._distance = tClosest;
-                p_hitRecord._point = p_ray.pointAtT(tClosest);
-                p_hitRecord._normal = normal;
-                p_hitRecord._trueNormal = trueNormal;
-
+                    p_hitRecord._distance = tClosest;
+                    p_hitRecord._point = p_ray.pointAtT(tClosest);
+                    p_hitRecord._normal = normal;
+                    p_hitRecord._trueNormal = trueNormal;
+                }
                 return true;
             }
             return false;
         }
 
-        return _intersectRec(p_node->_left, p_ray, p_tMin, p_tMax, p_hitRecord) ||
-               _intersectRec(p_node->_right, p_ray, p_tMin, p_tMax, p_hitRecord);
+        bool res = _intersectRec(p_node->_left, p_ray, p_tMin, p_tMax, p_hitRecord) ||
+                   _intersectRec(p_node->_right, p_ray, p_tMin, p_tMax, p_hitRecord);
+
+        return res;
     }
 
     bool BVH::_intersectAnyRec(const BVHNode *p_node, const Ray &p_ray, const float p_tMin, const float p_tMax) const
     {
         if (!p_node->_aabb.intersect(p_ray, p_tMin, p_tMax))
             return false;
+
         if (p_node->isLeaf())
         {
-            return true;
-            for (size_t i = 0; i < _triangles->size(); i++)
+            for (size_t i = p_node->_firstTriangleId; i < p_node->_lastTriangleId; i++)
             {
                 float t;
                 Vec2f uv;
-                if (_triangles->at(i).intersect(p_ray, t, uv))
+                if ((*_triangles)[i].intersect(p_ray, t, uv))
                     if (t >= p_tMin && t <= p_tMax)
                         return true; // No need to search for the nearest.
             }
