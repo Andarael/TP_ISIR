@@ -2,9 +2,10 @@
 #define __RT_ISICG_TRIANGLE_MESH__
 
 #include "BaseObject.hpp"
+#include "aabb.hpp"
+#include "bvh.hpp"
 #include "geometry/TriangleMeshGeometry.hpp"
 #include <vector>
-#include "aabb.hpp"
 
 namespace RT_ISICG
 {
@@ -51,14 +52,19 @@ namespace RT_ISICG
             _uvs.emplace_back(p_u, p_v);
         }
 
+        void buildBVH()
+        {
+            _bvh.build(&_triangles);
+        }
+
         // Check for nearest intersection between p_tMin and p_tMax : if found fill p_hitRecord.
         bool intersect(const Ray &p_ray, float p_tMin, float p_tMax, HitRecord &p_hitRecord) const override;
 
         // Check for any intersection between p_tMin and p_tMax.
         bool intersectAny(const Ray &p_ray, float p_tMin, float p_tMax) const override;
 
+        BVH _bvh;
     private:
-
         AABB _aabb;
 
         std::vector<Vec3f> _vertices;

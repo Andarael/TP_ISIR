@@ -66,4 +66,9 @@ namespace RT_ISICG
 
         return glm::normalize(Vec3f((1.f - uv.x - uv.y) * n0 + uv.x * n1 + uv.y * n2));
     }
+
+    Vec3f &TriangleMeshGeometry::getVertex(const int index) const
+    {
+        return _refMesh->_vertices[_v[index]];
+    }
 } // namespace RT_ISICG

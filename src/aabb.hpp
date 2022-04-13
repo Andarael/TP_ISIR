@@ -1,7 +1,8 @@
 #ifndef __RT_ISICG_AABB__
 #define __RT_ISICG_AABB__
 
-#include "ray.hpp"
+#include "Ray.hpp"
+#include "geometry/TriangleMeshGeometry.hpp"
 
 namespace RT_ISICG
 {
@@ -34,15 +35,29 @@ namespace RT_ISICG
         // Extends the AABB with a point
         void extend(const Vec3f &p_point)
         {
-            _min = glm::min(_min, p_point);
-            _max = glm::max(_max, p_point);
+            _min = Vec3f(glm::min(_min.x, p_point.x), glm::min(_min.y, p_point.y), glm::min(_min.z, p_point.z));
+            _max = Vec3f(glm::max(_max.x, p_point.x), glm::max(_max.y, p_point.y), glm::max(_max.z, p_point.z));
         }
 
         // Extends the AABB with another AABB
         void extend(const AABB &p_aabb)
         {
-            _min = glm::min(_min, p_aabb.getMin());
-            _max = glm::max(_max, p_aabb.getMax());
+            _min = Vec3f(glm::min(_min.x, p_aabb.getMin().x),
+                         glm::min(_min.y, p_aabb.getMin().y),
+                         glm::min(_min.z, p_aabb.getMin().z));
+            _max = Vec3f(glm::max(_max.x, p_aabb.getMax().x),
+                         glm::max(_max.y, p_aabb.getMax().y),
+                         glm::max(_max.z, p_aabb.getMax().z));
+        }
+
+        void extend(const TriangleMeshGeometry &triangle_mesh_geometry)
+        {
+            Vec3f a = triangle_mesh_geometry.getVertex(0);
+            Vec3f b = triangle_mesh_geometry.getVertex(1);
+            Vec3f c = triangle_mesh_geometry.getVertex(2);
+            extend(a);
+            extend(b);
+            extend(c);
         }
 
         // Returns the AABB diagonal vector.
@@ -68,28 +83,52 @@ namespace RT_ISICG
             return 2;
         }
 
-        bool intersect(const Ray &p_ray, float p_tMin, float p_tMax) const
+        bool intersect(const Ray &p_ray, const float p_tMin, const float p_tMax) const
         {
             Vec3f origin = p_ray.getOrigin();
             Vec3f direction = p_ray.getDirection();
 
-            // test Y plane intersection (up)
-            Vec3f y_normal = Vec3f(0, 1, 0);
-            float den = dot(y_normal, direction);
+            direction.x = direction.x < 0 && direction.x > -EPSILON ? -direction.x : direction.x;
 
-            float t1 = -1;
-            float t2 = -1;
+            float tmin = (_min.x - origin.x) / direction.x;
+            float tmax = (_max.x - origin.x) / direction.x;
 
-            if (den != 0.f)
-                t2 = dot(_max - p_ray.getOrigin(), y_normal) / den;
-                t2 = dot(_min - p_ray.getOrigin(), y_normal) / den;
+            if (tmin > tmax)
+                std::swap(tmin, tmax);
 
-            // intersection point of y top and y bottom
-            Vec3f intersection1 = origin + direction * t1; // max y
-            Vec3f intersection1 = origin + direction * t2; // min y
+            float tymin = (_min.y - origin.y) / direction.y;
+            float tymax = (_max.y - origin.y) / direction.y;
 
-            // test if intersection point is inside the AABB
-            if (intersection1.x > )
+            if (tymin > tymax)
+                std::swap(tymin, tymax);
+
+            if ((tmin > tymax) || (tymin > tmax))
+                return false;
+
+            if (tymin > tmin)
+                tmin = tymin;
+
+            if (tymax < tmax)
+                tmax = tymax;
+
+            float tzmin = (_min.z - origin.z) / direction.z;
+            float tzmax = (_max.z - origin.z) / direction.z;
+
+            if (tzmin > tzmax)
+                std::swap(tzmin, tzmax);
+
+            if ((tmin > tzmax) || (tzmin > tmax))
+                return false;
+
+            if (tzmin > tmin)
+                tmin = tzmin;
+            if (tzmax < tmax)
+                tmax = tzmax;
+
+            return (tmin < p_tMax && tmax > p_tMin);
+
+            // todo implement https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-box-intersection
+            // from http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.64.7663&rep=rep1&type=pdf
         }
 
     private:

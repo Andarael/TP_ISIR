@@ -25,6 +25,8 @@ namespace RT_ISICG
 
         Vec3f getSmoothNormal(Vec2f const &uv) const;
 
+        Vec3f &getVertex(int index) const;
+
     private:
         MeshTriangle *_refMesh;
 

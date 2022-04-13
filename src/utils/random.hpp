@@ -7296,6 +7296,7 @@ namespace RT_ISICG
 
     static float randomFloat()
     {
+        // todo better random with hash, each time we go through the array, the hash changes 
         idx++;
         return random_array[idx];
         // return dis(gen);
