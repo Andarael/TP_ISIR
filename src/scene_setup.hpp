@@ -33,6 +33,8 @@ namespace RT_ISICG
         scene._addMaterial(new MatteMaterial("GreenMatte", GREEN, 0.6f));
         scene._addMaterial(new MatteMaterial("BlueMatte", BLUE, 0.6f));
         scene._addMaterial(new MatteMaterial("GreyMatte", GREY, 0.6f));
+        scene._addMaterial(new MatteMaterial("CyanMatte", CYAN, 0.6f));
+
         scene._addMaterial(new MatteMaterial("MagentaMatte", MAGENTA, 0.6f));
 
         // color
@@ -91,11 +93,18 @@ namespace RT_ISICG
         addMaterials(scene);
 
         // OBJ.
-        scene.loadFileTriangleMesh("uvsphere", DATA_PATH + "uvsphere.obj");
-        scene.loadFileTriangleMesh("Bunny", DATA_PATH + "Bunny.obj");
-        scene.loadFileTriangleMesh("cube_sphere", DATA_PATH + "cube_sphere.obj");
-        scene.loadFileTriangleMesh("Teapot", DATA_PATH + "teapot.obj");
+        //scene._attachMaterialToObject("CyanMatte", "UVsphere");
 
+        scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "Bunny.obj");
+        //scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "bunny_lowpoly.obj");
+
+        
+        
+        //scene.loadFileTriangleMesh("uvsphere", DATA_PATH + "uvsphere.obj");
+        //scene.loadFileTriangleMesh("cube_sphere", DATA_PATH + "cube_sphere.obj");
+        //scene.loadFileTriangleMesh("bunny", DATA_PATH + "teapot.obj");
+
+        //scene._attachMaterialToObject("CyanMatte", "Bunny_defaultobject");
         addCornellBox(scene, false);
 
         // * ================ Add lights ==================

@@ -24,11 +24,6 @@ namespace RT_ISICG
             return (_left == nullptr && _right == nullptr);
         }
 
-        bool nbTriangles() const
-        {
-            return _firstTriangleId - _lastTriangleId; // +1 ?
-        }
-
         int getDepth() const
         {
             if (isLeaf())
@@ -38,23 +33,6 @@ namespace RT_ISICG
             int rightDepth = _right->getDepth();
 
             return 1 + glm::max(leftDepth, rightDepth);
-        }
-
-        bool stopCondition(const unsigned int maxDepth, const unsigned int maxTriangles, const unsigned int actualDepth = 0) const
-        {
-            if (isLeaf())
-                return actualDepth < maxDepth && nbTriangles() < maxTriangles;
-
-            bool leftCondition = false;
-            bool rightCondition = false;
-
-            if (_left != nullptr)
-                leftCondition = _left->stopCondition(maxDepth, maxTriangles, actualDepth + 1);
-
-            if (_right != nullptr)
-                rightCondition = _right->stopCondition(maxDepth, maxTriangles, actualDepth + 1);
-
-            return leftCondition || rightCondition;
         }
 
         AABB _aabb;
