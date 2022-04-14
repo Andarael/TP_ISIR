@@ -70,7 +70,6 @@ namespace RT_ISICG
 
         if (fullMirror)
         {
-
             scene._attachMaterialToObject("GreyMatte", "PlaneCeiling");
             scene._attachMaterialToObject("MirrorLightCyan", "PlaneLeft");
             scene._attachMaterialToObject("MirrorLightYellow", "PlaneRight");
@@ -91,9 +90,11 @@ namespace RT_ISICG
     {
         addMaterials(scene);
 
-        //// OBJ.
-        scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "Bunny.obj");
-        scene._attachMaterialToObject("CyanMatte", "UVsphere");
+        // OBJ.
+        scene.loadFileTriangleMesh("uvsphere", DATA_PATH + "uvsphere.obj");
+        scene.loadFileTriangleMesh("Bunny", DATA_PATH + "Bunny.obj");
+        scene.loadFileTriangleMesh("cube_sphere", DATA_PATH + "cube_sphere.obj");
+        scene.loadFileTriangleMesh("Teapot", DATA_PATH + "teapot.obj");
 
         addCornellBox(scene, false);
 

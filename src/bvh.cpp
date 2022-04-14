@@ -34,44 +34,47 @@ namespace RT_ISICG
     {
         return _intersectAnyRec(_root, p_ray, p_tMin, p_tMax);
     }
+    float getVertexCenterOnAxis(TriangleMeshGeometry triangle, int axis)
+    {
+        Vec3f v0 = triangle.getVertex(0);
+        Vec3f v1 = triangle.getVertex(1);
+        Vec3f v2 = triangle.getVertex(2);
+
+        return (v0[axis] + v1[axis] + v2[axis]) / 3.0f;
+    }
 
     void BVH::_buildRec(BVHNode *p_node, const unsigned int p_firstTriangleId, const unsigned int p_lastTriangleId, const unsigned int p_depth)
     {
         p_node->_firstTriangleId = p_firstTriangleId;
         p_node->_lastTriangleId = p_lastTriangleId;
 
-        // printf("first tri id = %d, last tri id = %d\n", p_node->_firstTriangleId, p_node->_lastTriangleId);
-
         for (unsigned int i = p_firstTriangleId; i < p_lastTriangleId; i++)
-            p_node->_aabb.extend((*_triangles)[i]); // TODO Mettre ca partout!
+            p_node->_aabb.extend((*_triangles)[i]);
 
         bool stopCondition = p_depth > _maxDepth || p_lastTriangleId - p_firstTriangleId <= _maxTrianglesPerLeaf;
         if (stopCondition)
             return;
 
-        size_t partitionAxis = p_node->_aabb.largestAxis();
+        int partitionAxis = int(p_node->_aabb.largestAxis());
 
-        float splitPoint = p_node->_aabb.centroid()[int(partitionAxis)];
+        float splitPoint = p_node->_aabb.centroid()[partitionAxis];
 
-        size_t idPartition = 0;
+        unsigned int idPartition = p_firstTriangleId + p_lastTriangleId;
+        idPartition = (idPartition + idPartition % 2) / 2;
 
-        // todo pas casser le bvh, mais là on est pas mal
         std::partial_sort(
             _triangles->begin() + p_firstTriangleId,
+            _triangles->begin() + idPartition,
             _triangles->begin() + p_lastTriangleId,
-            _triangles->begin() + p_lastTriangleId,
-            [partitionAxis, splitPoint](const TriangleMeshGeometry &p_a, const TriangleMeshGeometry &p_b)
+            [partitionAxis, splitPoint](const TriangleMeshGeometry &a, const TriangleMeshGeometry &b)
             {
-                return p_a.getVertex(0)[int(partitionAxis)] < splitPoint && p_b.getVertex(0)[int(partitionAxis)] >= splitPoint;
+                return getVertexCenterOnAxis(a, partitionAxis) < splitPoint && getVertexCenterOnAxis(b, partitionAxis) >= splitPoint;
             });
-
-        idPartition = (p_firstTriangleId + p_lastTriangleId);
-        idPartition = (idPartition + idPartition % 2) / 2;
 
         p_node->_left = new BVHNode();
         p_node->_right = new BVHNode();
-        _buildRec(p_node->_left, p_firstTriangleId, int(idPartition), p_depth + 1);
-        _buildRec(p_node->_right, int(idPartition), p_firstTriangleId, p_depth + 1);
+        _buildRec(p_node->_left, p_firstTriangleId, idPartition, p_depth + 1);
+        _buildRec(p_node->_right, idPartition, p_lastTriangleId, p_depth + 1);
     }
 
     bool BVH::_intersectRec(const BVHNode *p_node, const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const
