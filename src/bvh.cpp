@@ -55,10 +55,7 @@ namespace RT_ISICG
 
         bool stopCondition = p_depth >= _maxDepth || p_lastTriangleId - p_firstTriangleId <= _maxTrianglesPerLeaf;
         if (stopCondition)
-        {
-            printf("first : %d, last : %d\n", p_firstTriangleId, p_lastTriangleId);
             return;
-        }
 
         int partitionAxis = int(p_node->_aabb.largestAxis());
 
@@ -110,7 +107,7 @@ namespace RT_ISICG
             }
             if (hitTri != _triangles->size()) // Intersection found.
             {
-                if (p_hitRecord._distance != 0.0f && p_hitRecord._distance > tClosest)
+                if (p_hitRecord._distance > tClosest)
                 {
                     Vec3f normal = (*_triangles)[hitTri].getSmoothNormal(uv);
                     Vec3f trueNormal = (*_triangles)[hitTri].getFaceNormal();

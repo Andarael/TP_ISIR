@@ -95,20 +95,24 @@ namespace RT_ISICG
         // OBJ.
         //scene._attachMaterialToObject("CyanMatte", "UVsphere");
 
-        scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "Bunny.obj");
         //scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "bunny_lowpoly.obj");
 
-        
-        
         //scene.loadFileTriangleMesh("uvsphere", DATA_PATH + "uvsphere.obj");
         //scene.loadFileTriangleMesh("cube_sphere", DATA_PATH + "cube_sphere.obj");
         //scene.loadFileTriangleMesh("bunny", DATA_PATH + "teapot.obj");
 
         //scene._attachMaterialToObject("CyanMatte", "Bunny_defaultobject");
-        addCornellBox(scene, false);
+        //addCornellBox(scene, false);
 
-        // * ================ Add lights ==================
-        scene._addLight(new PointLight(WHITE, Vec3f(0, 3, -5), 120));
+        //scene._addLight(new PointLight(WHITE, Vec3f(0, 3, -5), 120));
+
+        // * ================ Conference ==================
+
+        scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "/conference/conference.obj");
+        Vec3f u = Vec3f(0, 0, 300);
+        Vec3f v = Vec3f(-800, 0, 0);
+        Vec3f pos = Vec3f(900, 600, -300);
+        scene._addLight(new QuadLight(WHITE, 20, pos, v, u));
     }
 
     static void setup_TP5(Scene &scene)

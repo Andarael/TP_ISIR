@@ -23,13 +23,13 @@ namespace RT_ISICG
             HitRecord hitRecord;
             if (p_scene.intersect(p_ray, p_tMin, p_tMax, hitRecord))
             {
-                Vec3f color = hitRecord._object->getMaterial()->getFlatColor();
                 Vec3f normal = hitRecord._normal; // we assume normal is normalized
                 output = Vec3f(glm::dot(hitRecord._normal, -p_ray.getDirection()));
                 output = hitRecord._point;
+                output = hitRecord._object->getMaterial()->getFlatColor();
                 output = normal;
             }
-            return (output);
+            return output;
         }
 
     private:

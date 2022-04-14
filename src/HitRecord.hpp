@@ -26,7 +26,7 @@ namespace RT_ISICG
 
         Vec3f _trueNormal = VEC3F_ZERO;
 
-        float _distance = 0.f;
+        float _distance = FLT_MAX;
 
         bool _backFacing = false;
 

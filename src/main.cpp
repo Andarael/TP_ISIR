@@ -12,8 +12,8 @@ namespace RT_ISICG
          * ====== Render parameters =====
          * ============================== */
         // Output Image parameters
-        const int imgWidth = 1200;
-        const int imgHeight = 800;
+        const int imgWidth = 1200/2;
+        const int imgHeight = 800/2;
         float aspectRatio = float(imgWidth) / imgHeight;
 
         // todo the scene should be able to give its own camera and render settings
@@ -21,7 +21,7 @@ namespace RT_ISICG
         render_settings.integratorType = IntegratorType::WHITTED;
         render_settings.sampler = Sampler::GRID_SAMPLER;
         render_settings.backgroundColor = GREY;
-        render_settings.samplesPerPixel = 1;
+        render_settings.samplesPerPixel = 8;
         render_settings.shadowSamples = 8;
         render_settings.nbBounces = 5;
 
@@ -35,9 +35,13 @@ namespace RT_ISICG
         // Create a texture to render the scene.
         Texture img = Texture(imgWidth, imgHeight);
 
-        // Create a perspective camera if scene didn't provide one.
-        if (render_settings.camera == nullptr)
-            render_settings.camera = new PerspectiveCamera(Vec3f(0, 2, -8), Vec3f(0, 2, 3), 60, aspectRatio);
+        //Create a perspective camera if scene didn't provide one.
+        //if (render_settings.camera == nullptr)
+        //    render_settings.camera = new PerspectiveCamera(Vec3f(0, 2, -8), Vec3f(0, 2, 3), 60, aspectRatio);
+
+        Vec3f lookAt = Vec3f(0, 350, 100);
+        Vec3f pos = Vec3f(-250, 500, 330);
+        render_settings.camera = new PerspectiveCamera(pos, lookAt, 60, aspectRatio);
 
         // Create and setup the renderer.
         Renderer renderer;
