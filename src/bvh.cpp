@@ -111,7 +111,7 @@ namespace RT_ISICG
                 {
                     Vec3f normal = (*_triangles)[hitTri].getSmoothNormal(uv);
                     Vec3f trueNormal = (*_triangles)[hitTri].getFaceNormal();
-
+                    // todo fill hitrecord
                     p_hitRecord._distance = tClosest;
                     p_hitRecord._point = p_ray.pointAtT(tClosest);
                     p_hitRecord._normal = normal;
