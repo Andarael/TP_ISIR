@@ -91,11 +91,18 @@ namespace RT_ISICG
     static void setup_TP6_Conference(Scene &scene)
     {
         // * ================ Conference ==================
-        scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "/conference/conference.obj");
+        // scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "/conference/conference.obj");
+        scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "/sponza/sponza2.obj");
         Vec3f u = Vec3f(0, 0, 300);
         Vec3f v = Vec3f(-800, 0, 0);
         Vec3f pos = Vec3f(900, 600, -300);
-        scene._addLight(new QuadLight(WHITE, 20, pos, v, u));
+        // scene._addLight(new QuadLight(WHITE, 25, pos, v, u));
+        //scene._addLight(new PointLight(WHITE, Vec3f(0, 2, 0), 60));
+        //scene._addLight(new PointLight(WHITE, Vec3f(0, 2, 0), 60));
+
+        SimpleQuadLight *simpleQuadLight = new SimpleQuadLight(WHITE, 20, 2, Vec3f(0, 2, 0));
+        simpleQuadLight->setLookAt(Vec3f(-3, 2, 1));
+        scene._addLight(simpleQuadLight);
     }
 
     static void setup_TP6(Scene &scene)

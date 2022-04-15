@@ -88,13 +88,11 @@ namespace RT_ISICG
 
                 p_texture.setPixel(i, j, color);
             }
-
             progressBar.next();
         }
 
         chrono.stop();
         progressBar.stop();
-
         return chrono.elapsedTime();
     }
 
