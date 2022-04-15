@@ -83,17 +83,18 @@ namespace RT_ISICG
         {
             Vec3f origin = p_ray.getOrigin();
             Vec3f direction = p_ray.getDirection();
+            Vec3f invDirection = p_ray.getInvDirection();
 
-            direction.x = direction.x < 0 && direction.x > -EPSILON ? -direction.x : direction.x;
+            //direction.x = direction.x < 0 && direction.x > -EPSILON ? -direction.x : direction.x;
 
-            float tmin = (_min.x - origin.x) / direction.x;
-            float tmax = (_max.x - origin.x) / direction.x;
+            float tmin = (_min.x - origin.x) * invDirection.x;
+            float tmax = (_max.x - origin.x) * invDirection.x;
 
             if (tmin > tmax)
                 std::swap(tmin, tmax);
 
-            float tymin = (_min.y - origin.y) / direction.y;
-            float tymax = (_max.y - origin.y) / direction.y;
+            float tymin = (_min.y - origin.y) * invDirection.y;
+            float tymax = (_max.y - origin.y) * invDirection.y;
 
             if (tymin > tymax)
                 std::swap(tymin, tymax);
@@ -107,8 +108,8 @@ namespace RT_ISICG
             if (tymax < tmax)
                 tmax = tymax;
 
-            float tzmin = (_min.z - origin.z) / direction.z;
-            float tzmax = (_max.z - origin.z) / direction.z;
+            float tzmin = (_min.z - origin.z) * invDirection.z;
+            float tzmax = (_max.z - origin.z) * invDirection.z;
 
             if (tzmin > tzmax)
                 std::swap(tzmin, tzmax);

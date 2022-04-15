@@ -11,7 +11,7 @@ namespace RT_ISICG
         Ray() = delete;
 
         Ray(const Vec3f &p_origin, const Vec3f &p_direction)
-            : _origin(p_origin), _direction(normalize(p_direction)){};
+            : _origin(p_origin), _direction(normalize(p_direction)), _invDirection(1.f / _direction){};
 
         const Vec3f &getOrigin() const
         {
@@ -25,6 +25,16 @@ namespace RT_ISICG
         const Vec3f &getDirection() const
         {
             return _direction;
+        }
+
+        /**
+         * @brief getInvDirection
+         * Is useful for faster ray/aabox intersection
+         * @return the inverted direction vector
+         */
+        const Vec3f &getInvDirection() const
+        {
+            return _invDirection;
         }
 
         // Return the point along _direction at distance 'p_t'
@@ -75,6 +85,7 @@ namespace RT_ISICG
     private:
         Vec3f _origin = VEC3F_ZERO;
         Vec3f _direction = VEC3F_ZERO;
+        Vec3f _invDirection = VEC3F_ZERO;
     };
 } // namespace RT_ISICG
 
