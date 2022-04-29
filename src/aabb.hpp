@@ -82,7 +82,6 @@ namespace RT_ISICG
         bool intersect(const Ray &p_ray, const float p_tMin, const float p_tMax) const
         {
             Vec3f origin = p_ray.getOrigin();
-            Vec3f direction = p_ray.getDirection();
             Vec3f invDirection = p_ray.getInvDirection();
 
             //direction.x = direction.x < 0 && direction.x > -EPSILON ? -direction.x : direction.x;

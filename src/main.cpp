@@ -31,18 +31,23 @@ namespace RT_ISICG
         // Create a perspective camera if scene didn't provide one.
         // if (render_settings.camera == nullptr)
 
+        // cam conference
         render_settings.camera = new PerspectiveCamera(Vec3f(0, 2, 0), Vec3f(3, 2, 0), 60, aspectRatio);
 
-         Vec3f lookAt = Vec3f(0, 350, 100);
-         Vec3f pos = Vec3f(-250, 500, 330);
-         //render_settings.camera = new PerspectiveCamera(pos, lookAt, 60, aspectRatio);
+        // cam TP5
+        render_settings.camera = new PerspectiveCamera(Vec3f(0, 2, -6), Vec3f(0, 2, 3), 60, aspectRatio);
+
+        // cam tp6
+        Vec3f lookAt = Vec3f(0, 350, 100);
+        Vec3f pos = Vec3f(-250, 500, 330);
+        // render_settings.camera = new PerspectiveCamera(pos, lookAt, 60, aspectRatio);
 
         /* ============================
          * ====== Scene Init ==========
          * ============================ */
         // Create and init scene.
         Scene scene;
-        scene.init(SceneType::TP6_Conference);
+        scene.init(SceneType::TP5);
 
         // Create a texture to render the scene.
         Texture img = Texture(imgWidth, imgHeight);

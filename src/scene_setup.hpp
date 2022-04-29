@@ -34,8 +34,8 @@ namespace RT_ISICG
         scene._addMaterial(new MatteMaterial("BlueMatte", BLUE, 0.6f));
         scene._addMaterial(new MatteMaterial("GreyMatte", GREY, 0.6f));
         scene._addMaterial(new MatteMaterial("CyanMatte", CYAN, 0.6f));
-
         scene._addMaterial(new MatteMaterial("MagentaMatte", MAGENTA, 0.6f));
+
 
         // color
         Vec3f lightBlue = Vec3f(0.7, 0.7, 1);
@@ -135,8 +135,10 @@ namespace RT_ISICG
         // Spheres
         scene._addObject(new Sphere("Sphere1", Vec3f(-2, 0, 3), 1.5f));
         scene._addObject(new Sphere("Sphere2", Vec3f(2, 0, 3), 1.5f));
-        scene._attachMaterialToObject("MirrorLightRed", "Sphere1");
-        scene._attachMaterialToObject("TransparentWhite", "Sphere2");
+        //scene._attachMaterialToObject("MirrorLightRed", "Sphere1");
+        //scene._attachMaterialToObject("TransparentWhite", "Sphere2");
+        scene._attachMaterialToObject("WhiteMatte", "Sphere1");
+        scene._attachMaterialToObject("WhiteMatte", "Sphere2");
 
         // Pseudo Cornell box made with infinite planes
         addCornellBox(scene, false);
@@ -150,7 +152,7 @@ namespace RT_ISICG
         quadLight->setLookAt(Vec3f(0, 0, 3));
         // scene._addLight(quadLight);
 
-        scene._addLight(new PointLight(WHITE, lightPosition, 200.f));
+        scene._addLight(new PointLight(WHITE, lightPosition, 100.f));
         // scene._addLight(new QuadLight(WHITE, 60.f, Vec3f(1.f, 5.f, -2.f), Vec3f(-2.f, 0.f, 0.f), Vec3f(0.f, 1.f, 2.f)));
     }
 

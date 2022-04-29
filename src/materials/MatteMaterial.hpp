@@ -14,7 +14,7 @@ namespace RT_ISICG
 
         Vec3f shade(const Ray &p_ray, const HitRecord &p_hitRecord, const LightSample &p_lightSample) const override
         {
-            // return p_lightSample._direction;
+            // todo brdf return color
             return _diffuse * _brdf.evaluate(p_hitRecord._normal, p_lightSample._direction, -p_ray.getDirection());
         }
 

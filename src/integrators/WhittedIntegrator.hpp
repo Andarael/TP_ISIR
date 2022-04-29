@@ -99,7 +99,7 @@ namespace RT_ISICG
             if (fresnelFactor <= 1.0f)
                 refractedColor = refractRay(p_scene, p_ray, p_tMin, p_tMax, depth, hitRecord, n1, n2, fresnelFactor);
 
-             //return Vec3f(hitRecord._backFacing);
+            // return Vec3f(hitRecord._backFacing);
 
             return glm::mix(refractedColor, reflectedColor, fresnelFactor);
         }

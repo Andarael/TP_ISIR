@@ -41,9 +41,9 @@ namespace RT_ISICG
             float factor = A + B * glm::max(0.f, dotDiff) * glm::sin(alpha) * glm::tan(beta);
             */
 
-            // dot product of the normal and the wi and wo
-            float cosThetaIn = dot(normal, wi);
-            float cosThetaOut = dot(normal, wo);
+            // dot product of the normal and the wi and wo todo check if max is needed
+            float cosThetaIn =  glm::max(0.f, dot(normal, wi));
+            float cosThetaOut = glm::max(0.f, dot(normal, wo));
 
             // get theta angles in spherical coordinates from wi and wo
             float thetaI = acos(cosThetaIn);
@@ -60,9 +60,12 @@ namespace RT_ISICG
             float beta = glm::min(thetaI, thetaO);
 
             // oren-nayar factor compute
+
             float A = 1.f - 0.5f * sigma2 / (sigma2 + 0.33f);
             float B = 0.45f * sigma2 / (sigma2 + 0.09f);
             float factor = A + B * glm::max(0.f, dotDiff) * glm::sin(alpha) * glm::tan(beta);
+
+            return alpha * INV_PIf;
 
             return INV_PIf * factor;
         }
