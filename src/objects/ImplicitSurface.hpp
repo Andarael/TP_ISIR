@@ -9,18 +9,43 @@ namespace RT_ISICG
     {
     public:
         ImplicitSurface() = delete;
+
         virtual ~ImplicitSurface() = default;
 
-        ImplicitSurface(const std::string &p_name) : BaseObject(p_name) {}
+        ImplicitSurface(const std::string &p_name)
+            : BaseObject(p_name){};
 
         // Check for nearest intersection between p_tMin and p_tMax : if found fill p_hitRecord.
-        virtual bool intersect(const Ray &p_ray,
-                               const float p_tMin,
-                               const float p_tMax,
-                               HitRecord &p_hitRecord) const override;
+        bool intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const override
+        {
+            float t = 0.f;             // distance from ray origin
+            float d = 0.f;             // distance to surface
+            float D = p_tMax - p_tMin; // maximum traversal distance
+
+            while (t < D)
+            {
+                Vec3f point = p_ray.pointAtT(t);
+                d = _sdf(point);
+
+                if (d < _minDistance)
+                {
+                    Vec3f normal = _evaluateNormal(point);
+                    p_hitRecord.fill(p_ray, normal, t, this);
+                    return true;
+                }
+
+                t = t + d;
+            }
+            return false;
+        }
 
         // Check for any intersection between p_tMin and p_tMax.
-        virtual bool intersectAny(const Ray &p_ray, const float p_tMin, const float p_tMax) const override;
+        bool intersectAny(const Ray &p_ray, const float p_tMin, const float p_tMax) const override
+        {
+            // todo
+            HitRecord hitRecord;
+            return intersect(p_ray, p_tMin, p_tMax, hitRecord);
+        }
 
     private:
         // Signed Distance Function
@@ -29,12 +54,20 @@ namespace RT_ISICG
         // Evaluate normal by computing gradient at 'p_point'
         virtual Vec3f _evaluateNormal(const Vec3f &p_point) const
         {
-            /// TODO
-            return Vec3f(1.f);
+            const float h = _minDistance;
+
+            Vec3f h100 = Vec3f(h, 0, 0);
+            Vec3f h010 = Vec3f(0, h, 0);
+            Vec3f h001 = Vec3f(0, 0, h);
+            Vec3f p = p_point;
+            return glm::normalize(Vec3f(_sdf(p + h100) - _sdf(p - h100),
+                                        _sdf(p + h010) - _sdf(p - h010),
+                                        _sdf(p + h001) - _sdf(p - h001)));
+            // https://iquilezles.org/articles/normalsSDF/
         }
 
     private:
-        const float _minDistance = 1e-4f;
+        const float _minDistance = 1e-6f;
     };
 
 } // namespace RT_ISICG

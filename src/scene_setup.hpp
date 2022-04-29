@@ -21,6 +21,7 @@
 
 // import objects
 #include "objects/BaseObject.hpp"
+#include "objects/ImplicitSphere.hpp"
 #include "objects/Plane.hpp"
 #include "objects/Sphere.hpp"
 
@@ -28,13 +29,6 @@ namespace RT_ISICG
 {
     static void addMaterials(Scene &scene)
     {
-        scene._addMaterial(new MatteMaterial("WhiteMatte", WHITE, 0.6f));
-        scene._addMaterial(new MatteMaterial("RedMatte", RED, 0.6f));
-        scene._addMaterial(new MatteMaterial("GreenMatte", GREEN, 0.6f));
-        scene._addMaterial(new MatteMaterial("BlueMatte", BLUE, 0.6f));
-        scene._addMaterial(new MatteMaterial("GreyMatte", GREY, 0.6f));
-        scene._addMaterial(new MatteMaterial("CyanMatte", CYAN, 0.6f));
-        scene._addMaterial(new MatteMaterial("MagentaMatte", MAGENTA, 0.6f));
 
         // color
         Vec3f lightBlue = Vec3f(0.7, 0.7, 1);
@@ -43,6 +37,20 @@ namespace RT_ISICG
         Vec3f lightCyan = Vec3f(0.5, 1, 1);
         Vec3f lightMagenta = Vec3f(1, 0.5, 1);
         Vec3f lightYellow = Vec3f(1, 1, 0.5);
+        Vec3f gold = Vec3f(1.f, 0.85f, 0.57f);
+
+        scene._addMaterial(new MatteMaterial("WhiteMatte", WHITE, 0.6f));
+        scene._addMaterial(new MatteMaterial("RedMatte", RED, 0.6f));
+        scene._addMaterial(new MatteMaterial("GreenMatte", GREEN, 0.6f));
+        scene._addMaterial(new MatteMaterial("lightBlueMatte", lightBlue, 0.6f));
+        scene._addMaterial(new MatteMaterial("BlueMatte", BLUE, 0.6f));
+        scene._addMaterial(new MatteMaterial("GreyMatte", GREY, 0.6f));
+        scene._addMaterial(new MatteMaterial("CyanMatte", CYAN, 0.6f));
+        scene._addMaterial(new MatteMaterial("MagentaMatte", MAGENTA, 0.6f));
+
+        // Cook Torrence
+
+        scene._addMaterial(new CookTorranceMaterial("PBR_Gold", gold, 0.3f, 0.1f));
 
         // mirrors
         scene._addMaterial(new MirrorMaterial("MirrorLightBlue", lightBlue));
@@ -180,6 +188,7 @@ namespace RT_ISICG
          * ================ Add Objects =================
          * ============================================== */
         scene._addObject(new Sphere("Sphere1", Vec3f(0, 0, 3), 1));
+
         scene._addObject(new Plane("Plane1", Vec3f(0, -2, 0), Vec3f(0, 1, 0)));
 
         // attach materials to objects
@@ -231,6 +240,20 @@ namespace RT_ISICG
         scene._attachMaterialToObject("Red", "Plane1");
     }
 
+    static void setup_TP7(Scene &scene)
+    {
+        addMaterials(scene);
+        addCornellBox(scene, false);
+
+        scene._addObject(new ImplicitSphere("Sphere1", Vec3f(-1, 0.1f, 5), 1));
+        scene._attachMaterialToObject("lightBlueMatte", "Sphere1");
+
+         scene._addObject(new Sphere("Sphere2", Vec3f(1, -0.1f, 5), 1));
+         scene._attachMaterialToObject("RedMatte", "Sphere2");
+
+        scene._addLight(new PointLight(WHITE, Vec3f(0, 3, -3), 300));
+    }
+
     static void setup_scene(Scene &scene, const SceneType scene_type)
     {
         switch (scene_type)
@@ -253,6 +276,9 @@ namespace RT_ISICG
             break;
         case SceneType::TP6_Conference:
             setup_TP6_Conference(scene);
+            break;
+        case SceneType::TP7:
+            setup_TP7(scene);
             break;
         default:
             break;

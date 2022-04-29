@@ -25,6 +25,7 @@ namespace RT_ISICG
         TP5,
         TP6,
         TP6_Conference,
+        TP7,
         SCENE_TYPE_COUNT
     };
 

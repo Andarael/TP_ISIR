@@ -21,7 +21,7 @@ namespace RT_ISICG
         render_settings.integratorType = IntegratorType::WHITTED;
         render_settings.sampler = Sampler::GRID_SAMPLER;
         render_settings.backgroundColor = GREY;
-        render_settings.samplesPerPixel = 4;
+        render_settings.samplesPerPixel = 8;
         render_settings.shadowSamples = 4;
         render_settings.nbBounces = 5;
 
@@ -42,12 +42,16 @@ namespace RT_ISICG
         Vec3f pos = Vec3f(-250, 500, 330);
         // render_settings.camera = new PerspectiveCamera(pos, lookAt, 60, aspectRatio);
 
+        
+        // cam TP7
+        render_settings.camera = new PerspectiveCamera(Vec3f(0, 0, 0), Vec3f(0, 0, 3), 60, aspectRatio);
+
         /* ============================
          * ====== Scene Init ==========
          * ============================ */
         // Create and init scene.
         Scene scene;
-        scene.init(SceneType::TP5);
+        scene.init(SceneType::TP7);
 
         // Create a texture to render the scene.
         Texture img = Texture(imgWidth, imgHeight);
