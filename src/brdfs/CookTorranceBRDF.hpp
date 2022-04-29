@@ -21,10 +21,7 @@ namespace RT_ISICG
             return f * d * g / (4.f * dot(wo, n) * dot(wi, n));
         }
 
-        Vec3f getRoughness() const
-        {
-            return Vec3f(glm::sqrt(_alpha));
-        }
+        Vec3f getRoughness() const { return Vec3f(glm::sqrt(_alpha)); }
 
     protected:
         /* The Normal Distribution Function (NDF) */
@@ -54,6 +51,6 @@ namespace RT_ISICG
         float _alpha;
         float _k;
     };
-}
+} // namespace RT_ISICG
 
 #endif // __RT_ISICG_BRDF_COOK_TORRANCE__

@@ -26,15 +26,11 @@ namespace RT_ISICG
             return diffuse + specular;
         }
 
-        const Vec3f &getFlatColor() const override
-        {
-            return _diffuse;
-        }
+        const Vec3f &getFlatColor() const override { return _diffuse; }
 
     private:
         Vec3f _diffuse = GREY;
         Vec3f _specular = WHITE;
-        bool _additive = true; // todo explain
 
         LambertBRDF _lambert_brdf;
         PhongBrdf _phong_brdf;

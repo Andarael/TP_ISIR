@@ -8,10 +8,7 @@ namespace RT_ISICG
     class RayCastIntegrator : public BaseIntegrator
     {
     public:
-        IntegratorType getType() const override
-        {
-            return IntegratorType::RAY_CAST;
-        }
+        IntegratorType getType() const override { return IntegratorType::RAY_CAST; }
 
         // Return incoming luminance.
         Vec3f Li(const Scene &p_scene, const Ray &p_ray, const float p_tMin, const float p_tMax) const override

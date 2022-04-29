@@ -25,7 +25,7 @@ namespace RT_ISICG
 
                 Vec3f compute_normal = _geometry.computeNormal(p_ray.pointAtT(t1));
 
-                fillHitRecord(p_hitRecord, p_ray, compute_normal, t1);
+                p_hitRecord.fill(p_ray, compute_normal, t1, this);
 
                 return true;
             }

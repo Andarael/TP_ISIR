@@ -21,25 +21,13 @@ namespace RT_ISICG
 
         virtual inline const Vec3f &getFlatColor() const = 0;
 
-        virtual const std::string &getName() const final
-        {
-            return _name;
-        }
+        virtual const std::string &getName() const final { return _name; }
 
-        virtual float getIOR() const
-        {
-            return 1.f;
-        }
+        virtual float getIOR() const { return 1.f; }
 
-        virtual bool isMirror() const
-        {
-            return false;
-        }
+        virtual bool isMirror() const { return false; }
 
-        virtual bool isTransparent() const
-        {
-            return false;
-        }
+        virtual bool isTransparent() const { return false; }
 
     protected:
         std::string _name;

@@ -26,15 +26,9 @@ namespace RT_ISICG
         };
 
         // getters and setters
-        Vec3f getPosition() const
-        {
-            return _position;
-        }
+        Vec3f getPosition() const { return _position; }
 
-        void setPosition(const Vec3f &p_position)
-        {
-            _position = p_position;
-        }
+        void setPosition(const Vec3f &p_position) { _position = p_position; }
 
         // methods
 

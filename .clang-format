@@ -3,10 +3,14 @@ BasedOnStyle: Microsoft
 UseTab: Never
 IndentWidth: 4
 TabWidth: 4
+AllowShortFunctionsOnASingleLine: All
+AllowShortBlocksOnASingleLine: Always
+AllowShortLambdasOnASingleLine: All
+AllowShortIfStatementsOnASingleLine: WithoutElse
+
 BreakBeforeBraces: Allman
-AllowShortIfStatementsOnASingleLine: false
 IndentCaseLabels: false
 ColumnLimit: 0
 AccessModifierOffset: -4
-FixNamespaceComments: false
+FixNamespaceComments: true
 NamespaceIndentation: All

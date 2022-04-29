@@ -12,10 +12,7 @@
 
 namespace RT_ISICG
 {
-    Scene::Scene()
-    {
-        _addMaterial(new ColorMaterial("default", WHITE));
-    }
+    Scene::Scene() { _addMaterial(new ColorMaterial("default", WHITE)); }
 
     Scene::~Scene()
     {
@@ -29,15 +26,9 @@ namespace RT_ISICG
             delete light;
     }
 
-    void Scene::init()
-    {
-        init(SceneType::TP4);
-    }
+    void Scene::init() { init(SceneType::TP4); }
 
-    void Scene::init(const SceneType &p_type)
-    {
-        setup_scene(*this, p_type);
-    }
+    void Scene::init(const SceneType &p_type) { setup_scene(*this, p_type); }
 
     void Scene::loadFileTriangleMesh(const std::string &p_name, const std::string &p_path)
     {

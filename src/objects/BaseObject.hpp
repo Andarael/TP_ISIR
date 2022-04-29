@@ -17,20 +17,11 @@ namespace RT_ISICG
 
         virtual ~BaseObject() = default;
 
-        virtual const std::string &getName() const final
-        {
-            return _name;
-        }
+        virtual const std::string &getName() const final { return _name; }
 
-        virtual inline BaseMaterial *getMaterial() const final
-        {
-            return _material;
-        }
+        virtual BaseMaterial *getMaterial() const final { return _material; }
 
-        virtual inline void setMaterial(BaseMaterial *p_material) final
-        {
-            _material = p_material;
-        }
+        virtual void setMaterial(BaseMaterial *p_material) final { _material = p_material; }
 
         /**
          * @brief checks for intersection between ray and object, if found fills p_hitRecord
@@ -42,31 +33,6 @@ namespace RT_ISICG
          * @return true if intersection is found, false otherwise
          */
         virtual bool intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const = 0;
-
-        /**
-         * @brief fill given hitRecord with intersection information
-         *
-         * @param p_hitRecord hitRecord to fill
-         * @param p_ray ray that intersected the object
-         * @param normal normal of the object at the intersection point
-         * @param trueNormal
-         * @param distance distance from the ray origin to the intersection point
-         */
-        void fillHitRecord(HitRecord &p_hitRecord, const Ray &p_ray, const Vec3f &normal, const Vec3f &trueNormal, const float distance) const
-        {
-            // p_hitRecord.faceNormal(p_ray.getDirection());
-            p_hitRecord._point = p_ray.pointAtT(distance);
-            p_hitRecord._normal = normal;
-            p_hitRecord._trueNormal = trueNormal;
-            p_hitRecord._distance = distance;
-            p_hitRecord._object = this;
-            p_hitRecord.faceNormal(p_ray.getDirection());
-        }
-
-        void fillHitRecord(HitRecord &p_hitRecord, const Ray &p_ray, const Vec3f &normal, const float distance) const
-        {
-            fillHitRecord(p_hitRecord, p_ray, normal, normal, distance);
-        }
 
         virtual bool intersectAny(const Ray &p_ray, float p_tMin, float p_tMax) const = 0;
 

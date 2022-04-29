@@ -28,7 +28,7 @@ namespace RT_ISICG
         float _distance = 0.f;         // distance to light source
         Vec3f _radiance = WHITE;       // radiance at given point divided by pdf
         float _pdf = 1.f;              // probability density function of the light sampled
-        // todo use pdf in quadlight sample ? 
+        // todo use pdf in quadlight sample ?
     };
 
 } // namespace RT_ISICG

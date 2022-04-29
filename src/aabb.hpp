@@ -16,15 +16,9 @@ namespace RT_ISICG
 
         ~AABB() = default;
 
-        const Vec3f &getMin() const
-        {
-            return _min;
-        }
+        const Vec3f &getMin() const { return _min; }
 
-        const Vec3f &getMax() const
-        {
-            return _max;
-        }
+        const Vec3f &getMax() const { return _max; }
 
         // Returns true if the AABB is degenerated.
         bool isValid() const
@@ -84,7 +78,7 @@ namespace RT_ISICG
             Vec3f origin = p_ray.getOrigin();
             Vec3f invDirection = p_ray.getInvDirection();
 
-            //direction.x = direction.x < 0 && direction.x > -EPSILON ? -direction.x : direction.x;
+            // direction.x = direction.x < 0 && direction.x > -EPSILON ? -direction.x : direction.x;
 
             float tmin = (_min.x - origin.x) * invDirection.x;
             float tmax = (_max.x - origin.x) * invDirection.x;

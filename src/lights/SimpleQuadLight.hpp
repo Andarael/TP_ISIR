@@ -20,10 +20,7 @@ namespace RT_ISICG
             // todo find a better way
         }
 
-        void setLookAt(const Vec3f &lookAt)
-        {
-            compute_uv(_length * _length, glm::normalize(lookAt - _origin));
-        }
+        void setLookAt(const Vec3f &lookAt) { compute_uv(_length * _length, glm::normalize(lookAt - _origin)); }
 
     protected:
         Vec3f _origin; // the center of the square, _position will be used to compute the uv in sample()

@@ -13,10 +13,7 @@ namespace RT_ISICG
         WhittedIntegrator(const int p_shadowSamples, const int p_nbBounces)
             : DirectLightingIntegrator(p_shadowSamples), _nbBounces(p_nbBounces){};
 
-        IntegratorType getType() const override
-        {
-            return IntegratorType::WHITTED;
-        }
+        IntegratorType getType() const override { return IntegratorType::WHITTED; }
 
         Vec3f Li(const Scene &p_scene, const Ray &p_ray, const float p_tMin, const float p_tMax) const override
         {
@@ -107,6 +104,6 @@ namespace RT_ISICG
     private:
         int _nbBounces = 5;
     };
-}
+} // namespace RT_ISICG
 
 #endif // __RT_ISICG_WHITTED_INTEGRATOR__

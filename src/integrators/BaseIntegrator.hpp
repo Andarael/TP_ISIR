@@ -26,15 +26,9 @@ namespace RT_ISICG
         // Return incoming luminance.
         virtual Vec3f Li(const Scene &p_scene, const Ray &p_ray, float p_tMin, float p_tMax) const = 0;
 
-        const Vec3f &getBackgroundColor() const
-        {
-            return _backgroundColor;
-        }
+        const Vec3f &getBackgroundColor() const { return _backgroundColor; }
 
-        void setBackgroundColor(const Vec3f &p_color)
-        {
-            _backgroundColor = p_color;
-        }
+        void setBackgroundColor(const Vec3f &p_color) { _backgroundColor = p_color; }
 
     protected:
         Vec3f _backgroundColor = BLACK;

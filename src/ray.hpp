@@ -13,35 +13,14 @@ namespace RT_ISICG
         Ray(const Vec3f &p_origin, const Vec3f &p_direction)
             : _origin(p_origin), _direction(normalize(p_direction)), _invDirection(1.f / _direction){};
 
-        const Vec3f &getOrigin() const
-        {
-            return _origin;
-        }
+        const Vec3f &getOrigin() const { return _origin; }
 
-        /**
-         * @brief getDirection
-         * @return normalized direction vector
-         */
-        const Vec3f &getDirection() const
-        {
-            return _direction;
-        }
+        const Vec3f &getDirection() const { return _direction; }
 
-        /**
-         * @brief getInvDirection
-         * Is useful for faster ray/aabox intersection
-         * @return the inverted direction vector
-         */
-        const Vec3f &getInvDirection() const
-        {
-            return _invDirection;
-        }
+        const Vec3f &getInvDirection() const { return _invDirection; }
 
         // Return the point along _direction at distance 'p_t'
-        Vec3f pointAtT(const float p_t) const
-        {
-            return _origin + _direction * p_t;
-        }
+        Vec3f pointAtT(const float p_t) const { return _origin + _direction * p_t; }
 
         // This function add an offset to the ray origin to avoid self-intersection when computing shadows
         // See:
@@ -67,20 +46,11 @@ namespace RT_ISICG
 
     private:
         // Used for offset()
-        static constexpr float _originScale()
-        {
-            return 1.f / 32.f;
-        }
+        static constexpr float _originScale() { return 1.f / 32.f; }
 
-        static constexpr float _floatScale()
-        {
-            return 1.f / 65536.f;
-        }
+        static constexpr float _floatScale() { return 1.f / 65536.f; }
 
-        static constexpr float _intScale()
-        {
-            return 256.f;
-        }
+        static constexpr float _intScale() { return 256.f; }
 
     private:
         Vec3f _origin = VEC3F_ZERO;

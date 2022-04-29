@@ -18,10 +18,7 @@ namespace RT_ISICG
             return _diffuse * _brdf.evaluate(p_hitRecord._normal, p_lightSample._direction, -p_ray.getDirection());
         }
 
-        const Vec3f &getFlatColor() const override
-        {
-            return _diffuse;
-        }
+        const Vec3f &getFlatColor() const override { return _diffuse; }
 
     private:
         Vec3f _diffuse;

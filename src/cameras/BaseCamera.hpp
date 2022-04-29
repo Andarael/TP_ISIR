@@ -16,10 +16,7 @@ namespace RT_ISICG
 
         virtual ~BaseCamera() = default;
 
-        const Vec3f &getPosition() const
-        {
-            return _position;
-        }
+        const Vec3f &getPosition() const { return _position; }
 
         virtual inline Ray generateRay(const float p_sx, const float p_sy) const = 0;
 

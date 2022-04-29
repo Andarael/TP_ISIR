@@ -29,14 +29,11 @@ namespace RT_ISICG
             return p_t1 > 0;
         }
 
-        Vec3f computeNormal(const Vec3f &p_point) const
-        {
-            return _normal;
-        }
+        Vec3f computeNormal(const Vec3f &p_point) const { return _normal; }
 
     private:
         Vec3f _normal = Vec3f(0, 1, 0);
     };
-}
+} // namespace RT_ISICG
 
 #endif

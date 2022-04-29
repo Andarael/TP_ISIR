@@ -40,16 +40,10 @@ namespace RT_ISICG
 
         void init(const SceneType &p_type);
 
-        // Initialization from file.
-        static void init(const std::string &p_path)
-        {
-            throw std::exception("Not implemented !");
-        }
+        // Initialization from file. todo
+        static void init(const std::string &p_path) { throw std::exception("Not implemented !"); }
 
-        const LightList &getLights() const
-        {
-            return _lightList;
-        }
+        const LightList &getLights() const { return _lightList; }
 
         void loadFileTriangleMesh(const std::string &p_name, const std::string &p_path);
 

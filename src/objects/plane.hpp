@@ -14,6 +14,7 @@ namespace RT_ISICG
         Plane(const std::string &p_name, const Vec3f &p_center, const Vec3f &p_normal)
             : BaseObject(p_name), _geometry(p_center, p_normal){};
 
+        // todo abstract in implicitGeometry ? 
         bool intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const override
         {
             float t;
@@ -24,7 +25,7 @@ namespace RT_ISICG
 
                 Vec3f compute_normal = _geometry.computeNormal(p_ray.pointAtT(t));
 
-                fillHitRecord(p_hitRecord, p_ray, compute_normal, t);
+                p_hitRecord.fill(p_ray, compute_normal, t, this);
 
                 return true;
             }

@@ -24,10 +24,7 @@ namespace RT_ISICG
             return glm::mix(diffuse, specular, _metalness);
         }
 
-        const Vec3f &getFlatColor() const override
-        {
-            return _diffuse;
-        }
+        const Vec3f &getFlatColor() const override { return _diffuse; }
 
     private:
         Vec3f _diffuse = GREY;

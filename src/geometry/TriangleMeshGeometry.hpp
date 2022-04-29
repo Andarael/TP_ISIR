@@ -18,10 +18,7 @@ namespace RT_ISICG
 
         bool intersect(const Ray &p_ray, float &p_t, Vec2f &uv) const;
 
-        const Vec3f &getFaceNormal() const
-        {
-            return _faceNormal;
-        }
+        const Vec3f &getFaceNormal() const { return _faceNormal; }
 
         Vec3f getSmoothNormal(Vec2f const &uv) const;
 

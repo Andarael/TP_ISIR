@@ -64,6 +64,7 @@ namespace RT_ISICG
         bool intersectAny(const Ray &p_ray, float p_tMin, float p_tMax) const override;
 
         BVH _bvh;
+
     private:
         AABB _aabb;
 

@@ -8,25 +8,17 @@ namespace RT_ISICG
     class BaseLight
     {
     public:
+        // todo unify light constructors
         BaseLight(const Vec3f &p_color, const float p_power = 1.f)
             : _color(p_color), _power(p_power){};
 
         virtual ~BaseLight() = default;
 
-        const Vec3f &getFlatColor() const
-        {
-            return _color;
-        }
+        const Vec3f &getFlatColor() const { return _color; }
 
-        virtual const std::string &getName() const final
-        {
-            return _name;
-        }
+        virtual const std::string &getName() const final { return _name; }
 
-        virtual bool isSurface() const final
-        {
-            return _isSurface;
-        }
+        virtual bool isSurface() const final { return _isSurface; }
 
         /**
          * @brief sample a point on the light

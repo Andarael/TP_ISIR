@@ -36,7 +36,6 @@ namespace RT_ISICG
         scene._addMaterial(new MatteMaterial("CyanMatte", CYAN, 0.6f));
         scene._addMaterial(new MatteMaterial("MagentaMatte", MAGENTA, 0.6f));
 
-
         // color
         Vec3f lightBlue = Vec3f(0.7, 0.7, 1);
         Vec3f lightGreen = Vec3f(0.7, 1, 0.7);
@@ -97,8 +96,8 @@ namespace RT_ISICG
         Vec3f v = Vec3f(-800, 0, 0);
         Vec3f pos = Vec3f(900, 600, -300);
         // scene._addLight(new QuadLight(WHITE, 25, pos, v, u));
-        //scene._addLight(new PointLight(WHITE, Vec3f(0, 2, 0), 60));
-        //scene._addLight(new PointLight(WHITE, Vec3f(0, 2, 0), 60));
+        // scene._addLight(new PointLight(WHITE, Vec3f(0, 2, 0), 60));
+        // scene._addLight(new PointLight(WHITE, Vec3f(0, 2, 0), 60));
 
         SimpleQuadLight *simpleQuadLight = new SimpleQuadLight(WHITE, 20, 2, Vec3f(0, 2, 0));
         simpleQuadLight->setLookAt(Vec3f(-3, 2, 1));
@@ -135,8 +134,8 @@ namespace RT_ISICG
         // Spheres
         scene._addObject(new Sphere("Sphere1", Vec3f(-2, 0, 3), 1.5f));
         scene._addObject(new Sphere("Sphere2", Vec3f(2, 0, 3), 1.5f));
-        //scene._attachMaterialToObject("MirrorLightRed", "Sphere1");
-        //scene._attachMaterialToObject("TransparentWhite", "Sphere2");
+        // scene._attachMaterialToObject("MirrorLightRed", "Sphere1");
+        // scene._attachMaterialToObject("TransparentWhite", "Sphere2");
         scene._attachMaterialToObject("WhiteMatte", "Sphere1");
         scene._attachMaterialToObject("WhiteMatte", "Sphere2");
 
@@ -260,6 +259,6 @@ namespace RT_ISICG
         }
     }
 
-}
+} // namespace RT_ISICG
 
 #endif /* __RT_ISICG_SCENE_SETUP__ */

@@ -34,10 +34,7 @@ namespace RT_ISICG
     public:
         Renderer();
 
-        Renderer(const RenderSettings p_settings)
-        {
-            setSettings(p_settings);
-        }
+        Renderer(const RenderSettings p_settings) { setSettings(p_settings); }
 
         ~Renderer();
 

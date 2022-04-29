@@ -70,7 +70,7 @@ namespace RT_ISICG
             [partitionAxis](const TriangleMeshGeometry &a, const TriangleMeshGeometry &b)
             {
                 return getVertexCenterOnAxis(a, partitionAxis) < getVertexCenterOnAxis(b, partitionAxis);
-                //return a.getVertex(0)[partitionAxis] < b.getVertex(0)[partitionAxis];
+                // return a.getVertex(0)[partitionAxis] < b.getVertex(0)[partitionAxis];
             });
 
         p_node->_left = new BVHNode();
@@ -111,12 +111,7 @@ namespace RT_ISICG
                 {
                     Vec3f normal = (*_triangles)[hitTri].getSmoothNormal(uv);
                     Vec3f trueNormal = (*_triangles)[hitTri].getFaceNormal();
-                    // todo fill hitrecord
-                    p_hitRecord._distance = tClosest;
-                    p_hitRecord._point = p_ray.pointAtT(tClosest);
-                    p_hitRecord._normal = normal;
-                    p_hitRecord._trueNormal = trueNormal;
-                    p_hitRecord.faceNormal(p_ray.getDirection());
+                    p_hitRecord.fill(p_ray, normal, trueNormal, tClosest);
                 }
                 return true;
             }

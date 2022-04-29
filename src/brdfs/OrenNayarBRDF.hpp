@@ -15,34 +15,8 @@ namespace RT_ISICG
         {
             float sigma2 = _roughness * _roughness;
 
-            /*
-            // get theta angles in spherical coordinates from wi and wo
-            float cosThetaIn = glm::max(0.f, dot(normal, wi));
-            float cosThetaOut = glm::max(0.f, dot(normal, wo));
-            float tethaI = glm::acos(cosThetaIn);
-            float tethaO = glm::acos(cosThetaOut);
-
-            // projection of the incoming and outgoing vectors onto the surface normal
-            Vec3f projectedIncoming = glm::normalize(wi - cosThetaIn * normal);
-            Vec3f projectedOutgoing = glm::normalize(wo - cosThetaOut * normal);
-
-            // get phi angles in spherical coordinates from projected wi and wo
-            float phi_i = glm::acos(dot(normal, projectedIncoming));
-            float phi_o = glm::acos(dot(normal, projectedOutgoing));
-            float dotDiff = glm::cos(phi_i - phi_o)
-
-            // get alpha and beta factors
-            float beta = glm::min(tethaI, tethaO);
-            float alpha = glm::max(tethaI, tethaO);
-
-            // oren-nayar factor compute
-            float A = 1.f - 0.5f * sigma2 / (sigma2 + 0.33f);
-            float B = 0.45f * sigma2 / (sigma2 + 0.09f);
-            float factor = A + B * glm::max(0.f, dotDiff) * glm::sin(alpha) * glm::tan(beta);
-            */
-
             // dot product of the normal and the wi and wo todo check if max is needed
-            float cosThetaIn =  glm::max(0.f, dot(normal, wi));
+            float cosThetaIn = glm::max(0.f, dot(normal, wi));
             float cosThetaOut = glm::max(0.f, dot(normal, wo));
 
             // get theta angles in spherical coordinates from wi and wo
@@ -65,19 +39,14 @@ namespace RT_ISICG
             float B = 0.45f * sigma2 / (sigma2 + 0.09f);
             float factor = A + B * glm::max(0.f, dotDiff) * glm::sin(alpha) * glm::tan(beta);
 
-            return alpha * INV_PIf;
-
             return INV_PIf * factor;
         }
 
-        const float &getRoughness() const
-        {
-            return _roughness;
-        }
+        const float &getRoughness() const { return _roughness; }
 
     private:
         float _roughness = 0.0f;
     };
-}
+} // namespace RT_ISICG
 
 #endif // __RT_ISICG_BRDF_ORENNAYAR__

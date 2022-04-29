@@ -19,10 +19,7 @@ namespace RT_ISICG
             delete _right;
         }
 
-        bool isLeaf() const
-        {
-            return (_left == nullptr && _right == nullptr);
-        }
+        bool isLeaf() const { return (_left == nullptr && _right == nullptr); }
 
         int getDepth() const
         {
@@ -47,10 +44,7 @@ namespace RT_ISICG
     public:
         BVH() = default;
 
-        ~BVH()
-        {
-            delete _root;
-        }
+        ~BVH() { delete _root; }
 
         // Build the BVH from a list of triangles (call _buildRec).
         void build(std::vector<TriangleMeshGeometry> *p_triangles);

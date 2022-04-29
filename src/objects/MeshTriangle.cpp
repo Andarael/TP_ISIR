@@ -12,6 +12,7 @@ namespace RT_ISICG
 
         return false;
 
+        // todo comparison
         if (!_aabb.intersect(p_ray, p_tMin, p_tMax))
             return false;
 
@@ -38,7 +39,7 @@ namespace RT_ISICG
             Vec3f normal = _triangles[hitTri].getSmoothNormal(uv);
             Vec3f trueNormal = _triangles[hitTri].getFaceNormal();
 
-            fillHitRecord(p_hitRecord, p_ray, normal, trueNormal, tClosest);
+            p_hitRecord.fill(p_ray, normal, trueNormal, tClosest);
 
             return true;
         }
@@ -49,17 +50,18 @@ namespace RT_ISICG
     {
         return _bvh.intersectAny(p_ray, p_tMin, p_tMax);
 
-        //if (!_aabb.intersect(p_ray, p_tMin, p_tMax))
-        //    return false;
+        // todo comparison
+        if (!_aabb.intersect(p_ray, p_tMin, p_tMax))
+            return false;
 
-        //for (size_t i = 0; i < _triangles.size(); i++)
-        //{
-        //    float t;
-        //    Vec2f uv;
-        //    if (_triangles[i].intersect(p_ray, t, uv))
-        //        if (t >= p_tMin && t <= p_tMax)
-        //            return true; // No need to search for the nearest.
-        //}
-        //return false;
+        for (size_t i = 0; i < _triangles.size(); i++)
+        {
+            float t;
+            Vec2f uv;
+            if (_triangles[i].intersect(p_ray, t, uv))
+                if (t >= p_tMin && t <= p_tMax)
+                    return true; // No need to search for the nearest.
+        }
+        return false;
     }
 } // namespace RT_ISICG
