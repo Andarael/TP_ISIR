@@ -64,6 +64,9 @@
     <ClCompile Include="src\bvh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\objects\ImplicitSurface.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\texture.hpp">
@@ -200,6 +203,9 @@
     </ClInclude>
     <ClInclude Include="src\materials\TransparentMaterial.hpp">
       <Filter>Source Files\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\ImplicitSurface.hpp">
+      <Filter>Source Files\objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -184,6 +184,7 @@
     <ClCompile Include="src\cameras\PerspectiveCamera.cpp" />
     <ClCompile Include="src\geometry\TriangleMeshGeometry.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\objects\ImplicitSurface.cpp" />
     <ClCompile Include="src\objects\MeshTriangle.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\Scene.cpp" />
@@ -225,6 +226,7 @@
     <ClInclude Include="src\materials\PlasticMaterial.hpp" />
     <ClInclude Include="src\materials\TransparentMaterial.hpp" />
     <ClInclude Include="src\objects\BaseObject.hpp" />
+    <ClInclude Include="src\objects\ImplicitSurface.hpp" />
     <ClInclude Include="src\objects\Plane.hpp" />
     <ClInclude Include="src\objects\Sphere.hpp" />
     <ClInclude Include="src\objects\MeshTriangle.hpp" />
