@@ -35,9 +35,9 @@ namespace RT_ISICG
                 output = hitRecord._point;
                 flatColor = hitRecord._object->getMaterial()->getFlatColor();
             }
-            return normal;
+            return Vec3f(zPass(hitRecord._distance, 1.f, 5.f, false));
             return flatColor;
-            return Vec3f(zPass(hitRecord._distance, 0.1f, 5.f, false));
+            return normal;
             return _setColorInRange(output);
         }
 

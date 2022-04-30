@@ -12,8 +12,8 @@ namespace RT_ISICG
          * ====== Render parameters =====
          * ============================== */
         // Output Image parameters
-        const int imgWidth = 1200 / 2;
-        const int imgHeight = 800 / 2;
+        const int imgWidth = 1200*2;
+        const int imgHeight = 800*2;
         float aspectRatio = float(imgWidth) / imgHeight;
 
         // todo the scene should be able to give its own camera and render settings
@@ -44,7 +44,7 @@ namespace RT_ISICG
 
         
         // cam TP7
-        render_settings.camera = new PerspectiveCamera(Vec3f(0, 0, 0), Vec3f(0, 0, 3), 60, aspectRatio);
+        render_settings.camera = new PerspectiveCamera(Vec3f(0, 3, -3), Vec3f(0, 0, 0), 40, aspectRatio);
 
         /* ============================
          * ====== Scene Init ==========

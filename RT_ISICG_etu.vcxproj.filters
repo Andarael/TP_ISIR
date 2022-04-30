@@ -207,6 +207,12 @@
     <ClInclude Include="src\objects\ImplicitSphere.hpp">
       <Filter>Source Files\objects</Filter>
     </ClInclude>
+    <ClInclude Include="src\objects\implicitBulb.hpp">
+      <Filter>Source Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\implicitTorus.hpp">
+      <Filter>Source Files\objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />

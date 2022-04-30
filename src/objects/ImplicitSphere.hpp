@@ -9,13 +9,17 @@ namespace RT_ISICG
     {
     public:
         ImplicitSphere(const std::string &p_name, const Vec3f &position, const float radius)
-            : ImplicitSurface(p_name), _radius(radius), _position(position) {}
+            : ImplicitSurface(p_name), _radius(radius), _position(position)
+        {
+            _aabb.extend(_position - _radius);
+            _aabb.extend(_position + _radius);
+        }
 
         float _sdf(const Vec3f &p_point) const override
         {
             return glm::distance(p_point, _position) - _radius;
         }
-
+        
     private:
         float _radius = 1.f;
         Vec3f _position = VEC3F_ZERO;

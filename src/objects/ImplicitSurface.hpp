@@ -2,6 +2,14 @@
 #define __RT_ISICG_IMPLICIT_SURFACE__
 
 #include "BaseObject.hpp"
+#include "aabb.hpp"
+
+// todo menger sponge
+// todo torus
+// todo Juila
+
+// References
+// Inigo Quilez www.iquilezles.org
 
 namespace RT_ISICG
 {
@@ -18,14 +26,16 @@ namespace RT_ISICG
         // Check for nearest intersection between p_tMin and p_tMax : if found fill p_hitRecord.
         bool intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const override
         {
+            if (_aabb.isValid() && !_aabb.intersect(p_ray, p_tMin, p_tMax))
+                return false;
+
             float t = 0.f;             // distance from ray origin
-            float d = 0.f;             // distance to surface
             float D = p_tMax - p_tMin; // maximum traversal distance
 
             while (t < D)
             {
                 Vec3f point = p_ray.pointAtT(t);
-                d = _sdf(point);
+                float d = _sdf(point); // distance to surface
 
                 if (d < _minDistance)
                 {
@@ -42,9 +52,22 @@ namespace RT_ISICG
         // Check for any intersection between p_tMin and p_tMax.
         bool intersectAny(const Ray &p_ray, const float p_tMin, const float p_tMax) const override
         {
-            // todo
-            HitRecord hitRecord;
-            return intersect(p_ray, p_tMin, p_tMax, hitRecord);
+            if (_aabb.isValid() && !_aabb.intersect(p_ray, p_tMin, p_tMax))
+                return false;
+
+            float t = 0.f;             // distance from ray origin
+            float D = p_tMax - p_tMin; // maximum traversal distance
+            while (t < D)
+            {
+                Vec3f point = p_ray.pointAtT(t);
+                float d = _sdf(point); // distance to surface
+
+                if (d < _minDistance)
+                    return true;
+
+                t = t + d;
+            }
+            return false;
         }
 
     private:
@@ -59,15 +82,19 @@ namespace RT_ISICG
             Vec3f h100 = Vec3f(h, 0, 0);
             Vec3f h010 = Vec3f(0, h, 0);
             Vec3f h001 = Vec3f(0, 0, h);
-            Vec3f p = p_point;
-            return glm::normalize(Vec3f(_sdf(p + h100) - _sdf(p - h100),
-                                        _sdf(p + h010) - _sdf(p - h010),
-                                        _sdf(p + h001) - _sdf(p - h001)));
+
+            return glm::normalize(Vec3f(_sdf(p_point + h100) - _sdf(p_point - h100),
+                                        _sdf(p_point + h010) - _sdf(p_point - h010),
+                                        _sdf(p_point + h001) - _sdf(p_point - h001)));
             // https://iquilezles.org/articles/normalsSDF/
+            // todo h en fonction de la taille du pixel
         }
 
     private:
         const float _minDistance = 1e-6f;
+
+    protected:
+        AABB _aabb;
     };
 
 } // namespace RT_ISICG

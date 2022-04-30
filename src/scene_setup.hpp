@@ -21,6 +21,7 @@
 
 // import objects
 #include "objects/BaseObject.hpp"
+#include "objects/ImplicitBulb.hpp"
 #include "objects/ImplicitSphere.hpp"
 #include "objects/Plane.hpp"
 #include "objects/Sphere.hpp"
@@ -37,7 +38,7 @@ namespace RT_ISICG
         Vec3f lightCyan = Vec3f(0.5, 1, 1);
         Vec3f lightMagenta = Vec3f(1, 0.5, 1);
         Vec3f lightYellow = Vec3f(1, 1, 0.5);
-        Vec3f gold = Vec3f(1.f, 0.85f, 0.57f);
+        Vec3f gold = Vec3f(1.f, 0.75f, 0.45f);
 
         scene._addMaterial(new MatteMaterial("WhiteMatte", WHITE, 0.6f));
         scene._addMaterial(new MatteMaterial("RedMatte", RED, 0.6f));
@@ -50,7 +51,7 @@ namespace RT_ISICG
 
         // Cook Torrence
 
-        scene._addMaterial(new CookTorranceMaterial("PBR_Gold", gold, 0.3f, 0.1f));
+        scene._addMaterial(new CookTorranceMaterial("PBR_Gold", gold, 1.f, 0.5f));
 
         // mirrors
         scene._addMaterial(new MirrorMaterial("MirrorLightBlue", lightBlue));
@@ -110,6 +111,25 @@ namespace RT_ISICG
         SimpleQuadLight *simpleQuadLight = new SimpleQuadLight(WHITE, 20, 2, Vec3f(0, 2, 0));
         simpleQuadLight->setLookAt(Vec3f(-3, 2, 1));
         scene._addLight(simpleQuadLight);
+    }
+
+    static void setup_TP7(Scene &scene)
+    {
+        addMaterials(scene);
+        addCornellBox(scene, false);
+
+        scene._addObject(new ImplicitSphere("Sphere1", Vec3f(-1, 0.1f, 5), 1));
+        scene._attachMaterialToObject("lightBlueMatte", "Sphere1");
+
+        scene._addObject(new ImplicitBulb("Sphere2", Vec3f(1, 0.1f, 5), 1));
+        // scene._addObject(new Sphere("Sphere2", Vec3f(1, -0.1f, 5), 1));
+        scene._attachMaterialToObject("PBR_Gold", "Sphere2");
+
+        SimpleQuadLight *simple_quad = new SimpleQuadLight(WHITE, 50, 1.5, Vec3f(1, 2, -3));
+        simple_quad->setLookAt(Vec3f(0, 0, 3));
+        scene._addLight(simple_quad);
+        // scene._addLight(new PointLight(WHITE, Vec3f(0, 2, -3), 200));
+        // scene._addLight(new PointLight(WHITE, Vec3f(0, -2, -3), 200));
     }
 
     static void setup_TP6(Scene &scene)
@@ -238,20 +258,6 @@ namespace RT_ISICG
         // Link objects and materials.
         scene._attachMaterialToObject("Blue", "Sphere1");
         scene._attachMaterialToObject("Red", "Plane1");
-    }
-
-    static void setup_TP7(Scene &scene)
-    {
-        addMaterials(scene);
-        addCornellBox(scene, false);
-
-        scene._addObject(new ImplicitSphere("Sphere1", Vec3f(-1, 0.1f, 5), 1));
-        scene._attachMaterialToObject("lightBlueMatte", "Sphere1");
-
-         scene._addObject(new Sphere("Sphere2", Vec3f(1, -0.1f, 5), 1));
-         scene._attachMaterialToObject("RedMatte", "Sphere2");
-
-        scene._addLight(new PointLight(WHITE, Vec3f(0, 3, -3), 300));
     }
 
     static void setup_scene(Scene &scene, const SceneType scene_type)
