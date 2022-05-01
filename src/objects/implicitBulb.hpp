@@ -8,43 +8,26 @@ namespace RT_ISICG
     class ImplicitBulb : public ImplicitSurface
     {
     public:
-        ImplicitBulb(const std::string &p_name, const Vec3f &position, const float radius)
-            : ImplicitSurface(p_name), _radius(radius), _position(position)
+        ImplicitBulb(const std::string &p_name, const Vec3f &p_position, const float p_scale = 1.0f)
+            : ImplicitSurface(p_name, p_position, p_scale)
         {
-            _aabb.extend(Vec3f(1));
-            _aabb.extend(Vec3f(-1));
-        }
+            _aabb.extend(_position - _scale * 1.3f);
+            _aabb.extend(_position + _scale * 1.3f);
+        };
 
         float _sdf(const Vec3f &p_point) const override
         {
-            // Vec3f z = p_point;
-            // float dr = 1.f;
-            // float r = 0.f;
-            // for (int i = 0; i < _steps; i++)
-            //{
-            //     r = length(z);
+            return _sdfBulb1(p_point);
+        }
 
-            //    if (r > 2.5f) break;
+    private:
+        float _power = 3.f;
+        int _steps = 3;
 
-            //    // convert to polar coordinates
-            //    float theta = acos(z.z / r);
-            //    float phi = glm::atan(z.y, z.x);
-            //    dr = pow(r, _power - 1.0) * _power * dr + 1.f;
-
-            //    // scale and rotate the point
-            //    float zr = pow(r, _power);
-            //    theta = theta * _power;
-            //    phi = phi * _power;
-
-            //    // convert back to cartesian coordinates
-            //    z = zr * Vec3f(sin(theta) * cos(phi), sin(phi) * sin(theta), cos(theta));
-            //    z += p_point;
-            //}
-
-            // return .5f * glm::log(r) * r / dr;
-
+        float _sdfBulb1(const Vec3f &p_point) const
+        {
             Vec3f w = p_point;
-            float m = dot(w, w);
+            float m = glm::dot(w, w);
 
             Vec4f trap = Vec4f(glm::abs(w), m);
             float dz = 1.f;
@@ -55,27 +38,22 @@ namespace RT_ISICG
                     break;
 
                 // dz = 8*z^7*dz
-                dz = 8.0 * pow(m, 3.5f) * dz + 1.f;
+                dz = 8.0 * glm::pow(m, 3.5f) * dz + 1.f;
 
                 // z = z^8+z
                 float r = glm::length(w);
-                float theta = 8.f * acos(w.y / r);
+                float theta = 8.f * glm::acos(w.y / r);
                 float phi = 8.f * glm::atan(w.x, w.z);
-                w = p_point + float(glm::pow(r, 8.f)) * Vec3f(sin(theta) * sin(phi), cos(theta), sin(theta) * cos(phi));
+                float temp = r * r * r * r * r * r * r * r; // glm::pow(r, 8.f);
+                w = p_point + temp * Vec3f(glm::sin(theta) * glm::sin(phi), glm::cos(theta), sin(theta) * glm::cos(phi));
 
-                trap = glm::min(trap, Vec4f(abs(w), m));
+                trap = glm::min(trap, Vec4f(glm::abs(w), m));
 
                 m = glm::dot(w, w);
             }
 
             return 0.25f * glm::log(m) * glm::sqrt(m) / dz;
         }
-
-    private:
-        float _power = 3.f;
-        int _steps = 6;
-        float _radius = 1.f;
-        Vec3f _position = VEC3F_ZERO;
     };
 } // namespace RT_ISICG
 

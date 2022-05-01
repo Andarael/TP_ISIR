@@ -8,21 +8,21 @@ namespace RT_ISICG
     class ImplicitSphere : public ImplicitSurface
     {
     public:
-        ImplicitSphere(const std::string &p_name, const Vec3f &position, const float radius)
-            : ImplicitSurface(p_name), _radius(radius), _position(position)
+        ImplicitSphere(const std::string &p_name)
+            : ImplicitSurface(p_name){};
+
+        ImplicitSphere(const std::string &p_name, const Vec3f &p_position, const float p_scale = 1.f)
+            : ImplicitSurface(p_name, p_position, p_scale)
+
         {
-            _aabb.extend(_position - _radius);
-            _aabb.extend(_position + _radius);
+            _aabb.extend(_position + _scale);
+            _aabb.extend(_position - _scale);
         }
 
-        float _sdf(const Vec3f &p_point) const override
+        float _sdf(const Vec3f &p) const override
         {
-            return glm::distance(p_point, _position) - _radius;
+            return glm::length(p) - 1.f;
         }
-        
-    private:
-        float _radius = 1.f;
-        Vec3f _position = VEC3F_ZERO;
     };
 } // namespace RT_ISICG
 

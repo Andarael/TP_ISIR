@@ -18,10 +18,13 @@ namespace RT_ISICG
     public:
         ImplicitSurface() = delete;
 
-        virtual ~ImplicitSurface() = default;
+        ~ImplicitSurface() override = default;
 
         ImplicitSurface(const std::string &p_name)
             : BaseObject(p_name){};
+
+        ImplicitSurface(const std::string &p_name, const Vec3f &p_position, const float p_scale = 1.f)
+            : BaseObject(p_name), _scale(p_scale), _position(p_position){};
 
         // Check for nearest intersection between p_tMin and p_tMax : if found fill p_hitRecord.
         bool intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const override
@@ -29,20 +32,28 @@ namespace RT_ISICG
             if (_aabb.isValid() && !_aabb.intersect(p_ray, p_tMin, p_tMax))
                 return false;
 
-            float t = 0.f;             // distance from ray origin
-            float D = p_tMax - p_tMin; // maximum traversal distance
+            double t = 0.;                      // distance from ray origin
+            double D = double(p_tMax - p_tMin); // maximum traversal distance
+            int step = 0;
 
             while (t < D)
             {
-                Vec3f point = p_ray.pointAtT(t);
-                float d = _sdf(point); // distance to surface
+                Vec3f point = p_ray.pointAtT(float(t));
+                double d = double(sdf(point)); // distance to surface
 
-                if (d < _minDistance)
+                // todo why do i need that, why  don't neet it for shadows ?
+                d = glm::min(d, 4.);
+
+                if (d <= _minDistance)
                 {
                     Vec3f normal = _evaluateNormal(point);
-                    p_hitRecord.fill(p_ray, normal, t, this);
+                    p_hitRecord.fill(p_ray, normal, float(t), this);
                     return true;
                 }
+
+                if (step > _maxSteps)
+                    return false;
+                step++;
 
                 t = t + d;
             }
@@ -55,45 +66,67 @@ namespace RT_ISICG
             if (_aabb.isValid() && !_aabb.intersect(p_ray, p_tMin, p_tMax))
                 return false;
 
-            float t = 0.f;             // distance from ray origin
-            float D = p_tMax - p_tMin; // maximum traversal distance
+            int step = 0;
+
+            double t = 0.;                      // distance from ray origin
+            double D = double(p_tMax - p_tMin); // maximum traversal distance
+
             while (t < D)
             {
                 Vec3f point = p_ray.pointAtT(t);
-                float d = _sdf(point); // distance to surface
+                double d = double(sdf(point)); // distance to surface
 
-                if (d < _minDistance)
+                if (d <= _minDistance)
                     return true;
+
+                if (step > _maxSteps)
+                    return false;
+                step++;
 
                 t = t + d;
             }
             return false;
         }
 
+        // sdf with scale and translate
+        virtual float sdf(const Vec3f &p_point) const final
+        {
+            Vec3f p = p_point;
+            p -= _position;
+            return _sdf(p / _scale) * _scale;
+            return _sdf(p);
+        }
+
     private:
-        // Signed Distance Function
-        virtual float _sdf(const Vec3f &p_point) const = 0;
+        // Signed Distance Function on origin
+        virtual float _sdf(const Vec3f &p) const = 0;
 
         // Evaluate normal by computing gradient at 'p_point'
         virtual Vec3f _evaluateNormal(const Vec3f &p_point) const
         {
-            const float h = _minDistance;
+            const float h = 1e-4f;
 
-            Vec3f h100 = Vec3f(h, 0, 0);
-            Vec3f h010 = Vec3f(0, h, 0);
-            Vec3f h001 = Vec3f(0, 0, h);
+            Vec3f hx = h * VEC3F_X;
+            Vec3f hy = h * VEC3F_Y;
+            Vec3f hz = h * VEC3F_Z;
 
-            return glm::normalize(Vec3f(_sdf(p_point + h100) - _sdf(p_point - h100),
-                                        _sdf(p_point + h010) - _sdf(p_point - h010),
-                                        _sdf(p_point + h001) - _sdf(p_point - h001)));
+            return glm::normalize(Vec3f(sdf(p_point + hx) - sdf(p_point - hx),
+                                        sdf(p_point + hy) - sdf(p_point - hy),
+                                        sdf(p_point + hz) - sdf(p_point - hz)));
+
             // https://iquilezles.org/articles/normalsSDF/
             // todo h en fonction de la taille du pixel
         }
 
     private:
-        const float _minDistance = 1e-6f;
+        int _maxSteps = 1000;
+        const double _minDistance = 1e-8;
+
+        // todo is it necessary to use double for distance ? (avoid inifinite loop when reaching far plane and going back)
 
     protected:
+        float _scale = 1.f;
+        Vec3f _position = VEC3F_ZERO;
         AABB _aabb;
     };
 
