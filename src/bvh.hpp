@@ -61,7 +61,7 @@ namespace RT_ISICG
         }
 
     private:
-        void _buildRec(BVHNode *p_node, unsigned int p_firstTriangleId, unsigned int p_nbTriangles, unsigned int p_depth);
+        void _buildRec(BVHNode *p_node, unsigned int p_firstTriangleId, unsigned int p_lastTriangleId, unsigned int p_depth);
 
         bool _intersectRec(const BVHNode *p_node, const Ray &p_ray, float p_tMin, float p_tMax, HitRecord &p_hitRecord) const;
 

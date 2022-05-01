@@ -21,12 +21,12 @@ namespace RT_ISICG
 
         ~MeshTriangle() override = default;
 
-        const size_t getNbTriangles() const
+        size_t getNbTriangles() const
         {
             return _triangles.size();
         }
 
-        const size_t getNbVertices() const
+        size_t getNbVertices() const
         {
             return _vertices.size();
         }
@@ -63,9 +63,9 @@ namespace RT_ISICG
         // Check for any intersection between p_tMin and p_tMax.
         bool intersectAny(const Ray &p_ray, float p_tMin, float p_tMax) const override;
 
-        BVH _bvh;
 
     private:
+        BVH _bvh;
         AABB _aabb;
 
         std::vector<Vec3f> _vertices;

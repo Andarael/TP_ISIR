@@ -22,7 +22,7 @@ namespace RT_ISICG
 
     private:
         float _power = 3.f;
-        int _steps = 3;
+        int _steps = 6;
 
         float _sdfBulb1(const Vec3f &p_point) const
         {

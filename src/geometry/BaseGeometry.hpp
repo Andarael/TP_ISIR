@@ -9,7 +9,10 @@ namespace RT_ISICG
     class BaseGeometry
     {
     public:
-        BaseGeometry(const Vec3f p_position)
+
+        BaseGeometry() = delete;
+
+        explicit BaseGeometry(const Vec3f &p_position)
             : _position(p_position){};
 
         virtual ~BaseGeometry() = default;

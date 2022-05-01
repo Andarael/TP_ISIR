@@ -36,13 +36,6 @@ namespace RT_ISICG
         return _intersectAnyRec(_root, p_ray, p_tMin, p_tMax);
     }
 
-    // todo Vec3f getTriangleCentroid()
-    //  todo triangle.getTriangleCentroid()[axis]
-    float getVertexCenterOnAxis(const TriangleMeshGeometry &triangle, const int axis)
-    {
-        return triangle._centroid[axis];
-    }
-
     void BVH::_buildRec(BVHNode *p_node, const unsigned int p_firstTriangleId, const unsigned int p_lastTriangleId, const unsigned int p_depth)
     {
         p_node->_firstTriangleId = p_firstTriangleId;

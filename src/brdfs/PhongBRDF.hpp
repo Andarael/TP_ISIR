@@ -8,7 +8,7 @@ namespace RT_ISICG
     class PhongBrdf
     {
     public:
-        PhongBrdf(const float p_shininess, bool p_useBlinn = false)
+        PhongBrdf(const float p_shininess, const bool p_useBlinn = false)
             : _shininess(p_shininess), _blinnPhong(p_useBlinn){};
 
         float evaluate(const Vec3f &nrm, const Vec3f &wi, const Vec3f &wo) const
