@@ -6,6 +6,7 @@
 
 namespace RT_ISICG
 {
+    int main(int argc, char **argv);
     int main(int argc, char **argv)
     {
         /* ==============================
@@ -24,6 +25,7 @@ namespace RT_ISICG
         render_settings.samplesPerPixel = 2;
         render_settings.shadowSamples = 1;
         render_settings.nbBounces = 5;
+        render_settings.tmax = 10000;
 
         /* ============================
          * ====== Camera Settings =====
@@ -31,20 +33,20 @@ namespace RT_ISICG
         // Create a perspective camera if scene didn't provide one.
         // if (render_settings.camera == nullptr)
 
-        // cam conference
-        render_settings.camera = new PerspectiveCamera(Vec3f(0, 2, 0), Vec3f(3, 2, 0), 60, aspectRatio);
-
         // cam TP5
         render_settings.camera = new PerspectiveCamera(Vec3f(0, 2, -6), Vec3f(0, 2, 3), 60, aspectRatio);
 
-        // cam tp6
-        Vec3f lookAt = Vec3f(0, 350, 100);
-        Vec3f pos = Vec3f(-250, 500, 330);
+        // cam tp6 Conference
+        // Vec3f lookAt = Vec3f(0, 350, 100);
+        // Vec3f pos = Vec3f(-250, 500, 330);
         // render_settings.camera = new PerspectiveCamera(pos, lookAt, 60, aspectRatio);
+
+        // cam TP6 (cornell)
+        render_settings.camera = new PerspectiveCamera(Vec3f(0, 1, -8), Vec3f(0, 1, -3), 60, aspectRatio);
 
         // cam TP7
         // bulb
-        render_settings.camera = new PerspectiveCamera(Vec3f(0, 0, 1), Vec3f(0, 0, 3), 60, aspectRatio);
+        // render_settings.camera = new PerspectiveCamera(Vec3f(0, 0, 0), Vec3f(0, 0, 3), 60, aspectRatio);
 
         // scene
         // render_settings.camera = new PerspectiveCamera(Vec3f(0, 0, -6), Vec3f(0, 0, 0), 30, aspectRatio);
@@ -57,7 +59,7 @@ namespace RT_ISICG
          * ============================ */
         // Create and init scene.
         Scene scene;
-        scene.init(SceneType::TP7);
+        scene.init(SceneType::TP6);
 
         // Create a texture to render the scene.
         Texture img = Texture(imgWidth, imgHeight);
