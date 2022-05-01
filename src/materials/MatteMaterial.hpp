@@ -18,6 +18,8 @@ namespace RT_ISICG
             return _diffuse * _brdf.evaluate(p_hitRecord._normal, p_lightSample._direction, -p_ray.getDirection());
         }
 
+        // todo passer un pointeur vers une fonction qui prend hitrecord (ou point), kd... et retourne une couleur
+
         const Vec3f &getFlatColor() const override { return _diffuse; }
 
     private:
