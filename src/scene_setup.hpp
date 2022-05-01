@@ -23,6 +23,7 @@
 #include "objects/BaseObject.hpp"
 #include "objects/ImplicitBulb.hpp"
 #include "objects/ImplicitSphere.hpp"
+#include "objects/ImplicitTorus.hpp"
 #include "objects/Plane.hpp"
 #include "objects/Sphere.hpp"
 
@@ -69,12 +70,12 @@ namespace RT_ISICG
 
     static void addCornellBox(Scene &scene, const bool fullMirror)
     {
-        scene._addObject(new Plane("PlaneGround", Vec3f(0.f, -3.f, 0.f), Vec3f(0.f, 1.f, 0.f)));
-        scene._addObject(new Plane("PlaneLeft", Vec3f(5.f, 0.f, 0.f), Vec3f(-1.f, 0.f, 0.f)));
-        scene._addObject(new Plane("PlaneCeiling", Vec3f(0.f, 7.f, 0.f), Vec3f(0.f, -1.f, 0.f)));
-        scene._addObject(new Plane("PlaneRight", Vec3f(-5.f, 0.f, 0.f), Vec3f(1.f, 0.f, 0.f)));
-        scene._addObject(new Plane("PlaneFront", Vec3f(0.f, 0.f, 10.f), Vec3f(0.f, 0.f, -1.f)));
-        scene._addObject(new Plane("PlaneBack", Vec3f(0.f, 0.f, -10.f), Vec3f(0.f, 0.f, 1.f)));
+        scene._addObject(new Plane("PlaneGround", Vec3f(0.f, -3.f, 0.f), VEC3F_Y));
+        scene._addObject(new Plane("PlaneLeft", Vec3f(5.f, 0.f, 0.f), -VEC3F_X));
+        scene._addObject(new Plane("PlaneCeiling", Vec3f(0.f, 7.f, 0.f), -VEC3F_Y));
+        scene._addObject(new Plane("PlaneRight", Vec3f(-5.f, 0.f, 0.f), VEC3F_X));
+        scene._addObject(new Plane("PlaneFront", Vec3f(0.f, 0.f, 10.f), -VEC3F_Z));
+        scene._addObject(new Plane("PlaneBack", Vec3f(0.f, 0.f, -10.f), VEC3F_Z));
 
         scene._attachMaterialToObject("GreyMatte", "PlaneGround");
 
@@ -116,20 +117,35 @@ namespace RT_ISICG
     static void setup_TP7(Scene &scene)
     {
         addMaterials(scene);
-        addCornellBox(scene, false);
+        // addCornellBox(scene, false);
 
-        scene._addObject(new ImplicitSphere("Sphere1", Vec3f(-1, 0.1f, 5), 1));
+        scene._addObject(new Plane("Plane1", Vec3f(0, -2, 0), VEC3F_Y));
+        scene._attachMaterialToObject("RedMatte", "Plane1");
+
+        //scene._addObject(new Plane("Plane2", Vec3f(0, 0, 0), -VEC3F_Z));
+        //scene._attachMaterialToObject("GreenMatte", "Plane2");
+
+        scene._addObject(new ImplicitSphere("Sphere1", Vec3f(1, 0, 5), 0.5f));
         scene._attachMaterialToObject("lightBlueMatte", "Sphere1");
 
-        scene._addObject(new ImplicitBulb("Sphere2", Vec3f(1, 0.1f, 5), 1));
-        // scene._addObject(new Sphere("Sphere2", Vec3f(1, -0.1f, 5), 1));
-        scene._attachMaterialToObject("PBR_Gold", "Sphere2");
+        //scene._addObject(new ImplicitSphere("Sphere2", VEC3F_ZERO, 0.1f));
+        //scene._attachMaterialToObject("GreenMatte", "Sphere2");
 
-        SimpleQuadLight *simple_quad = new SimpleQuadLight(WHITE, 50, 1.5, Vec3f(1, 2, -3));
-        simple_quad->setLookAt(Vec3f(0, 0, 3));
-        scene._addLight(simple_quad);
-        // scene._addLight(new PointLight(WHITE, Vec3f(0, 2, -3), 200));
-        // scene._addLight(new PointLight(WHITE, Vec3f(0, -2, -3), 200));
+        scene._addObject(new ImplicitBulb("Bulb", Vec3f(-1, 0, 5), 1.f));
+        scene._attachMaterialToObject("PBR_Gold", "Bulb");
+
+        // scene._addObject(new ImplicitTorus("Torus", Vec3f(5, 0, 5), 0.1f));
+        // scene._attachMaterialToObject("CyanMatte", "Torus");
+
+        // SimpleQuadLight *simple_quad = new SimpleQuadLight(WHITE, 50, 1.5, Vec3f(1, 2, -3));
+        // simple_quad->setLookAt(Vec3f(0, 0, 3));
+        // scene._addLight(simple_quad);
+
+        scene._addLight(new PointLight(WHITE, Vec3f(16, 16, 16), 1000));
+        scene._addLight(new PointLight(WHITE, Vec3f(16, 16, -16), 1000));
+        scene._addLight(new PointLight(WHITE, Vec3f(-16, 16, 16), 1000));
+        scene._addLight(new PointLight(WHITE, Vec3f(-16, 16, -16), 1000));
+        scene._addLight(new PointLight(WHITE, Vec3f(0, 0, -16), 1000));
     }
 
     static void setup_TP6(Scene &scene)
@@ -209,7 +225,7 @@ namespace RT_ISICG
          * ============================================== */
         scene._addObject(new Sphere("Sphere1", Vec3f(0, 0, 3), 1));
 
-        scene._addObject(new Plane("Plane1", Vec3f(0, -2, 0), Vec3f(0, 1, 0)));
+        scene._addObject(new Plane("Plane1", Vec3f(0, -2, 0), VEC3F_Y));
 
         // attach materials to objects
         scene._attachMaterialToObject("Plastic_Grey", "Sphere1");
@@ -251,9 +267,8 @@ namespace RT_ISICG
          * ================ Add Objects =================
          * ============================================== */
         // Add objects.
-        Vec3f planeNormal = Vec3f(0, 1, 0);
         scene._addObject(new Sphere("Sphere1", Vec3f(0, 0, 3), 1));
-        scene._addObject(new Plane("Plane1", Vec3f(0, -2, 0), planeNormal));
+        scene._addObject(new Plane("Plane1", Vec3f(0, -2, 0), VEC3F_Y));
 
         // Link objects and materials.
         scene._attachMaterialToObject("Blue", "Sphere1");
