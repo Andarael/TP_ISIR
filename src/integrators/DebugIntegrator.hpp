@@ -26,18 +26,26 @@ namespace RT_ISICG
             Vec3f direction = normalize(p_ray.getDirection());
             Vec3f flatColor = _backgroundColor;
             Vec3f normal = VEC3F_ZERO;
+            Vec3f trueNormal = VEC3F_ZERO;
+            Vec3f point = VEC3F_ZERO;
+            Vec3f cosTheta = VEC3F_ZERO;
 
             HitRecord hitRecord;
             if (p_scene.intersect(p_ray, p_tMin, p_tMax, hitRecord))
             {
+                trueNormal = hitRecord._trueNormal;
                 normal = hitRecord._normal;
-                output = Vec3f(glm::dot(hitRecord._normal, -p_ray.getDirection()));
-                output = hitRecord._point;
+                cosTheta = Vec3f(glm::dot(hitRecord._normal, -p_ray.getDirection()));
+                point = hitRecord._point;
                 flatColor = hitRecord._object->getMaterial()->getFlatColor();
             }
-            return Vec3f(zPass(hitRecord._distance, 1.f, 5.f, false));
-            return flatColor;
+
+            return trueNormal;
             return normal;
+            return point;
+            return cosTheta;
+            return flatColor;
+            return Vec3f(zPass(hitRecord._distance, 1.f, 5.f, false));
             return _setColorInRange(output);
         }
 

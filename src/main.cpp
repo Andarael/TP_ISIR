@@ -12,8 +12,8 @@ namespace RT_ISICG
          * ====== Render parameters =====
          * ============================== */
         // Output Image parameters
-        const int imgWidth = 1200*2;
-        const int imgHeight = 800*2;
+        const int imgWidth = 1200;
+        const int imgHeight = 800;
         float aspectRatio = float(imgWidth) / imgHeight;
 
         // todo the scene should be able to give its own camera and render settings
@@ -21,8 +21,8 @@ namespace RT_ISICG
         render_settings.integratorType = IntegratorType::WHITTED;
         render_settings.sampler = Sampler::GRID_SAMPLER;
         render_settings.backgroundColor = GREY;
-        render_settings.samplesPerPixel = 8;
-        render_settings.shadowSamples = 4;
+        render_settings.samplesPerPixel = 2;
+        render_settings.shadowSamples = 1;
         render_settings.nbBounces = 5;
 
         /* ============================
@@ -42,9 +42,15 @@ namespace RT_ISICG
         Vec3f pos = Vec3f(-250, 500, 330);
         // render_settings.camera = new PerspectiveCamera(pos, lookAt, 60, aspectRatio);
 
-        
         // cam TP7
-        render_settings.camera = new PerspectiveCamera(Vec3f(0, 3, -3), Vec3f(0, 0, 0), 40, aspectRatio);
+        // bulb
+        render_settings.camera = new PerspectiveCamera(Vec3f(0, 0, 1), Vec3f(0, 0, 3), 60, aspectRatio);
+
+        // scene
+        // render_settings.camera = new PerspectiveCamera(Vec3f(0, 0, -6), Vec3f(0, 0, 0), 30, aspectRatio);
+
+        // far
+        // render_settings.camera = new PerspectiveCamera(Vec3f(0, 8, -24), Vec3f(0, 0, 0), 20, aspectRatio);
 
         /* ============================
          * ====== Scene Init ==========

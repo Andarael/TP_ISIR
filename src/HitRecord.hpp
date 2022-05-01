@@ -17,7 +17,6 @@ namespace RT_ISICG
 
         void fill(const Ray p_ray, const Vec3f normal, const Vec3f trueNormal, const float distance)
         {
-            // p_hitRecord.faceNormal(p_ray.getDirection());
             _point = p_ray.pointAtT(distance);
             _normal = normal;
             _trueNormal = trueNormal;

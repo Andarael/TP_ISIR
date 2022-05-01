@@ -20,7 +20,10 @@ namespace RT_ISICG
         const Vec3f &getInvDirection() const { return _invDirection; }
 
         // Return the point along _direction at distance 'p_t'
-        Vec3f pointAtT(const float p_t) const { return _origin + _direction * p_t; }
+        Vec3f pointAtT(const float p_t) const
+        {
+            return _origin + _direction * p_t;
+        }
 
         // This function add an offset to the ray origin to avoid self-intersection when computing shadows
         // See:
