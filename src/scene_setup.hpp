@@ -100,8 +100,8 @@ namespace RT_ISICG
     static void setup_TP6_Conference(Scene &scene)
     {
         // * ================ Conference ==================
-        // scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "/conference/conference.obj");
-        scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "/sponza/sponza2.obj");
+        scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "/conference/conference.obj");
+        // scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "/sponza/sponza2.obj");
         Vec3f u = Vec3f(0, 0, 300);
         Vec3f v = Vec3f(-800, 0, 0);
         Vec3f pos = Vec3f(900, 600, -300);
@@ -112,12 +112,13 @@ namespace RT_ISICG
         SimpleQuadLight *simpleQuadLight = new SimpleQuadLight(WHITE, 20, 2, Vec3f(0, 2, 0));
         simpleQuadLight->setLookAt(Vec3f(-3, 2, 1));
         scene._addLight(simpleQuadLight);
+        scene._addLight(new PointLight(WHITE, pos, 6000000));
     }
 
     static void setup_TP7(Scene &scene)
     {
         addMaterials(scene);
-        // addCornellBox(scene, false);
+        addCornellBox(scene, false);
 
         scene._addObject(new Plane("Plane1", Vec3f(0, -2, 0), VEC3F_Y));
         scene._attachMaterialToObject("RedMatte", "Plane1");
@@ -131,7 +132,7 @@ namespace RT_ISICG
         //scene._addObject(new ImplicitSphere("Sphere2", VEC3F_ZERO, 0.1f));
         //scene._attachMaterialToObject("GreenMatte", "Sphere2");
 
-        scene._addObject(new ImplicitBulb("Bulb", Vec3f(-1, 0, 5), 1.f));
+        scene._addObject(new ImplicitBulb("Bulb", Vec3f(0, 0, 3), 1.f));
         scene._attachMaterialToObject("PBR_Gold", "Bulb");
 
         // scene._addObject(new ImplicitTorus("Torus", Vec3f(5, 0, 5), 0.1f));
@@ -153,19 +154,19 @@ namespace RT_ISICG
         addMaterials(scene);
 
         // OBJ.
-        scene._attachMaterialToObject("CyanMatte", "UVsphere");
+        // scene._attachMaterialToObject("CyanMatte", "UVsphere");
 
         // scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "bunny_lowpoly.obj");
         scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "bunny.obj");
 
-        scene.loadFileTriangleMesh("uvsphere", DATA_PATH + "uvsphere.obj");
-        scene.loadFileTriangleMesh("cube_sphere", DATA_PATH + "cube_sphere.obj");
-        scene.loadFileTriangleMesh("bunny", DATA_PATH + "teapot.obj");
+        // scene.loadFileTriangleMesh("uvsphere", DATA_PATH + "uvsphere.obj");
+        // scene.loadFileTriangleMesh("cube_sphere", DATA_PATH + "cube_sphere.obj");
+        // scene.loadFileTriangleMesh("bunny", DATA_PATH + "teapot.obj");
 
-        scene._attachMaterialToObject("CyanMatte", "Bunny_defaultobject");
+        // scene._attachMaterialToObject("CyanMatte", "Bunny_defaultobject");
         addCornellBox(scene, false);
 
-        scene._addLight(new PointLight(WHITE, Vec3f(0, 3, -5), 60));
+        scene._addLight(new PointLight(WHITE, Vec3f(0, 3, -5), 120));
     }
 
     static void setup_TP5(Scene &scene)

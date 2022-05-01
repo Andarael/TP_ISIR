@@ -127,7 +127,6 @@ namespace RT_ISICG
 
     bool Scene::intersectAny(const Ray &p_ray, const float p_tMin, const float p_tMax) const
     {
-        bool hit = false;
         for (const ObjectMapPair &object : _objectMap)
             if (object.second->intersectAny(p_ray, p_tMin, p_tMax))
                 return true;

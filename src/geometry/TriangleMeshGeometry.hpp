@@ -24,6 +24,8 @@ namespace RT_ISICG
 
         Vec3f &getVertex(int index) const;
 
+        Vec3f _centroid = VEC3F_ZERO;
+
     private:
         MeshTriangle *_refMesh;
 

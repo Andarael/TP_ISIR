@@ -7,6 +7,9 @@ namespace RT_ISICG
         : BaseGeometry(VEC3F_ZERO), _refMesh(p_refMesh), _v0(p_v0), _v1(p_v1), _v2(p_v2)
     {
         _faceNormal = glm::normalize(glm::cross(_refMesh->_vertices[p_v1] - _refMesh->_vertices[p_v0], _refMesh->_vertices[p_v2] - _refMesh->_vertices[p_v0]));
+
+        _centroid = (_refMesh->_vertices[p_v0] + _refMesh->_vertices[p_v1] + _refMesh->_vertices[p_v2]) / 3.0f;
+
     }
 
     bool TriangleMeshGeometry::intersect(const Ray &p_ray, float &p_t, Vec2f &uv) const

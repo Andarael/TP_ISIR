@@ -36,13 +36,11 @@ namespace RT_ISICG
         return _intersectAnyRec(_root, p_ray, p_tMin, p_tMax);
     }
 
-    float getVertexCenterOnAxis(TriangleMeshGeometry triangle, int axis)
+    // todo Vec3f getTriangleCentroid()
+    //  todo triangle.getTriangleCentroid()[axis]
+    float getVertexCenterOnAxis(const TriangleMeshGeometry &triangle, const int axis)
     {
-        Vec3f v0 = triangle.getVertex(0);
-        Vec3f v1 = triangle.getVertex(1);
-        Vec3f v2 = triangle.getVertex(2);
-
-        return ((v0 + v1 + v2) / 3.0f)[axis];
+        return triangle._centroid[axis];
     }
 
     void BVH::_buildRec(BVHNode *p_node, const unsigned int p_firstTriangleId, const unsigned int p_lastTriangleId, const unsigned int p_depth)
@@ -59,9 +57,7 @@ namespace RT_ISICG
 
         int partitionAxis = int(p_node->_aabb.largestAxis());
 
-        float splitPoint = p_node->_aabb.centroid()[partitionAxis];
-
-        unsigned int idPartition = (p_firstTriangleId + p_lastTriangleId) * 0.5f;
+        unsigned int idPartition = unsigned int((p_firstTriangleId + p_lastTriangleId) * 0.5f);
 
         std::partial_sort(
             _triangles->begin() + p_firstTriangleId,
@@ -69,8 +65,7 @@ namespace RT_ISICG
             _triangles->begin() + p_lastTriangleId,
             [partitionAxis](const TriangleMeshGeometry &a, const TriangleMeshGeometry &b)
             {
-                return getVertexCenterOnAxis(a, partitionAxis) < getVertexCenterOnAxis(b, partitionAxis);
-                // return a.getVertex(0)[partitionAxis] < b.getVertex(0)[partitionAxis];
+                return a._centroid[partitionAxis] < b._centroid[partitionAxis];
             });
 
         p_node->_left = new BVHNode();
