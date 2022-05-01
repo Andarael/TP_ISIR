@@ -27,6 +27,7 @@ namespace RT_ISICG
         int samplesPerPixel = 2;
         int shadowSamples = 1;
         int nbBounces = 5;
+        float tmax = TMAX;
     };
 
     class Renderer

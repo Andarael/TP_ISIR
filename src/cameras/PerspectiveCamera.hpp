@@ -14,8 +14,8 @@ namespace RT_ISICG
 
         PerspectiveCamera(const Vec3f &p_position, const Vec3f &p_lookAt, const Vec3f &p_up, float p_fovy, float p_aspectRatio);
 
-        PerspectiveCamera(const Vec3f &p_position, const Vec3f &p_lookAt, float p_fovy, float p_aspectRatio)
-            : PerspectiveCamera(p_position, p_lookAt, Vec3f(0, 1, 0), p_fovy, p_aspectRatio){};
+        PerspectiveCamera(const Vec3f &p_position, const Vec3f &p_lookAt, const float p_fovy, const float p_aspectRatio)
+            : PerspectiveCamera(p_position, p_lookAt, VEC3F_Y, p_fovy, p_aspectRatio){};
 
         Ray generateRay(const float p_sx, const float p_sy) const override
         {
@@ -39,9 +39,9 @@ namespace RT_ISICG
         float _aspectRatio = 1.f;
 
         // Local coordinates system
-        Vec3f _u = Vec3f(1, 0, 0);
-        Vec3f _v = Vec3f(0, 1, 0);
-        Vec3f _w = Vec3f(0, 0, -1);
+        Vec3f _u = VEC3F_X;
+        Vec3f _v = VEC3F_Y;
+        Vec3f _w = -VEC3F_Z;
 
         // Viewport data
         Vec3f _viewportTopLeftCorner = VEC3F_ZERO; // Top left corner position

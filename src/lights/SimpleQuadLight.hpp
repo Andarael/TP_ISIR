@@ -29,10 +29,10 @@ namespace RT_ISICG
     private:
         void compute_uv(const float p_size, const Vec3f &p_normal)
         {
-            Vec3f vec = Vec3f(1, 0, 0);
+            Vec3f vec = VEC3F_X;
 
             if (glm::abs(dot(vec, p_normal)) <= float(SHADOW_EPSILON))
-                vec = Vec3f(0, 1, 1);
+                vec = VEC3F_Z + VEC3F_Y; // todo check if this is correct
 
             _u = _length * cross(p_normal, vec);
             _v = _length * normalize(cross(_u, p_normal));

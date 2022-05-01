@@ -63,9 +63,9 @@ namespace RT_ISICG
 
     protected:
         Vec3f _position = VEC3F_ZERO;
-        Vec3f _u = Vec3f(1, 0, 0);
-        Vec3f _v = Vec3f(0, 0, 1);
-        Vec3f _normal = Vec3f(0, 1, 0);
+        Vec3f _u = VEC3F_X;
+        Vec3f _v = VEC3F_Z;
+        Vec3f _normal = -VEC3F_Y;
 
         float _area = 1.0f;
     };

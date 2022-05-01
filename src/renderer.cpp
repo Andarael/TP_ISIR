@@ -123,7 +123,7 @@ namespace RT_ISICG
             for (int sample = 0; sample < samplesPerPixel; sample++)
             {
                 Ray ray = p_camera->generateRay(sx + offsetX, sy + offsetY);
-                color += _integrator->Li(p_scene, ray, 0, FLT_INFINITY);
+                color += _integrator->Li(p_scene, ray, 0, _settings.tmax);
 
                 Vec2f randomOffset = randomVec2f();
                 offsetY = pixelSizeY * randomOffset.x;
@@ -146,7 +146,7 @@ namespace RT_ISICG
                     offsetX = pixelSizeX * subsampleX * randomOffset.y * 2.f;
 
                     Ray ray = p_camera->generateRay(sx + offsetX, sy + offsetY);
-                    color += _integrator->Li(p_scene, ray, 0, FLT_INFINITY);
+                color += _integrator->Li(p_scene, ray, 0, _settings.tmax);
                 }
             }
             color /= (samplesPerPixel * samplesPerPixel);

@@ -32,7 +32,7 @@ namespace RT_ISICG
         Vec3f computeNormal(const Vec3f &p_point) const { return _normal; }
 
     private:
-        Vec3f _normal = Vec3f(0, 1, 0);
+        Vec3f _normal = VEC3F_Y;
     };
 } // namespace RT_ISICG
 

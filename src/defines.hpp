@@ -22,6 +22,7 @@ namespace RT_ISICG
     const float INV_PIf = glm::one_over_pi<float>();
     const float INV_2PIf = glm::one_over_two_pi<float>();
     const float FLT_INFINITY = std::numeric_limits<float>::infinity();
+    const float TMAX = 1000;
 
     const float SHADOW_EPSILON = 0.001f;
     const float EPSILON = 0.00001f;
@@ -40,6 +41,10 @@ namespace RT_ISICG
     const Vec2f VEC2F_ZERO = Vec2f(0.f);
     const Vec3f VEC3F_ZERO = Vec3f(0.f);
     const Vec4f VEC4F_ZERO = Vec4f(0.f);
+
+    const Vec3f VEC3F_X = Vec3f(1.f, 0.f, 0.f);
+    const Vec3f VEC3F_Y = Vec3f(0.f, 1.f, 0.f);
+    const Vec3f VEC3F_Z = Vec3f(0.f, 0.f, 1.f);
 
     // Matrices.
     using Mat3f = glm::mat3;
