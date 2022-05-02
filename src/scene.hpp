@@ -1,33 +1,24 @@
 #ifndef __RT_ISICG_SCENE__
 #define __RT_ISICG_SCENE__
 
+#include "Renderer.hpp"
 #include "defines.hpp"
 #include "lights/BaseLight.hpp"
 #include "objects/BaseObject.hpp"
+
 #include <exception>
 #include <map>
 #include <vector>
 
 namespace RT_ISICG
 {
+    enum class SceneType;
+
     using ObjectMap = std::map<const std::string, BaseObject *>;
     using ObjectMapPair = ObjectMap::value_type;
     using MaterialMap = std::map<const std::string, BaseMaterial *>;
     using MaterialMapPair = MaterialMap::value_type;
     using LightList = std::vector<BaseLight *>;
-
-    enum class SceneType
-    {
-        TP1,
-        TP2,
-        TP3,
-        TP4,
-        TP5,
-        TP6,
-        TP6_Conference,
-        TP7,
-        SCENE_TYPE_COUNT
-    };
 
     class Scene
     {
@@ -37,12 +28,15 @@ namespace RT_ISICG
         ~Scene();
 
         // Hard coded initialization.
-        void init();
+        RenderSettings init();
 
-        void init(const SceneType &p_type);
+        RenderSettings init(const SceneType &p_type);
 
         // Initialization from file. todo
-        static void init(const std::string &p_path) { throw std::exception("Not implemented !"); }
+        static RenderSettings init(const std::string &p_path)
+        {
+            throw std::exception("Not implemented !");
+        }
 
         const LightList &getLights() const { return _lightList; }
 

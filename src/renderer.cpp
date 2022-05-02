@@ -13,7 +13,7 @@
 namespace RT_ISICG
 {
     Renderer::Renderer()
-        : _integrator(new RayCastIntegrator()){};
+        : _settings(), _integrator(new RayCastIntegrator()) {};
 
     Renderer::~Renderer()
     {
@@ -146,7 +146,7 @@ namespace RT_ISICG
                     offsetX = pixelSizeX * subsampleX * randomOffset.y * 2.f;
 
                     Ray ray = p_camera->generateRay(sx + offsetX, sy + offsetY);
-                color += _integrator->Li(p_scene, ray, 0, _settings.tmax);
+                    color += _integrator->Li(p_scene, ray, 0, _settings.tmax);
                 }
             }
             color /= (samplesPerPixel * samplesPerPixel);

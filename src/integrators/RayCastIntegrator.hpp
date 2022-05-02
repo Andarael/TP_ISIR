@@ -3,6 +3,7 @@
 
 #include "BaseIntegrator.hpp"
 
+
 namespace RT_ISICG
 {
     class RayCastIntegrator : public BaseIntegrator

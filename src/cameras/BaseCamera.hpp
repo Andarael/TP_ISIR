@@ -20,6 +20,8 @@ namespace RT_ISICG
 
         virtual inline Ray generateRay(const float p_sx, const float p_sy) const = 0;
 
+        virtual void setAspectRatio(float p_aspect_ratio){};
+
     protected:
         Vec3f _position = VEC3F_ZERO;
     };

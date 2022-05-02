@@ -2,11 +2,12 @@
 #include "Scene.hpp"
 #include "cameras/PerspectiveCamera.hpp"
 #include "defines.hpp"
+#include "integrators/BaseIntegrator.hpp"
+
 #include "scene_setup.hpp"
 
 namespace RT_ISICG
 {
-    int main(int argc, char **argv);
     int main(int argc, char **argv)
     {
         /* ==============================
@@ -19,7 +20,7 @@ namespace RT_ISICG
 
         // todo the scene should be able to give its own camera and render settings
         RenderSettings render_settings;
-        render_settings.integratorType = IntegratorType::WHITTED;
+        render_settings.integratorType = IntegratorType::RAY_CAST;
         render_settings.sampler = Sampler::GRID_SAMPLER;
         render_settings.backgroundColor = GREY;
         render_settings.samplesPerPixel = 2;
@@ -36,35 +37,18 @@ namespace RT_ISICG
         // cam TP5
         render_settings.camera = new PerspectiveCamera(Vec3f(0, 2, -6), Vec3f(0, 2, 3), 60, aspectRatio);
 
-        // cam tp6 Conference
-        // Vec3f lookAt = Vec3f(0, 350, 100);
-        // Vec3f pos = Vec3f(-250, 500, 330);
-        // render_settings.camera = new PerspectiveCamera(pos, lookAt, 60, aspectRatio);
-
-        // cam TP6 (cornell)
-        render_settings.camera = new PerspectiveCamera(Vec3f(0, 1, -8), Vec3f(0, 1, -3), 60, aspectRatio);
-
-        // cam TP7
-        // bulb
-        // render_settings.camera = new PerspectiveCamera(Vec3f(0, 0, 0), Vec3f(0, 0, 3), 60, aspectRatio);
-
-        // scene
-        // render_settings.camera = new PerspectiveCamera(Vec3f(0, 0, -6), Vec3f(0, 0, 0), 60, aspectRatio);
-
-        // far
-        render_settings.camera = new PerspectiveCamera(Vec3f(0, -0.5, -1), Vec3f(0, 0, 3), 50, aspectRatio);
-
         /* ============================
          * ====== Scene Init ==========
          * ============================ */
         // Create and init scene.
         Scene scene;
-        scene.init(SceneType::TP7);
+        render_settings = scene.init(SceneType::TP1);
 
         // Create a texture to render the scene.
         Texture img = Texture(imgWidth, imgHeight);
 
         // Create and setup the renderer.
+        render_settings.camera->setAspectRatio(aspectRatio);
         Renderer renderer;
         renderer.setSettings(render_settings);
 

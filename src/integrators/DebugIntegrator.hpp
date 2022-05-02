@@ -2,6 +2,7 @@
 #define __RT_ISICG_DEBUG_INTEGRATOR__
 
 #include "BaseIntegrator.hpp"
+#include "Scene.hpp"
 
 namespace RT_ISICG
 {

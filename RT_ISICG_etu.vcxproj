@@ -187,6 +187,7 @@
     <ClCompile Include="src\objects\MeshTriangle.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\Scene.cpp" />
+    <ClCompile Include="src\scene_setup.cpp" />
     <ClCompile Include="src\texture.cpp" />
     <ClCompile Include="src\utils\console_progress_bar.cpp" />
   </ItemGroup>

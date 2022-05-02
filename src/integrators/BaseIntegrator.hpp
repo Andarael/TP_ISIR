@@ -1,10 +1,12 @@
 #ifndef __RT_ISICG_BASE_INTEGRATOR__
 #define __RT_ISICG_BASE_INTEGRATOR__
 
-#include "Scene.hpp"
+#include "HitRecord.hpp"
 
 namespace RT_ISICG
 {
+    class Scene;
+
     enum class IntegratorType : int
     {
         DEBUG = 0,

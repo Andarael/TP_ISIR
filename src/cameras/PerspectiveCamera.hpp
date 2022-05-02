@@ -28,6 +28,12 @@ namespace RT_ISICG
             return Ray(origin, direction);
         }
 
+        void setAspectRatio(const float aspect_ratio) override
+        {
+            _aspectRatio = aspect_ratio;
+            _updateViewport();
+        }
+
         void displayCamera() const;
 
     private:
