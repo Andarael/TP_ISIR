@@ -100,11 +100,13 @@ namespace RT_ISICG
 
     RenderSettings setup_TP1(Scene &scene)
     {
-
         scene._addObject(new Sphere("Sphere1", Vec3f(0, 0, 3), 1.f));
-
         scene._addMaterial(new ColorMaterial("Blue", BLUE));
         scene._attachMaterialToObject("Blue", "Sphere1");
+
+        scene._addObject(new Plane("Plane1", Vec3f(0, -2, 0), VEC3F_Y));
+        scene._addMaterial(new ColorMaterial("Red", RED));
+        scene._attachMaterialToObject("Red", "Plane1");
 
         RenderSettings settings;
         settings.camera = new PerspectiveCamera(Vec3f(0, 0, 0), Vec3f(0, 0, 3), 60, 1);
@@ -120,14 +122,15 @@ namespace RT_ISICG
         Vec3f u = Vec3f(0, 0, 300);
         Vec3f v = Vec3f(-800, 0, 0);
         Vec3f pos = Vec3f(900, 600, -300);
-        // scene._addLight(new QuadLight(WHITE, 25, pos, v, u));
+        QuadLight *quad_light = new QuadLight(WHITE, 25, pos, v, u);
+        scene._addLight(quad_light);
         // scene._addLight(new PointLight(WHITE, Vec3f(0, 2, 0), 60));
         // scene._addLight(new PointLight(WHITE, Vec3f(0, 2, 0), 60));
 
-        SimpleQuadLight *simpleQuadLight = new SimpleQuadLight(WHITE, 20, 2, Vec3f(0, 2, 0));
-        simpleQuadLight->setLookAt(Vec3f(-3, 2, 1));
-        scene._addLight(simpleQuadLight);
-        scene._addLight(new PointLight(WHITE, pos, 6000000));
+        // SimpleQuadLight *simpleQuadLight = new SimpleQuadLight(WHITE, 20, 2, Vec3f(0, 2, 0));
+        // simpleQuadLight->setLookAt(Vec3f(-3, 2, 1));
+        // scene._addLight(simpleQuadLight);
+        // scene._addLight(new PointLight(WHITE, pos, 6000000));
 
         RenderSettings settings;
         settings.camera = new PerspectiveCamera(Vec3f(0, 0, 0), Vec3f(0, 0, 3), 60, 1);

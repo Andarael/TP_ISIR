@@ -10,16 +10,26 @@ namespace RT_ISICG
 {
     int main(int argc, char **argv)
     {
-        /* ==============================
-         * ====== Render parameters =====
-         * ============================== */
         // Output Image parameters
         const int imgWidth = 1200;
         const int imgHeight = 800;
         float aspectRatio = float(imgWidth) / imgHeight;
+        // Create a texture to render the scene.
+        Texture img = Texture(imgWidth, imgHeight);
+
+        /* ============================
+         * ====== Scene Init ==========
+         * ============================ */
+        // Create and init scene.
+        SceneType sceneType = SceneType::TP1;
+        Scene scene;
+        RenderSettings render_settings = scene.init(sceneType);
+
+        /* ==============================
+         * ====== Render parameters =====
+         * ============================== */
 
         // todo the scene should be able to give its own camera and render settings
-        RenderSettings render_settings;
         render_settings.integratorType = IntegratorType::RAY_CAST;
         render_settings.sampler = Sampler::GRID_SAMPLER;
         render_settings.backgroundColor = GREY;
@@ -28,26 +38,9 @@ namespace RT_ISICG
         render_settings.nbBounces = 5;
         render_settings.tmax = 10000;
 
-        /* ============================
-         * ====== Camera Settings =====
-         * ============================ */
-        // Create a perspective camera if scene didn't provide one.
-        // if (render_settings.camera == nullptr)
+        if (render_settings.camera == nullptr)
+            render_settings.camera = new PerspectiveCamera(aspectRatio);
 
-        // cam TP5
-        render_settings.camera = new PerspectiveCamera(Vec3f(0, 2, -6), Vec3f(0, 2, 3), 60, aspectRatio);
-
-        /* ============================
-         * ====== Scene Init ==========
-         * ============================ */
-        // Create and init scene.
-        Scene scene;
-        render_settings = scene.init(SceneType::TP1);
-
-        // Create a texture to render the scene.
-        Texture img = Texture(imgWidth, imgHeight);
-
-        // Create and setup the renderer.
         render_settings.camera->setAspectRatio(aspectRatio);
         Renderer renderer;
         renderer.setSettings(render_settings);

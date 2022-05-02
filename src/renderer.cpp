@@ -13,7 +13,7 @@
 namespace RT_ISICG
 {
     Renderer::Renderer()
-        : _settings(), _integrator(new RayCastIntegrator()) {};
+        : _settings(), _integrator(new RayCastIntegrator()){};
 
     Renderer::~Renderer()
     {
@@ -149,7 +149,7 @@ namespace RT_ISICG
                     color += _integrator->Li(p_scene, ray, 0, _settings.tmax);
                 }
             }
-            color /= (samplesPerPixel * samplesPerPixel);
+            color /= samplesPerPixel * samplesPerPixel;
             break;
         }
 
