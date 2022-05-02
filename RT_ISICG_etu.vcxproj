@@ -225,10 +225,10 @@
     <ClInclude Include="src\materials\PlasticMaterial.hpp" />
     <ClInclude Include="src\materials\TransparentMaterial.hpp" />
     <ClInclude Include="src\objects\BaseObject.hpp" />
-    <ClInclude Include="src\objects\implicitBulb.hpp" />
-    <ClInclude Include="src\objects\ImplicitSphere.hpp" />
-    <ClInclude Include="src\objects\ImplicitSurface.hpp" />
-    <ClInclude Include="src\objects\implicitTorus.hpp" />
+    <ClInclude Include="src\objects\implicits\ImplicitBulb.hpp" />
+    <ClInclude Include="src\objects\implicits\ImplicitSphere.hpp" />
+    <ClInclude Include="src\objects\implicits\ImplicitSurface.hpp" />
+    <ClInclude Include="src\objects\implicits\ImplicitTorus.hpp" />
     <ClInclude Include="src\objects\Plane.hpp" />
     <ClInclude Include="src\objects\Sphere.hpp" />
     <ClInclude Include="src\objects\MeshTriangle.hpp" />

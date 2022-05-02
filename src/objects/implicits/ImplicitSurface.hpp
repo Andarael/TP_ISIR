@@ -1,7 +1,7 @@
 #ifndef __RT_ISICG_IMPLICIT_SURFACE__
 #define __RT_ISICG_IMPLICIT_SURFACE__
 
-#include "BaseObject.hpp"
+#include "../BaseObject.hpp"
 #include "aabb.hpp"
 
 // todo menger sponge
@@ -32,17 +32,15 @@ namespace RT_ISICG
             if (_aabb.isValid() && !_aabb.intersect(p_ray, p_tMin, p_tMax))
                 return false;
 
+            int step = 0;
+
             double t = 0.;                      // distance from ray origin
             double D = double(p_tMax - p_tMin); // maximum traversal distance
-            int step = 0;
 
             while (t < D)
             {
                 Vec3f point = p_ray.pointAtT(float(t));
                 double d = double(sdf(point)); // distance to surface
-
-                // todo why do i need that, why  don't neet it for shadows ?
-                d = glm::min(d, 4.);
 
                 if (d <= _minDistance)
                 {
@@ -63,6 +61,8 @@ namespace RT_ISICG
         // Check for any intersection between p_tMin and p_tMax.
         bool intersectAny(const Ray &p_ray, const float p_tMin, const float p_tMax) const override
         {
+
+            // return _aabb.isValid() && _aabb.intersect(p_ray, p_tMin, p_tMax);
             if (_aabb.isValid() && !_aabb.intersect(p_ray, p_tMin, p_tMax))
                 return false;
 
@@ -73,7 +73,7 @@ namespace RT_ISICG
 
             while (t < D)
             {
-                Vec3f point = p_ray.pointAtT(t);
+                Vec3f point = p_ray.pointAtT(float(t));
                 double d = double(sdf(point)); // distance to surface
 
                 if (d <= _minDistance)
@@ -94,7 +94,6 @@ namespace RT_ISICG
             Vec3f p = p_point;
             p -= _position;
             return _sdf(p / _scale) * _scale;
-            return _sdf(p);
         }
 
     private:
@@ -104,7 +103,7 @@ namespace RT_ISICG
         // Evaluate normal by computing gradient at 'p_point'
         virtual Vec3f _evaluateNormal(const Vec3f &p_point) const
         {
-            const float h = 1e-4f;
+            const float h = 1e-5f;
 
             Vec3f hx = h * VEC3F_X;
             Vec3f hy = h * VEC3F_Y;
@@ -120,7 +119,7 @@ namespace RT_ISICG
 
     private:
         int _maxSteps = 1000;
-        const double _minDistance = 1e-8;
+        const double _minDistance = 1e-6;
 
         // todo is it necessary to use double for distance ? (avoid inifinite loop when reaching far plane and going back)
 

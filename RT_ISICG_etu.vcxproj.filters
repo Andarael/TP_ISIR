@@ -32,6 +32,9 @@
     <Filter Include="Source Files\brdfs">
       <UniqueIdentifier>{383eaea4-ad21-4774-a0c5-004e4bf140dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\objects\implicits">
+      <UniqueIdentifier>{3fbb23ed-a83d-4ccf-a5df-417edb3fb27e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -201,17 +204,17 @@
     <ClInclude Include="src\materials\TransparentMaterial.hpp">
       <Filter>Source Files\materials</Filter>
     </ClInclude>
-    <ClInclude Include="src\objects\ImplicitSurface.hpp">
-      <Filter>Source Files\objects</Filter>
+    <ClInclude Include="src\objects\implicits\ImplicitBulb.hpp">
+      <Filter>Source Files\objects\implicits</Filter>
     </ClInclude>
-    <ClInclude Include="src\objects\ImplicitSphere.hpp">
-      <Filter>Source Files\objects</Filter>
+    <ClInclude Include="src\objects\implicits\ImplicitSphere.hpp">
+      <Filter>Source Files\objects\implicits</Filter>
     </ClInclude>
-    <ClInclude Include="src\objects\implicitBulb.hpp">
-      <Filter>Source Files\objects</Filter>
+    <ClInclude Include="src\objects\implicits\ImplicitSurface.hpp">
+      <Filter>Source Files\objects\implicits</Filter>
     </ClInclude>
-    <ClInclude Include="src\objects\implicitTorus.hpp">
-      <Filter>Source Files\objects</Filter>
+    <ClInclude Include="src\objects\implicits\ImplicitTorus.hpp">
+      <Filter>Source Files\objects\implicits</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

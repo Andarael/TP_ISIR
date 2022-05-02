@@ -49,17 +49,17 @@ namespace RT_ISICG
         // render_settings.camera = new PerspectiveCamera(Vec3f(0, 0, 0), Vec3f(0, 0, 3), 60, aspectRatio);
 
         // scene
-        // render_settings.camera = new PerspectiveCamera(Vec3f(0, 0, -6), Vec3f(0, 0, 0), 30, aspectRatio);
+        // render_settings.camera = new PerspectiveCamera(Vec3f(0, 0, -6), Vec3f(0, 0, 0), 60, aspectRatio);
 
         // far
-        // render_settings.camera = new PerspectiveCamera(Vec3f(0, 8, -24), Vec3f(0, 0, 0), 20, aspectRatio);
+        render_settings.camera = new PerspectiveCamera(Vec3f(0, -0.5, -1), Vec3f(0, 0, 3), 50, aspectRatio);
 
         /* ============================
          * ====== Scene Init ==========
          * ============================ */
         // Create and init scene.
         Scene scene;
-        scene.init(SceneType::TP6);
+        scene.init(SceneType::TP7);
 
         // Create a texture to render the scene.
         Texture img = Texture(imgWidth, imgHeight);

@@ -21,9 +21,9 @@
 
 // import objects
 #include "objects/BaseObject.hpp"
-#include "objects/ImplicitBulb.hpp"
-#include "objects/ImplicitSphere.hpp"
-#include "objects/ImplicitTorus.hpp"
+#include "objects/implicits/ImplicitBulb.hpp"
+#include "objects/implicits/ImplicitSphere.hpp"
+#include "objects/implicits/ImplicitTorus.hpp"
 #include "objects/Plane.hpp"
 #include "objects/Sphere.hpp"
 
@@ -118,25 +118,22 @@ namespace RT_ISICG
     static void setup_TP7(Scene &scene)
     {
         addMaterials(scene);
-        addCornellBox(scene, false);
+        // addCornellBox(scene, false);
 
         scene._addObject(new Plane("Plane1", Vec3f(0, -2, 0), VEC3F_Y));
         scene._attachMaterialToObject("RedMatte", "Plane1");
 
-        //scene._addObject(new Plane("Plane2", Vec3f(0, 0, 0), -VEC3F_Z));
-        //scene._attachMaterialToObject("GreenMatte", "Plane2");
-
         scene._addObject(new ImplicitSphere("Sphere1", Vec3f(1, 0, 5), 0.5f));
         scene._attachMaterialToObject("lightBlueMatte", "Sphere1");
 
-        //scene._addObject(new ImplicitSphere("Sphere2", VEC3F_ZERO, 0.1f));
-        //scene._attachMaterialToObject("GreenMatte", "Sphere2");
+        // scene._addObject(new ImplicitSphere("Sphere2", VEC3F_ZERO, 0.1f));
+        // scene._attachMaterialToObject("GreenMatte", "Sphere2");
 
         scene._addObject(new ImplicitBulb("Bulb", Vec3f(0, 0, 3), 1.f));
         scene._attachMaterialToObject("PBR_Gold", "Bulb");
 
-        // scene._addObject(new ImplicitTorus("Torus", Vec3f(5, 0, 5), 0.1f));
-        // scene._attachMaterialToObject("CyanMatte", "Torus");
+        scene._addObject(new ImplicitTorus("Torus", 1.5f, 0.25f, Vec3f(0, 0, 2), 1.f));
+        scene._attachMaterialToObject("CyanMatte", "Torus");
 
         // SimpleQuadLight *simple_quad = new SimpleQuadLight(WHITE, 50, 1.5, Vec3f(1, 2, -3));
         // simple_quad->setLookAt(Vec3f(0, 0, 3));
