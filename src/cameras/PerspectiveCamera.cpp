@@ -43,7 +43,5 @@ namespace RT_ISICG
 
         _viewportTopLeftCorner = _screenCenter + _viewportV * 0.5f;
         _viewportTopLeftCorner = _viewportTopLeftCorner - _viewportU * 0.5f;
-
-        displayCamera();
     }
 } // namespace RT_ISICG

@@ -12,6 +12,7 @@
 
 namespace RT_ISICG
 {
+    // forward declaration
     enum class SceneType;
 
     using ObjectMap = std::map<const std::string, BaseObject *>;

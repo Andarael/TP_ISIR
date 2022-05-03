@@ -7,14 +7,10 @@
 #include "cameras/BaseCamera.hpp"
 #include "integrators/BaseIntegrator.hpp"
 
-#include "utils/chrono.hpp"
-
 namespace RT_ISICG
 {
-
+    // forward declarations
     class Scene;
-    class BaseIntegrator;
-    enum class IntegratorType;
 
     // define sampler structure
     // todo integrate
@@ -43,7 +39,7 @@ namespace RT_ISICG
     public:
         Renderer();
 
-        Renderer(const RenderSettings p_settings) { setSettings(p_settings); }
+        Renderer(RenderSettings p_settings);
 
         ~Renderer();
 

@@ -1,15 +1,16 @@
 #include "Scene.hpp"
 
+// assimp
+#include <assimp/assimp/Importer.hpp>
+#include <assimp/assimp/postprocess.h>
+#include <assimp/assimp/scene.h>
+
 #include "Renderer.hpp"
 #include "scene_setup.hpp"
 
 #include "materials/ColorMaterial.hpp"
 #include "materials/PlasticMaterial.hpp"
 #include "objects/MeshTriangle.hpp"
-
-#include <../lib/assimp/assimp/Importer.hpp>
-#include <../lib/assimp/assimp/postprocess.h>
-#include <../lib/assimp/assimp/scene.h>
 
 namespace RT_ISICG
 {
@@ -27,15 +28,9 @@ namespace RT_ISICG
             delete light;
     }
 
-    RenderSettings Scene::init()
-    {
-        return Scene::init(SceneType::TP1);
-    }
+    RenderSettings Scene::init() { return Scene::init(SceneType::TP1); }
 
-    RenderSettings Scene::init(const SceneType &p_type)
-    {
-        return setup_scene(*this, p_type);
-    }
+    RenderSettings Scene::init(const SceneType &p_type) { return setup_scene(*this, p_type); }
 
     bool Scene::intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const
     {
@@ -115,6 +110,7 @@ namespace RT_ISICG
 
     void Scene::loadFileTriangleMesh(const std::string &p_name, const std::string &p_path)
     {
+        // todo rotation, scale etc...
         std::cout << "Loading: " << p_path << std::endl;
         Assimp::Importer importer;
 

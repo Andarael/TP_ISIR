@@ -1,10 +1,13 @@
 #include "Renderer.hpp"
 
-#include "cameras/BaseCamera.hpp"
 #include "glm/gtx/string_cast.hpp"
+#include "utils/chrono.hpp"
 #include "utils/console_progress_bar.hpp"
 #include "utils/random.hpp"
 
+#include "cameras/BaseCamera.hpp"
+
+// integrators
 #include "integrators/DebugIntegrator.hpp"
 #include "integrators/DirectLightingIntegrator.hpp"
 #include "integrators/RayCastIntegrator.hpp"
@@ -13,12 +16,11 @@
 namespace RT_ISICG
 {
     Renderer::Renderer()
-        : _settings(), _integrator(new RayCastIntegrator()){};
+        : _integrator(new RayCastIntegrator()) {}
 
-    Renderer::~Renderer()
-    {
-        delete _integrator;
-    }
+    Renderer::Renderer(const RenderSettings p_settings) { setSettings(p_settings); };
+
+    Renderer::~Renderer() { delete _integrator; }
 
     void Renderer::setIntegrator(const IntegratorType p_integratorType)
     {

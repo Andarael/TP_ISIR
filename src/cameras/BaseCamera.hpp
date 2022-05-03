@@ -22,6 +22,8 @@ namespace RT_ISICG
 
         virtual void setAspectRatio(float p_aspect_ratio){};
 
+        virtual void displayCamera() const {};
+
     protected:
         Vec3f _position = VEC3F_ZERO;
     };

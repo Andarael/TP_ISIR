@@ -12,9 +12,9 @@ namespace RT_ISICG
     public:
         PerspectiveCamera(float p_aspectRatio);
 
-        PerspectiveCamera(const Vec3f &p_position, const Vec3f &p_lookAt, const Vec3f &p_up, float p_fovy, float p_aspectRatio);
+        PerspectiveCamera(const Vec3f &p_position, const Vec3f &p_lookAt, const Vec3f &p_up, float p_fovy = 60.f, float p_aspectRatio = 1.f);
 
-        PerspectiveCamera(const Vec3f &p_position, const Vec3f &p_lookAt, const float p_fovy, const float p_aspectRatio)
+        PerspectiveCamera(const Vec3f &p_position, const Vec3f &p_lookAt, const float p_fovy = 60.f, const float p_aspectRatio = 1.f)
             : PerspectiveCamera(p_position, p_lookAt, VEC3F_Y, p_fovy, p_aspectRatio){};
 
         Ray generateRay(const float p_sx, const float p_sy) const override
@@ -34,7 +34,7 @@ namespace RT_ISICG
             _updateViewport();
         }
 
-        void displayCamera() const;
+        void displayCamera() const override;
 
     private:
         void _updateViewport();

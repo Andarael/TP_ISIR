@@ -21,7 +21,21 @@ namespace RT_ISICG
 
     void addMaterials(Scene &scene);
 
-    void addCornellBox(Scene &scene, bool fullMirror);
+    void addCornellBox(Scene &scene, bool fullMirror, float scale = 10.f, const Vec3f &base = Vec3f(0.f, -3.f, 0.f));
+
+    RenderSettings setup_TP1(Scene &scene);
+
+    RenderSettings setup_TP6_Conference(Scene &scene);
+
+    RenderSettings setup_TP7(Scene &scene);
+
+    RenderSettings setup_TP6(Scene &scene);
+
+    RenderSettings setup_TP5(Scene &scene);
+
+    RenderSettings setup_TP4(Scene &scene);
+
+    RenderSettings setup_TP3(Scene &scene);
 
     RenderSettings setup_scene(Scene &scene, const SceneType scene_type);
 

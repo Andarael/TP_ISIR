@@ -10,31 +10,31 @@ namespace RT_ISICG
 {
     int main(int argc, char **argv)
     {
+        // todo use argc and argv to load file
+
+        bool overrideIntegrator = false;
+
+        // ============================ Image ============================ //
         // Output Image parameters
         const int imgWidth = 1200;
         const int imgHeight = 800;
         float aspectRatio = float(imgWidth) / imgHeight;
-        // Create a texture to render the scene.
-        Texture img = Texture(imgWidth, imgHeight);
+        Texture img = Texture(imgWidth, imgHeight); // Create a texture to render the scene.
 
-        /* ============================
-         * ====== Scene Init ==========
-         * ============================ */
-        // Create and init scene.
-        SceneType sceneType = SceneType::TP1;
+        // ============================ Scene Init ============================ //
         Scene scene;
+        SceneType sceneType = SceneType::TP6; // <----- Change this to change the scene
         RenderSettings render_settings = scene.init(sceneType);
 
-        /* ==============================
-         * ====== Render parameters =====
-         * ============================== */
+        // ============================ Render parameters ============================ //
+        Renderer renderer;
+        if (overrideIntegrator)
+            render_settings.integratorType = IntegratorType::WHITTED;
 
-        // todo the scene should be able to give its own camera and render settings
-        render_settings.integratorType = IntegratorType::RAY_CAST;
         render_settings.sampler = Sampler::GRID_SAMPLER;
         render_settings.backgroundColor = GREY;
-        render_settings.samplesPerPixel = 2;
-        render_settings.shadowSamples = 1;
+        render_settings.samplesPerPixel = 4;
+        render_settings.shadowSamples = 4;
         render_settings.nbBounces = 5;
         render_settings.tmax = 10000;
 
@@ -42,12 +42,11 @@ namespace RT_ISICG
             render_settings.camera = new PerspectiveCamera(aspectRatio);
 
         render_settings.camera->setAspectRatio(aspectRatio);
-        Renderer renderer;
+        render_settings.camera->displayCamera();
+
         renderer.setSettings(render_settings);
 
-        /* =================================
-         * ====== Rendering the image ======
-         * ================================= */
+        // ============================ Rendering the image ============================ //
         std::cout << "Rendering..." << std::endl;
         std::cout << "- Image size: " << imgWidth << "x" << imgHeight << std::endl;
 
@@ -55,9 +54,7 @@ namespace RT_ISICG
 
         std::cout << "-> Done in " << renderingTime << "ms" << std::endl;
 
-        /* =================================
-         * ====== Saving the image(s) ======
-         * ================================= */
+        // ============================ Saving the image(s) ============================ //
         const std::string imgName = "image.jpg";
         const std::string imgNameHDR = "image.hdr";
         img.saveJPG(RESULTS_PATH + imgName);
