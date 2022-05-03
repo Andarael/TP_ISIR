@@ -138,7 +138,7 @@ namespace RT_ISICG
         scene._addLight(new PointLight(WHITE, Vec3f(0, 0, -16), 1000));
 
         RenderSettings settings;
-        settings.camera = new PerspectiveCamera(Vec3f(0, 0, 0), Vec3f(0, 0, 3));
+        settings.camera = new PerspectiveCamera(Vec3f(0, 3, 30), Vec3f(0, 0, 3));
         return settings;
     }
 
@@ -161,7 +161,8 @@ namespace RT_ISICG
         // scene._addLight(new PointLight(WHITE, pos, 6000000));
 
         RenderSettings settings;
-        settings.camera = new PerspectiveCamera(Vec3f(0, 0, 0), Vec3f(0, 0, 3));
+        settings.integratorType = IntegratorType::WHITTED;
+        settings.camera = new PerspectiveCamera(Vec3f(-250, 500, 330), Vec3f(0, 350, 100));
         return settings;
     }
 
@@ -171,16 +172,16 @@ namespace RT_ISICG
         addCornellBox(scene, false, 20, Vec3f(0, -2, 0));
 
         // ================ Add Objects ================== //
-        scene._attachMaterialToObject("CyanMatte", "UVsphere");
+        //scene._attachMaterialToObject("CyanMatte", "UVsphere");
 
-        scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "bunny_lowpoly.obj");
-        // scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "bunny.obj");
+        //scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "bunny_lowpoly.obj");
+         scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "bunny.obj");
 
-        scene.loadFileTriangleMesh("uvsphere", DATA_PATH + "uvsphere.obj");
-        scene.loadFileTriangleMesh("cube_sphere", DATA_PATH + "cube_sphere.obj");
-        scene.loadFileTriangleMesh("bunny", DATA_PATH + "teapot.obj");
+        //scene.loadFileTriangleMesh("uvsphere", DATA_PATH + "uvsphere.obj");
+        //scene.loadFileTriangleMesh("cube_sphere", DATA_PATH + "cube_sphere.obj");
+        //scene.loadFileTriangleMesh("bunny", DATA_PATH + "teapot.obj");
 
-        scene._attachMaterialToObject("CyanMatte", "Bunny_defaultobject");
+        //scene._attachMaterialToObject("CyanMatte", "Bunny_defaultobject");
 
         // ================ Add lights ================== //
         scene._addLight(new PointLight(WHITE, Vec3f(3, 6, -6), 200));
@@ -193,9 +194,9 @@ namespace RT_ISICG
 
     RenderSettings setup_TP5(Scene &scene)
     {
-        bool useQuadLight = false;
+        bool useQuadLight = true;
         addMaterials(scene);
-        addCornellBox(scene, false, 10, Vec3f(0, -3, 0));
+        addCornellBox(scene, false, 20, Vec3f(0, -3, 0));
 
         // ================ Add Objects ================== //
         scene._addObject(new Sphere("Sphere1", Vec3f(-2, 0, 3), 1.5f));

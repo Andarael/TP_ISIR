@@ -53,7 +53,7 @@ namespace RT_ISICG
             }
             // todo why do i need that, why  don't neet it for shadows ?
             float value = 0.25f * glm::log(m) * glm::sqrt(m) / dz;
-            // return value;
+             //return value;
             return glm::min(value, 4.f);
         }
     };

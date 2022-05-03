@@ -12,7 +12,7 @@ namespace RT_ISICG
     {
         // todo use argc and argv to load file
 
-        bool overrideIntegrator = false;
+        bool overrideIntegrator = true;
 
         // ============================ Image ============================ //
         // Output Image parameters
@@ -23,18 +23,18 @@ namespace RT_ISICG
 
         // ============================ Scene Init ============================ //
         Scene scene;
-        SceneType sceneType = SceneType::TP6; // <----- Change this to change the scene
+        SceneType sceneType = SceneType::TP6_Conference; // <----- Change this to change the scene
         RenderSettings render_settings = scene.init(sceneType);
 
         // ============================ Render parameters ============================ //
         Renderer renderer;
         if (overrideIntegrator)
-            render_settings.integratorType = IntegratorType::WHITTED;
+            render_settings.integratorType = IntegratorType::RAY_CAST;
 
         render_settings.sampler = Sampler::GRID_SAMPLER;
         render_settings.backgroundColor = GREY;
-        render_settings.samplesPerPixel = 4;
-        render_settings.shadowSamples = 4;
+        render_settings.samplesPerPixel = 1;
+        render_settings.shadowSamples = 1;
         render_settings.nbBounces = 5;
         render_settings.tmax = 10000;
 
