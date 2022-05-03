@@ -21,7 +21,6 @@ namespace RT_ISICG
         }
 
     private:
-        float _power = 3.f;
         int _steps = 6;
 
         float _sdfBulb1(const Vec3f &p_point) const
@@ -38,7 +37,8 @@ namespace RT_ISICG
                     break;
 
                 // dz = 8*z^7*dz
-                dz = 8.0 * glm::pow(m, 3.5f) * dz + 1.f;
+                // todo test with 8.0f instead of 8.0, does the bug disappear ?
+                dz = 8.0f * glm::pow(m, 3.5f) * dz + 1.f;
 
                 // z = z^8+z
                 float r = glm::length(w);
