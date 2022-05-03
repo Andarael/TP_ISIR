@@ -68,11 +68,11 @@ namespace RT_ISICG
         Chrono chrono;
         ConsoleProgressBar progressBar;
 
-        progressBar.start(height, 50);
-        chrono.start();
-
         float pixelSizeX = 1.f / float(width - 1);
         float pixelSizeY = 1.f / float(height - 1);
+
+        progressBar.start(height, 50);
+        chrono.start();
 
 #pragma omp parallel for schedule(dynamic)
 
