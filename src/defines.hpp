@@ -64,6 +64,14 @@ namespace RT_ISICG
     const Vec3f MAGENTA(1.f, 0.f, 1.f);
     const Vec3f CYAN(0.f, 1.f, 1.f);
 
+    const Vec3f lightBlue = Vec3f(0.7, 0.7, 1);
+    const Vec3f lightGreen = Vec3f(0.7, 1, 0.7);
+    const Vec3f lightRed = Vec3f(1, 0.7, 0.7);
+    const Vec3f lightCyan = Vec3f(0.5, 1, 1);
+    const Vec3f lightMagenta = Vec3f(1, 0.5, 1);
+    const Vec3f lightYellow = Vec3f(1, 1, 0.5);
+    const Vec3f gold = Vec3f(1.f, 0.75f, 0.45f);
+
     // Paths.
     const std::string RESULTS_PATH = "results/";
     const std::string DATA_PATH = "data/";
