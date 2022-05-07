@@ -83,20 +83,18 @@ namespace RT_ISICG
         {
             float n1 = 1.0f;
             float n2 = hitRecord._object->getMaterial()->getIOR();
+
             if (hitRecord._backFacing) // we already are inside the object, n2 should be ior of air
-            {
-                n1 = n2;
-                n2 = 1.0f;
-            }
+                std::swap(n1, n2);
 
             float fresnelFactor = fresnel(p_ray.getDirection(), hitRecord._trueNormal, n1, n2);
-            Vec3f reflectedColor = reflectRay(p_scene, p_ray, p_tMin, p_tMax, depth, hitRecord);
+
+            Vec3f reflectedColor = BLACK;
+            reflectedColor = reflectRay(p_scene, p_ray, p_tMin, p_tMax, depth, hitRecord);
 
             Vec3f refractedColor = BLACK;
             if (fresnelFactor <= 1.0f)
                 refractedColor = refractRay(p_scene, p_ray, p_tMin, p_tMax, depth, hitRecord, n1, n2, fresnelFactor);
-
-            // return Vec3f(hitRecord._backFacing);
 
             return glm::mix(refractedColor, reflectedColor, fresnelFactor);
         }

@@ -108,7 +108,7 @@ namespace RT_ISICG
         }
     }
 
-    void Scene::loadFileTriangleMesh(const std::string &p_name, const std::string &p_path)
+    void Scene::loadFileTriangleMesh(const std::string &p_name, const std::string &p_path, const Vec3f &p_pos)
     {
         // todo rotation, scale etc...
         std::cout << "Loading: " << p_path << std::endl;
@@ -138,14 +138,21 @@ namespace RT_ISICG
             const bool hasUV = mesh->HasTextureCoords(0);
 
             MeshTriangle *triMesh = new MeshTriangle(meshName);
+
             // Vertices before faces otherwise face normals cannot be computed.
             for (unsigned int v = 0; v < mesh->mNumVertices; ++v)
             {
-                triMesh->addVertex(mesh->mVertices[v].x, mesh->mVertices[v].y, mesh->mVertices[v].z);
+                //todo: rotation, scale etc...
+                triMesh->addVertex(mesh->mVertices[v].x + p_pos.x,
+                                   mesh->mVertices[v].y + p_pos.y,
+                                   mesh->mVertices[v].z + p_pos.z);
+
                 triMesh->addNormal(mesh->mNormals[v].x, mesh->mNormals[v].y, mesh->mNormals[v].z);
+
                 if (hasUV)
                     triMesh->addUV(mesh->mTextureCoords[0][v].x, mesh->mTextureCoords[0][v].y);
             }
+
             for (unsigned int f = 0; f < mesh->mNumFaces; ++f)
             {
                 const aiFace &face = mesh->mFaces[f];

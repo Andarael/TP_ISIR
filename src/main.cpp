@@ -29,12 +29,12 @@ namespace RT_ISICG
         // ============================ Render parameters ============================ //
         Renderer renderer;
         if (overrideIntegrator)
-            render_settings.integratorType = IntegratorType::RAY_CAST;
+            render_settings.integratorType = IntegratorType::WHITTED;
 
         render_settings.sampler = Sampler::GRID_SAMPLER;
         render_settings.backgroundColor = GREY;
-        render_settings.samplesPerPixel = 1;
-        render_settings.shadowSamples = 1;
+        render_settings.samplesPerPixel = 4;
+        render_settings.shadowSamples = 16;
         render_settings.nbBounces = 5;
         render_settings.tmax = 10000;
 

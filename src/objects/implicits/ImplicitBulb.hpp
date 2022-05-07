@@ -21,7 +21,7 @@ namespace RT_ISICG
         }
 
     private:
-        int _steps = 6;
+        int _steps = 5;
 
         float _sdfBulb1(const Vec3f &p_point) const
         {
@@ -44,17 +44,17 @@ namespace RT_ISICG
                 float r = glm::length(w);
                 float theta = 8.f * glm::acos(w.y / r);
                 float phi = 8.f * glm::atan(w.x, w.z);
-                float temp = r * r * r * r * r * r * r * r; // glm::pow(r, 8.f);
+                float temp = glm::pow(r, 8.f); // r * r * r * r * r * r * r * r; // 
                 w = p_point + temp * Vec3f(glm::sin(theta) * glm::sin(phi), glm::cos(theta), sin(theta) * glm::cos(phi));
 
                 trap = glm::min(trap, Vec4f(glm::abs(w), m));
 
                 m = glm::dot(w, w);
             }
-            // todo why do i need that, why  don't neet it for shadows ?
+
             float value = 0.25f * glm::log(m) * glm::sqrt(m) / dz;
-             //return value;
-            return glm::min(value, 4.f);
+
+            return glm::min(value, 4.f); // this is to avoid numerical errors when camera is far away
         }
     };
 } // namespace RT_ISICG

@@ -53,4 +53,4 @@ namespace RT_ISICG
     };
 } // namespace RT_ISICG
 
-#endif __RT_ISICG_IMPLICIT_TORUS__
+#endif //__RT_ISICG_IMPLICIT_TORUS__

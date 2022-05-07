@@ -30,6 +30,7 @@
 
 namespace RT_ISICG
 {
+    // todo unify light types constructor (pos, power, etc...)
     void addMaterials(Scene &scene)
     {
         scene._addMaterial(new MatteMaterial("WhiteMatte", WHITE, 0.6f));
@@ -110,7 +111,7 @@ namespace RT_ISICG
     RenderSettings setup_TP7(Scene &scene)
     {
         addMaterials(scene);
-        // addCornellBox(scene, false);
+        addCornellBox(scene, false, 32);
 
         scene._addObject(new Plane("Plane1", Vec3f(0, -2, 0), VEC3F_Y));
         scene._attachMaterialToObject("RedMatte", "Plane1");
@@ -124,8 +125,11 @@ namespace RT_ISICG
         scene._addObject(new ImplicitBulb("Bulb", Vec3f(0, 0, 3), 1.f));
         scene._attachMaterialToObject("PBR_Gold", "Bulb");
 
-        scene._addObject(new ImplicitTorus("Torus", 1.5f, 0.25f, Vec3f(0, 0, 2), 1.f));
+
+        scene._addObject(new ImplicitTorus("Torus", 1.5f, 0.25f, Vec3f(0, 0, 3), 1.f));
         scene._attachMaterialToObject("CyanMatte", "Torus");
+        scene._attachMaterialToObject("TransparentWhite", "Torus");
+
 
         // SimpleQuadLight *simple_quad = new SimpleQuadLight(WHITE, 50, 1.5, Vec3f(1, 2, -3));
         // simple_quad->setLookAt(Vec3f(0, 0, 3));
@@ -138,7 +142,7 @@ namespace RT_ISICG
         scene._addLight(new PointLight(WHITE, Vec3f(0, 0, -16), 1000));
 
         RenderSettings settings;
-        settings.camera = new PerspectiveCamera(Vec3f(0, 3, 30), Vec3f(0, 0, 3));
+        settings.camera = new PerspectiveCamera(Vec3f(0, 3, 5), Vec3f(0, 0, 3));
         return settings;
     }
 
@@ -172,16 +176,16 @@ namespace RT_ISICG
         addCornellBox(scene, false, 20, Vec3f(0, -2, 0));
 
         // ================ Add Objects ================== //
-        //scene._attachMaterialToObject("CyanMatte", "UVsphere");
+        // scene._attachMaterialToObject("CyanMatte", "UVsphere");
 
-        //scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "bunny_lowpoly.obj");
-         scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "bunny.obj");
+        // scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "bunny_lowpoly.obj");
+        scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "bunny.obj");
 
-        //scene.loadFileTriangleMesh("uvsphere", DATA_PATH + "uvsphere.obj");
-        //scene.loadFileTriangleMesh("cube_sphere", DATA_PATH + "cube_sphere.obj");
-        //scene.loadFileTriangleMesh("bunny", DATA_PATH + "teapot.obj");
+        // scene.loadFileTriangleMesh("uvsphere", DATA_PATH + "uvsphere.obj");
+        // scene.loadFileTriangleMesh("cube_sphere", DATA_PATH + "cube_sphere.obj");
+        // scene.loadFileTriangleMesh("bunny", DATA_PATH + "teapot.obj");
 
-        //scene._attachMaterialToObject("CyanMatte", "Bunny_defaultobject");
+        // scene._attachMaterialToObject("CyanMatte", "Bunny_defaultobject");
 
         // ================ Add lights ================== //
         scene._addLight(new PointLight(WHITE, Vec3f(3, 6, -6), 200));
@@ -194,31 +198,34 @@ namespace RT_ISICG
 
     RenderSettings setup_TP5(Scene &scene)
     {
+        // ================ Add Base scene ================== //
         bool useQuadLight = true;
         addMaterials(scene);
-        addCornellBox(scene, false, 20, Vec3f(0, -3, 0));
+        addCornellBox(scene, true, 15, Vec3f(0, -3, 0));
 
         // ================ Add Objects ================== //
-        scene._addObject(new Sphere("Sphere1", Vec3f(-2, 0, 3), 1.5f));
-        scene._addObject(new Sphere("Sphere2", Vec3f(2, 0, 3), 1.5f));
-        scene._attachMaterialToObject("MirrorLightRed", "Sphere1");
-        scene._attachMaterialToObject("TransparentWhite", "Sphere2");
+        // scene._addObject(new Sphere("Sphere1", Vec3f(-2, 0, 3), 1.5f));
+        // scene._addObject(new Sphere("Sphere2", Vec3f(2, 0, 3), 1.5f));
+        // scene._attachMaterialToObject("MirrorLightRed", "Sphere1");
+        // scene._attachMaterialToObject("TransparentWhite", "Sphere2");
 
-        // todo unify light types constructor (pos, power, etc...)
+        scene.loadFileTriangleMesh("Bunny", DATA_PATH + "Bunny.obj", Vec3f(-2,0,3));
+        scene._attachMaterialToObject("MirrorLightRed", "Bunny_defaultobject");
+
+        scene.loadFileTriangleMesh("Bunny2", DATA_PATH + "Bunny.obj", Vec3f(2,0,3));
+        scene._attachMaterialToObject("TransparentWhite", "Bunny2_defaultobject");
+
         // ================ Add lights ================== //
         Vec3f lightPosition = Vec3f(0, 5, 0);
-
         SimpleQuadLight *quadLight = new SimpleQuadLight(WHITE, 40, 2, lightPosition);
         quadLight->setLookAt(Vec3f(0, 0, 3));
-
         PointLight *point_light = new PointLight(WHITE, lightPosition, 200.f);
-
         useQuadLight ? scene._addLight(quadLight) : scene._addLight(point_light);
 
         // ================ RENDER SETTINGS ================ //
         RenderSettings settings;
         settings.integratorType = IntegratorType::WHITTED;
-        settings.camera = new PerspectiveCamera(Vec3f(0, 2, -6), Vec3f(0, 2, 0));
+        settings.camera = new PerspectiveCamera(Vec3f(0, 2, -8), Vec3f(0, 2, 0));
         return settings;
     }
 
@@ -292,6 +299,7 @@ namespace RT_ISICG
 
     RenderSettings setup_scene(Scene &scene, const SceneType scene_type)
     {
+        addMaterials(scene); // always add materials before objects
         switch (scene_type)
         {
         case SceneType::TP1:
