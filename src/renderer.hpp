@@ -58,6 +58,8 @@ namespace RT_ISICG
 
         static Vec3f colorTransform(Vec3f &color);
 
+        static Vec3f tonemapping(Vec3f &color);
+
         Vec3f multiSample(const BaseCamera *p_camera, float sx, float sy, const Scene &p_scene, float pixelSizeY, float pixelSizeX) const;
 
     private:

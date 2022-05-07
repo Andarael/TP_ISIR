@@ -49,8 +49,8 @@ namespace RT_ISICG
     using Mat3f = glm::mat3;
     using Mat4f = glm::mat4;
 
-    const Mat4f MAT3F_ID = Mat3f();
-    const Mat4f MAT4F_ID = Mat4f();
+    const Mat4f MAT3F_ID = Mat3f(1.f);
+    const Mat4f MAT4F_ID = Mat4f(1.f);
 
     // Colors are simply Vec3f
     const Vec3f BLACK(0.f, 0.f, 0.f);

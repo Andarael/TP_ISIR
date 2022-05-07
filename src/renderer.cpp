@@ -100,12 +100,28 @@ namespace RT_ISICG
 
     Vec3f Renderer::colorTransform(Vec3f &color)
     {
-        // gamma correction
-        // color = glm::pow(color, Vec3f(1 / 2.2f));
-        // color = color * 0.5f + 0.5f;
+        float gamma = 1.0f;
 
-        // clamp // todo no clamp in hdr
+        color = tonemapping(color);
+
+        color = glm::pow(color, Vec3f(gamma));
+
+        // todo no clamp in hdr
         color = glm::clamp(color, 0.0f, 1.0f);
+
+        return color;
+    }
+
+    Vec3f Renderer::tonemapping(Vec3f &color)
+    {
+        // filmic curve (http://filmicworlds.com/blog/filmic-tonemapping-with-piecewise-power-curves/)
+        // gamma is already 2.2 by default, this is to avoid a pow
+        float a = 2.51f;
+        float b = 0.03f;
+        float c = 2.2f;
+        float d = 0.59f;
+        float e = 0.14f;
+        color *= (a * color + b) / (color * (c * color + d) + e);
         return color;
     }
 

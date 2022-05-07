@@ -41,7 +41,12 @@ namespace RT_ISICG
 
         const LightList &getLights() const { return _lightList; }
 
-        void loadFileTriangleMesh(const std::string &p_name, const std::string &p_path, const Vec3f &p_pos = VEC3F_ZERO);
+        void loadFileTriangleMesh(const std::string &p_name,
+                                  const std::string &p_path,
+                                  const Vec3f &p_pos = VEC3F_ZERO,
+                                  float p_scale = 1.0f,
+                                  float p_rotation = 0.0f,
+                                  Vec3f p_rotation_axis = VEC3F_Y);
 
         // Check for nearest intersection between p_tMin and p_tMax : if found fill p_hitRecord.
         bool intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const;

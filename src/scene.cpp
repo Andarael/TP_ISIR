@@ -108,8 +108,9 @@ namespace RT_ISICG
         }
     }
 
-    void Scene::loadFileTriangleMesh(const std::string &p_name, const std::string &p_path, const Vec3f &p_pos)
+    void Scene::loadFileTriangleMesh(const std::string &p_name, const std::string &p_path, const Vec3f &p_pos, const float p_scale, const float p_rotation, const Vec3f p_rotation_axis)
     {
+
         // todo rotation, scale etc...
         std::cout << "Loading: " << p_path << std::endl;
         Assimp::Importer importer;
@@ -137,12 +138,11 @@ namespace RT_ISICG
 
             const bool hasUV = mesh->HasTextureCoords(0);
 
-            MeshTriangle *triMesh = new MeshTriangle(meshName, p_pos); // mesh position is intialized here
+            MeshTriangle *triMesh = new MeshTriangle(meshName, p_pos, p_scale, p_rotation, p_rotation_axis); // mesh position is intialized here
 
             // Vertices before faces otherwise face normals cannot be computed.
             for (unsigned int v = 0; v < mesh->mNumVertices; ++v)
             {
-                // todo: rotation, scale etc...
                 triMesh->addVertex(mesh->mVertices[v].x, mesh->mVertices[v].y, mesh->mVertices[v].z);
 
                 triMesh->addNormal(mesh->mNormals[v].x, mesh->mNormals[v].y, mesh->mNormals[v].z);

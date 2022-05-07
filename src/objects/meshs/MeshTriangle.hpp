@@ -1,10 +1,10 @@
 #ifndef __RT_ISICG_TRIANGLE_MESH__
 #define __RT_ISICG_TRIANGLE_MESH__
 
-#include "objects/BaseObject.hpp"
 #include "acceleration_structures/aabb.hpp"
 #include "acceleration_structures/bvh.hpp"
 #include "geometry/TriangleMeshGeometry.hpp"
+#include "objects/BaseObject.hpp"
 #include <vector>
 
 namespace RT_ISICG
@@ -17,10 +17,18 @@ namespace RT_ISICG
         MeshTriangle() = delete;
 
         MeshTriangle(const std::string &p_name)
-            : BaseObject(p_name){};
+            : MeshTriangle(p_name, VEC3F_ZERO){};
 
-        MeshTriangle(const std::string &p_name, const Vec3f &p_position)
-            : BaseObject(p_name, p_position){};
+        MeshTriangle(const std::string &p_name,
+                     const Vec3f &p_position = VEC3F_ZERO,
+                     const float p_scale = 1.0f,
+                     const float p_rotation = 0.0f, const Vec3f p_rotation_axis = VEC3F_Y)
+            : BaseObject(p_name, p_position)
+        {
+            _transformation = glm::translate(_transformation, _position);
+            _transformation = glm::scale(_transformation, Vec3f(p_scale));
+            _transformation = glm::rotate(_transformation, glm::radians(p_rotation), p_rotation_axis);
+        };
 
         ~MeshTriangle() override = default;
 
@@ -37,19 +45,21 @@ namespace RT_ISICG
         void addTriangle(const unsigned int p_v0, const unsigned int p_v1, const unsigned int p_v2)
         {
             _triangles.emplace_back(TriangleMeshGeometry(p_v0, p_v1, p_v2, this));
-        };
+        }
 
         void addVertex(const float p_x, const float p_y, const float p_z)
         {
-            _vertices.emplace_back(p_x + _position.x,
-                                   p_y + _position.y,
-                                   p_z + _position.z);
-            _aabb.extend(Vec3f(p_x, p_y, p_z));
+            Vec3f position = _transformation * Vec4f(p_x, p_y, p_z, 1.f); // todo scale avec w?
+            _vertices.emplace_back(position.x, position.y, position.z);
+            _aabb.extend(Vec3f(position.x, position.y, position.z));
         }
 
         void addNormal(const float p_x, const float p_y, const float p_z)
         {
-            _normals.emplace_back(p_x, p_y, p_z);
+            Vec3f normal = Vec3f(p_x, p_y, p_z);
+            Mat4f normalMatrix = glm::transpose(glm::inverse(_transformation));
+            normal = Mat3f(normalMatrix) * normal;
+            _normals.emplace_back(normal.x, normal.y, normal.z);
         }
 
         void addUV(const float p_u, const float p_v)
@@ -71,6 +81,8 @@ namespace RT_ISICG
     private:
         BVH _bvh;
         AABB _aabb;
+
+        Mat4f _transformation = MAT4F_ID;
 
         std::vector<Vec3f> _vertices;
         std::vector<Vec3f> _normals;
