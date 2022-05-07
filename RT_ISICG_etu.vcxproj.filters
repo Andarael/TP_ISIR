@@ -35,6 +35,15 @@
     <Filter Include="Source Files\objects\implicits">
       <UniqueIdentifier>{3fbb23ed-a83d-4ccf-a5df-417edb3fb27e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\objects\parametrics">
+      <UniqueIdentifier>{b37bdc56-c3ac-4f46-8e78-9e65b4db9fda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\objects\meshs">
+      <UniqueIdentifier>{766b8c43-7cae-4ea3-842a-634f330bbbcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\acceleration_structures">
+      <UniqueIdentifier>{c4c7eed2-0f83-40a7-a3a4-49c2e23fa3a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -55,20 +64,20 @@
     <ClCompile Include="src\texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\objects\MeshTriangle.cpp">
-      <Filter>Source Files\objects</Filter>
-    </ClCompile>
     <ClCompile Include="src\geometry\TriangleMeshGeometry.cpp">
       <Filter>Source Files\geometry</Filter>
     </ClCompile>
-    <ClCompile Include="src\aabb.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\bvh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\scene_setup.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objects\meshs\MeshTriangle.cpp">
+      <Filter>Source Files\objects\meshs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\acceleration_structures\aabb.cpp">
+      <Filter>Source Files\acceleration_structures</Filter>
+    </ClCompile>
+    <ClCompile Include="src\acceleration_structures\bvh.cpp">
+      <Filter>Source Files\acceleration_structures</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -97,9 +106,6 @@
       <Filter>Source Files\utils</Filter>
     </ClInclude>
     <ClInclude Include="src\objects\BaseObject.hpp">
-      <Filter>Source Files\objects</Filter>
-    </ClInclude>
-    <ClInclude Include="src\objects\Sphere.hpp">
       <Filter>Source Files\objects</Filter>
     </ClInclude>
     <ClInclude Include="src\materials\BaseMaterial.hpp">
@@ -135,9 +141,6 @@
     <ClInclude Include="src\cameras\PerspectiveCamera.hpp">
       <Filter>Source Files\cameras</Filter>
     </ClInclude>
-    <ClInclude Include="src\objects\Plane.hpp">
-      <Filter>Source Files\objects</Filter>
-    </ClInclude>
     <ClInclude Include="src\geometry\PlaneGeometry.hpp">
       <Filter>Source Files\geometry</Filter>
     </ClInclude>
@@ -153,20 +156,11 @@
     <ClInclude Include="src\brdfs\lambert_brdf.hpp">
       <Filter>Source Files\brdfs</Filter>
     </ClInclude>
-    <ClInclude Include="src\objects\MeshTriangle.hpp">
-      <Filter>Source Files\objects</Filter>
-    </ClInclude>
     <ClInclude Include="src\geometry\TriangleMeshGeometry.hpp">
       <Filter>Source Files\geometry</Filter>
     </ClInclude>
     <ClInclude Include="src\materials\lambertMaterial.hpp">
       <Filter>Source Files\materials</Filter>
-    </ClInclude>
-    <ClInclude Include="src\aabb.hpp">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\bvh.hpp">
-      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="src\lights\SimpleQuadLight.hpp">
       <Filter>Source Files\lights</Filter>
@@ -218,6 +212,21 @@
     </ClInclude>
     <ClInclude Include="src\objects\implicits\ImplicitTorus.hpp">
       <Filter>Source Files\objects\implicits</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\parametrics\Plane.hpp">
+      <Filter>Source Files\objects\parametrics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\parametrics\Sphere.hpp">
+      <Filter>Source Files\objects\parametrics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\meshs\MeshTriangle.hpp">
+      <Filter>Source Files\objects\meshs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\acceleration_structures\aabb.hpp">
+      <Filter>Source Files\acceleration_structures</Filter>
+    </ClInclude>
+    <ClInclude Include="src\acceleration_structures\bvh.hpp">
+      <Filter>Source Files\acceleration_structures</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

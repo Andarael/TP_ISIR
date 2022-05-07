@@ -1,8 +1,7 @@
 #ifndef __RT_ISICG_TRANSPARENT_MATERIAL__
 #define __RT_ISICG_TRANSPARENT_MATERIAL__
 
-#include "BaseMaterial.hpp"
-#include "ColorMaterial.hpp"
+#include "materials/ColorMaterial.hpp"
 
 namespace RT_ISICG
 {

@@ -1,7 +1,7 @@
 #ifndef __RT_ISICG_MIRROR_MATERIAL__
 #define __RT_ISICG_MIRROR_MATERIAL__
 
-#include "ColorMaterial.hpp"
+#include "materials/ColorMaterial.hpp"
 
 namespace RT_ISICG
 {

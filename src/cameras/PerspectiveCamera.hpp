@@ -1,7 +1,7 @@
 #ifndef __RT_ISICG_PERSPECTIVE_CAMERA__
 #define __RT_ISICG_PERSPECTIVE_CAMERA__
 
-#include "BaseCamera.hpp"
+#include "cameras/BaseCamera.hpp"
 
 namespace RT_ISICG
 {

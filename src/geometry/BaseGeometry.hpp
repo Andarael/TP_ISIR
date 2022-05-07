@@ -1,15 +1,13 @@
 #ifndef __RT_ISICG_BASE_GEOMETRY__
 #define __RT_ISICG_BASE_GEOMETRY__
 
-#include "HitRecord.hpp"
-#include "Ray.hpp"
+#include "defines.hpp"
 
 namespace RT_ISICG
 {
     class BaseGeometry
     {
     public:
-
         BaseGeometry() = delete;
 
         explicit BaseGeometry(const Vec3f &p_position)

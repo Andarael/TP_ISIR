@@ -1,11 +1,10 @@
 #ifndef __RT_ISICG_DEFINES__
 #define __RT_ISICG_DEFINES__
 
-// todo make work without "../"
-#include "../lib/glm/glm.hpp"
-#include "../lib/glm/gtc/constants.hpp"
-#include "../lib/glm/gtx/string_cast.hpp"
-#include "../lib/glm/gtx/vector_angle.hpp"
+#include <glm/glm.hpp>
+#include <glm/gtc/constants.hpp>
+#include <glm/gtx/string_cast.hpp>
+#include <glm/gtx/vector_angle.hpp>
 
 #include <iostream>
 #include <limits>

@@ -1,17 +1,17 @@
 #include "Renderer.hpp"
 
-#include "glm/gtx/string_cast.hpp"
+#include "cameras/BaseCamera.hpp"
 #include "utils/chrono.hpp"
 #include "utils/console_progress_bar.hpp"
 #include "utils/random.hpp"
-
-#include "cameras/BaseCamera.hpp"
 
 // integrators
 #include "integrators/DebugIntegrator.hpp"
 #include "integrators/DirectLightingIntegrator.hpp"
 #include "integrators/RayCastIntegrator.hpp"
 #include "integrators/WhittedIntegrator.hpp"
+
+#include <glm/gtx/string_cast.hpp>
 
 namespace RT_ISICG
 {

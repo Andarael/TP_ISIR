@@ -17,6 +17,9 @@ namespace RT_ISICG
 
         virtual ~BaseObject() = default;
 
+        BaseObject(const std::string &name, const Vec3f &p_position)
+            : _name(name), _position(p_position) {};
+
         virtual const std::string &getName() const final { return _name; }
 
         virtual BaseMaterial *getMaterial() const final { return _material; }
@@ -60,15 +63,12 @@ namespace RT_ISICG
         static void sortIntersections(float &p_t1, float &p_t2)
         {
             if (p_t1 > p_t2)
-            {
-                float temp = p_t1;
-                p_t1 = p_t2;
-                p_t2 = temp;
-            }
+                std::swap(p_t1, p_t2);
         }
 
     protected:
         const std::string _name;
+        Vec3f _position = VEC3F_ZERO;
         BaseMaterial *_material = nullptr;
     };
 

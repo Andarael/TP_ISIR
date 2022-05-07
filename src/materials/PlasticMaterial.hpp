@@ -3,7 +3,7 @@
 
 #include "defines.hpp"
 
-#include "BaseMaterial.hpp"
+#include "materials/BaseMaterial.hpp"
 #include "brdfs/PhongBRDF.hpp"
 #include "brdfs/lambert_brdf.hpp"
 

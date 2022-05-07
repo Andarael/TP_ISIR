@@ -1,4 +1,4 @@
-#include "bvh.hpp"
+#include "acceleration_structures/bvh.hpp"
 #include "geometry/TriangleMeshGeometry.hpp"
 #include "utils/chrono.hpp"
 

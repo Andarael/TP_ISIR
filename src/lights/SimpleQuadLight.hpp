@@ -1,7 +1,6 @@
 #ifndef __RT_ISICG_SIMPLE_QUAD_LIGHT__
 #define __RT_ISICG_SIMPLE_QUAD_LIGHT__
 
-#include "cameras/BaseCamera.hpp"
 #include "lights/QuadLight.hpp"
 
 namespace RT_ISICG
@@ -43,6 +42,6 @@ namespace RT_ISICG
         }
     };
 
-}
+} // namespace RT_ISICG
 
 #endif

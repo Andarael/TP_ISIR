@@ -1,4 +1,4 @@
-#include "PerspectiveCamera.hpp"
+#include "cameras/PerspectiveCamera.hpp"
 
 namespace RT_ISICG
 {

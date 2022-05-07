@@ -1,6 +1,7 @@
 #ifndef __RT_ISICG_IMPLICIT_TORUS__
 #define __RT_ISICG_IMPLICIT_TORUS__
-#include "ImplicitSurface.hpp"
+
+#include "objects/implicits/ImplicitSurface.hpp"
 
 namespace RT_ISICG
 {

@@ -1,7 +1,7 @@
 #ifndef __RT_ISICG_QUAD_LIGHT__
 #define __RT_ISICG_QUAD_LIGHT__
 
-#include "BaseLight.hpp"
+#include "lights/BaseLight.hpp"
 #include "utils/random.hpp"
 
 namespace RT_ISICG

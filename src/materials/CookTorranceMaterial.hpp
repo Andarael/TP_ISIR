@@ -1,7 +1,7 @@
 #ifndef __COOK_TORRANCE_MATERIAL__
 #define __COOK_TORRANCE_MATERIAL__
 
-#include "BaseMaterial.hpp"
+#include "materials/BaseMaterial.hpp"
 #include "brdfs/CookTorranceBRDF.hpp"
 #include "brdfs/OrenNayarBRDF.hpp"
 

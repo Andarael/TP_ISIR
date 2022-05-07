@@ -1,9 +1,9 @@
 #ifndef __RT_ISICG_TRIANGLE_MESH__
 #define __RT_ISICG_TRIANGLE_MESH__
 
-#include "BaseObject.hpp"
-#include "aabb.hpp"
-#include "bvh.hpp"
+#include "objects/BaseObject.hpp"
+#include "acceleration_structures/aabb.hpp"
+#include "acceleration_structures/bvh.hpp"
 #include "geometry/TriangleMeshGeometry.hpp"
 #include <vector>
 
@@ -18,6 +18,9 @@ namespace RT_ISICG
 
         MeshTriangle(const std::string &p_name)
             : BaseObject(p_name){};
+
+        MeshTriangle(const std::string &p_name, const Vec3f &p_position)
+            : BaseObject(p_name, p_position){};
 
         ~MeshTriangle() override = default;
 
@@ -38,7 +41,9 @@ namespace RT_ISICG
 
         void addVertex(const float p_x, const float p_y, const float p_z)
         {
-            _vertices.emplace_back(p_x, p_y, p_z);
+            _vertices.emplace_back(p_x + _position.x,
+                                   p_y + _position.y,
+                                   p_z + _position.z);
             _aabb.extend(Vec3f(p_x, p_y, p_z));
         }
 
@@ -62,7 +67,6 @@ namespace RT_ISICG
 
         // Check for any intersection between p_tMin and p_tMax.
         bool intersectAny(const Ray &p_ray, float p_tMin, float p_tMax) const override;
-
 
     private:
         BVH _bvh;

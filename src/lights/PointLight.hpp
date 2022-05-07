@@ -1,7 +1,7 @@
 #ifndef __RT_ISICG_POINT_LIGHT__
 #define __RT_ISICG_POINT_LIGHT__
 
-#include "BaseLight.hpp"
+#include "lights/BaseLight.hpp"
 
 namespace RT_ISICG
 {

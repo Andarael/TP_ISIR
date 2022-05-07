@@ -179,12 +179,12 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\aabb.cpp" />
-    <ClCompile Include="src\bvh.cpp" />
+    <ClCompile Include="src\acceleration_structures\aabb.cpp" />
+    <ClCompile Include="src\acceleration_structures\bvh.cpp" />
     <ClCompile Include="src\cameras\PerspectiveCamera.cpp" />
     <ClCompile Include="src\geometry\TriangleMeshGeometry.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\objects\MeshTriangle.cpp" />
+    <ClCompile Include="src\objects\meshs\MeshTriangle.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\scene_setup.cpp" />
@@ -192,12 +192,12 @@
     <ClCompile Include="src\utils\console_progress_bar.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\aabb.hpp" />
+    <ClInclude Include="src\acceleration_structures\aabb.hpp" />
+    <ClInclude Include="src\acceleration_structures\bvh.hpp" />
     <ClInclude Include="src\brdfs\CookTorranceBRDF.hpp" />
     <ClInclude Include="src\brdfs\lambert_brdf.hpp" />
     <ClInclude Include="src\brdfs\OrenNayarBRDF.hpp" />
     <ClInclude Include="src\brdfs\PhongBRDF.hpp" />
-    <ClInclude Include="src\bvh.hpp" />
     <ClInclude Include="src\cameras\BaseCamera.hpp" />
     <ClInclude Include="src\cameras\PerspectiveCamera.hpp" />
     <ClInclude Include="src\geometry\BaseGeometry.hpp" />
@@ -230,9 +230,9 @@
     <ClInclude Include="src\objects\implicits\ImplicitSphere.hpp" />
     <ClInclude Include="src\objects\implicits\ImplicitSurface.hpp" />
     <ClInclude Include="src\objects\implicits\ImplicitTorus.hpp" />
-    <ClInclude Include="src\objects\Plane.hpp" />
-    <ClInclude Include="src\objects\Sphere.hpp" />
-    <ClInclude Include="src\objects\MeshTriangle.hpp" />
+    <ClInclude Include="src\objects\meshs\MeshTriangle.hpp" />
+    <ClInclude Include="src\objects\parametrics\Plane.hpp" />
+    <ClInclude Include="src\objects\parametrics\Sphere.hpp" />
     <ClInclude Include="src\Ray.hpp" />
     <ClInclude Include="src\Renderer.hpp" />
     <ClInclude Include="src\Scene.hpp" />

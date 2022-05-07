@@ -1,9 +1,9 @@
 #include "Renderer.hpp"
-#include "Scene.hpp"
 #include "cameras/PerspectiveCamera.hpp"
 #include "defines.hpp"
 #include "integrators/BaseIntegrator.hpp"
 
+#include "Scene.hpp"
 #include "scene_setup.hpp"
 
 namespace RT_ISICG
@@ -23,7 +23,7 @@ namespace RT_ISICG
 
         // ============================ Scene Init ============================ //
         Scene scene;
-        SceneType sceneType = SceneType::TP6_Conference; // <----- Change this to change the scene
+        SceneType sceneType = SceneType::TP6; // <----- Change this to change the scene
         RenderSettings render_settings = scene.init(sceneType);
 
         // ============================ Render parameters ============================ //
@@ -33,8 +33,8 @@ namespace RT_ISICG
 
         render_settings.sampler = Sampler::GRID_SAMPLER;
         render_settings.backgroundColor = GREY;
-        render_settings.samplesPerPixel = 4;
-        render_settings.shadowSamples = 16;
+        render_settings.samplesPerPixel = 2;
+        render_settings.shadowSamples = 2;
         render_settings.nbBounces = 5;
         render_settings.tmax = 10000;
 

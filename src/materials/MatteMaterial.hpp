@@ -1,7 +1,7 @@
 #ifndef __RT_ISICG_ORENNAYAR_MATERIAL__
 #define __RT_ISICG_ORENNAYAR_MATERIAL__
 
-#include "BaseMaterial.hpp"
+#include "materials/BaseMaterial.hpp"
 #include "brdfs/OrenNayarBRDF.hpp"
 
 namespace RT_ISICG

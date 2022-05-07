@@ -1,7 +1,7 @@
 #ifndef __RT_ISICG_LAMBERT_MATERIAL__
 #define __RT_ISICG_LAMBERT_MATERIAL__
 
-#include "BaseMaterial.hpp"
+#include "materials/BaseMaterial.hpp"
 #include "brdfs/lambert_brdf.hpp"
 
 namespace RT_ISICG

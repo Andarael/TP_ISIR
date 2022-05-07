@@ -1,5 +1,5 @@
-#include "TriangleMeshGeometry.hpp"
-#include "objects/MeshTriangle.hpp"
+#include "geometry/TriangleMeshGeometry.hpp"
+#include "objects/meshs/MeshTriangle.hpp"
 
 namespace RT_ISICG
 {
@@ -9,7 +9,6 @@ namespace RT_ISICG
         _faceNormal = glm::normalize(glm::cross(_refMesh->_vertices[p_v1] - _refMesh->_vertices[p_v0], _refMesh->_vertices[p_v2] - _refMesh->_vertices[p_v0]));
 
         _centroid = (_refMesh->_vertices[p_v0] + _refMesh->_vertices[p_v1] + _refMesh->_vertices[p_v2]) / 3.0f;
-
     }
 
     bool TriangleMeshGeometry::intersect(const Ray &p_ray, float &p_t, Vec2f &uv) const

@@ -10,7 +10,7 @@
 
 #include "materials/ColorMaterial.hpp"
 #include "materials/PlasticMaterial.hpp"
-#include "objects/MeshTriangle.hpp"
+#include "objects/meshs/MeshTriangle.hpp"
 
 namespace RT_ISICG
 {
@@ -137,15 +137,13 @@ namespace RT_ISICG
 
             const bool hasUV = mesh->HasTextureCoords(0);
 
-            MeshTriangle *triMesh = new MeshTriangle(meshName);
+            MeshTriangle *triMesh = new MeshTriangle(meshName, p_pos); // mesh position is intialized here
 
             // Vertices before faces otherwise face normals cannot be computed.
             for (unsigned int v = 0; v < mesh->mNumVertices; ++v)
             {
-                //todo: rotation, scale etc...
-                triMesh->addVertex(mesh->mVertices[v].x + p_pos.x,
-                                   mesh->mVertices[v].y + p_pos.y,
-                                   mesh->mVertices[v].z + p_pos.z);
+                // todo: rotation, scale etc...
+                triMesh->addVertex(mesh->mVertices[v].x, mesh->mVertices[v].y, mesh->mVertices[v].z);
 
                 triMesh->addNormal(mesh->mNormals[v].x, mesh->mNormals[v].y, mesh->mNormals[v].z);
 

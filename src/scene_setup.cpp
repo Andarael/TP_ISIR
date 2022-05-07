@@ -22,11 +22,11 @@
 // import objects
 #include "cameras/PerspectiveCamera.hpp"
 #include "objects/BaseObject.hpp"
-#include "objects/Plane.hpp"
-#include "objects/Sphere.hpp"
 #include "objects/implicits/ImplicitBulb.hpp"
 #include "objects/implicits/ImplicitSphere.hpp"
 #include "objects/implicits/ImplicitTorus.hpp"
+#include "objects/parametrics/Plane.hpp"
+#include "objects/parametrics/Sphere.hpp"
 
 namespace RT_ISICG
 {
@@ -125,11 +125,9 @@ namespace RT_ISICG
         scene._addObject(new ImplicitBulb("Bulb", Vec3f(0, 0, 3), 1.f));
         scene._attachMaterialToObject("PBR_Gold", "Bulb");
 
-
         scene._addObject(new ImplicitTorus("Torus", 1.5f, 0.25f, Vec3f(0, 0, 3), 1.f));
         scene._attachMaterialToObject("CyanMatte", "Torus");
         scene._attachMaterialToObject("TransparentWhite", "Torus");
-
 
         // SimpleQuadLight *simple_quad = new SimpleQuadLight(WHITE, 50, 1.5, Vec3f(1, 2, -3));
         // simple_quad->setLookAt(Vec3f(0, 0, 3));
@@ -173,26 +171,30 @@ namespace RT_ISICG
     RenderSettings setup_TP6(Scene &scene)
     {
         addMaterials(scene);
-        addCornellBox(scene, false, 20, Vec3f(0, -2, 0));
+        addCornellBox(scene, false, 20, Vec3f(0, 0, 0));
 
         // ================ Add Objects ================== //
-        // scene._attachMaterialToObject("CyanMatte", "UVsphere");
+        scene.loadFileTriangleMesh("bunny_lowpoly", DATA_PATH + "bunny_lowpoly.obj", Vec3f(3, 1.17, -2));
 
-        // scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "bunny_lowpoly.obj");
-        scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "bunny.obj");
+        scene.loadFileTriangleMesh("bunny", DATA_PATH + "bunny.obj", Vec3f(0, 1.17, 0));
 
-        // scene.loadFileTriangleMesh("uvsphere", DATA_PATH + "uvsphere.obj");
-        // scene.loadFileTriangleMesh("cube_sphere", DATA_PATH + "cube_sphere.obj");
-        // scene.loadFileTriangleMesh("bunny", DATA_PATH + "teapot.obj");
+        scene.loadFileTriangleMesh("uvsphere", DATA_PATH + "uvsphere.obj", Vec3f(-5, 1, 0));
+
+        scene.loadFileTriangleMesh("cube_sphere", DATA_PATH + "cube_sphere.obj", Vec3f(5, 0.05, 5));
+
+        scene.loadFileTriangleMesh("bunny", DATA_PATH + "teapot.obj", Vec3f(-3, 0, 6));
 
         // scene._attachMaterialToObject("CyanMatte", "Bunny_defaultobject");
 
         // ================ Add lights ================== //
-        scene._addLight(new PointLight(WHITE, Vec3f(3, 6, -6), 200));
+        // scene._addLight(new PointLight(WHITE, Vec3f(3, 6, -6), 200));
+        SimpleQuadLight *quad_light = new SimpleQuadLight(WHITE, 6, 4, Vec3f(5, 12, -5));
+        quad_light->setLookAt(VEC3F_ZERO);
+        scene._addLight(quad_light);
 
         RenderSettings settings;
         settings.integratorType = IntegratorType::WHITTED;
-        settings.camera = new PerspectiveCamera(Vec3f(0, 2, -8), Vec3f(0, 0, 3));
+        settings.camera = new PerspectiveCamera(Vec3f(0, 3, -8), Vec3f(0, 0, 3));
         return settings;
     }
 
@@ -209,10 +211,10 @@ namespace RT_ISICG
         // scene._attachMaterialToObject("MirrorLightRed", "Sphere1");
         // scene._attachMaterialToObject("TransparentWhite", "Sphere2");
 
-        scene.loadFileTriangleMesh("Bunny", DATA_PATH + "Bunny.obj", Vec3f(-2,0,3));
+        scene.loadFileTriangleMesh("Bunny", DATA_PATH + "Bunny.obj", Vec3f(-2, 0, 3));
         scene._attachMaterialToObject("MirrorLightRed", "Bunny_defaultobject");
 
-        scene.loadFileTriangleMesh("Bunny2", DATA_PATH + "Bunny.obj", Vec3f(2,0,3));
+        scene.loadFileTriangleMesh("Bunny2", DATA_PATH + "Bunny.obj", Vec3f(2, 0, 3));
         scene._attachMaterialToObject("TransparentWhite", "Bunny2_defaultobject");
 
         // ================ Add lights ================== //

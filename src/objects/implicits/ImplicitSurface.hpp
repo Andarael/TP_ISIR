@@ -1,8 +1,8 @@
 #ifndef __RT_ISICG_IMPLICIT_SURFACE__
 #define __RT_ISICG_IMPLICIT_SURFACE__
 
-#include "../BaseObject.hpp"
-#include "aabb.hpp"
+#include "objects/BaseObject.hpp"
+#include "acceleration_structures/aabb.hpp"
 
 // todo menger sponge
 // todo torus
@@ -24,7 +24,7 @@ namespace RT_ISICG
             : BaseObject(p_name){};
 
         ImplicitSurface(const std::string &p_name, const Vec3f &p_position, const float p_scale = 1.f)
-            : BaseObject(p_name), _scale(p_scale), _position(p_position){};
+            : BaseObject(p_name, p_position), _scale(p_scale){};
 
         // Check for nearest intersection between p_tMin and p_tMax : if found fill p_hitRecord.
         bool intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const override
@@ -125,7 +125,6 @@ namespace RT_ISICG
 
     protected:
         float _scale = 1.f;
-        Vec3f _position = VEC3F_ZERO;
         AABB _aabb;
     };
 

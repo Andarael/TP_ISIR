@@ -1,4 +1,4 @@
-#include "MeshTriangle.hpp"
+#include "objects/meshs/MeshTriangle.hpp"
 
 namespace RT_ISICG
 {

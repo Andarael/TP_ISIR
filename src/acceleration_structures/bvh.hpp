@@ -2,7 +2,7 @@
 #define __RT_ISICG_BVH__
 
 #include "HitRecord.hpp"
-#include "aabb.hpp"
+#include "acceleration_structures/aabb.hpp"
 #include <vector>
 
 namespace RT_ISICG

@@ -1,7 +1,7 @@
 #ifndef __RT_ISICG_IMPLICIT_BULB__
 #define __RT_ISICG_IMPLICIT_BULB__
 
-#include "ImplicitSurface.hpp"
+#include "objects/implicits/ImplicitSurface.hpp"
 
 namespace RT_ISICG
 {
@@ -44,7 +44,7 @@ namespace RT_ISICG
                 float r = glm::length(w);
                 float theta = 8.f * glm::acos(w.y / r);
                 float phi = 8.f * glm::atan(w.x, w.z);
-                float temp = glm::pow(r, 8.f); // r * r * r * r * r * r * r * r; // 
+                float temp = glm::pow(r, 8.f); // r * r * r * r * r * r * r * r; //
                 w = p_point + temp * Vec3f(glm::sin(theta) * glm::sin(phi), glm::cos(theta), sin(theta) * glm::cos(phi));
 
                 trap = glm::min(trap, Vec4f(glm::abs(w), m));

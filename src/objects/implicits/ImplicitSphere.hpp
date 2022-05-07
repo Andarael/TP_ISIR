@@ -1,7 +1,7 @@
 #ifndef __RT_ISICG_IMPLICIT_SPHERE__
 #define __RT_ISICG_IMPLICIT_SPHERE__
 
-#include "ImplicitSurface.hpp"
+#include "objects/implicits/ImplicitSurface.hpp"
 
 namespace RT_ISICG
 {
