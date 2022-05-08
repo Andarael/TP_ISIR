@@ -228,6 +228,9 @@
     <ClInclude Include="src\acceleration_structures\bvh.hpp">
       <Filter>Source Files\acceleration_structures</Filter>
     </ClInclude>
+    <ClInclude Include="src\objects\implicits\ImplicitJulia.hpp">
+      <Filter>Source Files\objects\implicits</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />

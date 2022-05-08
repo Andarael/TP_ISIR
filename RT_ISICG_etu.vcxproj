@@ -227,6 +227,7 @@
     <ClInclude Include="src\materials\TransparentMaterial.hpp" />
     <ClInclude Include="src\objects\BaseObject.hpp" />
     <ClInclude Include="src\objects\implicits\ImplicitBulb.hpp" />
+    <ClInclude Include="src\objects\implicits\ImplicitJulia.hpp" />
     <ClInclude Include="src\objects\implicits\ImplicitSphere.hpp" />
     <ClInclude Include="src\objects\implicits\ImplicitSurface.hpp" />
     <ClInclude Include="src\objects\implicits\ImplicitTorus.hpp" />
