@@ -21,7 +21,7 @@ namespace RT_ISICG
         }
 
     private:
-        int _steps = 75;
+        int _steps = 100;
         const Vec4f kC = Vec4f(-2, 6, 15, -6) / 22.f;
         bool cut = true;
         bool orbitalTraps = true;

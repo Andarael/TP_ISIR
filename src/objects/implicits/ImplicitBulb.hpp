@@ -52,6 +52,8 @@ namespace RT_ISICG
                 m = glm::dot(w, w);
             }
 
+            // sdf(z) = log|z|*|z|/|dz| : https://iquilezles.org/articles/distancefractals
+
             float value = 0.25f * glm::log(m) * glm::sqrt(m) / dz;
 
             return glm::min(value, 4.f); // this is to avoid numerical errors when camera is far away
