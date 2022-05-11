@@ -100,7 +100,7 @@ namespace RT_ISICG
 
     Vec3f Renderer::colorTransform(Vec3f &color)
     {
-        float gamma = 1.0f;
+        float gamma = 1.f;
 
         color = tonemapping(color);
 
@@ -115,11 +115,10 @@ namespace RT_ISICG
     Vec3f Renderer::tonemapping(Vec3f &color)
     {
         // filmic curve (http://filmicworlds.com/blog/filmic-tonemapping-with-piecewise-power-curves/)
-        // gamma is already 2.2 by default, this is to avoid a pow
         float a = 2.5f;
         float b = 0.03f;
-        float c = 2.3f;
-        float d = 0.55f;
+        float c = 2.2f;
+        float d = 0.6f;
         float e = 0.15f;
         color *= (a * color + b) / (color * (c * color + d) + e);
         return color;
