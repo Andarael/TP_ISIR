@@ -180,12 +180,14 @@ namespace RT_ISICG
         addMaterials(scene);
         addCornellBox(scene, false, 20, Vec3f(0, 0, 0));
 
+        // scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "/CornellBox/CornellBox-Water.obj", VEC3F_ZERO, 10);
+
         // ================ Add Objects ================== //
         scene.loadFileTriangleMesh("bunny_lowpoly", DATA_PATH + "bunny_lowpoly.obj",
                                    Vec3f(3, 1.25, -2), 1);
 
         scene.loadFileTriangleMesh("bunny", DATA_PATH + "bunny.obj",
-                                   Vec3f(0, 1.25, 0), 1.5f, -60);
+                                   Vec3f(0, 1.25, 0), 1.0f, 180-45);
 
         scene.loadFileTriangleMesh("uvsphere", DATA_PATH + "uvsphere.obj",
                                    Vec3f(-5, 1, 0), 1);
@@ -193,7 +195,7 @@ namespace RT_ISICG
         scene.loadFileTriangleMesh("cube_sphere", DATA_PATH + "cube_sphere.obj", Vec3f(5, 0.05, 5));
 
         scene.loadFileTriangleMesh("teapot", DATA_PATH + "teapot.obj",
-                                   Vec3f(-3, 0, 6));
+                                   Vec3f(-4, 0, 6));
 
         // scene._attachMaterialToObject("CyanMatte", "Bunny_defaultobject");
 
