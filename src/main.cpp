@@ -33,8 +33,9 @@ namespace RT_ISICG
 
         render_settings.sampler = Sampler::GRID_SAMPLER;
         render_settings.backgroundColor = GREY;
-        render_settings.samplesPerPixel = 4;
-        render_settings.shadowSamples = 4;
+        render_settings.samplesPerPixel = 2;
+        render_settings.shadowSamples = 2
+            ;
         render_settings.nbBounces = 5;
         render_settings.tmax = 10000;
 
