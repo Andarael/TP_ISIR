@@ -1,9 +1,12 @@
+
+
 #ifndef __RT_ISICG_IMAGE__
 #define __RT_ISICG_IMAGE__
 
 #include "defines.hpp"
 #include <string>
 #include <vector>
+#include <stb/stb_image.h>
 
 namespace RT_ISICG
 {
@@ -15,53 +18,68 @@ namespace RT_ISICG
         Texture(const int p_width, const int p_height, const int _nbChannels = 3)
             : _nbChannels(_nbChannels),
               _width(p_width), _height(p_height),
-              _pixels(_width * _height * _nbChannels, 0),
+              // _pixels(_width * _height * _nbChannels, 0),
               _pixelsFloat(_width * _height * _nbChannels, 0.f)
         {
-            _pixels.shrink_to_fit();
+            // _pixels.shrink_to_fit();
             _pixelsFloat.shrink_to_fit();
+        }
+
+        Texture(const std::string &p_path)
+        {
+            stbi_uc *data = nullptr;
+            data = stbi_load(p_path.c_str(), &_width, &_height, &_nbChannels, 0);
+            if (data)
+            {
+                for (int i = 0; i < _width * _height * _nbChannels; i++)
+                {
+                    // _pixels[i] = data[i];
+                    _pixelsFloat[i] = float(data[i]) / 255.f;
+                }
+                stbi_image_free(data);
+            }
+            else
+            {
+                std::cout << "Failed to load texture" << std::endl;
+            }
+        }
+
+        Vec3f getPixel(const int p_i, const int p_j) const
+        {
+            assert(_nbChannels == 3);
+            Vec3f pixel;
+            int position = (p_i * _width + p_j) * _nbChannels;
+            pixel.r = _pixelsFloat[position + 0];
+            pixel.g = _pixelsFloat[position + 1];
+            pixel.b = _pixelsFloat[position + 2];
+            return pixel;
+        }
+
+        Vec3f &getPixel(const float p_x, const int p_y) const
+        {
         }
 
         int getWidth() const { return _width; }
 
         int getHeight() const { return _height; }
 
-        std::vector<unsigned char> &getPixels() { return _pixels; }
+        // std::vector<unsigned char> &getPixels() { return _pixels; }
 
-        const std::vector<unsigned char> &getPixels() const { return _pixels; }
+        // const std::vector<unsigned char> &getPixels() const { return _pixels; }
 
-        void setPixel(const int p_i, const int p_j, const Vec3f &p_color)
-        {
-            assert(_nbChannels == 3);
-            const int pixelId = (p_i + p_j * _width) * _nbChannels;
-            _pixels[pixelId] = static_cast<unsigned char>(p_color.r * 255);
-            _pixels[pixelId + 1] = static_cast<unsigned char>(p_color.g * 255);
-            _pixels[pixelId + 2] = static_cast<unsigned char>(p_color.b * 255);
+        void setPixel(const int p_i, const int p_j, const Vec3f &p_color);
 
-            _pixelsFloat[pixelId] = p_color.r;
-            _pixelsFloat[pixelId + 1] = p_color.g;
-            _pixelsFloat[pixelId + 2] = p_color.b;
-        }
-
-        void setPixel(const int p_i, const int p_j, const Vec4f &p_color)
-        {
-            assert(_nbChannels == 4);
-            const int pixelId = (p_i + p_j * _width) * _nbChannels;
-            _pixels[pixelId] = static_cast<unsigned char>(p_color.r * 255);
-            _pixels[pixelId + 1] = static_cast<unsigned char>(p_color.g * 255);
-            _pixels[pixelId + 2] = static_cast<unsigned char>(p_color.b * 255);
-            _pixels[pixelId + 3] = static_cast<unsigned char>(p_color.b * 255);
-        }
+        void setPixel(const int p_i, const int p_j, const Vec4f &p_color);
 
         void saveJPG(const std::string &p_path, int p_quality = 100) const;
 
         void saveHDR(const std::string &p_path) const;
 
     private:
-        const int _nbChannels = 3;
+        int _nbChannels = 3;
         int _width;
         int _height;
-        std::vector<unsigned char> _pixels;
+        // std::vector<unsigned char> _pixels;
         std::vector<float> _pixelsFloat;
     };
 } // namespace RT_ISICG
