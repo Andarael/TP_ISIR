@@ -29,9 +29,9 @@ namespace RT_ISICG
         ~Scene();
 
         // Hard coded initialization.
-        RenderSettings init();
+        BaseCamera &init();
 
-        RenderSettings init(const SceneType &p_type);
+        BaseCamera &init(const SceneType &p_type);
 
         // Initialization from file. todo
         static RenderSettings init(const std::string &p_path)

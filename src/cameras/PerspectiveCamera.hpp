@@ -10,7 +10,7 @@ namespace RT_ISICG
 
         // todo the view is not zoomed enough compared to the TP
     public:
-        PerspectiveCamera(float p_aspectRatio);
+        PerspectiveCamera(float p_aspectRatio = 1);
 
         PerspectiveCamera(const Vec3f &p_position, const Vec3f &p_lookAt, const Vec3f &p_up, float p_fovy = 60.f, float p_aspectRatio = 1.f);
 

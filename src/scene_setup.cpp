@@ -92,7 +92,7 @@ namespace RT_ISICG
         }
     }
 
-    RenderSettings setup_TP1(Scene &scene)
+    BaseCamera &setup_TP1(Scene &scene)
     {
         scene._addObject(new Sphere("Sphere1", Vec3f(0, 0, 3), 1.f));
         scene._addMaterial(new ColorMaterial("Blue", BLUE));
@@ -102,14 +102,12 @@ namespace RT_ISICG
         scene._addMaterial(new ColorMaterial("Red", RED));
         scene._attachMaterialToObject("Red", "Plane1");
 
-        // RENDER SETTINGS
-        RenderSettings settings;
-        settings.camera = new PerspectiveCamera(Vec3f(0, 0, 0), Vec3f(0, 0, 3));
-        settings.integratorType = IntegratorType::RAY_CAST;
-        return settings;
+        // ================ Camera ================ //
+        BaseCamera *camera = new PerspectiveCamera();
+        return *camera;
     }
 
-    RenderSettings setup_TP7(Scene &scene)
+    BaseCamera &setup_TP7(Scene &scene)
     {
         addMaterials(scene);
         // addCornellBox(scene, false, 32);
@@ -125,7 +123,7 @@ namespace RT_ISICG
 
         // scene._addObject(new ImplicitBulb("Bulb", Vec3f(0, 0, 3), 1.f));
         // scene._attachMaterialToObject("PBR_Gold", "Bulb");
-        
+
         scene._addObject(new ImplicitJulia("Julia", Vec3f(0, 0, 0), 3.f));
         scene._attachMaterialToObject("PBR_Gold", "Julia");
 
@@ -146,12 +144,12 @@ namespace RT_ISICG
         quad_light->setLookAt(VEC3F_ZERO);
         scene._addLight(quad_light);
 
-        RenderSettings settings;
-        settings.camera = new PerspectiveCamera(Vec3f(0, 5, 5), Vec3f(0, 0, 0), 40);
-        return settings;
+        // ================ Camera ================ //
+        BaseCamera *camera = new PerspectiveCamera(Vec3f(0, 5, 5), Vec3f(0, 0, 0), 40);
+        return *camera;
     }
 
-    RenderSettings setup_TP6_Conference(Scene &scene)
+    BaseCamera &setup_TP6_Conference(Scene &scene)
     {
         // * ================ Conference ==================
         scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "/conference/conference.obj");
@@ -169,13 +167,12 @@ namespace RT_ISICG
         // scene._addLight(simpleQuadLight);
         // scene._addLight(new PointLight(WHITE, pos, 6000000));
 
-        RenderSettings settings;
-        settings.integratorType = IntegratorType::WHITTED;
-        settings.camera = new PerspectiveCamera(Vec3f(-250, 500, 330), Vec3f(0, 350, 100));
-        return settings;
+        // ================ Camera ================ //
+        BaseCamera *camera = new PerspectiveCamera(Vec3f(-250, 500, 330), Vec3f(0, 350, 100));
+        return *camera;
     }
 
-    RenderSettings setup_TP6(Scene &scene)
+    BaseCamera &setup_TP6(Scene &scene)
     {
         addMaterials(scene);
         addCornellBox(scene, false, 20, Vec3f(0, 0, 0));
@@ -187,7 +184,7 @@ namespace RT_ISICG
                                    Vec3f(3, 1.25, -2), 1);
 
         scene.loadFileTriangleMesh("bunny", DATA_PATH + "bunny.obj",
-                                   Vec3f(0, 1.25, 0), 1.0f, 180-45);
+                                   Vec3f(0, 1.25, 0), 1.0f, 180 - 45);
 
         scene.loadFileTriangleMesh("uvsphere", DATA_PATH + "uvsphere.obj",
                                    Vec3f(-5, 1, 0), 1);
@@ -205,30 +202,32 @@ namespace RT_ISICG
         quad_light->setLookAt(VEC3F_ZERO);
         scene._addLight(quad_light);
 
-        RenderSettings settings;
-        settings.integratorType = IntegratorType::WHITTED;
-        settings.camera = new PerspectiveCamera(Vec3f(0, 3, -8), Vec3f(0, 0, 3));
-        return settings;
+        // ================ Camera ================ //
+        BaseCamera *camera = new PerspectiveCamera(Vec3f(0, 3, -8), Vec3f(0, 0, 3));
+        return *camera;
     }
 
-    RenderSettings setup_TP5(Scene &scene)
+    BaseCamera &setup_TP5(Scene &scene)
     {
         // ================ Add Base scene ================== //
         bool useQuadLight = true;
         addMaterials(scene);
-        addCornellBox(scene, true, 15, Vec3f(0, -3, 0));
+        bool full_mirror = false;
+        int scale = 10;
+
+        addCornellBox(scene, full_mirror, scale, Vec3f(0, -3, 0));
 
         // ================ Add Objects ================== //
-        // scene._addObject(new Sphere("Sphere1", Vec3f(-2, 0, 3), 1.5f));
-        // scene._addObject(new Sphere("Sphere2", Vec3f(2, 0, 3), 1.5f));
-        // scene._attachMaterialToObject("MirrorLightRed", "Sphere1");
-        // scene._attachMaterialToObject("TransparentWhite", "Sphere2");
+        scene._addObject(new Sphere("Sphere1", Vec3f(-2, 0, 3), 1.5f));
+        scene._addObject(new Sphere("Sphere2", Vec3f(2, 0, 3), 1.5f));
+        scene._attachMaterialToObject("MirrorLightRed", "Sphere1");
+        scene._attachMaterialToObject("TransparentWhite", "Sphere2");
 
-        scene.loadFileTriangleMesh("Bunny", DATA_PATH + "Bunny.obj", Vec3f(-2, 0, 3));
-        scene._attachMaterialToObject("MirrorLightRed", "Bunny_defaultobject");
+        // scene.loadFileTriangleMesh("Bunny", DATA_PATH + "Bunny.obj", Vec3f(-2, 0, 3));
+        // scene._attachMaterialToObject("MirrorLightRed", "Bunny_defaultobject");
 
-        scene.loadFileTriangleMesh("Bunny2", DATA_PATH + "Bunny.obj", Vec3f(2, 0, 3));
-        scene._attachMaterialToObject("TransparentWhite", "Bunny2_defaultobject");
+        // scene.loadFileTriangleMesh("Bunny2", DATA_PATH + "Bunny.obj", Vec3f(2, 0, 3));
+        // scene._attachMaterialToObject("TransparentWhite", "Bunny2_defaultobject");
 
         // ================ Add lights ================== //
         Vec3f lightPosition = Vec3f(0, 5, 0);
@@ -237,14 +236,12 @@ namespace RT_ISICG
         PointLight *point_light = new PointLight(WHITE, lightPosition, 200.f);
         useQuadLight ? scene._addLight(quadLight) : scene._addLight(point_light);
 
-        // ================ RENDER SETTINGS ================ //
-        RenderSettings settings;
-        settings.integratorType = IntegratorType::WHITTED;
-        settings.camera = new PerspectiveCamera(Vec3f(0, 2, -8), Vec3f(0, 2, 0));
-        return settings;
+        // ================ Camera ================ //
+        BaseCamera *camera = new PerspectiveCamera(Vec3f(0, 2, -8), Vec3f(0, 2, 0));
+        return *camera;
     }
 
-    RenderSettings setup_TP4(Scene &scene)
+    BaseCamera &setup_TP4(Scene &scene)
     {
         bool useQuadlight = false;
 
@@ -273,14 +270,12 @@ namespace RT_ISICG
         scene._attachMaterialToObject("PBR_Gold", "Sphere1");
         scene._attachMaterialToObject("Red", "Plane1");
 
-        // ================ RENDER SETTINGS ================ //
-        RenderSettings settings;
-        settings.integratorType = IntegratorType::DIRECT_LIGHT;
-        settings.camera = new PerspectiveCamera(Vec3f(0, 0, 0), Vec3f(0, 0, 3));
-        return settings;
+        // ================ Camera ================ //
+        BaseCamera *camera = new PerspectiveCamera(Vec3f(0, 0, 0), Vec3f(0, 0, 3));
+        return *camera;
     }
 
-    RenderSettings setup_TP3(Scene &scene)
+    BaseCamera &setup_TP3(Scene &scene)
     {
         // ================ Add lights ================== //
         Vec3f position = Vec3f(1, 10, 1);
@@ -304,15 +299,12 @@ namespace RT_ISICG
         scene._attachMaterialToObject("Blue", "Sphere1");
         scene._attachMaterialToObject("Red", "Plane1");
 
-        // ================ RENDER SETTINGS ================ //
-
-        RenderSettings settings;
-        settings.integratorType = IntegratorType::DIRECT_LIGHT;
-        settings.camera = new PerspectiveCamera(Vec3f(0, 0, -2), Vec3f(0, 0, 3));
-        return settings;
+        // ================ Camera ================ //
+        BaseCamera *camera = new PerspectiveCamera(Vec3f(0, 0, -2), Vec3f(0, 0, 3));
+        return *camera;
     }
 
-    RenderSettings setup_scene(Scene &scene, const SceneType scene_type)
+    BaseCamera &setup_scene(Scene &scene, const SceneType scene_type)
     {
         addMaterials(scene); // always add materials before objects
         switch (scene_type)
@@ -348,8 +340,7 @@ namespace RT_ISICG
             break;
         }
 
-        RenderSettings settings;
-        settings.camera = new PerspectiveCamera(Vec3f(0, 0, 0), Vec3f(0, 0, 3));
-        return settings;
+        BaseCamera *camera = new PerspectiveCamera(Vec3f(0, 0, 0), Vec3f(0, 0, 3));
+        return *camera;
     }
 } // namespace RT_ISICG

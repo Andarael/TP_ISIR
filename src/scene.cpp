@@ -28,9 +28,9 @@ namespace RT_ISICG
             delete light;
     }
 
-    RenderSettings Scene::init() { return Scene::init(SceneType::TP1); }
+    BaseCamera &Scene::init() { return Scene::init(SceneType::TP1); }
 
-    RenderSettings Scene::init(const SceneType &p_type) { return setup_scene(*this, p_type); }
+    BaseCamera &Scene::init(const SceneType &p_type) { return setup_scene(*this, p_type); }
 
     bool Scene::intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const
     {
@@ -169,6 +169,7 @@ namespace RT_ISICG
             {
                 Vec3f kd = WHITE;
                 Vec3f ks = BLACK;
+                Vec3f tf = BLACK;
                 float s = 0.f;
 
                 aiColor3D aiKd;
@@ -182,6 +183,10 @@ namespace RT_ISICG
                 float aiS = 0.f;
                 if (mtl->Get(AI_MATKEY_SHININESS, aiS) == AI_SUCCESS)
                     s = aiS;
+
+                aiColor3D aiTf;
+                if (mtl->Get(AI_MATKEY_OPACITY, tf) == AI_SUCCESS)
+                    tf = Vec3f(aiTf.r, aiTf.g, aiTf.b);
 
                 aiString mtlName;
                 mtl->Get(AI_MATKEY_NAME, mtlName);

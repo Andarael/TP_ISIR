@@ -9,16 +9,25 @@
 namespace RT_ISICG
 {
     // Render Settings
-    void useSettings(RenderSettings &render_settings) {
-        render_settings.sampler = Sampler::GRID_SAMPLER;
+    RenderSettings getSettings()
+    {
+        RenderSettings render_settings;
+
         render_settings.backgroundColor = GREY;
+        render_settings.integratorType = IntegratorType::WHITTED;
+        render_settings.sampler = Sampler::GRID_SAMPLER;
+
         render_settings.samplesPerPixel = 2;
         render_settings.shadowSamples = 2;
+
         render_settings.maxBouncesTransmission = 5;
         render_settings.maxBouncesTotal = 5;
         render_settings.maxBounceReflection = 5;
         render_settings.maxBouncesDiffuse = 5;
+
         render_settings.tmax = 10000;
+
+        return render_settings;
     }
 
     int main(int argc, char **argv)
@@ -37,29 +46,23 @@ namespace RT_ISICG
         // ============================ Scene Init ============================ //
         Scene scene;
         SceneType sceneType = SceneType::TP5; // <----- Change this to change the scene
-        RenderSettings render_settings = scene.init(sceneType);
+        BaseCamera *camera = &scene.init(sceneType);
+
+        if (camera == nullptr)
+            camera = new PerspectiveCamera(aspectRatio);
+        camera->setAspectRatio(aspectRatio);
+        camera->displayCamera();
 
         // ============================ Render parameters ============================ //
         Renderer renderer;
-        if (overrideIntegrator)
-            render_settings.integratorType = IntegratorType::WHITTED;
-
-        useSettings(render_settings);
-
-        if (render_settings.camera == nullptr) // scene contain camera, not rendersettings
-            render_settings.camera = new PerspectiveCamera(aspectRatio);
-
-        render_settings.camera->setAspectRatio(aspectRatio);
-        render_settings.camera->displayCamera();
-
+        RenderSettings render_settings = getSettings();
         renderer.setSettings(render_settings);
 
         // ============================ Rendering the image ============================ //
         std::cout << "Rendering..." << std::endl;
+
         std::cout << "- Image size: " << imgWidth << "x" << imgHeight << std::endl;
-
-        float renderingTime = renderer.renderImage(scene, render_settings.camera, img);
-
+        float renderingTime = renderer.renderImage(scene, camera, img);
         std::cout << "-> Done in " << renderingTime << "ms" << std::endl;
 
         // ============================ Saving the image(s) ============================ //

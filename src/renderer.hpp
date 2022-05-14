@@ -24,16 +24,19 @@ namespace RT_ISICG
     // define rendersettings structure
     struct RenderSettings
     {
-        BaseCamera *camera = nullptr;
+        Vec3f backgroundColor = GREY;
+
         IntegratorType integratorType = IntegratorType::RAY_CAST;
         Sampler sampler = Sampler::RANDOM_SAMPLER;
-        Vec3f backgroundColor = GREY;
+
         int samplesPerPixel = 2;
         int shadowSamples = 1;
+
         int maxBouncesTotal = 5;
         int maxBouncesDiffuse = 5;
         int maxBouncesTransmission = 5;
         int maxBounceReflection = 5;
+
         float tmax = TMAX;
     };
 
