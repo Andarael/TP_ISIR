@@ -231,6 +231,9 @@
     <ClInclude Include="src\objects\implicits\ImplicitJulia.hpp">
       <Filter>Source Files\objects\implicits</Filter>
     </ClInclude>
+    <ClInclude Include="src\integrators\PathIntegrator.hpp">
+      <Filter>Source Files\integrators</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />
