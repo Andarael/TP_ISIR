@@ -3,7 +3,6 @@
 
 #include "BaseIntegrator.hpp"
 
-
 namespace RT_ISICG
 {
     class RayCastIntegrator : public BaseIntegrator
@@ -12,10 +11,10 @@ namespace RT_ISICG
         IntegratorType getType() const override { return IntegratorType::RAY_CAST; }
 
         // Return incoming luminance.
-        Vec3f Li(const Scene &p_scene, const Ray &p_ray, const float p_tMin, const float p_tMax) const override
+        Vec3f Li(const Scene &p_scene, const Ray &p_ray) const override
         {
             HitRecord hitRecord;
-            if (p_scene.intersect(p_ray, p_tMin, p_tMax, hitRecord))
+            if (p_scene.intersect(p_ray, p_ray.getTmin(), p_ray.getTmax(), hitRecord))
             {
                 Vec3f color = hitRecord._object->getMaterial()->getFlatColor();
                 Vec3f direction = glm::normalize(p_ray.getDirection());

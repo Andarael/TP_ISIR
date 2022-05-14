@@ -30,7 +30,10 @@ namespace RT_ISICG
         Vec3f backgroundColor = GREY;
         int samplesPerPixel = 2;
         int shadowSamples = 1;
-        int nbBounces = 5;
+        int maxBouncesTotal = 5;
+        int maxBouncesDiffuse = 5;
+        int maxBouncesTransmission = 5;
+        int maxBounceReflection = 5;
         float tmax = TMAX;
     };
 

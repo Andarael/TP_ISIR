@@ -8,6 +8,7 @@
 // integrators
 #include "integrators/DebugIntegrator.hpp"
 #include "integrators/DirectLightingIntegrator.hpp"
+#include "integrators/PathIntegrator.hpp"
 #include "integrators/RayCastIntegrator.hpp"
 #include "integrators/WhittedIntegrator.hpp"
 
@@ -28,6 +29,11 @@ namespace RT_ISICG
 
         switch (p_integratorType)
         {
+        case IntegratorType::DEBUG:
+        {
+            _integrator = new DebugIntegrator();
+            break;
+        }
         case IntegratorType::RAY_CAST:
         {
             _integrator = new RayCastIntegrator();
@@ -38,14 +44,18 @@ namespace RT_ISICG
             _integrator = new DirectLightingIntegrator(_settings.shadowSamples);
             break;
         }
-        case IntegratorType::DEBUG:
-        {
-            _integrator = new DebugIntegrator();
-            break;
-        }
         case IntegratorType::WHITTED:
         {
-            _integrator = new WhittedIntegrator(_settings.shadowSamples, _settings.nbBounces);
+            _integrator = new WhittedIntegrator(_settings.shadowSamples,
+                                                _settings.maxBouncesTransmission,
+                                                _settings.maxBounceReflection);
+            break;
+        }
+        case IntegratorType::PATH:
+        {
+            _integrator = new PathIntegrator(_settings.shadowSamples,
+                                             _settings.maxBouncesTransmission,
+                                             _settings.maxBouncesDiffuse);
             break;
         }
         default:;
@@ -101,14 +111,10 @@ namespace RT_ISICG
     Vec3f Renderer::colorTransform(Vec3f &color)
     {
         float gamma = 1.f;
-
         color = tonemapping(color);
-
         color = glm::pow(color, Vec3f(gamma));
-
         // todo no clamp in hdr
         color = glm::clamp(color, 0.0f, 1.0f);
-
         return color;
     }
 
@@ -140,7 +146,9 @@ namespace RT_ISICG
             for (int sample = 0; sample < samplesPerPixel; sample++)
             {
                 Ray ray = p_camera->generateRay(sx + offsetX, sy + offsetY);
-                color += _integrator->Li(p_scene, ray, 0, _settings.tmax);
+                ray._lightPath.tmin = 0;
+                ray._lightPath.tmax = _settings.tmax;
+                color += _integrator->Li(p_scene, ray);
 
                 Vec2f randomOffset = randomVec2f();
                 offsetY = pixelSizeY * randomOffset.x;
@@ -163,7 +171,9 @@ namespace RT_ISICG
                     offsetX = pixelSizeX * subsampleX * randomOffset.y * 2.f;
 
                     Ray ray = p_camera->generateRay(sx + offsetX, sy + offsetY);
-                    color += _integrator->Li(p_scene, ray, 0, _settings.tmax);
+                    ray._lightPath.tmin = 0;
+                    ray._lightPath.tmax = _settings.tmax;
+                    color += _integrator->Li(p_scene, ray);
                 }
             }
             color /= samplesPerPixel * samplesPerPixel;

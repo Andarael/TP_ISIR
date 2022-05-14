@@ -8,6 +8,19 @@
 
 namespace RT_ISICG
 {
+    // Render Settings
+    void useSettings(RenderSettings &render_settings) {
+        render_settings.sampler = Sampler::GRID_SAMPLER;
+        render_settings.backgroundColor = GREY;
+        render_settings.samplesPerPixel = 2;
+        render_settings.shadowSamples = 2;
+        render_settings.maxBouncesTransmission = 5;
+        render_settings.maxBouncesTotal = 5;
+        render_settings.maxBounceReflection = 5;
+        render_settings.maxBouncesDiffuse = 5;
+        render_settings.tmax = 10000;
+    }
+
     int main(int argc, char **argv)
     {
         // todo use argc and argv to load file
@@ -23,7 +36,7 @@ namespace RT_ISICG
 
         // ============================ Scene Init ============================ //
         Scene scene;
-        SceneType sceneType = SceneType::TP6; // <----- Change this to change the scene
+        SceneType sceneType = SceneType::TP5; // <----- Change this to change the scene
         RenderSettings render_settings = scene.init(sceneType);
 
         // ============================ Render parameters ============================ //
@@ -31,15 +44,9 @@ namespace RT_ISICG
         if (overrideIntegrator)
             render_settings.integratorType = IntegratorType::WHITTED;
 
-        render_settings.sampler = Sampler::GRID_SAMPLER;
-        render_settings.backgroundColor = GREY;
-        render_settings.samplesPerPixel = 2;
-        render_settings.shadowSamples = 2
-            ;
-        render_settings.nbBounces = 5;
-        render_settings.tmax = 10000;
+        useSettings(render_settings);
 
-        if (render_settings.camera == nullptr)
+        if (render_settings.camera == nullptr) // scene contain camera, not rendersettings
             render_settings.camera = new PerspectiveCamera(aspectRatio);
 
         render_settings.camera->setAspectRatio(aspectRatio);

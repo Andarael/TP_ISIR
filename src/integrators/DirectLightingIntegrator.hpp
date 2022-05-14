@@ -1,7 +1,7 @@
 #ifndef __RT_ISICG_DIRECT_LIGHT_INTEGRATOR__
 #define __RT_ISICG_DIRECT_LIGHT_INTEGRATOR__
 
-#include "BaseIntegrator.hpp"
+#include "integrators/BaseIntegrator.hpp"
 
 namespace RT_ISICG
 {
@@ -13,10 +13,10 @@ namespace RT_ISICG
 
         IntegratorType getType() const override { return IntegratorType::DIRECT_LIGHT; }
 
-        Vec3f Li(const Scene &p_scene, const Ray &p_ray, const float p_tMin, const float p_tMax) const override
+        Vec3f Li(const Scene &p_scene, const Ray &p_ray) const override
         {
             HitRecord hitRecord;
-            if (p_scene.intersect(p_ray, p_tMin, p_tMax, hitRecord))
+            if (p_scene.intersect(p_ray, p_ray.getTmin(), p_ray.getTmax(), hitRecord))
                 return directLighting(p_scene, p_ray, hitRecord);
             return _backgroundColor;
         }
@@ -49,7 +49,7 @@ namespace RT_ISICG
         static bool _isShadow(const Scene &p_scene, const LightSample &lightSample, const Vec3f &point, const Vec3f &p_normal)
         {
             Vec3f direction = lightSample._direction;
-            Ray ray = Ray(point, direction);
+            Ray ray = Ray(point, direction, RayType::shadow);
             ray.offset(p_normal);
 
             return p_scene.intersectAny(ray, SHADOW_EPSILON, lightSample._distance - SHADOW_EPSILON);
@@ -66,6 +66,6 @@ namespace RT_ISICG
 
         int _nbShadowSamples;
     };
-}
+} // namespace RT_ISICG
 
 #endif // __RT_ISICG_DIRECT_LIGHT_INTEGRATOR__

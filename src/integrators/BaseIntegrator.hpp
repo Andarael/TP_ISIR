@@ -13,6 +13,7 @@ namespace RT_ISICG
         RAY_CAST = 1,
         DIRECT_LIGHT = 2,
         WHITTED = 3,
+        PATH = 4,
         COUNT // keep it last
     };
 
@@ -26,7 +27,7 @@ namespace RT_ISICG
         virtual ~BaseIntegrator() = default;
 
         // Return incoming luminance.
-        virtual Vec3f Li(const Scene &p_scene, const Ray &p_ray, float p_tMin, float p_tMax) const = 0;
+        virtual Vec3f Li(const Scene &p_scene, const Ray &p_ray) const = 0;
 
         const Vec3f &getBackgroundColor() const { return _backgroundColor; }
 

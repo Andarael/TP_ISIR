@@ -20,7 +20,7 @@ namespace RT_ISICG
         }
 
         // Return incoming luminance.
-        Vec3f Li(const Scene &p_scene, const Ray &p_ray, const float p_tMin, const float p_tMax) const override
+        Vec3f Li(const Scene &p_scene, const Ray &p_ray) const override
         {
             Vec3f output = _backgroundColor;
 
@@ -32,7 +32,7 @@ namespace RT_ISICG
             Vec3f cosTheta = VEC3F_ZERO;
 
             HitRecord hitRecord;
-            if (p_scene.intersect(p_ray, p_tMin, p_tMax, hitRecord))
+            if (p_scene.intersect(p_ray, p_ray.getTmin(), p_ray.getTmax(), hitRecord))
             {
                 trueNormal = hitRecord._trueNormal;
                 normal = hitRecord._normal;

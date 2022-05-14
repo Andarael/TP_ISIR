@@ -25,7 +25,7 @@ namespace RT_ISICG
 
             Vec3f direction = normalize(posOnScreen - origin);
 
-            return Ray(origin, direction);
+            return Ray(origin, direction, RayType::camera);
         }
 
         void setAspectRatio(const float aspect_ratio) override
