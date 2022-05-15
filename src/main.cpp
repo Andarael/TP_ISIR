@@ -14,16 +14,16 @@ namespace RT_ISICG
         RenderSettings render_settings;
 
         render_settings.backgroundColor = GREY;
-        render_settings.integratorType = IntegratorType::WHITTED;
+        render_settings.integratorType = IntegratorType::PATH;
         render_settings.sampler = Sampler::GRID_SAMPLER;
 
-        render_settings.samplesPerPixel = 2;
-        render_settings.shadowSamples = 2;
+        render_settings.samplesPerPixel = 16;
+        render_settings.shadowSamples = 4;
 
-        render_settings.maxBouncesTransmission = 5;
         render_settings.maxBouncesTotal = 5;
+        render_settings.maxBouncesTransmission = 5;
         render_settings.maxBounceReflection = 5;
-        render_settings.maxBouncesDiffuse = 5;
+        render_settings.maxBouncesDiffuse = 2;
 
         render_settings.tmax = 10000;
 
@@ -34,16 +34,14 @@ namespace RT_ISICG
     {
         // todo use argc and argv to load file
 
-        bool overrideIntegrator = true;
-
-        // ============================ Image ============================ //
+        // ============================ Image ================================ //
         // Output Image parameters
         const int imgWidth = 1200;
         const int imgHeight = 800;
         float aspectRatio = float(imgWidth) / imgHeight;
         Texture img = Texture(imgWidth, imgHeight); // Create a texture to render the scene.
 
-        // ============================ Scene Init ============================ //
+        // ============================ Scene Init ============================== //
         Scene scene;
         SceneType sceneType = SceneType::TP5; // <----- Change this to change the scene
         BaseCamera *camera = &scene.init(sceneType);
