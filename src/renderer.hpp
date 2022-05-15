@@ -24,6 +24,7 @@ namespace RT_ISICG
     // define rendersettings structure
     struct RenderSettings
     {
+        bool useHDR = true;
         Vec3f backgroundColor = GREY;
 
         IntegratorType integratorType = IntegratorType::RAY_CAST;

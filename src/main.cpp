@@ -13,17 +13,19 @@ namespace RT_ISICG
     {
         RenderSettings render_settings;
 
-        render_settings.backgroundColor = GREY;
+        render_settings.useHDR = true;
+        render_settings.backgroundColor = GREY * 10.f;
+
         render_settings.integratorType = IntegratorType::PATH;
         render_settings.sampler = Sampler::GRID_SAMPLER;
 
-        render_settings.samplesPerPixel = 16;
-        render_settings.shadowSamples = 4;
+        render_settings.samplesPerPixel = 32;
+        render_settings.shadowSamples = 1;
 
         render_settings.maxBouncesTotal = 5;
         render_settings.maxBouncesTransmission = 5;
         render_settings.maxBounceReflection = 5;
-        render_settings.maxBouncesDiffuse = 2;
+        render_settings.maxBouncesDiffuse = 4;
 
         render_settings.tmax = 10000;
 
@@ -43,7 +45,7 @@ namespace RT_ISICG
 
         // ============================ Scene Init ============================== //
         Scene scene;
-        SceneType sceneType = SceneType::TP5; // <----- Change this to change the scene
+        SceneType sceneType = SceneType::TP6_Sponza; // <----- Change this to change the scene
         BaseCamera *camera = &scene.init(sceneType);
 
         if (camera == nullptr)
@@ -65,10 +67,14 @@ namespace RT_ISICG
 
         // ============================ Saving the image(s) ============================ //
         const std::string imgName = "image.jpg";
-        const std::string imgNameHDR = "image.hdr";
         img.saveJPG(RESULTS_PATH + imgName);
-        // img.saveHDR(RESULTS_PATH + imgNameHDR);
-        // todo add saving condition
+
+        if (render_settings.useHDR)
+        {
+            const std::string imgNameHDR = "image.hdr";
+            img.saveHDR(RESULTS_PATH + imgNameHDR);
+        }
+
         // todo multiple canvas (direct, indirect etc ...)
 
         return EXIT_SUCCESS;

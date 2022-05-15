@@ -111,14 +111,22 @@ namespace RT_ISICG
         return chrono.elapsedTime();
     }
 
-    Vec3f Renderer::colorTransform(Vec3f &color)
+    Vec3f Renderer::colorTransform(Vec3f &color) const
     {
-        float gamma = 1.f;
-        color = glm::max(color, VEC3F_ZERO);
-        color = tonemapping(color);
+        float gamma;
+        if (_settings.useHDR)
+        {
+            gamma = 1.f;
+            color = glm::max(color, VEC3F_ZERO); // no negative luminance
+        }
+        else
+        {
+            gamma = 0.4545f;                       // invert 2.2
+            color = tonemapping(color);            // tonemapp to srgb
+            color = glm::clamp(color, 0.0f, 1.0f); // no negative luminance & no
+        }
         color = glm::pow(color, Vec3f(gamma));
-        // todo no clamp in hdr
-        color = glm::clamp(color, 0.0f, 1.0f);
+
         return color;
     }
 
