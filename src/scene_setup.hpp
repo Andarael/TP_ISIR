@@ -15,6 +15,7 @@ namespace RT_ISICG
         TP5,
         TP6,
         TP6_Conference,
+        TP6_Sponza,
         TP7,
         SCENE_TYPE_COUNT
     };
@@ -26,6 +27,8 @@ namespace RT_ISICG
     BaseCamera &setup_TP1(Scene &scene);
     
     BaseCamera &setup_TP6_Conference(Scene &scene);
+
+    BaseCamera &setup_TP6_Sponza(Scene &scene);
     
     BaseCamera &setup_TP7(Scene &scene);
     
