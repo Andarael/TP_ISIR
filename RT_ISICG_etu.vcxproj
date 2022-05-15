@@ -221,6 +221,7 @@
     <ClInclude Include="src\io\stb_include.hpp" />
     <ClInclude Include="src\materials\BaseMaterial.hpp" />
     <ClInclude Include="src\materials\CookTorranceMaterial.hpp" />
+    <ClInclude Include="src\materials\EmissiveMaterial.hpp" />
     <ClInclude Include="src\materials\lambertMaterial.hpp" />
     <ClInclude Include="src\materials\MatteMaterial.hpp" />
     <ClInclude Include="src\materials\MirrorMaterial.hpp" />

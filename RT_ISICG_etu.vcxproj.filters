@@ -234,6 +234,9 @@
     <ClInclude Include="src\integrators\PathIntegrator.hpp">
       <Filter>Source Files\integrators</Filter>
     </ClInclude>
+    <ClInclude Include="src\materials\EmissiveMaterial.hpp">
+      <Filter>Source Files\materials</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />
