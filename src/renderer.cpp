@@ -48,14 +48,17 @@ namespace RT_ISICG
         {
             _integrator = new WhittedIntegrator(_settings.shadowSamples,
                                                 _settings.maxBouncesTransmission,
-                                                _settings.maxBounceReflection);
+                                                _settings.maxBounceReflection,
+                                                _settings.maxBouncesTotal);
             break;
         }
         case IntegratorType::PATH:
         {
             _integrator = new PathIntegrator(_settings.shadowSamples,
+                                             _settings.maxBouncesDiffuse,
                                              _settings.maxBouncesTransmission,
-                                             _settings.maxBouncesDiffuse);
+                                             _settings.maxBounceReflection,
+                                             _settings.maxBouncesTotal);
             break;
         }
         default:;
@@ -111,6 +114,7 @@ namespace RT_ISICG
     Vec3f Renderer::colorTransform(Vec3f &color)
     {
         float gamma = 1.f;
+        color = glm::max(color, VEC3F_ZERO);
         color = tonemapping(color);
         color = glm::pow(color, Vec3f(gamma));
         // todo no clamp in hdr
@@ -123,7 +127,7 @@ namespace RT_ISICG
         // filmic curve (http://filmicworlds.com/blog/filmic-tonemapping-with-piecewise-power-curves/)
         float a = 2.5f;
         float b = 0.03f;
-        float c = 2.2f;
+        float c = 2.4f;
         float d = 0.6f;
         float e = 0.15f;
         color *= (a * color + b) / (color * (c * color + d) + e);
@@ -158,6 +162,7 @@ namespace RT_ISICG
 
             break;
         case Sampler::GRID_SAMPLER:
+            float spp2 = float(samplesPerPixel * samplesPerPixel);
             float factor = float(samplesPerPixel * 2);
             for (int i = 0; i < samplesPerPixel; i++)
             {
@@ -176,7 +181,7 @@ namespace RT_ISICG
                     color += _integrator->Li(p_scene, ray);
                 }
             }
-            color /= samplesPerPixel * samplesPerPixel;
+            color /= spp2;
             break;
         }
 
