@@ -24,7 +24,7 @@ namespace RT_ISICG
         {
             Vec3f output = _backgroundColor;
 
-            Vec3f direction = normalize(p_ray.getDirection());
+            Vec3f rayDirection = normalize(p_ray.getDirection());
             Vec3f flatColor = _backgroundColor;
             Vec3f normal = VEC3F_ZERO;
             Vec3f trueNormal = VEC3F_ZERO;
@@ -41,11 +41,13 @@ namespace RT_ISICG
                 flatColor = hitRecord._object->getMaterial()->getFlatColor();
             }
 
-            return trueNormal;
+            return getRandomDirection(normal);
             return normal;
+
             return point;
             return cosTheta;
             return flatColor;
+            return trueNormal;
             return Vec3f(zPass(hitRecord._distance, 1.f, 5.f, false));
             return _setColorInRange(output);
         }
