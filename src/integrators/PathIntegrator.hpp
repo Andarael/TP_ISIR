@@ -22,16 +22,6 @@ namespace RT_ISICG
         }
 
     protected:
-        bool stopCondition(const Ray &p_ray) const override
-        {
-            if (WhittedIntegrator::stopCondition(p_ray))
-                return true;
-            if (p_ray._lightPath.depthDiffuse > _maxDiffuseBounces)
-                return true;
-
-            return false;
-        }
-
         Vec3f bounceDiffuse(const Scene &scene, const Ray &p_ray, const HitRecord &hitRecord) const
         {
             Vec3f bounceDirection = getRandomDirection(hitRecord._normal);
@@ -42,6 +32,10 @@ namespace RT_ISICG
             Vec3f materialColor = hitRecord._object->getMaterial()->shade(p_ray.getDirection(), hitRecord, bounceDirection);
             Vec3f emitColor = hitRecord._object->getMaterial()->getEmit();
             Vec3f directlightColor = directLighting(scene, p_ray, hitRecord);
+
+            if (p_ray._lightPath.depthDiffuse == _maxDiffuseBounces)
+                return directlightColor;
+
             Vec3f bouncedColor = trace(scene, bounceRay);
 
             Vec3f col = VEC3F_ZERO;
@@ -56,8 +50,7 @@ namespace RT_ISICG
         {
 
             if (stopCondition(p_ray))
-                // return BLACK;
-                return DirectLightingIntegrator::Li(p_scene, p_ray);
+                return BLACK;
 
             HitRecord hitRecord;
             if (p_scene.intersect(p_ray, p_ray.getTmin(), p_ray.getTmax(), hitRecord))
