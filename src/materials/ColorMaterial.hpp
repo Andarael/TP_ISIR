@@ -12,7 +12,7 @@ namespace RT_ISICG
         ColorMaterial(const std::string &p_name, const Vec3f &p_color)
             : BaseMaterial(p_name), _color(p_color){};
 
-        Vec3f shade(const Ray &p_ray, const HitRecord &p_hit, const LightSample &p_lightSample) const override
+        Vec3f shade(const Vec3f &p_rayDirection, const HitRecord &p_hit, const Vec3f &p_lightDirection) const override
         {
             return _color;
         }

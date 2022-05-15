@@ -3,9 +3,9 @@
 
 #include "defines.hpp"
 
-#include "materials/BaseMaterial.hpp"
 #include "brdfs/PhongBRDF.hpp"
 #include "brdfs/lambert_brdf.hpp"
+#include "materials/BaseMaterial.hpp"
 
 namespace RT_ISICG
 {
@@ -18,10 +18,10 @@ namespace RT_ISICG
               _specular(p_specular),
               _phong_brdf(p_shininess){};
 
-        Vec3f shade(const Ray &p_ray, const HitRecord &p_hitRecord, const LightSample &p_lightSample) const override
+        Vec3f shade(const Vec3f &p_rayDirection, const HitRecord &p_hitRecord, const Vec3f &p_lightDirection) const override
         {
             Vec3f diffuse = _diffuse * _lambert_brdf.evaluate();
-            Vec3f specular = _specular * _phong_brdf.evaluate(p_hitRecord._normal, p_lightSample._direction, -p_ray.getDirection());
+            Vec3f specular = _specular * _phong_brdf.evaluate(p_hitRecord._normal, p_lightDirection, -p_rayDirection);
 
             return diffuse + specular;
         }

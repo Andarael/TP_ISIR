@@ -17,10 +17,10 @@ namespace RT_ISICG
               _diffuseBrdf(p_roughness),
               _specularBrdf(p_roughness){};
 
-        Vec3f shade(const Ray &p_ray, const HitRecord &p_hitRecord, const LightSample &p_lightSample) const override
+        Vec3f shade(const Vec3f &p_rayDirection, const HitRecord &p_hitRecord, const Vec3f &p_lightDirection) const override
         {
-            Vec3f diffuse = _diffuse * _diffuseBrdf.evaluate(p_hitRecord._normal, p_lightSample._direction, -p_ray.getDirection());
-            Vec3f specular = _diffuse * _specularBrdf.evaluate(p_hitRecord._normal, p_lightSample._direction, -p_ray.getDirection(), _diffuse);
+            Vec3f diffuse = _diffuse * _diffuseBrdf.evaluate(p_hitRecord._normal, p_lightDirection, -p_rayDirection);
+            Vec3f specular = _diffuse * _specularBrdf.evaluate(p_hitRecord._normal, p_lightDirection, -p_rayDirection, _diffuse);
             return glm::mix(diffuse, specular, _metalness);
         }
 

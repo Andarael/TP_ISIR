@@ -12,10 +12,10 @@ namespace RT_ISICG
         MatteMaterial(const std::string &p_name, const Vec3f &p_diffuse, const float p_roughness)
             : BaseMaterial(p_name), _diffuse(p_diffuse), _brdf(p_roughness){};
 
-        Vec3f shade(const Ray &p_ray, const HitRecord &p_hitRecord, const LightSample &p_lightSample) const override
+        Vec3f shade(const Vec3f &p_rayDirection, const HitRecord &p_hitRecord, const Vec3f &p_lightDirection) const override
         {
             // todo brdf return color
-            return _diffuse * _brdf.evaluate(p_hitRecord._normal, p_lightSample._direction, -p_ray.getDirection());
+            return _diffuse * _brdf.evaluate(p_hitRecord._normal, p_lightDirection, -p_rayDirection);
         }
 
         // todo passer un pointeur vers une fonction qui prend hitrecord (ou point), kd... et retourne une couleur
