@@ -38,12 +38,12 @@ namespace RT_ISICG
         {
             for (int j = 0; j < _width; ++j)
             {
-                Vec3f color = getPixel(i, j);
+                Vec3f color = glm::clamp(getPixel(i, j), 0.f, 1.f);
                 const int pixelId = (i * _width + j) * _nbChannels;
                 pixels[pixelId] = static_cast<unsigned char>(color.r * 255);
                 pixels[pixelId + 1] = static_cast<unsigned char>(color.g * 255);
                 pixels[pixelId + 2] = static_cast<unsigned char>(color.b * 255);
-                // todo gérer l'alpha (avec Vec4f)
+                // todo gerer l'alpha (avec Vec4f)
                 if (_nbChannels == 4) { pixels[pixelId + 3] = static_cast<unsigned char>(color.b * 255); }
             }
         }
