@@ -10,16 +10,71 @@ namespace RT_ISICG
     {
 
     public:
-        PathIntegrator(const int p_shadowSamples, const int p_lightDepth, const int p_transparentDepth)
-            : WhittedIntegrator(p_shadowSamples, p_transparentDepth){};
+        PathIntegrator(const int p_shadowSamples, const int p_bouncesDiffuse, const int p_bouncestransmission, const int p_bouncesReflexion, const int p_maxBounces)
+            : WhittedIntegrator(p_shadowSamples, p_bouncestransmission, p_bouncesReflexion, p_maxBounces),
+              _maxDiffuseBounces(p_bouncesDiffuse){};
 
-        IntegratorType getType() const override { return IntegratorType::WHITTED; }
+        IntegratorType getType() const override { return IntegratorType::PATH; }
 
         Vec3f Li(const Scene &p_scene, const Ray &p_ray) const override
         {
             return trace(p_scene, p_ray);
         }
 
+    protected:
+        bool stopCondition(const Ray &p_ray) const override
+        {
+            if (WhittedIntegrator::stopCondition(p_ray))
+                return true;
+            if (p_ray._lightPath.depthDiffuse > _maxDiffuseBounces)
+                return true;
+
+            return false;
+        }
+
+        Vec3f bounceDiffuse(const Scene &scene, const Ray &p_ray, const HitRecord &hitRecord) const
+        {
+            Vec3f bounceDirection = getRandomDirection(hitRecord._normal);
+            Ray bounceRay = Ray(hitRecord._point, bounceDirection, RayType::diffuse, &p_ray);
+            bounceRay.incrDiffuse();
+            bounceRay.offset(hitRecord._normal);
+
+            Vec3f materialColor = hitRecord._object->getMaterial()->shade(p_ray.getDirection(), hitRecord, bounceDirection);
+            Vec3f emitColor = hitRecord._object->getMaterial()->getEmit();
+            Vec3f directlightColor = directLighting(scene, p_ray, hitRecord);
+            Vec3f bouncedColor = trace(scene, bounceRay);
+
+            Vec3f col = VEC3F_ZERO;
+            float factor = glm::clamp(glm::dot(hitRecord._normal, bounceDirection), 0.f, 1.f) * 2.f * PIf;
+            col = bouncedColor * materialColor * factor;
+            col += directlightColor;
+            col += emitColor;
+            return col;
+        }
+
+        Vec3f trace(const Scene &p_scene, const Ray &p_ray) const override
+        {
+
+            if (stopCondition(p_ray))
+                // return BLACK;
+                return DirectLightingIntegrator::Li(p_scene, p_ray);
+
+            HitRecord hitRecord;
+            if (p_scene.intersect(p_ray, p_ray.getTmin(), p_ray.getTmax(), hitRecord))
+            {
+                if (hitRecord._object->getMaterial()->isMirror())
+                    return reflectRay(p_scene, p_ray, hitRecord);
+
+                if (hitRecord._object->getMaterial()->isTransparent())
+                    return reflectRefractRay(p_scene, p_ray, hitRecord);
+
+                return bounceDiffuse(p_scene, p_ray, hitRecord);
+            }
+            return _backgroundColor;
+        }
+
+    public:
+        int _maxDiffuseBounces = 5;
     };
 } // namespace RT_ISICG
 

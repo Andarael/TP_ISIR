@@ -32,17 +32,17 @@ namespace RT_ISICG
                 if (light->isSurface())
                     targetSamples = _nbShadowSamples;
 
+                Vec3f hitPoint = hitRecord._point;
                 Vec3f lightContribution = VEC3F_ZERO;
                 for (int i = 0; i < targetSamples; i++)
                 {
-                    Vec3f hitPoint = hitRecord._point;
                     LightSample lightSample = light->sample(hitPoint);
                     if (!_isShadow(p_scene, lightSample, hitPoint, hitRecord._normal))
                         lightContribution += shadeLighting(hitRecord, lightSample, p_ray);
                 }
                 li += lightContribution / float(targetSamples);
             }
-            return li;
+            return li + hitRecord._object->getMaterial()->getEmit();
         }
 
     private:
@@ -58,7 +58,8 @@ namespace RT_ISICG
         static Vec3f shadeLighting(const HitRecord &hitRecord, const LightSample &lightSample, const Ray &p_ray)
         {
             Vec3f sampleRadiance = lightSample._radiance;
-            Vec3f materialColor = hitRecord._object->getMaterial()->shade(p_ray, hitRecord, lightSample);
+            Vec3f materialColor = hitRecord._object->getMaterial()->shade(p_ray.getDirection(), hitRecord, lightSample._direction);
+            Vec3f emissionColor = hitRecord._object->getMaterial()->getEmit();
             float factor = dot(lightSample._direction, hitRecord._normal);
 
             return max(VEC3F_ZERO, materialColor * factor * sampleRadiance);

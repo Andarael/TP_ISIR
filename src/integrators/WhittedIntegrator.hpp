@@ -10,10 +10,17 @@ namespace RT_ISICG
     {
 
     public:
-        WhittedIntegrator(const int p_shadowSamples, const int p_bouncestransmission, const int p_bouncesReflexion = 0)
+        WhittedIntegrator(const int p_shadowSamples, const int p_bouncestransmission, const int p_bouncesReflexion, const int p_maxBounces)
             : DirectLightingIntegrator(p_shadowSamples),
+              _maxBounces(p_maxBounces),
               _transmissionBounces(p_bouncestransmission),
-              _reflexionBounces(p_bouncesReflexion){};
+              _reflexionBounces(p_bouncesReflexion) {};
+
+        WhittedIntegrator(const int p_shadowSamples, const int p_maxBounces)
+            : DirectLightingIntegrator(p_shadowSamples),
+              _maxBounces(p_maxBounces),
+              _transmissionBounces(p_maxBounces),
+              _reflexionBounces(p_maxBounces) {};
 
         IntegratorType getType() const override { return IntegratorType::WHITTED; }
 
@@ -23,16 +30,27 @@ namespace RT_ISICG
         }
 
     protected:
+        virtual bool stopCondition(const Ray &p_ray) const
+        {
+            if (p_ray.getDepth() > _maxBounces)
+                return true;
+            if (p_ray._lightPath.depthReflected > _reflexionBounces)
+                return true;
+            if (p_ray._lightPath.depthTransmitted > _transmissionBounces)
+                return true;
+
+            return false;
+        }
+
         virtual Vec3f trace(const Scene &p_scene, const Ray &p_ray) const
         {
-            if (p_ray._lightPath.depthReflected > _reflexionBounces)
-                return BLACK;
-            if (p_ray._lightPath.depthTransmitted > _transmissionBounces)
+            if (stopCondition(p_ray))
                 return BLACK;
 
             HitRecord hitRecord;
             if (p_scene.intersect(p_ray, p_ray.getTmin(), p_ray.getTmax(), hitRecord))
             {
+                // check if ray can continue here instead
                 if (hitRecord._object->getMaterial()->isMirror())
                     return reflectRay(p_scene, p_ray, hitRecord);
 
@@ -111,6 +129,8 @@ namespace RT_ISICG
         }
 
     protected:
+        int _maxBounces = 5;
+
         int _transmissionBounces = 5;
         int _reflexionBounces = 5;
     };
