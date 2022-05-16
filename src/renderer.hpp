@@ -63,7 +63,7 @@ namespace RT_ISICG
 
         float renderImage(const Scene &p_scene, const BaseCamera *p_camera, Texture &p_texture) const;
 
-        static Vec3f colorTransform(Vec3f &color);
+        Vec3f colorTransform(Vec3f &color) const;
 
         static Vec3f tonemapping(Vec3f &color);
 
