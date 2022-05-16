@@ -24,6 +24,7 @@ namespace RT_ISICG
     // define rendersettings structure
     struct RenderSettings
     {
+        int seed = 0;
         bool useHDR = true;
         Vec3f backgroundColor = GREY;
 
@@ -57,6 +58,7 @@ namespace RT_ISICG
             _settings = p_settings;
             setIntegrator(p_settings.integratorType);
             setBackgroundColor(p_settings.backgroundColor);
+            setRandomSeed(p_settings.seed);
         }
 
         void setBackgroundColor(const Vec3f &p_color) const;

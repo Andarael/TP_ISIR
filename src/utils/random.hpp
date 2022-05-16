@@ -7295,6 +7295,13 @@ namespace RT_ISICG
     static std::mt19937 gen;
     static std::uniform_real_distribution<float> dis(0.f, 1.f);
 
+
+    static void setRandomSeed(const int seed)
+    {
+        std::mt19937 newgen (seed);
+        gen = newgen;
+    }
+
     static float randomFloat()
     {
         return dis(gen);

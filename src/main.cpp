@@ -2,6 +2,7 @@
 #include "cameras/PerspectiveCamera.hpp"
 #include "defines.hpp"
 #include "integrators/BaseIntegrator.hpp"
+#include "utils/random.hpp"
 
 #include "Scene.hpp"
 #include "scene_setup.hpp"
@@ -13,13 +14,14 @@ namespace RT_ISICG
     {
         RenderSettings render_settings;
 
+        render_settings.seed = 5;
         render_settings.useHDR = true;
         render_settings.backgroundColor = GREY;
 
         render_settings.integratorType = IntegratorType::PATH;
         render_settings.sampler = Sampler::GRID_SAMPLER;
 
-        render_settings.samplesPerPixel = 16;
+        render_settings.samplesPerPixel = 8;
         render_settings.shadowSamples = 4;
 
         render_settings.maxBouncesTotal = 5;
@@ -43,6 +45,11 @@ namespace RT_ISICG
         float aspectRatio = float(imgWidth) / imgHeight;
         Texture img = Texture(imgWidth, imgHeight); // Create a texture to render the scene.
 
+        // ============================ Render parameters ============================ //
+        Renderer renderer;
+        RenderSettings render_settings = getSettings();
+        renderer.setSettings(render_settings);
+
         // ============================ Scene Init ============================== //
         Scene scene;
         SceneType sceneType = SceneType::TP7; // <----- Change this to change the scene
@@ -53,10 +60,6 @@ namespace RT_ISICG
         camera->setAspectRatio(aspectRatio);
         camera->displayCamera();
 
-        // ============================ Render parameters ============================ //
-        Renderer renderer;
-        RenderSettings render_settings = getSettings();
-        renderer.setSettings(render_settings);
 
         // ============================ Rendering the image ============================ //
         std::cout << "Rendering..." << std::endl;
