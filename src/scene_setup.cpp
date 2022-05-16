@@ -38,11 +38,15 @@ namespace RT_ISICG
         scene._addMaterial(new MatteMaterial("WhiteMatte", WHITE, 0.6f));
         scene._addMaterial(new MatteMaterial("RedMatte", RED, 0.6f));
         scene._addMaterial(new MatteMaterial("GreenMatte", GREEN, 0.6f));
-        scene._addMaterial(new MatteMaterial("lightBlueMatte", lightBlue, 0.6f));
         scene._addMaterial(new MatteMaterial("BlueMatte", BLUE, 0.6f));
         scene._addMaterial(new MatteMaterial("GreyMatte", GREY, 0.6f));
         scene._addMaterial(new MatteMaterial("CyanMatte", CYAN, 0.6f));
         scene._addMaterial(new MatteMaterial("MagentaMatte", MAGENTA, 0.6f));
+
+        scene._addMaterial(new MatteMaterial("lightBlueMatte", lightBlue, 0.3f));
+        scene._addMaterial(new MatteMaterial("lightRedMatte", lightRed, 0.6f));
+        scene._addMaterial(new MatteMaterial("lightYellowMatte", lightYellow, 0.6f));
+        scene._addMaterial(new MatteMaterial("BeigeMatte", Vec3f(.99f, .8f, .6f), 0.3f));
 
         // Cook Torrence
         scene._addMaterial(new CookTorranceMaterial("PBR_Gold", gold, 1.f, 0.5f));
@@ -116,27 +120,27 @@ namespace RT_ISICG
     {
         // addCornellBox(scene, false, 32);
 
-        scene._addObject(new Plane("Plane1", Vec3f(0, -2, 0), VEC3F_Y));
-        scene._attachMaterialToObject("RedMatte", "Plane1");
+        scene._addObject(new Plane("Plane1", Vec3f(0, -1, 0), VEC3F_Y));
+        scene._attachMaterialToObject("lightRedMatte", "Plane1");
 
-        scene._addObject(new ImplicitSphere("Sphere1", Vec3f(1, 0, 5), 0.5f));
-        scene._attachMaterialToObject("lightBlueMatte", "Sphere1");
+        // scene._addObject(new ImplicitSphere("Sphere1", Vec3f(1, 0, 5), 0.5f));
+        // scene._attachMaterialToObject("lightBlueMatte", "Sphere1");
 
         // scene._addObject(new ImplicitSphere("Sphere2", VEC3F_ZERO, 0.1f));
         // scene._attachMaterialToObject("GreenMatte", "Sphere2");
 
-        // scene._addObject(new ImplicitBulb("Bulb", Vec3f(0, 0, 3), 1.f));
-        // scene._attachMaterialToObject("PBR_Gold", "Bulb");
+        scene._addObject(new ImplicitBulb("Bulb", Vec3f(0, 0, 3), 1.f));
+        scene._attachMaterialToObject("lightBlueMatte", "Bulb");
 
-        scene._addObject(new ImplicitJulia("Julia", Vec3f(0, 0, 0), 3.f));
-        scene._attachMaterialToObject("PBR_Gold", "Julia");
+        scene._addObject(new ImplicitJulia("Julia", Vec3f(0, 0, 0), 1.5f));
+        scene._attachMaterialToObject("BeigeMatte", "Julia");
 
-        scene._addObject(new ImplicitTorus("Torus", 1.5f, 0.25f, Vec3f(0, 0, 0), 4.f));
+        scene._addObject(new ImplicitTorus("Torus", 3.f, 0.1f, Vec3f(0, 0, 1.5), 1.f));
         scene._attachMaterialToObject("PBR_Gold", "Torus");
 
-        // SimpleQuadLight *simple_quad = new SimpleQuadLight(WHITE, 50, 1.5, Vec3f(1, 2, -3));
-        // simple_quad->setLookAt(Vec3f(0, 0, 3));
-        // scene._addLight(simple_quad);
+        SimpleQuadLight *simple_quad = new SimpleQuadLight(WHITE, 50, 1.5, Vec3f(1, 5, -3));
+        simple_quad->setLookAt(Vec3f(0, 0, 3));
+        scene._addLight(simple_quad);
 
         // scene._addLight(new PointLight(WHITE, Vec3f(16, 16, 16), 1000));
         // scene._addLight(new PointLight(WHITE, Vec3f(16, 16, -16), 1000));
@@ -144,12 +148,12 @@ namespace RT_ISICG
         // scene._addLight(new PointLight(WHITE, Vec3f(-16, 16, -16), 1000));
         // scene._addLight(new PointLight(WHITE, Vec3f(0, 0, -16), 1000));
 
-        SimpleQuadLight *quad_light = new SimpleQuadLight(WHITE, 70, 2, Vec3f(1, 8, -2));
-        quad_light->setLookAt(VEC3F_ZERO);
-        scene._addLight(quad_light);
+        // SimpleQuadLight *quad_light = new SimpleQuadLight(WHITE, 70, 2, Vec3f(1, 8, -2));
+        // quad_light->setLookAt(VEC3F_ZERO);
+        // scene._addLight(quad_light);
 
         // ================ Camera ================ //
-        BaseCamera *camera = new PerspectiveCamera(Vec3f(0, 5, 5), Vec3f(0, 0, 0), 40);
+        BaseCamera *camera = new PerspectiveCamera(Vec3f(-6, 3, 2), Vec3f(0, 0, 1.5), 40);
         return *camera;
     }
 
