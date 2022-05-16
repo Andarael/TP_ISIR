@@ -24,8 +24,9 @@ namespace RT_ISICG
         int _steps = 100;
         const Vec4f kC = Vec4f(-2, 6, 15, -6) / 22.f;
         bool cut = true;
-        bool orbitalTraps = true;
-        float trap_size = 0.05f;
+        bool orbitalTraps = false;
+        float trap_size = 0.03f;
+        float cutPoint = 0.1f;
 
         static Vec4f qSquare(const Vec4f &q)
         {
@@ -77,9 +78,11 @@ namespace RT_ISICG
                 d = glm::min(o, d);
 
             if (cut)
-                d = glm::max(d, p.y);
+            {
+                d = glm::max(d, p.y - cutPoint);
+            }
 
-            return glm::min(d, 4.f);  // this is to avoid numerical errors when camera is far away
+            return glm::min(d, 4.f); // this is to avoid numerical errors when camera is far away
             // return Vec2f(d, n);
         }
     };

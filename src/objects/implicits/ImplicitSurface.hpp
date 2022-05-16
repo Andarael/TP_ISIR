@@ -103,7 +103,7 @@ namespace RT_ISICG
         // Evaluate normal by computing gradient at 'p_point'
         virtual Vec3f _evaluateNormal(const Vec3f &p_point) const
         {
-            const float h = 1e-4f;
+            const float h = 1e-5f;
 
             Vec3f hx = h * VEC3F_X;
             Vec3f hy = h * VEC3F_Y;
