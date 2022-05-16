@@ -21,7 +21,7 @@ namespace RT_ISICG
     const float INV_PIf = glm::one_over_pi<float>();
     const float INV_2PIf = glm::one_over_two_pi<float>();
     const float FLT_INFINITY = std::numeric_limits<float>::infinity();
-    const float TMAX = 1000;
+    const float TMAX = 10000;
 
     const float SHADOW_EPSILON = 0.001f;
     const float EPSILON = 0.00001f;
