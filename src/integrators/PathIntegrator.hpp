@@ -24,6 +24,11 @@ namespace RT_ISICG
     protected:
         Vec3f bounceDiffuse(const Scene &scene, const Ray &p_ray, const HitRecord &hitRecord) const
         {
+            Vec3f directlightColor = directLighting(scene, p_ray, hitRecord);
+
+            if (p_ray._lightPath.depthDiffuse == _maxDiffuseBounces)
+                return directlightColor;
+
             Vec3f bounceDirection = getRandomDirection(hitRecord._normal);
             Ray bounceRay = Ray(hitRecord._point, bounceDirection, RayType::diffuse, &p_ray);
             bounceRay.incrDiffuse();
@@ -31,15 +36,13 @@ namespace RT_ISICG
 
             Vec3f materialColor = hitRecord._object->getMaterial()->shade(p_ray.getDirection(), hitRecord, bounceDirection);
             Vec3f emitColor = hitRecord._object->getMaterial()->getEmit();
-            Vec3f directlightColor = directLighting(scene, p_ray, hitRecord);
-
-            if (p_ray._lightPath.depthDiffuse == _maxDiffuseBounces)
-                return directlightColor;
+            
 
             Vec3f bouncedColor = trace(scene, bounceRay);
 
             Vec3f col = VEC3F_ZERO;
-            float factor = glm::clamp(glm::dot(hitRecord._normal, bounceDirection), 0.f, 1.f) * 2.f * PIf;
+            float pdf = INV_2PIf; // naive uniform sampling pdf
+            float factor = glm::clamp(glm::dot(hitRecord._normal, bounceDirection), 0.f, 1.f) / pdf;
             col = bouncedColor * materialColor * factor;
             col += directlightColor;
             col += emitColor;
