@@ -41,12 +41,12 @@ namespace RT_ISICG
                 flatColor = hitRecord._object->getMaterial()->getFlatColor();
             }
 
-            return getRandomDirection(normal);
+            return flatColor;
             return normal;
+            return getRandomDirection(normal);
 
             return point;
             return cosTheta;
-            return flatColor;
             return trueNormal;
             return Vec3f(zPass(hitRecord._distance, 1.f, 5.f, false));
             return _setColorInRange(output);

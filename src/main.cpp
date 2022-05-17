@@ -14,12 +14,12 @@ namespace RT_ISICG
     {
         RenderSettings render_settings;
 
-        render_settings.seed = 0;
+        render_settings.seed = 10;
         render_settings.useHDR = true;
         render_settings.tmax = TMAX;
 
         render_settings.sampler = Sampler::GRID_SAMPLER;
-        render_settings.samples = 4;
+        render_settings.samples = 1;
         render_settings.shadowSamples = 2;
 
         render_settings.maxBouncesTotal = 5;
@@ -28,7 +28,7 @@ namespace RT_ISICG
         render_settings.maxBouncesDiffuse = 4;
 
         render_settings.backgroundColor = GREY;
-        render_settings.integratorType = IntegratorType::PATHTRACING;
+        render_settings.integratorType = IntegratorType::DEBUG;
 
         return render_settings;
     }
