@@ -21,8 +21,8 @@ namespace RT_ISICG
         render_settings.integratorType = IntegratorType::PATH;
         render_settings.sampler = Sampler::GRID_SAMPLER;
 
-        render_settings.samplesPerPixel = 8;
-        render_settings.shadowSamples = 4;
+        render_settings.samples = 1;
+        render_settings.shadowSamples = 1;
 
         render_settings.maxBouncesTotal = 5;
         render_settings.maxBouncesTransmission = 5;
@@ -40,14 +40,15 @@ namespace RT_ISICG
 
         // ============================ Image ================================ //
         // Output Image parameters
-        const int imgWidth = 1200*4;
-        const int imgHeight = 800*4;
+        const int imgWidth = 1200 * 4;
+        const int imgHeight = 800 * 4;
         float aspectRatio = float(imgWidth) / imgHeight;
         Texture img = Texture(imgWidth, imgHeight); // Create a texture to render the scene.
 
         // ============================ Render parameters ============================ //
         Renderer renderer;
         RenderSettings render_settings = getSettings();
+        printSettings(render_settings);
         renderer.setSettings(render_settings);
 
         // ============================ Scene Init ============================== //
@@ -59,7 +60,6 @@ namespace RT_ISICG
             camera = new PerspectiveCamera(aspectRatio);
         camera->setAspectRatio(aspectRatio);
         camera->displayCamera();
-
 
         // ============================ Rendering the image ============================ //
         std::cout << "Rendering..." << std::endl;

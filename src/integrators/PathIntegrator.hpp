@@ -22,6 +22,10 @@ namespace RT_ISICG
         }
 
     protected:
+
+        // This is with next event estimation, direct lighting is calculated at each step
+        // We do not stop when hitting a light source, as its inflence was already accounted for in previous steps.
+        // Emissive properties of object are added at each steps
         Vec3f bounceDiffuse(const Scene &scene, const Ray &p_ray, const HitRecord &hitRecord) const
         {
             Vec3f directlightColor = directLighting(scene, p_ray, hitRecord);

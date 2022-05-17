@@ -26,12 +26,10 @@ namespace RT_ISICG
     {
         int seed = 0;
         bool useHDR = true;
-        Vec3f backgroundColor = GREY;
+        float tmax = TMAX;
 
-        IntegratorType integratorType = IntegratorType::RAY_CAST;
         Sampler sampler = Sampler::RANDOM_SAMPLER;
-
-        int samplesPerPixel = 2;
+        int samples = 2;
         int shadowSamples = 1;
 
         int maxBouncesTotal = 5;
@@ -39,8 +37,11 @@ namespace RT_ISICG
         int maxBouncesTransmission = 5;
         int maxBounceReflection = 5;
 
-        float tmax = TMAX;
+        Vec3f backgroundColor = GREY;
+        IntegratorType integratorType = IntegratorType::RAY_CAST;
     };
+
+    void printSettings(RenderSettings render_settings);
 
     class Renderer
     {

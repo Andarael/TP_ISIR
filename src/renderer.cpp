@@ -16,6 +16,28 @@
 
 namespace RT_ISICG
 {
+    void printSettings(RenderSettings render_settings)
+    {
+
+        std::cout << " ===== Render Settings : ====== " << std::endl;
+        std::cout << "    Seed: " << render_settings.seed << std::endl;
+        std::cout << "    Use HDR: " << render_settings.useHDR << std::endl;
+        std::cout << "    Tmax: " << render_settings.tmax << std::endl;
+        std::cout << std::endl;
+        std::cout << "    Sampler: " << int(render_settings.sampler) << std::endl;
+        std::cout << "    Samples : " << render_settings.samples << std::endl;
+        std::cout << "    Shadow samples: " << render_settings.shadowSamples << std::endl;
+        std::cout << std::endl;
+        std::cout << "    Max bounces total: " << render_settings.maxBouncesTotal << std::endl;
+        std::cout << "    Max bounces transmission: " << render_settings.maxBouncesTransmission << std::endl;
+        std::cout << "    Max bounces reflection: " << render_settings.maxBounceReflection << std::endl;
+        std::cout << "    Max bounces diffuse: " << render_settings.maxBouncesDiffuse << std::endl;
+        std::cout << std::endl;
+        std::cout << "    Background color: " << glm::to_string(render_settings.backgroundColor) << std::endl;
+        std::cout << "    Integrator: " << int(render_settings.integratorType) << std::endl;
+        std::cout << " ============================== " << std::endl;
+    }
+
     Renderer::Renderer()
         : _integrator(new RayCastIntegrator()) {}
 
@@ -145,7 +167,7 @@ namespace RT_ISICG
     Vec3f Renderer::multiSample(const BaseCamera *p_camera, float sx, float sy, const Scene &p_scene, float pixelSizeY, float pixelSizeX) const
     {
         Vec3f color = VEC3F_ZERO;
-        int samplesPerPixel = _settings.samplesPerPixel;
+        int samplesPerPixel = _settings.samples;
 
         // Always sample the center of the pixel first if sampler is random
         float offsetY = pixelSizeX * 0.5f;

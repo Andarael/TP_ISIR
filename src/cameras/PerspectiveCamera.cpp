@@ -20,14 +20,14 @@ namespace RT_ISICG
     void PerspectiveCamera::displayCamera() const
     {
         std::cout << " ===== camera ====== " << std::endl;
-        std::cout << "      position : " << glm::to_string(_position) << std::endl;
-        std::cout << "      _screenCenter : " << glm::to_string(_screenCenter) << std::endl;
-        std::cout << "      _viewportTopLeftCorner : " << glm::to_string(_viewportTopLeftCorner) << std::endl;
-        std::cout << "      _viewportU : " << glm::to_string(_viewportU) << std::endl;
-        std::cout << "      _viewportV : " << glm::to_string(_viewportV) << std::endl;
-        std::cout << "      _u : " << glm::to_string(_u) << std::endl;
-        std::cout << "      _v : " << glm::to_string(_v) << std::endl;
-        std::cout << "      _w : " << glm::to_string(_w) << std::endl;
+        std::cout << "    position : " << glm::to_string(_position) << std::endl;
+        std::cout << "    _screenCenter : " << glm::to_string(_screenCenter) << std::endl;
+        // std::cout << "    _viewportTopLeftCorner : " << glm::to_string(_viewportTopLeftCorner) << std::endl;
+        // std::cout << "    _viewportU : " << glm::to_string(_viewportU) << std::endl;
+        // std::cout << "    _viewportV : " << glm::to_string(_viewportV) << std::endl;
+        // std::cout << "    _u : " << glm::to_string(_u) << std::endl;
+        // std::cout << "    _v : " << glm::to_string(_v) << std::endl;
+        // std::cout << "    _w : " << glm::to_string(_w) << std::endl;
         std::cout << " ================== " << std::endl;
     }
 
