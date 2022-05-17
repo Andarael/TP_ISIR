@@ -1,20 +1,20 @@
-#ifndef __RT_ISICG_PATH_INTEGRATOR__
-#define __RT_ISICG_PATH_INTEGRATOR__
+#ifndef __RT_ISICG_PATHTRAICING_INTEGRATOR__
+#define __RT_ISICG_PATHTRAICING_INTEGRATOR__
 
 #include "defines.hpp"
 #include "integrators/WhittedIntegrator.hpp"
 
 namespace RT_ISICG
 {
-    class PathIntegrator : public WhittedIntegrator
+    class PathTracingIntegrator : public WhittedIntegrator
     {
 
     public:
-        PathIntegrator(const int p_shadowSamples, const int p_bouncesDiffuse, const int p_bouncestransmission, const int p_bouncesReflexion, const int p_maxBounces)
+        PathTracingIntegrator(const int p_shadowSamples, const int p_bouncesDiffuse, const int p_bouncestransmission, const int p_bouncesReflexion, const int p_maxBounces)
             : WhittedIntegrator(p_shadowSamples, p_bouncestransmission, p_bouncesReflexion, p_maxBounces),
               _maxDiffuseBounces(p_bouncesDiffuse){};
 
-        IntegratorType getType() const override { return IntegratorType::PATH; }
+        IntegratorType getType() const override { return IntegratorType::PATHTRACING; }
 
         Vec3f Li(const Scene &p_scene, const Ray &p_ray) const override
         {
@@ -22,7 +22,6 @@ namespace RT_ISICG
         }
 
     protected:
-
         // This is with next event estimation, direct lighting is calculated at each step
         // We do not stop when hitting a light source, as its inflence was already accounted for in previous steps.
         // Emissive properties of object are added at each steps
@@ -40,7 +39,6 @@ namespace RT_ISICG
 
             Vec3f materialColor = hitRecord._object->getMaterial()->shade(p_ray.getDirection(), hitRecord, bounceDirection);
             Vec3f emitColor = hitRecord._object->getMaterial()->getEmit();
-            
 
             Vec3f bouncedColor = trace(scene, bounceRay);
 
@@ -78,4 +76,4 @@ namespace RT_ISICG
     };
 } // namespace RT_ISICG
 
-#endif // __RT_ISICG_WHITTED_INTEGRATOR__
+#endif // __RT_ISICG_PATHTRAICING_INTEGRATOR__

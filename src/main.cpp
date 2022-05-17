@@ -14,22 +14,21 @@ namespace RT_ISICG
     {
         RenderSettings render_settings;
 
-        render_settings.seed = 5;
+        render_settings.seed = 0;
         render_settings.useHDR = true;
-        render_settings.backgroundColor = GREY;
+        render_settings.tmax = TMAX;
 
-        render_settings.integratorType = IntegratorType::PATH;
         render_settings.sampler = Sampler::GRID_SAMPLER;
-
-        render_settings.samples = 1;
-        render_settings.shadowSamples = 1;
+        render_settings.samples = 4;
+        render_settings.shadowSamples = 2;
 
         render_settings.maxBouncesTotal = 5;
         render_settings.maxBouncesTransmission = 5;
         render_settings.maxBounceReflection = 5;
         render_settings.maxBouncesDiffuse = 4;
 
-        render_settings.tmax = TMAX;
+        render_settings.backgroundColor = GREY;
+        render_settings.integratorType = IntegratorType::PATHTRACING;
 
         return render_settings;
     }
@@ -45,21 +44,21 @@ namespace RT_ISICG
         float aspectRatio = float(imgWidth) / imgHeight;
         Texture img = Texture(imgWidth, imgHeight); // Create a texture to render the scene.
 
-        // ============================ Render parameters ============================ //
-        Renderer renderer;
-        RenderSettings render_settings = getSettings();
-        printSettings(render_settings);
-        renderer.setSettings(render_settings);
-
         // ============================ Scene Init ============================== //
         Scene scene;
-        SceneType sceneType = SceneType::TP7; // <----- Change this to change the scene
+        SceneType sceneType = SceneType::TP6_Conference; // <----- Change this to change the scene
         BaseCamera *camera = &scene.init(sceneType);
 
         if (camera == nullptr)
             camera = new PerspectiveCamera(aspectRatio);
         camera->setAspectRatio(aspectRatio);
         camera->displayCamera();
+
+        // ============================ Render parameters ============================ //
+        Renderer renderer;
+        RenderSettings render_settings = getSettings();
+        printSettings(render_settings);
+        renderer.setSettings(render_settings);
 
         // ============================ Rendering the image ============================ //
         std::cout << "Rendering..." << std::endl;

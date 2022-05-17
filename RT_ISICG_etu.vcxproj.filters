@@ -231,7 +231,7 @@
     <ClInclude Include="src\objects\implicits\ImplicitJulia.hpp">
       <Filter>Source Files\objects\implicits</Filter>
     </ClInclude>
-    <ClInclude Include="src\integrators\PathIntegrator.hpp">
+    <ClInclude Include="src\integrators\PathTracingIntegrator.hpp">
       <Filter>Source Files\integrators</Filter>
     </ClInclude>
     <ClInclude Include="src\materials\EmissiveMaterial.hpp">

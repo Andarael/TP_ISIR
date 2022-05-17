@@ -14,7 +14,7 @@ namespace RT_ISICG
         RAY_CAST = 1,
         DIRECT_LIGHT = 2,
         WHITTED = 3,
-        PATH = 4,
+        PATHTRACING = 4,
         COUNT // keep it last
     };
 

@@ -8,7 +8,7 @@
 // integrators
 #include "integrators/DebugIntegrator.hpp"
 #include "integrators/DirectLightingIntegrator.hpp"
-#include "integrators/PathIntegrator.hpp"
+#include "integrators/PathTracingIntegrator.hpp"
 #include "integrators/RayCastIntegrator.hpp"
 #include "integrators/WhittedIntegrator.hpp"
 
@@ -74,9 +74,9 @@ namespace RT_ISICG
                                                 _settings.maxBouncesTotal);
             break;
         }
-        case IntegratorType::PATH:
+        case IntegratorType::PATHTRACING:
         {
-            _integrator = new PathIntegrator(_settings.shadowSamples,
+            _integrator = new PathTracingIntegrator(_settings.shadowSamples,
                                              _settings.maxBouncesDiffuse,
                                              _settings.maxBouncesTransmission,
                                              _settings.maxBounceReflection,
