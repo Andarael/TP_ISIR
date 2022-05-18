@@ -18,7 +18,7 @@ namespace RT_ISICG
         Vec3f shade(const Vec3f &p_rayDirection, const HitRecord &p_hitRecord, const Vec3f &p_lightDirection) const override
         {
             if (_texture == nullptr || _texture->getPixels().empty())
-                return BLACK;
+                return MAGENTA;
 
             Vec3f color = _texture->getPixel(p_hitRecord._uv);
             return color * _brdf.evaluate();
@@ -27,12 +27,14 @@ namespace RT_ISICG
         Vec3f getFlatColor(const HitRecord &p_hitRecord) const override
         {
             if (_texture == nullptr || _texture->getPixels().empty())
-                return BLACK;
+                return MAGENTA;
 
             return Vec3f(_texture->getPixel(p_hitRecord._uv));
         }
 
         bool hasTexture() const override { return true; }
+
+        float getAlpha(const Vec2f &uv) const override { return _texture->getAlpha(uv); }
 
     protected:
         LambertBRDF _brdf;

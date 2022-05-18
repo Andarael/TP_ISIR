@@ -180,7 +180,7 @@ namespace RT_ISICG
     BaseCamera &setup_TP6_Sponza(Scene &scene)
     {
         // * ================ Conference ==================
-        scene.loadFileTriangleMesh("Sponza", DATA_PATH + "/sponza/", "sponza.obj", VEC3F_ZERO, .01f);
+        scene.loadFileTriangleMesh("Sponza", DATA_PATH + "/sponza/", "sponza2.obj", VEC3F_ZERO, 1.f);
 
         // ================ light ================ //
         Vec3f cameraPos = Vec3f(12, 2, 0);
@@ -189,7 +189,7 @@ namespace RT_ISICG
         scene._addLight(new PointLight(Vec3f(0, 0.33f, 1), Vec3f(10, 2, -1.3), 2));
 
         // ================ Camera ================ //
-        BaseCamera *camera = new PerspectiveCamera(cameraPos, Vec3f(0, 0, 0), 80);
+        BaseCamera *camera = new PerspectiveCamera(cameraPos, Vec3f(0, 0, 0), 70);
         return *camera;
     }
 

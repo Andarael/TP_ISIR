@@ -76,7 +76,7 @@ namespace RT_ISICG
         const std::string &name = p_material->getName();
         if (_materialMap.find(name) != _materialMap.end())
         {
-            // std::cout << "[Scene::addMaterial] Material \'" << name << "\' already exists" << std::endl;
+            std::cout << "[Scene::addMaterial] Material \'" << name << "\' already exists" << std::endl;
             delete p_material;
         }
         else
@@ -125,7 +125,8 @@ namespace RT_ISICG
         unsigned int cptTriangles = 0;
         unsigned int cptVertices = 0;
 
-        for (unsigned int m = 0; m < scene->mNumMeshes; ++m)
+#pragma omp parallel for schedule(dynamic)
+        for (int m = 0; m < scene->mNumMeshes; ++m)
         {
             const aiMesh *const mesh = scene->mMeshes[m];
             if (mesh == nullptr)
@@ -204,7 +205,9 @@ namespace RT_ISICG
                 printf("  Texture Diffuse: %s\n", texDiffuse.C_Str());
 
                 if (texDiffuse.length != 0)
+                {
                     _addMaterial(new TextureMaterial(mtlNameStr, texDiffusePath));
+                }
                 else
                     _addMaterial(new PlasticMaterial(mtlNameStr, kd, ks, s));
 

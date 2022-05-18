@@ -27,16 +27,21 @@ namespace RT_ISICG
             stbi_uc *data = nullptr;
             data = stbi_load(p_path.c_str(), &_width, &_height, &_nbChannels, 0);
             _pixelsFloat.resize(_width * _height * _nbChannels, 0.f);
+
             if (data != nullptr)
-            {
                 for (int i = 0; i < _width * _height * _nbChannels; i++)
                     _pixelsFloat[i] = float(data[i]) / 255.f;
-                stbi_image_free(data);
-            }
             else
-            {
                 std::cout << "Failed to load texture" << std::endl;
-            }
+
+            stbi_image_free(data);
+        }
+
+        float getAlpha(const Vec2f &uv) const
+        {
+            int i = glm::abs(int(uv.x * float(_width)) % _width);
+            int j = glm::abs(int((1.f - uv.y) * float(_height)) % _height);
+            return getAlpha(i, j);
         }
 
         float getAlpha(const int p_i, const int p_j) const
@@ -62,11 +67,13 @@ namespace RT_ISICG
             return pixel;
         }
 
-        Vec3f getPixel(Vec2f uv) const
+        Vec3f getPixel(const Vec2f &uv) const
         {
-            uv = glm::abs(uv);
+            // uv = glm::abs(uv);
+            int i = glm::abs(int(uv.x * float(_width)) % _width);
+            int j = glm::abs(int((1.f - uv.y) * float(_height)) % _height);
+            return getPixel(i, j);
             // todo: implement bilinear interpolation
-            return getPixel(int(float(_width - 1) * uv.x) % _width, int(float(_height - 1) * uv.y) % _height);
         }
 
         int getWidth() const { return _width; }

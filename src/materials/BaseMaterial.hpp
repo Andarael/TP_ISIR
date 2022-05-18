@@ -17,11 +17,13 @@ namespace RT_ISICG
 
         virtual ~BaseMaterial() = default;
 
+        virtual const std::string &getName() const final { return _name; }
+
         virtual Vec3f shade(const Vec3f &p_rayDirection, const HitRecord &p_hitRecord, const Vec3f &p_lightDirection) const = 0;
 
         virtual Vec3f getFlatColor(const HitRecord &p_hitRecord) const = 0;
 
-        virtual const std::string &getName() const final { return _name; }
+        virtual float getAlpha(const Vec2f &uv) const { return 1.f; }
 
         virtual Vec3f getEmit() const { return VEC3F_ZERO; }
 
