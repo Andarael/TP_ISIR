@@ -43,7 +43,7 @@ namespace RT_ISICG
                 uv = hitRecord._uv;
             }
 
-            return normal;
+            return (normal *.5f) + .5f;
             return flatColor;
             return Vec3f(uv, 0);
 

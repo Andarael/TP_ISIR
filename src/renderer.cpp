@@ -136,14 +136,8 @@ namespace RT_ISICG
     Vec3f Renderer::colorTransform(Vec3f &color) const
     {
         float gamma = 1.f;
-        if (_settings.useHDR)
+        if (!_settings.useHDR)
         {
-            gamma = 1.f;
-            color = glm::max(color, VEC3F_ZERO); // no negative luminance
-        }
-        else
-        {
-            // gamma = 0.4545f;                       // invert 2.2
             color = tonemapping(color);            // tonemapp to srgb
             color = glm::clamp(color, 0.0f, 1.0f); // no negative luminance & no
         }

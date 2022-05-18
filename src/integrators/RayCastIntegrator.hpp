@@ -20,7 +20,7 @@ namespace RT_ISICG
                 Vec3f direction = glm::normalize(p_ray.getDirection());
                 Vec3f normal = hitRecord._normal; // we assume normal is normalized
                 float factor = glm::abs(glm::dot(normal, direction));
-                return color * factor;
+                return glm::max(color * factor, VEC3F_ZERO);
             }
             return _backgroundColor;
         }
