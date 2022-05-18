@@ -14,12 +14,12 @@ namespace RT_ISICG
     {
         RenderSettings render_settings;
 
-        render_settings.seed = 10;
+        render_settings.seed = 0;
         render_settings.useHDR = true;
         render_settings.tmax = TMAX;
 
         render_settings.sampler = Sampler::GRID_SAMPLER;
-        render_settings.samples = 1;
+        render_settings.samples = 10;
         render_settings.shadowSamples = 2;
 
         render_settings.maxBouncesTotal = 5;
@@ -27,8 +27,8 @@ namespace RT_ISICG
         render_settings.maxBounceReflection = 5;
         render_settings.maxBouncesDiffuse = 4;
 
-        render_settings.backgroundColor = GREY;
-        render_settings.integratorType = IntegratorType::DEBUG;
+        render_settings.backgroundColor = GREY * 20.f;
+        render_settings.integratorType = IntegratorType::PATHT_RACING;
 
         return render_settings;
     }
@@ -39,14 +39,14 @@ namespace RT_ISICG
 
         // ============================ Image ================================ //
         // Output Image parameters
-        const int imgWidth = 1200 * 4;
-        const int imgHeight = 800 * 4;
+        const int imgWidth = 1200 * 2;
+        const int imgHeight = 800 * 2;
         float aspectRatio = float(imgWidth) / imgHeight;
         Texture img = Texture(imgWidth, imgHeight); // Create a texture to render the scene.
 
         // ============================ Scene Init ============================== //
         Scene scene;
-        SceneType sceneType = SceneType::TP6_Conference; // <----- Change this to change the scene
+        SceneType sceneType = SceneType::TP6_Sponza; // <----- Change this to change the scene
         BaseCamera *camera = &scene.init(sceneType);
 
         if (camera == nullptr)

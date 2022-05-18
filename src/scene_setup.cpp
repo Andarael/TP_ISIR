@@ -182,8 +182,8 @@ namespace RT_ISICG
         // ================ light ================ //
         Vec3f cameraPos = Vec3f(12, 2, 0);
         // scene._addLight(new PointLight(WHITE, cameraPos, 10));
-        scene._addLight(new PointLight(Vec3f(1, 0.66f, 0), Vec3f(10, 2, 1.8), 5));
-        scene._addLight(new PointLight(Vec3f(0, 0.33f, 1), Vec3f(10, 2, -1.3), 5));
+        scene._addLight(new PointLight(Vec3f(1, 0.66f, 0), Vec3f(10, 2, 1.8), 2));
+        scene._addLight(new PointLight(Vec3f(0, 0.33f, 1), Vec3f(10, 2, -1.3), 2));
 
         // ================ Camera ================ //
         BaseCamera *camera = new PerspectiveCamera(cameraPos, Vec3f(0, 0, 0), 80);

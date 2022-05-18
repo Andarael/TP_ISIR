@@ -74,7 +74,7 @@ namespace RT_ISICG
                                                 _settings.maxBouncesTotal);
             break;
         }
-        case IntegratorType::PATHTRACING:
+        case IntegratorType::PATHT_RACING:
         {
             _integrator = new PathTracingIntegrator(_settings.shadowSamples,
                                              _settings.maxBouncesDiffuse,

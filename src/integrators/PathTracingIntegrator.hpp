@@ -14,7 +14,7 @@ namespace RT_ISICG
             : WhittedIntegrator(p_shadowSamples, p_bouncestransmission, p_bouncesReflexion, p_maxBounces),
               _maxDiffuseBounces(p_bouncesDiffuse){};
 
-        IntegratorType getType() const override { return IntegratorType::PATHTRACING; }
+        IntegratorType getType() const override { return IntegratorType::PATHT_RACING; }
 
         Vec3f Li(const Scene &p_scene, const Ray &p_ray) const override
         {

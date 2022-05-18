@@ -41,8 +41,8 @@ namespace RT_ISICG
                 flatColor = hitRecord._object->getMaterial()->getFlatColor();
             }
 
-            return flatColor;
             return normal;
+            return flatColor;
             return getRandomDirection(normal);
 
             return point;
