@@ -91,7 +91,7 @@ namespace RT_ISICG
             refractedRay.offset(-hitRecord._normal); // we always reflect in a different medium than the ray origin
 
             // trace
-            Vec3f transparentColor = hitRecord._object->getMaterial()->getFlatColor();
+            Vec3f transparentColor = hitRecord._object->getMaterial()->getFlatColor(hitRecord);
             return transparentColor * trace(p_scene, refractedRay);
         }
 
@@ -104,7 +104,7 @@ namespace RT_ISICG
             reflectedRay.offset(hitRecord._normal); // we always reflect in the same medium as the ray origin
 
             // trace
-            Vec3f mirrorColor = hitRecord._object->getMaterial()->getFlatColor();
+            Vec3f mirrorColor = hitRecord._object->getMaterial()->getFlatColor(hitRecord);
             return mirrorColor * trace(p_scene, reflectedRay);
         }
 

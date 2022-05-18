@@ -72,4 +72,12 @@ namespace RT_ISICG
     {
         return _refMesh->_vertices[_v[index]];
     }
+
+    const Vec2f &TriangleMeshGeometry::getUV(const Vec2f &uv) const
+    {
+        if (_refMesh->_uvs.empty())
+            return uv;
+
+        return (1.f - uv.x - uv.y) * _refMesh->_uvs[_v0] + uv.x * _refMesh->_uvs[_v1] + uv.y * _refMesh->_uvs[_v2];
+    }
 } // namespace RT_ISICG

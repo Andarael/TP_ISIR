@@ -15,7 +15,6 @@ namespace RT_ISICG
         HitRecord(const Vec3f &p_point, const Vec3f &p_normal, const float p_distance, const bool p_backFacing, const BaseObject *p_object)
             : _point(p_point), _normal(p_normal), _distance(p_distance), _backFacing(p_backFacing), _object(p_object){};
 
-
         // all filling methods
 
         void fill(const Ray p_ray, const Vec3f normal, const Vec3f trueNormal, const float distance)
@@ -53,6 +52,7 @@ namespace RT_ISICG
         Vec3f _point = VEC3F_ZERO;
         Vec3f _normal = VEC3F_ZERO;
         Vec3f _trueNormal = VEC3F_ZERO;
+        Vec2f _uv = VEC2F_ZERO;
         float _distance = FLT_MAX;
         bool _backFacing = false;
         const BaseObject *_object = nullptr;

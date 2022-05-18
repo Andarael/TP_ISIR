@@ -79,7 +79,7 @@ namespace RT_ISICG
             size_t hitTri = _triangles->size(); // Hit triangle id.
 
             Vec2f uvTemp;
-            Vec2f uv = VEC2F_ZERO;
+            Vec2f uv = VEC2F_ZERO; // this is the uv of the hitpoint in the triangle
             for (size_t i = p_node->_firstTriangleId; i < p_node->_lastTriangleId; i++)
             {
                 float t;
@@ -100,6 +100,7 @@ namespace RT_ISICG
                     Vec3f normal = (*_triangles)[hitTri].getSmoothNormal(uv);
                     Vec3f trueNormal = (*_triangles)[hitTri].getFaceNormal();
                     p_hitRecord.fill(p_ray, normal, trueNormal, tClosest);
+                    p_hitRecord._uv = (*_triangles)[hitTri].getUV(uv); // this is the UVs of the hitpoint in the texture
                 }
                 return true;
             }

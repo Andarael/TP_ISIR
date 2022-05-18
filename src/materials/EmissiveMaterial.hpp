@@ -17,7 +17,7 @@ namespace RT_ISICG
             return BLACK;
         }
 
-        const Vec3f &getFlatColor() const override
+        Vec3f getFlatColor(const HitRecord &p_hitRecord) const override
         {
             return _emit;
         }

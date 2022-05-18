@@ -17,7 +17,7 @@ namespace RT_ISICG
             return _color * _brdf.evaluate();
         }
 
-        const Vec3f &getFlatColor() const override
+        Vec3f getFlatColor(const HitRecord &p_hitRecord) const override
         {
             return _color;
         }

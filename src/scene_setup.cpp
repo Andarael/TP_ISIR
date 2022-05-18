@@ -22,6 +22,7 @@
 
 // import objects
 #include "cameras/PerspectiveCamera.hpp"
+#include "materials/TextureMaterial.hpp"
 #include "objects/BaseObject.hpp"
 #include "objects/implicits/ImplicitBulb.hpp"
 #include "objects/implicits/ImplicitJulia.hpp"
@@ -67,6 +68,8 @@ namespace RT_ISICG
 
         // emissive
         scene._addMaterial(new EmissiveMaterial("EmissiveWhite", Vec3f(15)));
+
+        // scene._addMaterial(new TextureMaterial("TextureWhite", "textures/white.png"));
     }
 
     // Pseudo Cornell box made with infinite planes
@@ -160,7 +163,7 @@ namespace RT_ISICG
     BaseCamera &setup_TP6_Conference(Scene &scene)
     {
         // * ================ Sponza ==================
-        scene.loadFileTriangleMesh("Conference", DATA_PATH + "/conference/conference.obj");
+        scene.loadFileTriangleMesh("Conference", DATA_PATH + "/conference/", "conference.obj");
 
         // ================ light ================ //
         Vec3f u = Vec3f(0, 0, 300);
@@ -177,7 +180,7 @@ namespace RT_ISICG
     BaseCamera &setup_TP6_Sponza(Scene &scene)
     {
         // * ================ Conference ==================
-        scene.loadFileTriangleMesh("Sponza", DATA_PATH + "/sponza/sponza.obj", VEC3F_ZERO, .01f);
+        scene.loadFileTriangleMesh("Sponza", DATA_PATH + "/sponza/", "sponza.obj", VEC3F_ZERO, .01f);
 
         // ================ light ================ //
         Vec3f cameraPos = Vec3f(12, 2, 0);
@@ -197,18 +200,18 @@ namespace RT_ISICG
         // scene.loadFileTriangleMesh("UVsphere", DATA_PATH + "/CornellBox/CornellBox-Water.obj", VEC3F_ZERO, 10);
 
         // ================ Add Objects ================== //
-        scene.loadFileTriangleMesh("bunny_lowpoly", DATA_PATH + "bunny_lowpoly.obj",
+        scene.loadFileTriangleMesh("bunny_lowpoly", DATA_PATH + "/bunny_lowpoly/", "bunny_lowpoly.obj",
                                    Vec3f(3, 1.25, -2), 1);
 
-        scene.loadFileTriangleMesh("bunny", DATA_PATH + "bunny.obj",
+        scene.loadFileTriangleMesh("bunny", DATA_PATH, "bunny.obj",
                                    Vec3f(0, 1.25, 0), 1.0f, 180 - 45);
 
-        scene.loadFileTriangleMesh("uvsphere", DATA_PATH + "uvsphere.obj",
+        scene.loadFileTriangleMesh("uvsphere", DATA_PATH, "uvsphere.obj",
                                    Vec3f(-5, 1, 0), 1);
 
-        scene.loadFileTriangleMesh("cube_sphere", DATA_PATH + "cube_sphere.obj", Vec3f(5, 0.05, 5));
+        scene.loadFileTriangleMesh("cube_sphere", DATA_PATH, "cube_sphere.obj", Vec3f(5, 0.05, 5));
 
-        scene.loadFileTriangleMesh("teapot", DATA_PATH + "teapot.obj",
+        scene.loadFileTriangleMesh("teapot", DATA_PATH, "teapot.obj",
                                    Vec3f(-4, 0, 6));
 
         // scene._attachMaterialToObject("CyanMatte", "Bunny_defaultobject");

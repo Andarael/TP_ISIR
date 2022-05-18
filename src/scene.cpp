@@ -10,6 +10,7 @@
 
 #include "materials/ColorMaterial.hpp"
 #include "materials/PlasticMaterial.hpp"
+#include "materials/TextureMaterial.hpp"
 #include "objects/meshs/MeshTriangle.hpp"
 
 namespace RT_ISICG
@@ -75,7 +76,7 @@ namespace RT_ISICG
         const std::string &name = p_material->getName();
         if (_materialMap.find(name) != _materialMap.end())
         {
-            std::cout << "[Scene::addMaterial] Material \'" << name << "\' already exists" << std::endl;
+            // std::cout << "[Scene::addMaterial] Material \'" << name << "\' already exists" << std::endl;
             delete p_material;
         }
         else
@@ -108,7 +109,7 @@ namespace RT_ISICG
         }
     }
 
-    void Scene::loadFileTriangleMesh(const std::string &p_name, const std::string &p_path, const Vec3f &p_pos, const float p_scale, const float p_rotation, const Vec3f p_rotation_axis)
+    void Scene::loadFileTriangleMesh(const std::string &p_name, const std::string &p_filePath, const std::string &p_path, const Vec3f &p_pos, const float p_scale, const float p_rotation, const Vec3f p_rotation_axis)
     {
 
         // todo rotation, scale etc...
@@ -116,7 +117,7 @@ namespace RT_ISICG
         Assimp::Importer importer;
 
         // Read scene and triangulate meshes
-        const aiScene *const scene = importer.ReadFile(p_path, aiProcess_Triangulate | aiProcess_GenNormals | aiProcess_GenUVCoords);
+        const aiScene *const scene = importer.ReadFile(p_filePath + p_path, aiProcess_Triangulate | aiProcess_GenNormals | aiProcess_GenUVCoords);
 
         if (scene == nullptr)
             throw std::runtime_error("Fail to load file: " + p_path);
@@ -131,7 +132,7 @@ namespace RT_ISICG
                 throw std::runtime_error("Fail to load file: " + p_path + ": mesh is null");
 
             const std::string meshName = p_name + "_" + std::string(mesh->mName.C_Str());
-            std::cout << "-- Load mesh " << m + 1 << "/" << scene->mNumMeshes << ": " << meshName << std::endl;
+            std::cout << "----- Load mesh " << m + 1 << "/" << scene->mNumMeshes << ": " << meshName << std::endl;
 
             cptTriangles += mesh->mNumFaces;
             cptVertices += mesh->mNumVertices;
@@ -190,9 +191,24 @@ namespace RT_ISICG
 
                 aiString mtlName;
                 mtl->Get(AI_MATKEY_NAME, mtlName);
+                std::string mtlNameStr = p_name + "_" + mtlName.C_Str();
 
-                _addMaterial(new PlasticMaterial(std::string(mtlName.C_Str()), kd, ks, s));
-                _attachMaterialToObject(mtlName.C_Str(), meshName);
+                aiString texDiffuse;
+                mtl->GetTexture(aiTextureType_DIFFUSE, 0, &texDiffuse);
+                std::string texDiffusePath = p_filePath + texDiffuse.C_Str();
+
+                printf("Material: %s\n", mtlNameStr.c_str());
+                printf("  Diffuse: %f %f %f\n", kd.x, kd.y, kd.z);
+                printf("  Specular: %f %f %f\n", ks.x, ks.y, ks.z);
+                printf("  Opacity: %f %f %f\n", tf.x, tf.y, tf.z);
+                printf("  Texture Diffuse: %s\n", texDiffuse.C_Str());
+
+                if (texDiffuse.length != 0)
+                    _addMaterial(new TextureMaterial(mtlNameStr, texDiffusePath));
+                else
+                    _addMaterial(new PlasticMaterial(mtlNameStr, kd, ks, s));
+
+                _attachMaterialToObject(mtlNameStr, meshName);
             }
 
             std::cout << "-- [DONE] " << triMesh->getNbTriangles() << " triangles, " << triMesh->getNbVertices()

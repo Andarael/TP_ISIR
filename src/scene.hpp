@@ -42,6 +42,7 @@ namespace RT_ISICG
         const LightList &getLights() const { return _lightList; }
 
         void loadFileTriangleMesh(const std::string &p_name,
+                                  const std::string &p_filePath,
                                   const std::string &p_path,
                                   const Vec3f &p_pos = VEC3F_ZERO,
                                   float p_scale = 1.0f,

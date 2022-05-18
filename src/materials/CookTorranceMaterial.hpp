@@ -1,9 +1,9 @@
 #ifndef __COOK_TORRANCE_MATERIAL__
 #define __COOK_TORRANCE_MATERIAL__
 
-#include "materials/BaseMaterial.hpp"
 #include "brdfs/CookTorranceBRDF.hpp"
 #include "brdfs/OrenNayarBRDF.hpp"
+#include "materials/BaseMaterial.hpp"
 
 namespace RT_ISICG
 {
@@ -24,7 +24,7 @@ namespace RT_ISICG
             return glm::mix(diffuse, specular, _metalness);
         }
 
-        const Vec3f &getFlatColor() const override { return _diffuse; }
+        Vec3f getFlatColor(const HitRecord &p_hitRecord) const override { return _diffuse; }
 
     private:
         Vec3f _diffuse = GREY;
@@ -32,5 +32,5 @@ namespace RT_ISICG
         OrenNayarBRDF _diffuseBrdf;
         CookTorranceBrdf _specularBrdf;
     };
-}
+} // namespace RT_ISICG
 #endif // __COOK_TORRANCE_MATERIAL__

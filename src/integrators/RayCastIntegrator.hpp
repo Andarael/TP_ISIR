@@ -16,7 +16,7 @@ namespace RT_ISICG
             HitRecord hitRecord;
             if (p_scene.intersect(p_ray, p_ray.getTmin(), p_ray.getTmax(), hitRecord))
             {
-                Vec3f color = hitRecord._object->getMaterial()->getFlatColor();
+                Vec3f color = hitRecord._object->getMaterial()->getFlatColor(hitRecord);
                 Vec3f direction = glm::normalize(p_ray.getDirection());
                 Vec3f normal = hitRecord._normal; // we assume normal is normalized
                 float factor = glm::abs(glm::dot(normal, direction));

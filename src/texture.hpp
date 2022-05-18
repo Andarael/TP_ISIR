@@ -1,12 +1,11 @@
-
-
 #ifndef __RT_ISICG_IMAGE__
 #define __RT_ISICG_IMAGE__
 
-#include "defines.hpp"
 #include <stb/stb_image.h>
 #include <string>
 #include <vector>
+
+#include "defines.hpp"
 
 namespace RT_ISICG
 {
@@ -23,11 +22,12 @@ namespace RT_ISICG
             _pixelsFloat.shrink_to_fit();
         }
 
-        Texture(const std::string &p_path)
+        Texture(const std::string &p_path) : _name(p_path)
         {
             stbi_uc *data = nullptr;
             data = stbi_load(p_path.c_str(), &_width, &_height, &_nbChannels, 0);
-            if (data)
+            _pixelsFloat.resize(_width * _height * _nbChannels, 0.f);
+            if (data != nullptr)
             {
                 for (int i = 0; i < _width * _height * _nbChannels; i++)
                     _pixelsFloat[i] = float(data[i]) / 255.f;
@@ -48,12 +48,12 @@ namespace RT_ISICG
 
         int getPosition(const int p_i, const int p_j) const
         {
-            return (p_j * (_width) + p_i) * _nbChannels;
+            return (p_j * _width + p_i) * _nbChannels;
         }
 
         Vec3f getPixel(const int p_i, const int p_j) const
         {
-            assert(_nbChannels == 3);
+            // assert(_nbChannels == 3);
             Vec3f pixel;
             int position = getPosition(p_i, p_j);
             pixel.r = _pixelsFloat[position + 0];
@@ -62,19 +62,18 @@ namespace RT_ISICG
             return pixel;
         }
 
-        Vec3f getPixel(const float p_x, const int p_y) const
+        Vec3f getPixel(Vec2f uv) const
         {
+            uv = glm::abs(uv);
             // todo: implement bilinear interpolation
-            return getPixel(int(p_x), int(p_y));
+            return getPixel(int(float(_width - 1) * uv.x) % _width, int(float(_height - 1) * uv.y) % _height);
         }
 
         int getWidth() const { return _width; }
 
         int getHeight() const { return _height; }
 
-        // std::vector<unsigned char> &getPixels() { return _pixels; }
-
-        // const std::vector<unsigned char> &getPixels() const { return _pixels; }
+        const std::vector<float> &getPixels() const { return _pixelsFloat; }
 
         void setPixel(const int p_i, const int p_j, const Vec3f &p_color);
 
@@ -89,6 +88,7 @@ namespace RT_ISICG
         int _width;
         int _height;
 
+        std::string _name;
         std::vector<float> _pixelsFloat;
     };
 } // namespace RT_ISICG

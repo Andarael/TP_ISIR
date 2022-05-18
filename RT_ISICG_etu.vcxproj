@@ -226,6 +226,7 @@
     <ClInclude Include="src\materials\MatteMaterial.hpp" />
     <ClInclude Include="src\materials\MirrorMaterial.hpp" />
     <ClInclude Include="src\materials\PlasticMaterial.hpp" />
+    <ClInclude Include="src\materials\TextureMaterial.hpp" />
     <ClInclude Include="src\materials\TransparentMaterial.hpp" />
     <ClInclude Include="src\objects\BaseObject.hpp" />
     <ClInclude Include="src\objects\implicits\ImplicitBulb.hpp" />

@@ -26,7 +26,7 @@ namespace RT_ISICG
             return diffuse + specular;
         }
 
-        const Vec3f &getFlatColor() const override { return _diffuse; }
+        Vec3f getFlatColor(const HitRecord &p_hitRecord) const override { return _diffuse; }
 
     private:
         Vec3f _diffuse = GREY;

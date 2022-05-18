@@ -30,6 +30,7 @@ namespace RT_ISICG
             Vec3f trueNormal = VEC3F_ZERO;
             Vec3f point = VEC3F_ZERO;
             Vec3f cosTheta = VEC3F_ZERO;
+            Vec2f uv = VEC2F_ZERO;
 
             HitRecord hitRecord;
             if (p_scene.intersect(p_ray, p_ray.getTmin(), p_ray.getTmax(), hitRecord))
@@ -38,11 +39,14 @@ namespace RT_ISICG
                 normal = hitRecord._normal;
                 cosTheta = Vec3f(glm::dot(hitRecord._normal, -p_ray.getDirection()));
                 point = hitRecord._point;
-                flatColor = hitRecord._object->getMaterial()->getFlatColor();
+                flatColor = hitRecord._object->getMaterial()->getFlatColor(hitRecord);
+                uv = hitRecord._uv;
             }
 
             return normal;
             return flatColor;
+            return Vec3f(uv, 0);
+
             return getRandomDirection(normal);
 
             return point;

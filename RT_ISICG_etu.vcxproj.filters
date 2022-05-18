@@ -237,6 +237,9 @@
     <ClInclude Include="src\materials\EmissiveMaterial.hpp">
       <Filter>Source Files\materials</Filter>
     </ClInclude>
+    <ClInclude Include="src\materials\TextureMaterial.hpp">
+      <Filter>Source Files\materials</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />

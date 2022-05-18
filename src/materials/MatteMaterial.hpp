@@ -20,7 +20,7 @@ namespace RT_ISICG
 
         // todo passer un pointeur vers une fonction qui prend hitrecord (ou point), kd... et retourne une couleur
 
-        const Vec3f &getFlatColor() const override { return _diffuse; }
+        Vec3f getFlatColor(const HitRecord &p_hitRecord) const override { return _diffuse; }
 
     private:
         Vec3f _diffuse;

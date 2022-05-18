@@ -1,7 +1,7 @@
-
-
 #include "texture.hpp"
-#include "io/stb_include.hpp"
+
+// #include <stb/stb_image_write.h>
+#include <io/stb_include.hpp>
 
 namespace RT_ISICG
 {

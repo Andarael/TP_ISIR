@@ -23,6 +23,8 @@ namespace RT_ISICG
 
         Vec3f &getVertex(int index) const;
 
+        const Vec2f &getUV(const Vec2f &uv) const;
+
         Vec3f _centroid = VEC3F_ZERO;
 
     private:

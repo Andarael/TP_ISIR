@@ -1,12 +1,14 @@
-# Blender MTL File: 'scene.blend'
+# Blender MTL File: 'bunny.blend'
 # Material Count: 1
 
 newmtl mtlBunny
 Ns 0.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.084551 0.062971 0.700000
-Ks 0.200000 0.200000 0.200000
+Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
+map_Bump FabricDenim001_NRM_1K.jpg
+map_Kd FabricDenim001_COL_VAR1_1K.jpg

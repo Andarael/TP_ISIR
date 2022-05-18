@@ -19,7 +19,7 @@ namespace RT_ISICG
 
         virtual Vec3f shade(const Vec3f &p_rayDirection, const HitRecord &p_hitRecord, const Vec3f &p_lightDirection) const = 0;
 
-        virtual inline const Vec3f &getFlatColor() const = 0;
+        virtual Vec3f getFlatColor(const HitRecord &p_hitRecord) const = 0;
 
         virtual const std::string &getName() const final { return _name; }
 
@@ -30,6 +30,8 @@ namespace RT_ISICG
         virtual bool isMirror() const { return false; }
 
         virtual bool isTransparent() const { return false; }
+
+        virtual bool hasTexture() const { return false; }
 
     protected:
         std::string _name;
