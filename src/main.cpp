@@ -19,16 +19,16 @@ namespace RT_ISICG
         render_settings.tmax = TMAX;
 
         render_settings.sampler = Sampler::GRID_SAMPLER;
-        render_settings.samples = 10;
+        render_settings.samples = 1;
         render_settings.shadowSamples = 2;
 
         render_settings.maxBouncesTotal = 5;
         render_settings.maxBouncesTransmission = 5;
         render_settings.maxBounceReflection = 5;
-        render_settings.maxBouncesDiffuse = 4;
+        render_settings.maxBouncesDiffuse = 0;
 
-        render_settings.backgroundColor = GREY * 20.f;
-        render_settings.integratorType = IntegratorType::PATHT_RACING;
+        render_settings.backgroundColor = GREY;
+        render_settings.integratorType = IntegratorType::RAY_CAST;
 
         return render_settings;
     }
@@ -37,16 +37,17 @@ namespace RT_ISICG
     {
         // todo use argc and argv to load file
 
+        int resolution_multiplier = 1.0f;
         // ============================ Image ================================ //
         // Output Image parameters
-        const int imgWidth = 1200 * 2;
-        const int imgHeight = 800 * 2;
-        float aspectRatio = float(imgWidth) / imgHeight;
+        const int imgWidth = 1200 * resolution_multiplier;
+        const int imgHeight = 800 * resolution_multiplier;
+        float aspectRatio = float(imgWidth) / float(imgHeight);
         Texture img = Texture(imgWidth, imgHeight); // Create a texture to render the scene.
 
         // ============================ Scene Init ============================== //
         Scene scene;
-        SceneType sceneType = SceneType::TP6_Sponza; // <----- Change this to change the scene
+        SceneType sceneType = SceneType::TP1; // <----- Change this to change the scene
         BaseCamera *camera = &scene.init(sceneType);
 
         if (camera == nullptr)

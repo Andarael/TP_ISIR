@@ -77,10 +77,10 @@ namespace RT_ISICG
         case IntegratorType::PATHT_RACING:
         {
             _integrator = new PathTracingIntegrator(_settings.shadowSamples,
-                                             _settings.maxBouncesDiffuse,
-                                             _settings.maxBouncesTransmission,
-                                             _settings.maxBounceReflection,
-                                             _settings.maxBouncesTotal);
+                                                    _settings.maxBouncesDiffuse,
+                                                    _settings.maxBouncesTransmission,
+                                                    _settings.maxBounceReflection,
+                                                    _settings.maxBouncesTotal);
             break;
         }
         default:;
@@ -106,14 +106,14 @@ namespace RT_ISICG
         float pixelSizeX = 1.f / float(width - 1);
         float pixelSizeY = 1.f / float(height - 1);
 
-        progressBar.start(height, 50);
+        progressBar.start(width, 50);
         chrono.start();
 
 #pragma omp parallel for schedule(dynamic)
 
-        for (int j = 0; j < height; j++)
+        for (int i = 0; i < width; i++)
         {
-            for (int i = 0; i < width; i++)
+            for (int j = 0; j < height; j++)
             {
                 // no need to have the center of a pixel, as with AA a value will be added from the top lef of each pixels
                 float sx = float(i) * pixelSizeX;

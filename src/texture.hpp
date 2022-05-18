@@ -39,20 +39,33 @@ namespace RT_ISICG
             }
         }
 
+        float getAlpha(const int p_i, const int p_j) const
+        {
+            if (_nbChannels != 4)
+                return 1.f;
+            return _pixelsFloat[getPosition(p_i, p_j) + 3];
+        }
+
+        int getPosition(const int p_i, const int p_j) const
+        {
+            return (p_j * (_width) + p_i) * _nbChannels;
+        }
+
         Vec3f getPixel(const int p_i, const int p_j) const
         {
             assert(_nbChannels == 3);
             Vec3f pixel;
-            int position = (p_i * _width + p_j) * _nbChannels;
+            int position = getPosition(p_i, p_j);
             pixel.r = _pixelsFloat[position + 0];
             pixel.g = _pixelsFloat[position + 1];
             pixel.b = _pixelsFloat[position + 2];
             return pixel;
         }
 
-        Vec3f &getPixel(const float p_x, const int p_y) const
+        Vec3f getPixel(const float p_x, const int p_y) const
         {
             // todo: implement bilinear interpolation
+            return getPixel(int(p_x), int(p_y));
         }
 
         int getWidth() const { return _width; }
