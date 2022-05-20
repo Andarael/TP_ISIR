@@ -37,14 +37,13 @@ namespace RT_ISICG
                     break;
 
                 // dz = 8*z^7*dz
-                // todo test with 8.0f instead of 8.0, does the bug disappear ?
                 dz = 8.0f * glm::pow(m, 3.5f) * dz + 1.f;
 
                 // z = z^8+z
                 float r = glm::length(w);
                 float theta = 8.f * glm::acos(w.y / r);
                 float phi = 8.f * glm::atan(w.x, w.z);
-                float temp = glm::pow(r, 8.f); // r * r * r * r * r * r * r * r; //
+                float temp = glm::pow(r, 8.f);
                 w = p_point + temp * Vec3f(glm::sin(theta) * glm::sin(phi), glm::cos(theta), sin(theta) * glm::cos(phi));
 
                 trap = glm::min(trap, Vec4f(glm::abs(w), m));
@@ -53,7 +52,6 @@ namespace RT_ISICG
             }
 
             // sdf(z) = log|z|*|z|/|dz| : https://iquilezles.org/articles/distancefractals
-
             float value = 0.25f * glm::log(m) * glm::sqrt(m) / dz;
 
             return glm::min(value, 4.f); // this is to avoid numerical errors when camera is far away

@@ -17,12 +17,12 @@ namespace RT_ISICG
 
         float _sdf(const Vec3f &p_point) const override
         {
-            return _sdfBulb1(p_point);
+            return _sdfJulia(p_point);
         }
 
     private:
         int _steps = 100;
-        const Vec4f kC = Vec4f(-2, 6, 15, -6) / 22.f;
+        const Vec4f kC = Vec4f(-2, 6, 15, -6) / 22.f; // Set shape
         bool cut = true;
         bool orbitalTraps = false;
         float trap_size = 0.03f;
@@ -41,7 +41,7 @@ namespace RT_ISICG
                          Vec3f(q.y, q.z, q.w) * (3.f * q2.x - q2.y - q2.z - q2.w));
         }
 
-        float _sdfBulb1(const Vec3f &p_point) const
+        float _sdfJulia(const Vec3f &p_point) const
         {
             Vec3f p = p_point;
             Vec4f z = Vec4f(p, 0);
@@ -83,7 +83,6 @@ namespace RT_ISICG
             }
 
             return glm::min(d, 4.f); // this is to avoid numerical errors when camera is far away
-            // return Vec2f(d, n);
         }
     };
 } // namespace RT_ISICG

@@ -35,6 +35,7 @@ namespace RT_ISICG
             _aabb.extend(maxPoint);
         };
 
+        // Bravo, vous venez de trouver la sdf du blob du cours. félicitations !
         float _blob(const Vec3f &p) const
         {
             return p.x * p.x + p.y * p.y + p.z * p.z + glm::sin(4.f * p.x) - glm::cos(4.f * p.y) + glm::sin(4.f * p.z);
@@ -49,7 +50,6 @@ namespace RT_ISICG
         float _sdf(const Vec3f &p) const override
         {
             return _torus(p);
-            return _blob(p * 0.05f);
         }
     };
 } // namespace RT_ISICG

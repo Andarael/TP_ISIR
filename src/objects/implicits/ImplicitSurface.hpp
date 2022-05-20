@@ -1,8 +1,8 @@
 #ifndef __RT_ISICG_IMPLICIT_SURFACE__
 #define __RT_ISICG_IMPLICIT_SURFACE__
 
-#include "objects/BaseObject.hpp"
 #include "acceleration_structures/aabb.hpp"
+#include "objects/BaseObject.hpp"
 
 // todo menger sponge
 // todo torus
@@ -33,11 +33,8 @@ namespace RT_ISICG
                 return false;
 
             int step = 0;
-
-            double t = 0.;                      // distance from ray origin
-            double D = double(p_tMax - p_tMin); // maximum traversal distance
-
-            while (t < D)
+            double t = double(p_tMin); // distance from ray origin
+            while (t < double(p_tMax))
             {
                 Vec3f point = p_ray.pointAtT(float(t));
                 double d = double(sdf(point)); // distance to surface
@@ -67,11 +64,8 @@ namespace RT_ISICG
                 return false;
 
             int step = 0;
-
-            double t = 0.;                      // distance from ray origin
-            double D = double(p_tMax - p_tMin); // maximum traversal distance
-
-            while (t < D)
+            double t = double(p_tMin); // distance from ray origin
+            while (t < double(p_tMax))
             {
                 Vec3f point = p_ray.pointAtT(float(t));
                 double d = double(sdf(point)); // distance to surface
@@ -81,8 +75,8 @@ namespace RT_ISICG
 
                 if (step > _maxSteps)
                     return false;
-                step++;
 
+                step++;
                 t = t + d;
             }
             return false;
