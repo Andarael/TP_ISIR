@@ -117,14 +117,14 @@ namespace RT_ISICG
 
             return (tmin < p_tMax && tmax > p_tMin);
 
-            // todo implement https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-box-intersection
-            // from http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.64.7663&rep=rep1&type=pdf
+            // Mathod from https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-box-intersection
         }
 
     private:
         Vec3f _min = Vec3f(FLT_MAX);
         Vec3f _max = Vec3f(-FLT_MAX);
     };
+
 } // namespace RT_ISICG
 
 #endif // __RT_ISICG_AABB__
