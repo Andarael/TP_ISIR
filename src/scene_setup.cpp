@@ -22,6 +22,7 @@
 
 // import objects
 #include "cameras/PerspectiveCamera.hpp"
+#include "materials/PbrMaterial.hpp"
 #include "materials/TextureMaterial.hpp"
 #include "objects/BaseObject.hpp"
 #include "objects/implicits/ImplicitBulb.hpp"
@@ -67,7 +68,7 @@ namespace RT_ISICG
         scene._addMaterial(new TransparentMaterial("TransparentLightRed", lightRed, 1.3f));
 
         // emissive
-        scene._addMaterial(new EmissiveMaterial("EmissiveWhite", Vec3f(15)));
+        scene._addMaterial(new EmissiveMaterial("EmissiveWhite", Vec3f(1)));
 
         // scene._addMaterial(new TextureMaterial("TextureWhite", "textures/white.png"));
     }
@@ -239,8 +240,10 @@ namespace RT_ISICG
         // ================ Add Objects ================== //
         scene._addObject(new Sphere("Sphere1", Vec3f(-2, 0, 3), 1.5f));
         scene._addObject(new Sphere("Sphere2", Vec3f(2, 0, 3), 1.5f));
-        scene._attachMaterialToObject("MirrorWhite", "Sphere1");
-        scene._attachMaterialToObject("TransparentLightRed", "Sphere2");
+        scene._attachMaterialToObject("TransparentWhite", "Sphere1");
+        scene._attachMaterialToObject("MirrorLightBlue", "Sphere2");
+        scene._attachMaterialToObject("WhiteMatte", "Sphere1");
+        scene._attachMaterialToObject("lightBlueMatte", "Sphere2");
 
         // scene.loadFileTriangleMesh("Bunny", DATA_PATH + "Bunny.obj", Vec3f(-2, 0, 3));
         // scene._attachMaterialToObject("MirrorLightRed", "Bunny_defaultobject");
@@ -250,11 +253,16 @@ namespace RT_ISICG
 
         // ================ Add lights ================== //
         Vec3f lightPosition = Vec3f(0, 5, 0);
-        SimpleQuadLight *quadLight = new SimpleQuadLight(WHITE, 40, 2, lightPosition);
+        SimpleQuadLight *quadLight = new SimpleQuadLight(WHITE, 150, 2, lightPosition);
         quadLight->setLookAt(Vec3f(0, 0, 3));
-        PointLight *point_light = new PointLight(WHITE, lightPosition, 60.f);
+        PointLight *point_light = new PointLight(WHITE, lightPosition, 150.f, 2.0f);
 
         useQuadLight ? scene._addLight(quadLight) : scene._addLight(point_light);
+
+        scene._addMaterial(new EmissiveMaterial("EmissiveWhite10", Vec3f(1)));
+
+        // scene.loadFileTriangleMesh("Plane", DATA_PATH, "Plane.obj", Vec3f(0, 6.9f, 0), 20.f);
+        // scene._attachMaterialToObject("EmissiveWhite10", "Plane_Plane");
 
         scene._addObject(new Sphere("SphereLight", Vec3f(3, 5, 3), .5f));
         scene._attachMaterialToObject("EmissiveWhite", "SphereLight");
@@ -270,7 +278,7 @@ namespace RT_ISICG
 
         // ================ Add lights ================== //
         Vec3f lightPosition = Vec3f(0, 0, -2);
-        PointLight *pointLight = new PointLight(WHITE, lightPosition, 60);
+        PointLight *pointLight = new PointLight(WHITE, lightPosition, 40);
 
         SimpleQuadLight *quadLight = new SimpleQuadLight(WHITE, 2, 4, Vec3f(3, 6, -3));
         quadLight->setLookAt(Vec3f(0, 0, 3));
@@ -283,14 +291,14 @@ namespace RT_ISICG
         scene._addMaterial(new MatteMaterial("Matte_Grey", GREY, 1.f));
         scene._addMaterial(new PlasticMaterial("Plastic_Grey", GREY * 0.7f, WHITE * 0.3f, 64.f)); // 70% grey, 30% specular
         scene._addMaterial(new PlasticMaterial("Plastic_RED", RED, WHITE, 16.f));
-        scene._addMaterial(new CookTorranceMaterial("PBR_Gold", Vec3f(1.f, 0.85f, 0.57f), 0.5f, 0.3f));
+        scene._addMaterial(new CookTorranceMaterial("Gold", Vec3f(1.f, 0.85f, 0.57f), 1.f, 0.3f));
 
         // ================ Add Objects ================== //
         scene._addObject(new Sphere("Sphere1", Vec3f(0, 0, 3), 1));
         scene._addObject(new Plane("Plane1", Vec3f(0, -2, 0), VEC3F_Y));
 
         // attach materials to objects
-        scene._attachMaterialToObject("PBR_Gold", "Sphere1");
+        scene._attachMaterialToObject("Gold", "Sphere1");
         scene._attachMaterialToObject("Red", "Plane1");
 
         // ================ Camera ================ //
@@ -328,6 +336,39 @@ namespace RT_ISICG
         return *camera;
     }
 
+    BaseCamera &setup_pomme(Scene &scene)
+    {
+        // addCornellBox(scene, false, 20, Vec3f(0, -3, 0));
+
+        Vec3f cameraPos = Vec3f(-5, 3, 5);
+        // cameraPos = Vec3f(0, 2, -5);
+
+        Vec3f lightPosition = Vec3f(0, 3, 0);
+        lightPosition = (cameraPos + lightPosition) / 2.f;
+
+        // lightPosition = Vec3f(0, 3, -3);
+
+        scene.loadFileTriangleMesh("Pomme", DATA_PATH + "/pomme/", "Pomme.obj", Vec3f(0, 0, 0), 1.f);
+
+        scene._addObject(new Plane("Plane1", Vec3f(0, 0, 0), VEC3F_Y));
+        scene._attachMaterialToObject("GreyMatte", "Plane1");
+
+        scene._addMaterial(new PbrMaterial("pbr_blade", "", "", "", ""));
+        scene._attachMaterialToObject("CookTorrance", "Pomme_Blade");
+
+        scene._addMaterial(new PbrMaterial("PBRTest", "", "", "", ""));
+        scene._addObject(new Sphere("Sphere1", Vec3f(0, 0, 3), 1));
+        scene._attachMaterialToObject("PBRTest", "Sphere1");
+
+        // ================ Add lights ================== //
+        PointLight *point_light = new PointLight(WHITE, lightPosition, 50.f, 0.0f);
+        scene._addLight(point_light);
+
+        // ================ Camera ================ //
+        BaseCamera *camera = new PerspectiveCamera(cameraPos, Vec3f(0, 0, 0));
+        return *camera;
+    }
+
     BaseCamera &setup_scene(Scene &scene, const SceneType scene_type)
     {
         addMaterials(scene); // always add materials before objects
@@ -361,6 +402,9 @@ namespace RT_ISICG
 
         case SceneType::TP6_Sponza:
             return setup_TP6_Sponza(scene);
+
+        case SceneType::APPLE:
+            return setup_pomme(scene);
 
         case SceneType::SCENE_TYPE_COUNT:
 
