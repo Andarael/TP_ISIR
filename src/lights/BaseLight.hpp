@@ -27,6 +27,16 @@ namespace RT_ISICG
          */
         virtual LightSample sample(const Vec3f &p_point) const = 0;
 
+        virtual Vec3f getDirection(const Vec3f &p_point, const Vec3f &samplePoint) const
+        {
+            return glm::normalize(samplePoint - p_point);
+        }
+
+        virtual float getDistance(const Vec3f &p_point, const Vec3f &samplePoint) const
+        {
+            return glm::distance(samplePoint, p_point);
+        }
+
     protected:
         const std::string _name;
         Vec3f _color = WHITE;

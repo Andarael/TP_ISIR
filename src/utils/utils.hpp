@@ -87,10 +87,9 @@ namespace RT_ISICG
 
     static Vec3f getRandomHemisphere(const Vec3f &p_normal)
     {
-        // todo
         return getRandomHemisphere1(p_normal);
-        return getRandomHemisphere3(p_normal);
-        return getRandomHemisphere2(p_normal);
+        // return getRandomHemisphere3(p_normal);
+        // return getRandomHemisphere2(p_normal);
     }
 
 } // namespace RT_ISICG

@@ -15,17 +15,17 @@ namespace RT_ISICG
         RenderSettings render_settings;
 
         render_settings.seed = 0;
-        render_settings.useHDR = false;
+        render_settings.useHDR = true;
         render_settings.tmax = TMAX;
 
         render_settings.sampler = Sampler::GRID_SAMPLER;
-        render_settings.samples = 1;
-        render_settings.shadowSamples = 10;
+        render_settings.samples = 16;
+        render_settings.shadowSamples = 4;
 
         render_settings.maxBouncesTotal = 10;
         render_settings.maxBouncesTransmission = 8;
         render_settings.maxBounceReflection = 8;
-        render_settings.maxBouncesDiffuse = 4;
+        render_settings.maxBouncesDiffuse = 3;
 
         render_settings.backgroundColor = GREY * 1.0f;
         render_settings.integratorType = IntegratorType::PATH_TRACING;
@@ -35,8 +35,6 @@ namespace RT_ISICG
 
     int main(int argc, char **argv)
     {
-        // todo use argc and argv to load file
-
         float resolution_multiplier = 1.f;
         // ============================ Image ================================ //
         // Output Image parameters
@@ -47,7 +45,7 @@ namespace RT_ISICG
 
         // ============================ Scene Init ============================== //
         Scene scene;
-        SceneType sceneType = SceneType::APPLE; // <----- Change this to change the scene
+        SceneType sceneType = SceneType::TP5; // <----- Change this to change the scene
         BaseCamera *camera = &scene.init(sceneType);
 
         if (camera == nullptr)
@@ -77,8 +75,6 @@ namespace RT_ISICG
             const std::string imgNameHDR = "image.hdr";
             img.saveHDR(RESULTS_PATH + imgNameHDR);
         }
-
-        // todo multiple canvas (direct, indirect etc ...)
 
         return EXIT_SUCCESS;
     }

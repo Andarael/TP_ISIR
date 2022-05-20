@@ -12,6 +12,7 @@
 #include "materials/PbrMaterial.hpp"
 #include "materials/PlasticMaterial.hpp"
 #include "materials/TextureMaterial.hpp"
+#include "materials/lambertMaterial.hpp"
 #include "objects/meshs/MeshTriangle.hpp"
 
 namespace RT_ISICG
@@ -112,8 +113,6 @@ namespace RT_ISICG
 
     void Scene::loadFileTriangleMesh(const std::string &p_name, const std::string &p_filePath, const std::string &p_path, const Vec3f &p_pos, const float p_scale, const float p_rotation, const Vec3f p_rotation_axis)
     {
-
-        // todo rotation, scale etc...
         std::cout << "Loading: " << p_path << std::endl;
         Assimp::Importer importer;
 
@@ -170,10 +169,11 @@ namespace RT_ISICG
 
             else
             {
-                Vec3f kd = WHITE;
-                Vec3f ks = BLACK;
-                Vec3f tf = BLACK;
-                float s = 0.f;
+                Vec3f kd = WHITE;      // diffuse
+                Vec3f ks = BLACK;      // specular
+                Vec3f ke = BLACK;      // emissive
+                Vec3f tf = BLACK;      // transmission
+                float shininess = 0.f; // shininess
 
                 aiColor3D aiKd;
                 if (mtl->Get(AI_MATKEY_COLOR_DIFFUSE, aiKd) == AI_SUCCESS)
@@ -185,7 +185,11 @@ namespace RT_ISICG
 
                 float aiS = 0.f;
                 if (mtl->Get(AI_MATKEY_SHININESS, aiS) == AI_SUCCESS)
-                    s = aiS;
+                    shininess = aiS;
+
+                aiColor3D aiE;
+                if (mtl->Get(AI_MATKEY_COLOR_EMISSIVE, aiE) == AI_SUCCESS)
+                    ke = Vec3f(aiE.r, aiE.g, aiE.b);
 
                 aiColor3D aiTf;
                 if (mtl->Get(AI_MATKEY_OPACITY, tf) == AI_SUCCESS)
@@ -199,9 +203,16 @@ namespace RT_ISICG
                 mtl->GetTexture(aiTextureType_DIFFUSE, 0, &aiTexDiffuse);
                 std::string texDiffusePath = p_filePath + aiTexDiffuse.C_Str();
 
+                aiString aiTexEmit;
+                mtl->GetTexture(aiTextureType_EMISSION_COLOR, 0, &aiTexEmit);
+                std::string texEmitPath = p_filePath + aiTexDiffuse.C_Str();
+
+                aiString aiTexRough;
+                mtl->GetTexture(aiTextureType_DIFFUSE_ROUGHNESS, 0, &aiTexRough);
+                std::string texRoughPath = p_filePath + aiTexDiffuse.C_Str();
+
                 aiString aiTexNormal;
                 mtl->GetTexture(aiTextureType_NORMALS, 0, &aiTexNormal);
-
                 if (strlen(aiTexNormal.C_Str()) == 0)
                     mtl->GetTexture(aiTextureType_HEIGHT, 0, &aiTexNormal);
 
@@ -211,13 +222,19 @@ namespace RT_ISICG
                 printf("  Diffuse: %f %f %f\n", kd.x, kd.y, kd.z);
                 printf("  Specular: %f %f %f\n", ks.x, ks.y, ks.z);
                 printf("  Opacity: %f %f %f\n", tf.x, tf.y, tf.z);
+                printf("  Shininess: %f\n", shininess);
+                printf("  Emission: %f %f %f\n", ke.x, ke.y, ke.z);
                 printf("  Texture Diffuse: %s\n", aiTexDiffuse.C_Str());
                 printf("  Texture Normal : %s\n", aiTexNormal.C_Str());
+                printf("  Texture emit : %s\n", aiTexEmit.C_Str());
+                printf("  Texture rough : %s\n", aiTexRough.C_Str());
 
-                if (aiTexDiffuse.length != 0)
-                    _addMaterial(new PbrMaterial(mtlNameStr, texDiffusePath, texNormalPath, "", ""));
-                else
-                    _addMaterial(new PlasticMaterial(mtlNameStr, kd, ks, s));
+                PbrMaterial *material = new PbrMaterial(mtlNameStr, texDiffusePath, texNormalPath, texEmitPath, texRoughPath);
+                material->setColor(kd);
+                material->setEmit(ke);
+                material->setRoughness(1.f / shininess);
+
+                _addMaterial(material);
 
                 _attachMaterialToObject(mtlNameStr, meshName);
             }

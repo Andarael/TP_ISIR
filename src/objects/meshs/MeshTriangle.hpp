@@ -72,8 +72,10 @@ namespace RT_ISICG
             _bvh.build(&_triangles);
         }
 
+        bool intersectAABB(const Ray &p_ray, float p_tMin, float p_tMax, HitRecord &p_hitRecord) const;
         // Check for nearest intersection between p_tMin and p_tMax : if found fill p_hitRecord.
         bool intersect(const Ray &p_ray, float p_tMin, float p_tMax, HitRecord &p_hitRecord) const override;
+        bool intersectAnyAABB(const Ray &p_ray, float p_tMin, float p_tMax) const;
 
         // Check for any intersection between p_tMin and p_tMax.
         bool intersectAny(const Ray &p_ray, float p_tMin, float p_tMax) const override;

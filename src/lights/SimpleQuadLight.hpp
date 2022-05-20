@@ -35,7 +35,7 @@ namespace RT_ISICG
             Vec3f vec = VEC3F_X;
 
             if (glm::abs(dot(vec, p_normal)) <= float(SHADOW_EPSILON))
-                vec = VEC3F_Z + VEC3F_Y; // todo check if this is correct
+                vec = VEC3F_Z;
 
             _u = _length * cross(p_normal, vec);
             _v = _length * normalize(cross(_u, p_normal));

@@ -6,7 +6,7 @@
 
 namespace RT_ISICG
 {
-    class BaseObject; // todo utiliser la même technique que ça pour le scene_setup et le render_setup
+    class BaseObject;
 
     struct HitRecord
     {

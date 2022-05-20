@@ -18,6 +18,7 @@ namespace RT_ISICG
         TP6_Sponza,
         TP7,
         APPLE,
+        DEMO,
         SCENE_TYPE_COUNT
     };
 
@@ -42,6 +43,8 @@ namespace RT_ISICG
     BaseCamera &setup_TP3(Scene &scene);
 
     BaseCamera &setup_pomme(Scene &scene);
+
+    BaseCamera &setup_demo(Scene &scene);
 
     BaseCamera &setup_scene(Scene &scene, const SceneType scene_type);
 

@@ -17,9 +17,8 @@ namespace RT_ISICG
         {
             float sigma2 = roughness * roughness;
 
-            // dot product of the normal and the wi and wo todo check if max is needed
-            float cosThetaIn = glm::max(0.f, dot(normal, wi));
-            float cosThetaOut = glm::max(0.f, dot(normal, wo));
+            float cosThetaIn = glm::clamp(dot(normal, wi), 0.f, 1.f);
+            float cosThetaOut = glm::clamp(dot(normal, wo), 0.f, 1.f);
 
             // get theta angles in spherical coordinates from wi and wo
             float thetaI = glm::acos(cosThetaIn);

@@ -2,17 +2,45 @@
 
 namespace RT_ISICG
 {
+
     bool MeshTriangle::intersect(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const
     {
         if (_bvh.intersect(p_ray, p_tMin, p_tMax, p_hitRecord))
         {
             p_hitRecord._object = this;
-            p_hitRecord._normal = glm::normalize(p_hitRecord._normal *_material->getNormal(p_hitRecord));
             return true;
         }
 
         return false;
 
+        return intersectAABB(p_ray, p_tMin, p_tMax, p_hitRecord);
+    }
+
+    bool MeshTriangle::intersectAny(const Ray &p_ray, const float p_tMin, const float p_tMax) const
+    {
+        return _bvh.intersectAny(p_ray, p_tMin, p_tMax);
+
+        // todo comparison
+        return intersectAnyAABB(p_ray, p_tMin, p_tMax);
+    }
+
+    bool MeshTriangle::intersectAnyAABB(const Ray &p_ray, const float p_tMin, const float p_tMax) const
+    {
+        if (!_aabb.intersect(p_ray, p_tMin, p_tMax))
+            return false;
+
+        for (size_t i = 0; i < _triangles.size(); i++)
+        {
+            float t;
+            Vec2f uv;
+            if (_triangles[i].intersect(p_ray, t, uv))
+                if (t >= p_tMin && t <= p_tMax)
+                    return true; // No need to search for the nearest.
+        }
+        return false;
+    }
+    bool MeshTriangle::intersectAABB(const Ray &p_ray, const float p_tMin, const float p_tMax, HitRecord &p_hitRecord) const
+    {
         // todo comparison
         if (!_aabb.intersect(p_ray, p_tMin, p_tMax))
             return false;
@@ -44,25 +72,6 @@ namespace RT_ISICG
             p_hitRecord._uv = _triangles[hitTri].getUV(uv); // this is the UVs of the hitpoint in the texture
 
             return true;
-        }
-        return false;
-    }
-
-    bool MeshTriangle::intersectAny(const Ray &p_ray, const float p_tMin, const float p_tMax) const
-    {
-        return _bvh.intersectAny(p_ray, p_tMin, p_tMax);
-
-        // todo comparison
-        if (!_aabb.intersect(p_ray, p_tMin, p_tMax))
-            return false;
-
-        for (size_t i = 0; i < _triangles.size(); i++)
-        {
-            float t;
-            Vec2f uv;
-            if (_triangles[i].intersect(p_ray, t, uv))
-                if (t >= p_tMin && t <= p_tMax)
-                    return true; // No need to search for the nearest.
         }
         return false;
     }

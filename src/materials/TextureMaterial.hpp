@@ -39,13 +39,13 @@ namespace RT_ISICG
 
         float getAlpha(const Vec2f &uv) const override { return _textureDiffuse->getAlpha(uv); }
 
-        Vec3f getNormal(const HitRecord &p_hitRecord) const override
-        {
-            if (_textureNormal == nullptr || _textureNormal->getPixels().empty())
-                return p_hitRecord._normal;
+        // Vec3f getNormal(const HitRecord &p_hitRecord) const override
+        // {
+            // if (_textureNormal == nullptr || _textureNormal->getPixels().empty())
+                // return p_hitRecord._normal;
 
-            return (_textureNormal->getPixel(p_hitRecord._uv));
-        }
+            // return _textureNormal->getPixel(p_hitRecord._uv);
+        // }
 
     protected:
         LambertBRDF _brdf;

@@ -19,6 +19,8 @@
 #include "lights/PointLight.hpp"
 #include "lights/QuadLight.hpp"
 #include "lights/SimpleQuadLight.hpp"
+#include "lights/SpotLight.hpp"
+#include "lights/SunLight.hpp"
 
 // import objects
 #include "cameras/PerspectiveCamera.hpp"
@@ -239,14 +241,14 @@ namespace RT_ISICG
 
         // ================ Add Objects ================== //
         scene._addObject(new Sphere("Sphere1", Vec3f(-2, 0, 3), 1.5f));
-        scene._addObject(new Sphere("Sphere2", Vec3f(2, 0, 3), 1.5f));
+        // scene._addObject(new Sphere("Sphere2", Vec3f(2, 0, 3), 1.5f));
         scene._attachMaterialToObject("TransparentWhite", "Sphere1");
-        scene._attachMaterialToObject("MirrorLightBlue", "Sphere2");
-        scene._attachMaterialToObject("WhiteMatte", "Sphere1");
-        scene._attachMaterialToObject("lightBlueMatte", "Sphere2");
+        // scene._attachMaterialToObject("MirrorLightBlue", "Sphere2");
+        // scene._attachMaterialToObject("WhiteMatte", "Sphere1");
+        // scene._attachMaterialToObject("lightBlueMatte", "Sphere2");
 
-        // scene.loadFileTriangleMesh("Bunny", DATA_PATH + "Bunny.obj", Vec3f(-2, 0, 3));
-        // scene._attachMaterialToObject("MirrorLightRed", "Bunny_defaultobject");
+        scene.loadFileTriangleMesh("Bunny", DATA_PATH, "Bunny.obj", Vec3f(2, 0, 3));
+        scene._attachMaterialToObject("MirrorLightRed", "Bunny_defaultobject");
 
         // scene.loadFileTriangleMesh("Bunny2", DATA_PATH + "Bunny.obj", Vec3f(2, 0, 3));
         // scene._attachMaterialToObject("TransparentWhite", "Bunny2_defaultobject");
@@ -354,18 +356,42 @@ namespace RT_ISICG
         scene._attachMaterialToObject("GreyMatte", "Plane1");
 
         scene._addMaterial(new PbrMaterial("pbr_blade", "", "", "", ""));
-        scene._attachMaterialToObject("CookTorrance", "Pomme_Blade");
+        scene._attachMaterialToObject("pbr_blade", "Pomme_Blade");
 
         scene._addMaterial(new PbrMaterial("PBRTest", "", "", "", ""));
-        scene._addObject(new Sphere("Sphere1", Vec3f(0, 0, 3), 1));
+        scene._addObject(new Sphere("Sphere1", Vec3f(0, 1, 3), 0.5f));
         scene._attachMaterialToObject("PBRTest", "Sphere1");
 
         // ================ Add lights ================== //
-        PointLight *point_light = new PointLight(WHITE, lightPosition, 50.f, 0.0f);
-        scene._addLight(point_light);
+        // PointLight *point_light = new PointLight(WHITE, lightPosition, 50.f, 0.0f);
+        // scene._addLight(point_light);
+
+        SunLight *sun_light = new SunLight(WHITE, 5.f, Vec3f(-1, -1, -1), 0.02f);
+        scene._addLight(sun_light);
 
         // ================ Camera ================ //
         BaseCamera *camera = new PerspectiveCamera(cameraPos, Vec3f(0, 0, 0));
+        return *camera;
+    }
+
+    BaseCamera &setup_demo(Scene &scene)
+    {
+        Vec3f cameraPos = Vec3f(-1, 2.f, -3);
+        Vec3f lightPosition = Vec3f(-2, 5, 0);
+        // lightPosition = (cameraPos + lightPosition) / 2.f;
+
+        scene.loadFileTriangleMesh("Knob", DATA_PATH + "/knob/", "knob2.obj", Vec3f(0, 0, 0), 1.f);
+
+        scene._addObject(new Sphere("Sphere1", Vec3f(0, 1, 3), 1));
+        scene._addMaterial(new PbrMaterial("pbrSphere1", lightBlue, VEC3F_ZERO, 0.5f, 0.0f));
+
+        // SunLight *sun_light = new SunLight(WHITE, 5.f, Vec3f(0, -1, 0), 0.0f);
+        // scene._addLight(sun_light);
+
+        PointLight *point_light = new PointLight(WHITE, lightPosition, 70.f, 1.0f);
+        scene._addLight(point_light);
+
+        BaseCamera *camera = new PerspectiveCamera(cameraPos, Vec3f(0, 0.5f, 0), 40);
         return *camera;
     }
 
@@ -405,6 +431,9 @@ namespace RT_ISICG
 
         case SceneType::APPLE:
             return setup_pomme(scene);
+
+        case SceneType::DEMO:
+            return setup_demo(scene);
 
         case SceneType::SCENE_TYPE_COUNT:
 

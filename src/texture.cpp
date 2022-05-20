@@ -42,7 +42,6 @@ namespace RT_ISICG
                 pixels[pixelId] = static_cast<unsigned char>(color.r * 255);
                 pixels[pixelId + 1] = static_cast<unsigned char>(color.g * 255);
                 pixels[pixelId + 2] = static_cast<unsigned char>(color.b * 255);
-                // todo gerer l'alpha (avec Vec4f)
                 if (_nbChannels == 4) { pixels[pixelId + 3] = static_cast<unsigned char>(color.b * 255); }
             }
         }

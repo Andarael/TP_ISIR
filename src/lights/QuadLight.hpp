@@ -36,8 +36,8 @@ namespace RT_ISICG
             Vec3f randomUV = _u * rand2D.x + _v * rand2D.y;
             Vec3f randomSamplePoint = _position + randomUV;
 
-            Vec3f direction = glm::normalize(randomSamplePoint - p_point);
-            float distance = glm::distance(randomSamplePoint, p_point);
+            Vec3f direction = getDirection(p_point, randomSamplePoint);
+            float distance = getDistance(p_point, randomSamplePoint);
 
             float cosTheta = glm::abs(glm::dot(_normal, direction));
             float pdf = _getPdf(distance, cosTheta);

@@ -246,6 +246,12 @@
     <ClInclude Include="src\utils\utils.hpp">
       <Filter>Source Files\utils</Filter>
     </ClInclude>
+    <ClInclude Include="src\lights\SpotLight.hpp">
+      <Filter>Source Files\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lights\SunLight.hpp">
+      <Filter>Source Files\lights</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />

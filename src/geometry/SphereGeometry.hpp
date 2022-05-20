@@ -38,15 +38,9 @@ namespace RT_ISICG
 
             p_t1 = (-b + sqrtDelta) * 0.5f;
             p_t2 = (-b - sqrtDelta) * 0.5f;
-            // todo check interior of sphere
 
-            // todo sort Intersection
             if (p_t1 > p_t2)
-            {
-                float temp = p_t1;
-                p_t1 = p_t2;
-                p_t2 = temp;
-            }
+                std::swap(p_t1, p_t2);
 
             return true;
         }

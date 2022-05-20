@@ -21,8 +21,8 @@ namespace RT_ISICG
         {
             Vec3f samplePoint = getSamplePoint(p_point);
 
-            Vec3f direction = glm::normalize(samplePoint - p_point);
-            float distance = glm::distance(samplePoint, p_point);
+            Vec3f direction = getDirection(p_point, samplePoint);
+            float distance = getDistance(p_point, samplePoint);
 
             float cosTheta = abs(glm::dot(getNormal(p_point), direction));
             float pdf = 1.f / cosTheta; // pdf stays contant with radius for easier light intensity control
@@ -32,7 +32,7 @@ namespace RT_ISICG
             return LightSample(direction, distance, radiance, pdf);
         }
 
-    private:
+    protected:
         float _radius;
         Vec3f _position;
         float _min_radius = 0.01f;
@@ -40,15 +40,10 @@ namespace RT_ISICG
         Vec3f getNormal(const Vec3f &p_point) const { return glm::normalize(p_point - _position); }
 
         // sample a random hemisphere in the direction of the point
-        Vec3f getSamplePoint(const Vec3f &p_point) const
+        virtual Vec3f getSamplePoint(const Vec3f &p_point) const
         {
             if (_radius < _min_radius)
                 return _position;
-
-            // float x = (randomFloat() - .5f) * 2.f;
-            // float y = (randomFloat() - .5f) * 2.f;
-            // float z = (randomFloat() - .5f) * 2.f;
-            // Vec3f dir = glm::normalize(Vec3f(x, y, z));
 
             Vec3f dir = glm::normalize((randomVec3f() - .5f) * 2.f);
             if (glm::dot(dir, getNormal(p_point)) < 0)

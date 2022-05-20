@@ -1,8 +1,8 @@
 #ifndef __RT_ISICG_ORENNAYAR_MATERIAL__
 #define __RT_ISICG_ORENNAYAR_MATERIAL__
 
-#include "materials/BaseMaterial.hpp"
 #include "brdfs/OrenNayarBRDF.hpp"
+#include "materials/BaseMaterial.hpp"
 
 namespace RT_ISICG
 {
@@ -14,11 +14,8 @@ namespace RT_ISICG
 
         Vec3f shade(const Vec3f &p_rayDirection, const HitRecord &p_hitRecord, const Vec3f &p_lightDirection) const override
         {
-            // todo brdf return color
             return _diffuse * _brdf.evaluate(p_hitRecord._normal, p_lightDirection, -p_rayDirection);
         }
-
-        // todo passer un pointeur vers une fonction qui prend hitrecord (ou point), kd... et retourne une couleur
 
         Vec3f getFlatColor(const HitRecord &p_hitRecord) const override { return _diffuse; }
 

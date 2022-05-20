@@ -38,26 +38,27 @@ namespace RT_ISICG
 
         Vec3f shade(const Vec3f &p_rayDirection, const HitRecord &p_hitRecord, const Vec3f &p_lightDirection) const override
         {
+            Vec3f wi = glm::normalize(p_lightDirection);
+            Vec3f wo = -glm::normalize(p_rayDirection);
             float roughness = getRoughness(p_hitRecord);
             float metalness = _metalness;
             Vec3f color = getFlatColor(p_hitRecord);
 
-            Vec3f normalForFresnel = glm::mix(p_hitRecord._normal, -p_rayDirection, glm::clamp(roughness, 0.f, 1.f));
-            float fresnelFactor = fresnel(p_rayDirection, normalForFresnel, 1.f, _ior);
-
-            if (_textureDiffuse == nullptr || _textureDiffuse->getPixels().empty())
-                return MAGENTA;
+            Vec3f normalForFresnel = glm::normalize(glm::mix(p_hitRecord._normal, wo, roughness)); // as the roughness increase, the fresnel factor should decrease
+            float fresnelFactor = fresnel(-wo, normalForFresnel, 1.f, _ior);
 
             float metalMix = (1.f - fresnelFactor) * metalness;
             Vec3f glossyColor = glm::mix(WHITE, color, metalMix);
 
             Vec3f diffuse = VEC3F_ZERO;
             if (metalness != 1.0f)
-                diffuse = color * _diffuseBrdf.evaluate(p_hitRecord._normal, p_lightDirection, -p_rayDirection, orenRoughness(roughness));
+                diffuse = color * _diffuseBrdf.evaluate(p_hitRecord._normal, wi, wo, orenRoughness(roughness));
 
-            Vec3f glossy = _glossyBrdf.evaluate(p_hitRecord._normal, p_lightDirection, -p_rayDirection, glossyColor, roughness);
+            Vec3f glossy = _glossyBrdf.evaluate(p_hitRecord._normal, wi, wo, glossyColor, roughness);
 
-            return glm::mix(diffuse, glossy, fresnelFactor);
+            Vec3f final = glm::mix(diffuse, glossy, fresnelFactor);
+
+            return final;
         }
 
         Vec3f getFlatColor(const HitRecord &p_hitRecord) const override
@@ -72,13 +73,13 @@ namespace RT_ISICG
 
         float getAlpha(const Vec2f &uv) const override { return _textureDiffuse->getAlpha(uv); }
 
-        Vec3f getNormal(const HitRecord &p_hitRecord) const override
-        {
-            if (_textureNormal == nullptr || _textureNormal->getPixels().empty())
-                return p_hitRecord._normal;
+        // Vec3f getNormal(const HitRecord &p_hitRecord) const override
+        // {
+            // if (_textureNormal == nullptr || _textureNormal->getPixels().empty())
+                // return Vec3f(1);
 
-            return _textureNormal->getPixel(p_hitRecord._uv);
-        }
+            // return _textureNormal->getPixel(p_hitRecord._uv);
+        // }
 
         float getRoughness(const HitRecord &p_hitRecord) const
         {
@@ -91,15 +92,14 @@ namespace RT_ISICG
         Vec3f getEmit(const HitRecord &p_hitRecord) const override
         {
             if (_textureEmission == nullptr || _textureEmission->getPixels().empty())
-                return _emit;
-
+                return VEC3F_ZERO;
+            return VEC3F_ZERO;
             return _textureEmission->getPixel(p_hitRecord._uv);
         }
 
         // convert UE4 sigma2 to oren roughness
         static float orenRoughness(const float roughness)
         {
-            // todo maybe rough squared ?
             return glm::atan(roughness) * 0.707f; // atan(r)/sqrt(2)
         }
 
@@ -111,7 +111,7 @@ namespace RT_ISICG
 
         Vec3f _color = Vec3f(1);
         Vec3f _emit = VEC3F_ZERO;
-        float _roughness = 0.5f;
+        float _roughness = 0.1f;
         float _metalness = 0.0f;
         float _ior = 1.45f;
 

@@ -220,6 +220,8 @@
     <ClInclude Include="src\lights\PointLight.hpp" />
     <ClInclude Include="src\lights\QuadLight.hpp" />
     <ClInclude Include="src\lights\SimpleQuadLight.hpp" />
+    <ClInclude Include="src\lights\SpotLight.hpp" />
+    <ClInclude Include="src\lights\SunLight.hpp" />
     <ClInclude Include="src\materials\ColorMaterial.hpp" />
     <ClInclude Include="src\defines.hpp" />
     <ClInclude Include="src\io\stb_include.hpp" />

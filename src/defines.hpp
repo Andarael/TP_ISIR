@@ -97,12 +97,6 @@ namespace RT_ISICG
         return u.b;
     }
 
-    static float dotClamp(const Vec3f &A, const Vec3f &B)
-    {
-        // todo use everywhere
-        return glm::clamp(glm::dot(A, B), 0.0f, 1.0f);
-    }
-
 } // namespace RT_ISICG
 
 #endif // __RT_ISICG_DEFINES__

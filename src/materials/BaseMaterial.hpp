@@ -35,7 +35,7 @@ namespace RT_ISICG
 
         virtual bool hasTexture() const { return false; }
 
-        virtual Vec3f getNormal(const HitRecord &p_hitRecord) const { return p_hitRecord._normal; }
+        // virtual Vec3f getNormal(const HitRecord &p_hitRecord) const { return Vec3f(1); }
 
     protected:
         std::string _name;

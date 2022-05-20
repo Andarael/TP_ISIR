@@ -4,10 +4,6 @@
 #include "acceleration_structures/aabb.hpp"
 #include "objects/BaseObject.hpp"
 
-// todo menger sponge
-// todo torus
-// todo Juila
-
 // References
 // Inigo Quilez www.iquilezles.org
 
@@ -108,14 +104,11 @@ namespace RT_ISICG
                                         sdf(p_point + hz) - sdf(p_point - hz)));
 
             // https://iquilezles.org/articles/normalsSDF/
-            // todo h en fonction de la taille du pixel
         }
 
     private:
         int _maxSteps = 1000;
         const double _minDistance = 1e-6;
-
-        // todo is it necessary to use double for distance ? (avoid inifinite loop when reaching far plane and going back)
 
     protected:
         float _scale = 1.f;

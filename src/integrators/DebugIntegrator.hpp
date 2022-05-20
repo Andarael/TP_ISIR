@@ -45,18 +45,18 @@ namespace RT_ISICG
                 uv = hitRecord._uv;
                 shade = hitRecord._object->getMaterial()->shade(p_ray.getDirection(), hitRecord, -p_ray.getDirection());
             }
-            return glm::clamp(cosTheta, 0.f, 1.f);
-            return cosTheta;
+            return trueNormal;
             return (normal);
-            return flatColor;
             return shade;
+            return cosTheta;
+            return glm::clamp(cosTheta, 0.f, 1.f);
+            return flatColor;
             return (normal * .5f) + .5f;
             return Vec3f(uv, 0);
 
             return getRandomHemisphere(normal);
 
             return point;
-            return trueNormal;
             return Vec3f(zPass(hitRecord._distance, 1.f, 5.f, false));
             return _setColorInRange(output);
         }

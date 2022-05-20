@@ -18,7 +18,7 @@ namespace RT_ISICG
         virtual ~BaseObject() = default;
 
         BaseObject(const std::string &name, const Vec3f &p_position)
-            : _name(name), _position(p_position) {};
+            : _name(name), _position(p_position){};
 
         virtual const std::string &getName() const final { return _name; }
 
@@ -51,7 +51,6 @@ namespace RT_ISICG
             return true;
         }
 
-        // todo move to intersectUtils
         static bool intersectionInRange(float const p_t, const float p_tMin, const float p_tMax)
         {
             return (p_t < p_tMax && p_t > p_tMin); // first intersection too far

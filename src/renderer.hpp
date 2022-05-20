@@ -12,9 +12,6 @@ namespace RT_ISICG
     // forward declarations
     class Scene;
 
-    // define sampler structure
-    // todo integrate
-
     enum class Sampler
     {
         RANDOM_SAMPLER = 0,

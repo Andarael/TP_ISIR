@@ -2,6 +2,7 @@
 #define __RT_ISICG_SCENE__
 
 #include "Renderer.hpp"
+#include "cameras/PerspectiveCamera.hpp"
 #include "defines.hpp"
 #include "lights/BaseLight.hpp"
 #include "objects/BaseObject.hpp"
@@ -33,10 +34,11 @@ namespace RT_ISICG
 
         BaseCamera &init(const SceneType &p_type);
 
-        // Initialization from file. todo
-        static RenderSettings init(const std::string &p_path)
+        BaseCamera &init(const std::string &p_filePath, const std::string &p_path)
         {
-            throw std::exception("Not implemented !");
+            loadFileTriangleMesh("Object", p_filePath, p_path);
+            BaseCamera *camera = new PerspectiveCamera();
+            return *camera;
         }
 
         const LightList &getLights() const { return _lightList; }
