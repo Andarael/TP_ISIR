@@ -154,7 +154,7 @@ namespace RT_ISICG
         float c = 2.4f;
         float d = 0.6f;
         float e = 0.15f;
-        color = glm::min(color, 0.f);
+        color = glm::max(color, 0.f);
         color *= (a * color + b) / (color * (c * color + d) + e);
         return color;
     }

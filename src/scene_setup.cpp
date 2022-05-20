@@ -221,7 +221,7 @@ namespace RT_ISICG
 
         // ================ Add lights ================== //
         // scene._addLight(new PointLight(WHITE, Vec3f(3, 6, -6), 200));
-        SimpleQuadLight *quad_light = new SimpleQuadLight(WHITE, 6, 4, Vec3f(5, 12, -5));
+        SimpleQuadLight *quad_light = new SimpleQuadLight(WHITE, 500, 2, Vec3f(5, 12, -5));
         quad_light->setLookAt(VEC3F_ZERO);
         scene._addLight(quad_light);
 
@@ -355,22 +355,26 @@ namespace RT_ISICG
         scene._addObject(new Plane("Plane1", Vec3f(0, 0, 0), VEC3F_Y));
         scene._attachMaterialToObject("GreyMatte", "Plane1");
 
-        scene._addMaterial(new PbrMaterial("pbr_blade", "", "", "", ""));
+        PbrMaterial *bladeMaterial = new PbrMaterial("pbr_blade", "", "", "", "");
+        bladeMaterial->setMetalness(0.5f);
+        bladeMaterial->setRoughness(0.2f);
+        scene._addMaterial(bladeMaterial);
         scene._attachMaterialToObject("pbr_blade", "Pomme_Blade");
 
-        scene._addMaterial(new PbrMaterial("PBRTest", "", "", "", ""));
-        scene._addObject(new Sphere("Sphere1", Vec3f(0, 1, 3), 0.5f));
-        scene._attachMaterialToObject("PBRTest", "Sphere1");
+        // scene._addMaterial(new PbrMaterial("PBRTest", "", "", "", ""));
+        // scene._addObject(new Sphere("Sphere1", Vec3f(0, 1, 3), 0.5f));
+        // scene._attachMaterialToObject("PBRTest", "Sphere1");
 
         // ================ Add lights ================== //
         // PointLight *point_light = new PointLight(WHITE, lightPosition, 50.f, 0.0f);
         // scene._addLight(point_light);
 
-        SunLight *sun_light = new SunLight(WHITE, 5.f, Vec3f(-1, -1, -1), 0.02f);
+        Vec3f sunlightColor = Vec3f(0.99f, 0.98f, 0.82f); 
+        SunLight *sun_light = new SunLight(sunlightColor, 7.f, Vec3f(-1, -1, -1), 0.3f);
         scene._addLight(sun_light);
 
         // ================ Camera ================ //
-        BaseCamera *camera = new PerspectiveCamera(cameraPos, Vec3f(0, 0, 0));
+        BaseCamera *camera = new PerspectiveCamera(cameraPos, Vec3f(0, 0.5f, 0), 40);
         return *camera;
     }
 
@@ -382,8 +386,8 @@ namespace RT_ISICG
 
         scene.loadFileTriangleMesh("Knob", DATA_PATH + "/knob/", "knob2.obj", Vec3f(0, 0, 0), 1.f);
 
-        scene._addObject(new Sphere("Sphere1", Vec3f(0, 1, 3), 1));
-        scene._addMaterial(new PbrMaterial("pbrSphere1", lightBlue, VEC3F_ZERO, 0.5f, 0.0f));
+        // scene._addObject(new Sphere("Sphere1", Vec3f(0, 1, 3), 1));
+        // scene._addMaterial(new PbrMaterial("pbrSphere1", lightBlue, VEC3F_ZERO, 0.5f, 0.0f));
 
         // SunLight *sun_light = new SunLight(WHITE, 5.f, Vec3f(0, -1, 0), 0.0f);
         // scene._addLight(sun_light);
@@ -391,7 +395,7 @@ namespace RT_ISICG
         PointLight *point_light = new PointLight(WHITE, lightPosition, 70.f, 1.0f);
         scene._addLight(point_light);
 
-        BaseCamera *camera = new PerspectiveCamera(cameraPos, Vec3f(0, 0.5f, 0), 40);
+        BaseCamera *camera = new PerspectiveCamera(cameraPos, Vec3f(0, 0.5f, 0), 30);
         return *camera;
     }
 

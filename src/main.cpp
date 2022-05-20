@@ -15,11 +15,11 @@ namespace RT_ISICG
         RenderSettings render_settings;
 
         render_settings.seed = 0;
-        render_settings.useHDR = true;
+        render_settings.useHDR = false;
         render_settings.tmax = TMAX;
 
         render_settings.sampler = Sampler::GRID_SAMPLER;
-        render_settings.samples = 16;
+        render_settings.samples = 8;
         render_settings.shadowSamples = 4;
 
         render_settings.maxBouncesTotal = 10;
@@ -35,7 +35,7 @@ namespace RT_ISICG
 
     int main(int argc, char **argv)
     {
-        float resolution_multiplier = 1.f;
+        float resolution_multiplier = 0.5f;
         // ============================ Image ================================ //
         // Output Image parameters
         const int imgWidth = 1200 * resolution_multiplier;
@@ -45,7 +45,7 @@ namespace RT_ISICG
 
         // ============================ Scene Init ============================== //
         Scene scene;
-        SceneType sceneType = SceneType::TP5; // <----- Change this to change the scene
+        SceneType sceneType = SceneType::TP7; // <----- Change this to change the scene
         BaseCamera *camera = &scene.init(sceneType);
 
         if (camera == nullptr)

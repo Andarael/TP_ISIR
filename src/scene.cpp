@@ -9,6 +9,7 @@
 #include "scene_setup.hpp"
 
 #include "materials/ColorMaterial.hpp"
+#include "materials/MatteMaterial.hpp"
 #include "materials/PbrMaterial.hpp"
 #include "materials/PlasticMaterial.hpp"
 #include "materials/TextureMaterial.hpp"
@@ -229,10 +230,10 @@ namespace RT_ISICG
                 printf("  Texture emit : %s\n", aiTexEmit.C_Str());
                 printf("  Texture rough : %s\n", aiTexRough.C_Str());
 
-                PbrMaterial *material = new PbrMaterial(mtlNameStr, texDiffusePath, texNormalPath, texEmitPath, texRoughPath);
+                PbrMaterial *material = new PbrMaterial(mtlNameStr, texDiffusePath, texNormalPath, "texEmitPath", texRoughPath);
                 material->setColor(kd);
                 material->setEmit(ke);
-                material->setRoughness(1.f / shininess);
+                material->setRoughness(ks.r);
 
                 _addMaterial(material);
 

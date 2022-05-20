@@ -37,7 +37,12 @@ namespace RT_ISICG
 
         bool hasTexture() const override { return true; }
 
-        float getAlpha(const Vec2f &uv) const override { return _textureDiffuse->getAlpha(uv); }
+        float getAlpha(const Vec2f &uv) const override
+        {
+            if (_textureDiffuse == nullptr || _textureDiffuse->getPixels().empty())
+                return 1.0f;
+            return _textureDiffuse->getAlpha(uv);
+        }
 
         // Vec3f getNormal(const HitRecord &p_hitRecord) const override
         // {
