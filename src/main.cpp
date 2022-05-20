@@ -15,20 +15,20 @@ namespace RT_ISICG
         RenderSettings render_settings;
 
         render_settings.seed = 0;
-        render_settings.useHDR = true;
+        render_settings.useHDR = false;
         render_settings.tmax = TMAX;
 
         render_settings.sampler = Sampler::GRID_SAMPLER;
-        render_settings.samples = 2;
-        render_settings.shadowSamples = 4;
+        render_settings.samples = 1;
+        render_settings.shadowSamples = 10;
 
-        render_settings.maxBouncesTotal = 5;
-        render_settings.maxBouncesTransmission = 5;
-        render_settings.maxBounceReflection = 5;
-        render_settings.maxBouncesDiffuse = 0;
+        render_settings.maxBouncesTotal = 10;
+        render_settings.maxBouncesTransmission = 8;
+        render_settings.maxBounceReflection = 8;
+        render_settings.maxBouncesDiffuse = 4;
 
-        render_settings.backgroundColor = GREY*20.0f;
-        render_settings.integratorType = IntegratorType::RAY_CAST;
+        render_settings.backgroundColor = GREY * 1.0f;
+        render_settings.integratorType = IntegratorType::PATH_TRACING;
 
         return render_settings;
     }
@@ -37,7 +37,7 @@ namespace RT_ISICG
     {
         // todo use argc and argv to load file
 
-        float resolution_multiplier = 2.f;
+        float resolution_multiplier = 1.f;
         // ============================ Image ================================ //
         // Output Image parameters
         const int imgWidth = 1200 * resolution_multiplier;
@@ -47,7 +47,7 @@ namespace RT_ISICG
 
         // ============================ Scene Init ============================== //
         Scene scene;
-        SceneType sceneType = SceneType::TP6_Sponza; // <----- Change this to change the scene
+        SceneType sceneType = SceneType::APPLE; // <----- Change this to change the scene
         BaseCamera *camera = &scene.init(sceneType);
 
         if (camera == nullptr)

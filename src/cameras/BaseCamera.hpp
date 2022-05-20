@@ -3,6 +3,7 @@
 
 #include "Ray.hpp"
 #include "defines.hpp"
+#include "utils/random.hpp"
 
 namespace RT_ISICG
 {

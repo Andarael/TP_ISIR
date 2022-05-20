@@ -9,6 +9,7 @@
 #include "scene_setup.hpp"
 
 #include "materials/ColorMaterial.hpp"
+#include "materials/PbrMaterial.hpp"
 #include "materials/PlasticMaterial.hpp"
 #include "materials/TextureMaterial.hpp"
 #include "objects/meshs/MeshTriangle.hpp"
@@ -125,7 +126,7 @@ namespace RT_ISICG
         unsigned int cptTriangles = 0;
         unsigned int cptVertices = 0;
 
-#pragma omp parallel for schedule(dynamic)
+        // #pragma omp parallel for schedule(dynamic)
         for (int m = 0; m < scene->mNumMeshes; ++m)
         {
             const aiMesh *const mesh = scene->mMeshes[m];
@@ -194,20 +195,27 @@ namespace RT_ISICG
                 mtl->Get(AI_MATKEY_NAME, mtlName);
                 std::string mtlNameStr = p_name + "_" + mtlName.C_Str();
 
-                aiString texDiffuse;
-                mtl->GetTexture(aiTextureType_DIFFUSE, 0, &texDiffuse);
-                std::string texDiffusePath = p_filePath + texDiffuse.C_Str();
+                aiString aiTexDiffuse;
+                mtl->GetTexture(aiTextureType_DIFFUSE, 0, &aiTexDiffuse);
+                std::string texDiffusePath = p_filePath + aiTexDiffuse.C_Str();
+
+                aiString aiTexNormal;
+                mtl->GetTexture(aiTextureType_NORMALS, 0, &aiTexNormal);
+
+                if (strlen(aiTexNormal.C_Str()) == 0)
+                    mtl->GetTexture(aiTextureType_HEIGHT, 0, &aiTexNormal);
+
+                std::string texNormalPath = p_filePath + aiTexNormal.C_Str();
 
                 printf("Material: %s\n", mtlNameStr.c_str());
                 printf("  Diffuse: %f %f %f\n", kd.x, kd.y, kd.z);
                 printf("  Specular: %f %f %f\n", ks.x, ks.y, ks.z);
                 printf("  Opacity: %f %f %f\n", tf.x, tf.y, tf.z);
-                printf("  Texture Diffuse: %s\n", texDiffuse.C_Str());
+                printf("  Texture Diffuse: %s\n", aiTexDiffuse.C_Str());
+                printf("  Texture Normal : %s\n", aiTexNormal.C_Str());
 
-                if (texDiffuse.length != 0)
-                {
-                    _addMaterial(new TextureMaterial(mtlNameStr, texDiffusePath));
-                }
+                if (aiTexDiffuse.length != 0)
+                    _addMaterial(new PbrMaterial(mtlNameStr, texDiffusePath, texNormalPath, "", ""));
                 else
                     _addMaterial(new PlasticMaterial(mtlNameStr, kd, ks, s));
 
