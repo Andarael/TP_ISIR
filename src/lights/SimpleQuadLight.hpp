@@ -16,7 +16,6 @@ namespace RT_ISICG
               _length(p_size)
         {
             compute_uv(p_size, p_normal);
-            // todo find a better way
         }
 
         void setLookAt(const Vec3f &lookAt) { compute_uv(_length * _length, glm::normalize(lookAt - _origin)); }
@@ -24,6 +23,11 @@ namespace RT_ISICG
     protected:
         Vec3f _origin; // the center of the square, _position will be used to compute the uv in sample()
         float _length;
+
+        float _getPdf(const float distance, const float cosTheta) const override
+        {
+            return 1.f / 2.f * (distance * distance) / cosTheta; // default value calibrated to point light
+        }
 
     private:
         void compute_uv(const float p_size, const Vec3f &p_normal)

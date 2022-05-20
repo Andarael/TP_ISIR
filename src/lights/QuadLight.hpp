@@ -30,8 +30,6 @@ namespace RT_ISICG
 
         void setPosition(const Vec3f &p_position) { _position = p_position; }
 
-        // methods
-
         LightSample sample(const Vec3f &p_point) const override
         {
             Vec2f rand2D = randomVec2f();
@@ -41,8 +39,8 @@ namespace RT_ISICG
             Vec3f direction = glm::normalize(randomSamplePoint - p_point);
             float distance = glm::distance(randomSamplePoint, p_point);
 
-            float cosTheta = abs(glm::dot(_normal, direction));
-            float pdf = 1.0f / _area * (distance * distance) / cosTheta;
+            float cosTheta = glm::abs(glm::dot(_normal, direction));
+            float pdf = _getPdf(distance, cosTheta);
 
             Vec3f radiance = (_color * _power) / pdf;
 
@@ -68,6 +66,11 @@ namespace RT_ISICG
         Vec3f _normal = -VEC3F_Y;
 
         float _area = 1.0f;
+
+        virtual float _getPdf(const float distance, const float cosTheta) const
+        {
+            return 1.f / _area * (distance * distance) / cosTheta;
+        }
     };
 
 } // namespace RT_ISICG
