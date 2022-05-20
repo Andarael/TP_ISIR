@@ -7,6 +7,7 @@ namespace RT_ISICG
         if (_bvh.intersect(p_ray, p_tMin, p_tMax, p_hitRecord))
         {
             p_hitRecord._object = this;
+            p_hitRecord._normal = glm::normalize(p_hitRecord._normal *_material->getNormal(p_hitRecord));
             return true;
         }
 

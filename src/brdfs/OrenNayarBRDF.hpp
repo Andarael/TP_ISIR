@@ -8,25 +8,27 @@ namespace RT_ISICG
     class OrenNayarBRDF
     {
     public:
+        OrenNayarBRDF() = default;
+
         OrenNayarBRDF(const float p_roughness)
             : _roughness(p_roughness){};
 
-        float evaluate(const Vec3f &normal, const Vec3f &wi, const Vec3f &wo) const
+        float evaluate(const Vec3f &normal, const Vec3f &wi, const Vec3f &wo, const float roughness) const
         {
-            float sigma2 = _roughness * _roughness;
+            float sigma2 = roughness * roughness;
 
             // dot product of the normal and the wi and wo todo check if max is needed
             float cosThetaIn = glm::max(0.f, dot(normal, wi));
             float cosThetaOut = glm::max(0.f, dot(normal, wo));
 
             // get theta angles in spherical coordinates from wi and wo
-            float thetaI = acos(cosThetaIn);
-            float thetaO = acos(cosThetaOut);
+            float thetaI = glm::acos(cosThetaIn);
+            float thetaO = glm::acos(cosThetaOut);
 
             // projection of the incoming and outgoing vectors onto the surface
-            Vec3f incoming = normalize(wi - cosThetaIn * normal);
-            Vec3f outgoing = normalize(wo - cosThetaOut * normal);
-            float dotDiff = dot(incoming, outgoing);
+            Vec3f incoming = glm::normalize(wi - cosThetaIn * normal);
+            Vec3f outgoing = glm::normalize(wo - cosThetaOut * normal);
+            float dotDiff = glm::dot(incoming, outgoing);
             // cos (Phi_I - Phi_O) = dot(i, o) (page 5 of https://boksajak.github.io/files/CrashCourseBRDF.pdf)
 
             // alpha and beta factors
@@ -40,6 +42,11 @@ namespace RT_ISICG
             float factor = A + B * glm::max(0.f, dotDiff) * glm::sin(alpha) * glm::tan(beta);
 
             return INV_PIf * factor;
+        }
+
+        float evaluate(const Vec3f &normal, const Vec3f &wi, const Vec3f &wo) const
+        {
+            return evaluate(normal, wi, wo, _roughness);
         }
 
         const float &getRoughness() const { return _roughness; }

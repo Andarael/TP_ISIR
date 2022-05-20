@@ -49,7 +49,7 @@ namespace RT_ISICG
 
         void addVertex(const float p_x, const float p_y, const float p_z)
         {
-            Vec3f position = _transformation * Vec4f(p_x, p_y, p_z, 1.f); // todo scale avec w?
+            Vec3f position = _transformation * Vec4f(p_x, p_y, p_z, 1.f);
             _vertices.emplace_back(position.x, position.y, position.z);
             _aabb.extend(Vec3f(position.x, position.y, position.z));
         }

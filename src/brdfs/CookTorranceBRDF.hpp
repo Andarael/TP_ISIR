@@ -8,38 +8,45 @@ namespace RT_ISICG
     class CookTorranceBrdf
     {
     public:
-        CookTorranceBrdf(const float p_roughness)
-            : _alpha(p_roughness * p_roughness),
-              _k(float(glm::pow(p_roughness + 1.f, 2)) / 8.f){};
+        CookTorranceBrdf() = default;
 
-        Vec3f evaluate(const Vec3f &n, const Vec3f &wi, const Vec3f &wo, const Vec3f &F0) const
+        CookTorranceBrdf(const float p_roughness)
+            : _roughness(p_roughness),
+              _k(getK(p_roughness)){};
+
+        Vec3f evaluate(const Vec3f &n, const Vec3f &wi, const Vec3f &wo, const Vec3f &F0, const float roughness) const
         {
+            float alpha = roughness * roughness;
             Vec3f h = normalize(wi + wo);
             Vec3f f = F(wo, h, F0);
-            float d = D(n, h);
-            float g = G(n, wi, wo);
+            float d = D(n, h, alpha);
+            float g = G(n, wi, wo, roughness);
             return f * d * g / (4.f * dot(wo, n) * dot(wi, n));
         }
 
-        Vec3f getRoughness() const { return Vec3f(glm::sqrt(_alpha)); }
+        Vec3f evaluate(const Vec3f &n, const Vec3f &wi, const Vec3f &wo, const Vec3f &F0) const
+        {
+            return evaluate(n, wi, wo, F0, _roughness);
+        }
 
     protected:
         /* The Normal Distribution Function (NDF) */
-        float D(const Vec3f &n, const Vec3f &h) const
+        float D(const Vec3f &n, const Vec3f &h, const float alpha) const
         {
-            float alpha2 = _alpha * _alpha;
+            float alpha2 = alpha * alpha;
             return alpha2 * INV_PIf / pow(((dot(n, h) * dot(n, h)) * (alpha2 - 1) + 1), 2.f);
         }
 
         /* The Geometric occlusion function */
-        float G(const Vec3f &n, const Vec3f &wi, const Vec3f &wo) const
+        float G(const Vec3f &n, const Vec3f &wi, const Vec3f &wo, const float roughness) const
         {
-            return G1(dot(n, wo)) * G1(dot(n, wi));
+            float k = getK(roughness);
+            return G1(dot(n, wo), k) * G1(dot(n, wi), k);
         }
 
-        float G1(const float x) const
+        float G1(const float x, const float k) const
         {
-            return x / (x * (1 - _k) + _k);
+            return x / (x * (1 - k) + k);
         }
 
         Vec3f F(const Vec3f &wo, const Vec3f &h, const Vec3f &F0) const
@@ -48,8 +55,10 @@ namespace RT_ISICG
         }
 
     private:
-        float _alpha;
-        float _k;
+        float _roughness = 0.5f;
+        float _k = getK(0.5f);
+
+        float getK(const float p_roughness) const { return glm::pow(p_roughness + 1.f, 2.f) / 8.f; }
     };
 } // namespace RT_ISICG
 

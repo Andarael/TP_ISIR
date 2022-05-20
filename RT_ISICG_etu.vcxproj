@@ -89,6 +89,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\src;$(SolutionDir)\lib;$(SolutionDir)\lib\assimp</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -111,6 +112,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\src;$(SolutionDir)\lib;$(SolutionDir)\lib\assimp</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -135,6 +137,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\src;$(SolutionDir)\lib;$(SolutionDir)\lib\assimp</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -162,6 +165,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)\src;$(SolutionDir)\lib;$(SolutionDir)\lib\assimp</AdditionalIncludeDirectories>
       <OpenMPSupport>true</OpenMPSupport>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -225,6 +229,7 @@
     <ClInclude Include="src\materials\lambertMaterial.hpp" />
     <ClInclude Include="src\materials\MatteMaterial.hpp" />
     <ClInclude Include="src\materials\MirrorMaterial.hpp" />
+    <ClInclude Include="src\materials\PbrMaterial.hpp" />
     <ClInclude Include="src\materials\PlasticMaterial.hpp" />
     <ClInclude Include="src\materials\TextureMaterial.hpp" />
     <ClInclude Include="src\materials\TransparentMaterial.hpp" />
@@ -245,6 +250,7 @@
     <ClInclude Include="src\utils\chrono.hpp" />
     <ClInclude Include="src\utils\console_progress_bar.hpp" />
     <ClInclude Include="src\utils\random.hpp" />
+    <ClInclude Include="src\utils\utils.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />

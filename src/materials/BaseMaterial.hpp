@@ -25,7 +25,7 @@ namespace RT_ISICG
 
         virtual float getAlpha(const Vec2f &uv) const { return 1.f; }
 
-        virtual Vec3f getEmit() const { return VEC3F_ZERO; }
+        virtual Vec3f getEmit(const HitRecord &p_hitRecord) const { return VEC3F_ZERO; }
 
         virtual float getIOR() const { return 1.f; }
 
@@ -34,6 +34,8 @@ namespace RT_ISICG
         virtual bool isTransparent() const { return false; }
 
         virtual bool hasTexture() const { return false; }
+
+        virtual Vec3f getNormal(const HitRecord &p_hitRecord) const { return p_hitRecord._normal; }
 
     protected:
         std::string _name;

@@ -1,0 +1,49 @@
+# Blender MTL File: 'pomme.blend'
+# Material Count: 4
+
+newmtl Pomme
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump textures\\Pomme_NRM.jpg
+map_Kd textures\\Pomme_COL.jpg
+map_Ns textures\\Pomme_ROUGH.jpg
+
+newmtl Stem
+Ns 90.000007
+Ka 1.000000 1.000000 1.000000
+Kd 0.050038 0.025353 0.004548
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump textures\\stem_nrm.jpg
+map_Kd textures\\stem_col.jpg
+map_Ns textures\\stem_rough.jpg
+
+newmtl blade
+Ns 562.500000
+Ka 1.000000 1.000000 1.000000
+Kd 0.949470 0.949470 0.949470
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl wood
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.048760 0.026642 0.011016
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd textures\\knife.png

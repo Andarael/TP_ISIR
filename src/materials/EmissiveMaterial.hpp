@@ -22,7 +22,10 @@ namespace RT_ISICG
             return _emit;
         }
 
-        Vec3f getEmit() const override { return _emit; }
+        Vec3f getEmit(const HitRecord &p_hitRecord) const override
+        {
+            return _emit;
+        }
 
     protected:
         Vec3f _emit = WHITE;
