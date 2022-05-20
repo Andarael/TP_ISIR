@@ -10,6 +10,24 @@ namespace RT_ISICG
     public:
         IntegratorType getType() const override { return IntegratorType::RAY_CAST; }
 
+        // Return incoming luminance.
+        Vec3f Li(const Scene &p_scene, const Ray &p_ray) const override
+        {
+            HitRecord hitRecord;
+            if (p_scene.intersect(p_ray, p_ray.getTmin(), p_ray.getTmax(), hitRecord))
+            {
+                float alpha_threshold = 0.5f;
+                alphaPassthrough(p_scene, p_ray, hitRecord, alpha_threshold);
+
+                Vec3f color = hitRecord._object->getMaterial()->getFlatColor(hitRecord);
+                Vec3f direction = glm::normalize(p_ray.getDirection());
+                Vec3f normal = hitRecord._normal; // we assume normal is normalized
+                float factor = glm::abs(glm::dot(normal, direction));
+                return glm::max(color * factor, VEC3F_ZERO);
+            }
+            return _backgroundColor;
+        }
+
         static void alphaPassthrough(const Scene &p_scene, const Ray &p_ray, HitRecord &hitRecord, float alpha_threshold)
         {
             if (alpha_threshold >= 1.f)
@@ -30,24 +48,6 @@ namespace RT_ISICG
                 if (!interection)
                     break;
             }
-        }
-
-        // Return incoming luminance.
-        Vec3f Li(const Scene &p_scene, const Ray &p_ray) const override
-        {
-            HitRecord hitRecord;
-            if (p_scene.intersect(p_ray, p_ray.getTmin(), p_ray.getTmax(), hitRecord))
-            {
-                float alpha_threshold = 0.5f;
-                alphaPassthrough(p_scene, p_ray, hitRecord, alpha_threshold);
-
-                Vec3f color = hitRecord._object->getMaterial()->getFlatColor(hitRecord);
-                Vec3f direction = glm::normalize(p_ray.getDirection());
-                Vec3f normal = hitRecord._normal; // we assume normal is normalized
-                float factor = glm::abs(glm::dot(normal, direction));
-                return glm::max(color * factor, VEC3F_ZERO);
-            }
-            return _backgroundColor;
         }
     };
 } // namespace RT_ISICG

@@ -3,6 +3,7 @@
 
 #include "defines.hpp"
 #include "integrators/DirectLightingIntegrator.hpp"
+#include "utils/utils.hpp"
 
 namespace RT_ISICG
 {
@@ -60,25 +61,6 @@ namespace RT_ISICG
                 return directLighting(p_scene, p_ray, hitRecord);
             }
             return _backgroundColor;
-        }
-
-        float fresnel(const Vec3f &p_I, const Vec3f &p_N, const float n1 = 1.0f, const float n2 = 1.45f) const
-        {
-            float cosI = glm::dot(p_N, p_I); // cos of incoming
-
-            float r = n1 / n2;
-            float sinT = r * r * (1.0f - cosI * cosI); // sin of Transmitted (sin = 1-cos�)
-
-            if (sinT > 1.0f) // no refraction
-                return 1.0f;
-
-            float cosT = glm::sqrt(glm::max(0.0f, 1.0f - sinT * sinT)); // cos of Transmitted
-            cosI = glm::abs(cosI);
-
-            float Rs = ((n2 * cosI) - (n1 * cosT)) / ((n2 * cosI) + (n1 * cosT));
-            float Rp = ((n1 * cosI) - (n2 * cosT)) / ((n1 * cosI) + (n2 * cosT));
-
-            return (Rs * Rs + Rp * Rp) / 2.0f;
         }
 
         Vec3f refractRay(const Scene &p_scene, const Ray &p_ray, const HitRecord &hitRecord, const float n1, const float n2) const

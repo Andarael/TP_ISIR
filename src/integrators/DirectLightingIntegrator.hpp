@@ -42,7 +42,7 @@ namespace RT_ISICG
                 }
                 li += lightContribution / float(targetSamples);
             }
-            return li + hitRecord._object->getMaterial()->getEmit();
+            return li + hitRecord._object->getMaterial()->getEmit(hitRecord);
         }
 
     private:
@@ -58,11 +58,11 @@ namespace RT_ISICG
         static Vec3f shadeLighting(const HitRecord &hitRecord, const LightSample &lightSample, const Ray &p_ray)
         {
             Vec3f sampleRadiance = lightSample._radiance;
-            Vec3f materialColor = hitRecord._object->getMaterial()->shade(p_ray.getDirection(), hitRecord, lightSample._direction);
-            Vec3f emissionColor = hitRecord._object->getMaterial()->getEmit();
-            float factor = dot(lightSample._direction, hitRecord._normal);
 
-            return max(VEC3F_ZERO, materialColor * factor * sampleRadiance);
+            Vec3f materialColor = hitRecord._object->getMaterial()->shade(p_ray.getDirection(), hitRecord, lightSample._direction);
+            float cosTetha = glm::clamp(glm::dot(lightSample._direction, hitRecord._normal), 0.f, 1.f);
+
+            return max(VEC3F_ZERO, materialColor * cosTetha * sampleRadiance);
         }
 
         int _nbShadowSamples;

@@ -3,6 +3,7 @@
 
 #include "BaseIntegrator.hpp"
 #include "Scene.hpp"
+#include "utils/utils.hpp"
 
 namespace RT_ISICG
 {
@@ -31,6 +32,7 @@ namespace RT_ISICG
             Vec3f point = VEC3F_ZERO;
             Vec3f cosTheta = VEC3F_ZERO;
             Vec2f uv = VEC2F_ZERO;
+            Vec3f shade = VEC3F_ZERO;
 
             HitRecord hitRecord;
             if (p_scene.intersect(p_ray, p_ray.getTmin(), p_ray.getTmax(), hitRecord))
@@ -41,16 +43,19 @@ namespace RT_ISICG
                 point = hitRecord._point;
                 flatColor = hitRecord._object->getMaterial()->getFlatColor(hitRecord);
                 uv = hitRecord._uv;
+                shade = hitRecord._object->getMaterial()->shade(p_ray.getDirection(), hitRecord, -p_ray.getDirection());
             }
-
+            return glm::clamp(cosTheta, 0.f, 1.f);
+            return cosTheta;
+            return (normal);
             return flatColor;
+            return shade;
+            return (normal * .5f) + .5f;
             return Vec3f(uv, 0);
-            return (normal *.5f) + .5f;
 
-            return getRandomDirection(normal);
+            return getRandomHemisphere(normal);
 
             return point;
-            return cosTheta;
             return trueNormal;
             return Vec3f(zPass(hitRecord._distance, 1.f, 5.f, false));
             return _setColorInRange(output);
